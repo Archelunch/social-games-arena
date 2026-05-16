@@ -1,0 +1,36 @@
+[project]
+name = "social-deduction-bench"
+version = "0.1.0"
+description = "A multi-agent LLM benchmark for social deduction games (Werewolf first)."
+requires-python = ">=3.13,<3.14"
+dependencies = [
+    "dspy (>=3.2.1,<4.0.0)",
+    "litellm (>=1.84.0,<2.0.0)",
+    "trueskill (>=0.4.5,<0.5.0)",
+]
+
+[tool.poetry]
+packages = [{ include = "social_deduction_bench", from = "src" }]
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^9.0.3"
+ruff = "^0.15.13"
+pyrefly = "^1.0.0"
+pre-commit = "^4.6.0"
+
+[build-system]
+requires = ["poetry-core>=2.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.ruff]
+line-length = 120
+target-version = "py313"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "LOG", "UP", "T10", "ISC", "ICN", "G", "PIE", "PT", "Q", "RSE", "FURB", "RUF"]
+
+[tool.pyrefly]
+project-includes = ["src", "tests"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
