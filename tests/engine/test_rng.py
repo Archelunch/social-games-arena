@@ -32,6 +32,11 @@ def test_game_rng_different_seed_diverges() -> None:
     shuffled_2 = GameRNG(seed=2).shuffle(deck)
 
     assert shuffled_1 != shuffled_2
+    # Both must still be genuine reorderings of the deck — guards against a
+    # degenerate "returns the input unchanged" shuffle that diverges only
+    # because the inputs differ.
+    assert sorted(shuffled_1) == deck
+    assert sorted(shuffled_2) == deck
 
 
 def test_game_rng_shuffle_does_not_mutate_input() -> None:
@@ -54,13 +59,15 @@ def test_game_rng_does_not_touch_global_random_state() -> None:
     """
     random.seed(123)
     state_before = random.getstate()
+    try:
+        rng = GameRNG(seed=999)
+        rng.shuffle(list(range(20)))
+        rng.choice(list(range(20)))
+        rng.sample(list(range(20)), 5)
 
-    rng = GameRNG(seed=999)
-    rng.shuffle(list(range(20)))
-    rng.choice(list(range(20)))
-    rng.sample(list(range(20)), 5)
-
-    assert random.getstate() == state_before
+        assert random.getstate() == state_before
+    finally:
+        random.setstate(state_before)
 
 
 def test_game_rng_instances_are_independent() -> None:
