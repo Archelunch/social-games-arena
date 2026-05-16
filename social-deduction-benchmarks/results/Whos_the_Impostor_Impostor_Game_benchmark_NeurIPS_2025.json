@@ -1,0 +1,75 @@
+{
+  "name": "Who's the Impostor? Multi-Agent Social Deduction for Evaluating LLM Social Reasoning (The Impostor Game)",
+  "year": 2025,
+  "authors_org": "Xiang Fu. Presented at the NeurIPS 2025 LLM Evaluation Workshop.",
+  "paper_url": "https://openreview.net/forum?id=UiUd5LAoq9",
+  "repo_url": "Not clearly identified; no public code repository confirmed in available sources. [uncertain]",
+
+  "games_supported": "A single lightweight custom social-deduction game, the 'Impostor Game' (a word-based majority/impostor deduction game in the spirit of Undercover / Who-is-the-Spy and Among Us). It does not cover Werewolf, Mafia, or Avalon.",
+  "num_players": "4 players per game: 3 agents share a majority word and 1 agent receives a related impostor word.",
+  "hidden_role_mechanic": "Hidden roles arise from asymmetric word knowledge. Three agents are given a common majority word (w_m) and one agent is secretly given a related but different impostor word (w_i). No agent knows the others' words; the impostor must avoid revealing that their word differs while the majority must identify the odd one out from descriptions.",
+  "rule_variant_coverage": "Essentially one rule set (4-player single-impostor word game). Breadth comes from 5 experimental modes/conditions and difficulty levels (e.g., team-awareness, speaking-order, word-pair difficulty) rather than distinct role sets. [uncertain]",
+  "multimodal_support": "No. The game is fully text-based; no video, audio, or voice-prosody modalities.",
+
+  "reasoning_paradigm": "Direct LLM prompting. Agents generate a natural-language clue/description of their word and then reason over others' descriptions to cast a vote. No ReAct, MCTS, or RL policy module. [uncertain]",
+  "memory_mechanism": "Within a short game, agents condition on the running transcript of all players' descriptions provided in their prompt context. There is no external memory store or learned memory; the game is deliberately lightweight and single-round. [uncertain]",
+  "belief_state_representation": "Beliefs about who the impostor is are represented implicitly in natural-language reasoning and expressed through the final vote; there is no explicit probabilistic belief table. [uncertain]",
+  "planning_approach": "Minimal planning. Agents choose what to reveal in their description (balancing being convincing vs revealing too much) and then vote; no search or explicit multi-step plans. [uncertain]",
+  "action_tool_design": "Two action types are produced as structured natural-language outputs: a word-description utterance and a vote for a suspected impostor. Actions are not exposed as external callable tool functions. [uncertain]",
+  "theory_of_mind_evaluation": "Theory of mind is evaluated behaviorally. The benchmark measures interactive social reasoning through recognition (detection) accuracy, vote-network influence, and coalition formation, which act as proxies for modeling other agents' knowledge and intent rather than via a dedicated ToM probe.",
+
+  "turn_structure": "Single-round structure: each of the 4 agents takes a turn to describe its word (speaking order randomized), then all agents cast a vote to identify the impostor.",
+  "phase_handling": "Two phases: a description/speaking phase followed by a voting phase. The game is short, so phase management is simple compared with day/night cycle games.",
+  "communication_protocol": "Public natural-language descriptions visible to all players, followed by a public/aggregated vote. No private channels.",
+  "communication_synchrony": "Synchronous turn-based: agents speak in a randomized order, one at a time, then vote simultaneously. An ITT analysis on speaking position is part of the study.",
+
+  "metrics": "Impostor win rate, recognition / detection accuracy, vote-network centrality and coalition efficiency, and speaking-order (seat/position) effects on impostor odds.",
+  "deception_metric_design": "Deception is measured indirectly via the impostor win rate and via detection accuracy (how often the majority correctly identifies the impostor). Influence is quantified through vote-network position rather than a formal lie taxonomy.",
+  "persuasion_modeling": "Yes, influence is explicitly modeled through vote-network analysis: an agent's vote-network centrality strongly predicts realized influence and coalition efficiency (r approximately 0.87), capturing persuasive impact on others' votes.",
+  "rating_system": "No formal Elo/TrueSkill rating. Cross-model comparison uses aggregate win/detection rates and network-position statistics. [uncertain]",
+  "competition_format": "Cross-play / large-scale round-robin style evaluation: 9 models are run across 5 modes for a total of 90,720 games, pitting models against each other in mixed compositions.",
+  "llms_evaluated": "9 LLMs across model families (specific model names not all listed in available sources). [uncertain]",
+  "human_baseline_comparison": "No human baseline. The study is entirely LLM-vs-LLM; agents are not compared against human players. [uncertain]",
+  "data_source_provenance": "Synthetic LLM-vs-LLM gameplay generated across 90,720 games; no human gameplay data.",
+
+  "training_paradigm": "Tuning-free prompting. Pretrained LLMs are evaluated as-is across the experimental modes; no SFT or RL.",
+  "agent_controllability": "Not tuned to a target win rate, but the benchmark systematically varies controlled conditions (5 modes, difficulty levels, speaking order, team-awareness) to probe behavior. [uncertain]",
+  "strategy_space_analysis": "The study analyzes emergent influence and coalition dynamics, including the counterintuitive result that team-aware agents underperform team-unaware ones; it does not perform a formal strategy-space-expansion analysis.",
+
+  "prompt_optimizer_used": "None. No DSPy or prompt optimizer (GEPA, MIPROv2, BootstrapFewShot, SIMBA) is used.",
+  "rl_algorithm": "None. No RL or preference-optimization algorithm is applied.",
+  "reward_design": "No training reward. Win/detection outcomes are used only as evaluation signals.",
+  "optimization_target": "Nothing is optimized; the work evaluates pretrained models.",
+  "self_play_loop": "Large-scale self-play / cross-play generates evaluation data, but there is no iterative training loop updating the agents.",
+  "credit_assignment": "Not applicable; no learning. Influence is attributed via vote-network analysis rather than training credit assignment.",
+  "optimization_cost": "No training cost; only inference cost across 90,720 lightweight single-round games. [uncertain]",
+
+  "framework_used": "A custom lightweight multi-agent Python harness for the Impostor Game with LLM-API backends. No DSPy or LangChain confirmed. [uncertain]",
+  "open_source": "Unclear. The paper is published openly (OpenReview, CC BY 4.0) but a public code repository is not confirmed. [uncertain]",
+  "reproducibility": "Moderate. The game is simple and well-specified with a very large game count and controlled modes, but reproducibility is limited by unconfirmed code release and dependence on proprietary models. [uncertain]",
+
+  "key_results": "Across 90,720 games (9 models, 5 modes), vote-network position best explains realized influence: coalition efficiency rises with centrality (r approximately 0.87). Impostor win rate varies substantially across models (27.8%-69.0%). Recognition/detection accuracy shows a positive cross-model trend with outcomes (r approximately 0.61, p=0.17). A pseudo-arm ITT analysis indicates middle/late speaking modestly reduces impostor odds (about -1.11 percentage points; 95% CI [-1.64, -0.55]). Counterintuitively, agents given team-awareness information underperformed those without it.",
+  "identified_limitations": "The game is deliberately minimal (single round, 4 players, word-based), which limits the depth of social reasoning probed. Some statistical effects are weak (e.g., detection-outcome correlation p=0.17). Team-awareness hurting performance suggests prompt/coordination artifacts. Code-release status is unclear. [uncertain]",
+  "deception_emergence": "Impostors must implicitly deceive by describing a different word convincingly; impostor win rates of 27.8-69.0% show varying success at evading detection, evidencing emergent deceptive behavior, though it is not analyzed via a lie taxonomy.",
+  "deceiver_detector_asymmetry": "Not framed as a strong asymmetry conclusion. The benchmark reports both impostor win rate and detection accuracy with a positive (but statistically weak) link between detection skill and outcomes; it does not clearly conclude LLMs are stronger deceivers than detectors. [uncertain]",
+
+  "uncertain": [
+    "repo_url",
+    "rule_variant_coverage",
+    "reasoning_paradigm",
+    "memory_mechanism",
+    "belief_state_representation",
+    "planning_approach",
+    "action_tool_design",
+    "rating_system",
+    "llms_evaluated",
+    "human_baseline_comparison",
+    "agent_controllability",
+    "optimization_cost",
+    "framework_used",
+    "open_source",
+    "reproducibility",
+    "identified_limitations",
+    "deceiver_detector_asymmetry"
+  ]
+}

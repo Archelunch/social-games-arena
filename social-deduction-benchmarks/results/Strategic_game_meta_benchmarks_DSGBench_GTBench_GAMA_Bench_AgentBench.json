@@ -1,0 +1,73 @@
+{
+  "name": "Strategic-Game Meta-Benchmarks: DSGBench, GTBench, GAMA-Bench, AgentBench",
+  "year": 2024,
+  "authors_org": "DSGBench: Wenjie Tang, Yuan Zhou, Erqiang Xu, Keyan Cheng, Minne Li, Liquan Xiao (NUDT / DeciBrain-Group), 2025. GTBench: Jinhao Duan, Renming Zhang, James Diffenderfer, Bhavya Kailkhura, Lichao Sun, Elias Stengel-Eskin, Mohit Bansal, Tianlong Chen, Kaidi Xu (Drexel, BU, LLNL, Lehigh, UNC/MIT), NeurIPS 2024. GAMA-Bench: Jen-tse Huang et al. (CUHK ARISE), 2024. AgentBench: Xiao Liu et al. (Tsinghua / THUDM and collaborators), ICLR 2024.",
+  "paper_url": "DSGBench: https://arxiv.org/abs/2503.06047 ; GTBench: https://arxiv.org/abs/2402.12348 ; GAMA-Bench: https://arxiv.org/abs/2403.11807 ; AgentBench: https://arxiv.org/abs/2308.03688",
+  "repo_url": "DSGBench: https://github.com/DeciBrain-Group/DSGBench ; GTBench: https://github.com/jinhaoduan/GTBench ; GAMA-Bench: https://github.com/CUHK-ARISE/GAMABench ; AgentBench: https://github.com/THUDM/AgentBench",
+
+  "games_supported": "These are multi-game strategic-reasoning meta-benchmarks; only DSGBench directly includes a social-deduction game. DSGBench: 6 games (StarCraft II, Civilization, Street Fighter III, Diplomacy, Werewolf, Stratego) - Werewolf is the social-deduction game and Diplomacy is negotiation-heavy. GTBench: 10 game-theoretic games (Tic-Tac-Toe, Connect-4, Breakthrough, Kuhn Poker, Liar's Dice, Nim, Negotiation, Pig, Iterated Prisoner's Dilemma, Blind Auction). GAMA-Bench: 8 classic game-theory scenarios (Guess 2/3 of the Average, El Farol Bar, Divide the Dollar, Public Goods Game, Diner's Dilemma, Sealed-Bid Auction, Battle Royale, Pirate Game). AgentBench: 8 agent environments (OS, DB, Knowledge Graph, Digital Card Game/Aquawar, Lateral Thinking Puzzles, House-Holding/ALFWorld, Web Shopping, Web Browsing) - no dedicated social-deduction game.",
+  "num_players": "Varies by game. DSGBench Werewolf is multi-player (typically several roles); GTBench games are mostly 2-player; GAMA-Bench scenarios are multi-agent (variable N); AgentBench tasks are mostly single-agent vs environment. [uncertain]",
+  "hidden_role_mechanic": "Only DSGBench's Werewolf uses true hidden roles (werewolves secretly assigned among villagers; deduction via discussion). GTBench's Liar's Dice / Kuhn Poker and GAMA-Bench's auctions involve hidden information but not hidden roles; AgentBench has no hidden-role mechanic.",
+  "rule_variant_coverage": "Breadth across games rather than role-set variants: DSGBench 6 games, GTBench 10 games, GAMA-Bench 8 games, AgentBench 8 environments. Within the social-deduction slice only DSGBench's single Werewolf configuration is covered; none of the four sweeps multiple social-deduction role sets.",
+  "multimodal_support": "Largely text-based. DSGBench includes real-time games (StarCraft II, Street Fighter III) that involve visual/state observations and can use multimodal inputs; GTBench, GAMA-Bench, and AgentBench are text/state-based with no video/audio/voice-prosody. [uncertain]",
+
+  "reasoning_paradigm": "Prompt-based LLM reasoning, evaluated as agents. GTBench explicitly compares reasoning methods (it tests Chain-of-Thought and Tree-of-Thought prompting). DSGBench, GAMA-Bench, and AgentBench use standard prompted-agent setups; none mandate ReAct, MCTS, or RL policies, though AgentBench evaluates multi-round agentic interaction.",
+  "memory_mechanism": "Memory is handled via the running prompt context / interaction history rather than dedicated stores. DSGBench feeds game trajectories and observations back into agent prompts and adds an automated decision-tracking mechanism for analysis; GTBench, GAMA-Bench, and AgentBench pass turn history in-context. None of the four specifies an external vector-memory store as a core requirement. [uncertain]",
+  "belief_state_representation": "No explicit probabilistic belief tables. In games with hidden information (DSGBench Werewolf, GTBench Liar's Dice/Kuhn Poker), beliefs are represented implicitly in natural-language reasoning within the prompt. GAMA-Bench and AgentBench do not maintain belief states. [uncertain]",
+  "planning_approach": "Planning is left to the agent's prompted reasoning. GTBench evaluates Tree-of-Thought as a planning-style method; DSGBench evaluates strategic planning as one scored dimension; AgentBench probes long-horizon planning across multi-step environments. No benchmark mandates explicit search-based planners.",
+  "action_tool_design": "Actions are exposed as structured text interfaces per game. GTBench is built on OpenSpiel, exposing legal actions per game state; DSGBench wraps environments with an OpenAI-Gym-style interface; AgentBench provides standardized action/observation protocols per environment; GAMA-Bench exposes game-specific decision formats. Actions are parsed from agent text rather than being external callable tools.",
+  "theory_of_mind_evaluation": "Theory of mind is not a primary, isolated metric in any of the four. It is implicitly exercised in DSGBench's Werewolf and Diplomacy (modeling other players) and in GTBench's imperfect-information games, but none provide a dedicated belief-accuracy ToM probe. [uncertain]",
+
+  "turn_structure": "Game-specific. GTBench (via OpenSpiel) uses each game's native turn order; DSGBench mixes real-time (StarCraft II, Street Fighter III) and turn-based (Civilization, Diplomacy, Werewolf, Stratego) structures; GAMA-Bench uses simultaneous or sequential moves per scenario; AgentBench uses multi-turn step-by-step interaction with environments.",
+  "phase_handling": "Phases are managed by each game's engine. DSGBench's Werewolf has day/night/discussion/voting phases; Diplomacy has negotiation and order phases; GTBench/GAMA-Bench scenarios have simpler move/scoring phases; AgentBench environments have task-step phases. [uncertain]",
+  "communication_protocol": "Mostly action-level interaction with the environment. Inter-agent natural-language communication is meaningful chiefly in DSGBench's Werewolf (public discussion + voting) and Diplomacy (negotiation messages). GTBench's Negotiation game has bargaining messages; GAMA-Bench scenarios involve numeric decisions with limited free-form chat; AgentBench is agent-vs-environment. [uncertain]",
+  "communication_synchrony": "Synchronous and turn-based for turn-based games (GTBench, DSGBench turn-based titles, AgentBench steps); real-time titles in DSGBench (StarCraft II, Street Fighter III) require low-latency continuous decisions; GAMA-Bench uses round-based simultaneous decisions. [uncertain]",
+
+  "metrics": "DSGBench: fine-grained scoring across five dimensions (strategic planning, real-time decision-making, team collaboration / multi-agent interaction, adaptability, and reasoning/cognitive ability) plus win rate and decision-trajectory analysis. GTBench: normalized relative advantage / win rates across the 10 games. GAMA-Bench: a dynamic per-game scoring scheme aggregated to a 0-100 score. AgentBench: per-environment success/score aggregated into an overall agent score.",
+  "deception_metric_design": "None of the four defines a dedicated deception metric. Deception is a game element in DSGBench's Werewolf and is captured only through win/loss outcomes; GTBench's Liar's Dice involves bluffing measured via game results, not a lie taxonomy. GAMA-Bench and AgentBench do not measure deception. [uncertain]",
+  "persuasion_modeling": "Not explicitly modeled. Persuasive negotiation matters in DSGBench's Diplomacy/Werewolf and GTBench's Negotiation, but influence is reflected only in match outcomes rather than measured as a separate persuasion metric.",
+  "rating_system": "DSGBench and GTBench use head-to-head / win-rate comparisons (GTBench reports a normalized relative advantage; no Elo/TrueSkill). GAMA-Bench and AgentBench use absolute scoring leaderboards rather than competitive rating systems. [uncertain]",
+  "competition_format": "Primarily cross-play / model-vs-model and model-vs-environment evaluation. GTBench pits LLMs head-to-head (and against conventional/MCTS-style agents); DSGBench runs agents in shared multi-agent games; GAMA-Bench runs multi-agent scenarios; AgentBench evaluates each model independently against fixed environments.",
+  "llms_evaluated": "DSGBench: GPT-3.5, GPT-4o, GPT-4o-mini, o1-mini, DeepSeek-V2.5, Llama-3.1-70B, Gemini-1.5-Flash. GTBench: GPT-3.5/GPT-4, CodeLlama-34B-Instruct, Llama-2-70B-chat, Llama-3-70B-Instruct, Mixtral and other open models. GAMA-Bench: 13 models across 6 families (GPT-3.5 x3, GPT-4 x2, Gemini-1.0/1.5-Pro, Llama-3.1 8B/70B/405B, Mixtral-8x7B/8x22B, Qwen-2-72B). AgentBench: 29 API-based and open-source LLMs.",
+  "human_baseline_comparison": "Limited. None centers on human-vs-LLM play. GTBench compares LLMs against conventional/search-based game agents as a non-human reference; DSGBench, GAMA-Bench, and AgentBench compare models against each other and against equilibrium/optimal-strategy references rather than human players. [uncertain]",
+  "data_source_provenance": "Synthetic LLM-vs-LLM / LLM-vs-environment gameplay generated by running the benchmarks; GTBench additionally generates LLM-vs-conventional-agent data. No curated real human gameplay datasets.",
+
+  "training_paradigm": "Tuning-free prompting for evaluation. All four evaluate pretrained models as-is; AgentBench discusses (but the benchmark itself does not perform) that multi-round alignment / code training affects agent ability. No SFT/RL is part of the benchmark protocols.",
+  "agent_controllability": "Not designed for skill controllability. Difficulty is determined by the games and the opponent/environment, not by a tunable target win rate. [uncertain]",
+  "strategy_space_analysis": "Yes, partially. GTBench analyzes how LLM behavior varies across game categories (complete vs incomplete information, deterministic vs probabilistic) and finds CoT/ToT do not always help; DSGBench's decision-tracking mechanism analyzes strategy turning points; GAMA-Bench analyzes deviation from game-theoretic equilibria; AgentBench analyzes failure modes. None performs a formal strategy-space-expansion study.",
+
+  "prompt_optimizer_used": "None. No DSPy or prompt optimizer (GEPA, MIPROv2, BootstrapFewShot, SIMBA) is used; GTBench compares hand-designed prompting methods (CoT, ToT) but not automated optimizers.",
+  "rl_algorithm": "None. The benchmarks are evaluation suites and do not apply RL or preference-optimization algorithms.",
+  "reward_design": "No training reward. Game outcomes and per-dimension scores serve purely as evaluation signals (win rate, normalized relative advantage, dynamic scores, task success).",
+  "optimization_target": "Nothing is trained by the benchmarks; they evaluate pretrained models. GTBench additionally compares prompting strategies as the variable under study.",
+  "self_play_loop": "No iterative self-play training loop. Games / cross-play are used only to generate evaluation results.",
+  "credit_assignment": "Not applicable; no learning occurs. DSGBench's decision-tracking and GTBench's per-game breakdowns provide post-hoc attribution of behavior rather than training credit assignment.",
+  "optimization_cost": "No training cost; cost is API/compute for large-scale evaluation (AgentBench's 29 models and GAMA-Bench's 13 models imply substantial inference cost). Exact figures not specified. [uncertain]",
+
+  "framework_used": "Custom Python evaluation frameworks. GTBench is built on DeepMind OpenSpiel; DSGBench uses modular game environments with an OpenAI-Gym-style interface and Weights & Biases tracking; GAMA-Bench and AgentBench provide their own multi-game / multi-environment harnesses. None uses DSPy or LangChain as the core framework.",
+  "open_source": "Yes. All four release code and evaluation packages on GitHub (DeciBrain-Group/DSGBench, jinhaoduan/GTBench, CUHK-ARISE/GAMABench, THUDM/AgentBench).",
+  "reproducibility": "Generally good for meta-benchmarks: all provide open code, game environments, and configs. GTBench's OpenSpiel grounding aids reproducibility. Main caveats are dependence on proprietary API models with version drift and LLM stochasticity across runs.",
+
+  "key_results": "GTBench: most open-source LLMs (e.g., CodeLlama-34B, Llama-2-70B-chat) are less competitive than commercial LLMs like GPT-4 in complex games, though Llama-3-70B-Instruct closes the gap; code-pretraining benefits strategic reasoning; CoT/ToT do not always help; LLMs are weak in complete/deterministic games but more competitive in probabilistic ones. GAMA-Bench: Gemini-1.5-Pro leads with 69.8/100, followed by Llama-3.1-70B (65.9) and Mixtral-8x22B (62.4); LLMs deviate from game-theoretic optima. DSGBench: distinct strengths and systemic limitations emerge across the six games, revealed via decision-trajectory analysis; agents struggle with cross-scenario generalization. AgentBench: top commercial LLMs act capably as agents but open-source models lag significantly; poor long-horizon reasoning, decision-making, and instruction-following are the main obstacles.",
+  "identified_limitations": "LLM agents show weak long-horizon reasoning and limited cross-game generalization; performance is uneven across game categories; advanced reasoning prompts (CoT/ToT) do not reliably help; open-source models trail commercial ones. Social-deduction coverage is shallow (only DSGBench's single Werewolf setup), and results depend on proprietary models and are sensitive to stochasticity.",
+  "deception_emergence": "Deceptive/bluffing behavior arises in DSGBench's Werewolf and GTBench's Liar's Dice, but none of these meta-benchmarks systematically characterizes emergent deception; it is observed only as an in-game element reflected in win/loss outcomes. [uncertain]",
+  "deceiver_detector_asymmetry": "Not studied. None of the four meta-benchmarks isolates or measures a deceiver-vs-detector capability asymmetry; their focus is broad strategic-reasoning and decision-making ability. [uncertain]",
+
+  "uncertain": [
+    "num_players",
+    "multimodal_support",
+    "memory_mechanism",
+    "belief_state_representation",
+    "theory_of_mind_evaluation",
+    "phase_handling",
+    "communication_protocol",
+    "communication_synchrony",
+    "deception_metric_design",
+    "rating_system",
+    "human_baseline_comparison",
+    "agent_controllability",
+    "optimization_cost",
+    "deception_emergence",
+    "deceiver_detector_asymmetry"
+  ]
+}

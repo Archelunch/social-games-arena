@@ -1,0 +1,180 @@
+topic: >-
+  Benchmarking multi-agent LLM systems playing social deduction games
+  using DSPy + ReAct, with memory, planning, observations, and tools
+
+detail_levels: [brief, moderate, detailed]
+
+field_categories:
+
+  - category: basic_info
+    description: Identifying metadata for each item
+    fields:
+      - name: name
+        description: Canonical name of the benchmark / paper / system
+        detail_level: brief
+      - name: year
+        description: Publication or release year
+        detail_level: brief
+      - name: authors_org
+        description: Authors and/or organization behind the work
+        detail_level: brief
+      - name: paper_url
+        description: Link to paper, arXiv, or primary write-up
+        detail_level: brief
+      - name: repo_url
+        description: Link to code/data repository if available
+        detail_level: brief
+
+  - category: game_coverage
+    description: Which games and rule space the item addresses
+    fields:
+      - name: games_supported
+        description: Specific social-deduction games covered (Werewolf, Mafia, Avalon, etc.)
+        detail_level: moderate
+      - name: num_players
+        description: Typical or supported player counts
+        detail_level: brief
+      - name: hidden_role_mechanic
+        description: How hidden roles / asymmetric information are structured
+        detail_level: moderate
+      - name: rule_variant_coverage
+        description: Number of role sets / rule variants supported (generalization breadth)
+        detail_level: moderate
+      - name: multimodal_support
+        description: Whether non-text modalities (video, audio, voice prosody) are handled
+        detail_level: moderate
+
+  - category: agent_architecture
+    description: How the agent reasons, remembers, plans, and acts
+    fields:
+      - name: reasoning_paradigm
+        description: Reasoning approach (ReAct, CoT, RL policy, MCTS, recursive reasoning)
+        detail_level: moderate
+      - name: memory_mechanism
+        description: How game history is stored and retrieved (memory stream, external store, summary)
+        detail_level: detailed
+      - name: belief_state_representation
+        description: How beliefs about hidden roles are represented/updated (prob table, NL memory, latent state)
+        detail_level: detailed
+      - name: planning_approach
+        description: How the agent plans actions (explicit plans, search, latent-space, none)
+        detail_level: detailed
+      - name: action_tool_design
+        description: How game actions are exposed as tools/functions the agent can call
+        detail_level: detailed
+      - name: theory_of_mind_evaluation
+        description: Whether/how belief & intent modeling of other agents is measured
+        detail_level: detailed
+
+  - category: game_loop_design
+    description: Structure of the game loop and communication
+    fields:
+      - name: turn_structure
+        description: Order and granularity of turns within a round
+        detail_level: moderate
+      - name: phase_handling
+        description: How distinct phases (day/night, discussion, voting, action) are managed
+        detail_level: moderate
+      - name: communication_protocol
+        description: Format and channels of inter-agent communication (public chat, private, votes)
+        detail_level: moderate
+      - name: communication_synchrony
+        description: Synchronous turn-based vs asynchronous / bidding / scheduler-driven speech
+        detail_level: detailed
+
+  - category: evaluation
+    description: How performance is measured and models compared
+    fields:
+      - name: metrics
+        description: Primary metrics (win rate, survival, accuracy, speech quality)
+        detail_level: moderate
+      - name: deception_metric_design
+        description: How deception is quantified (detector-accuracy surrogate, lie taxonomy, vote-swing)
+        detail_level: detailed
+      - name: persuasion_modeling
+        description: Whether persuasive influence on others is explicitly modeled/optimized
+        detail_level: moderate
+      - name: rating_system
+        description: Competitive rating method (Elo, TrueSkill, Swiss, head-to-head)
+        detail_level: moderate
+      - name: competition_format
+        description: How models are pitted against each other (self-play, cross-play, tournament)
+        detail_level: moderate
+      - name: llms_evaluated
+        description: Which LLMs / model families were tested
+        detail_level: moderate
+      - name: human_baseline_comparison
+        description: Whether and how agents are compared against human players
+        detail_level: detailed
+      - name: data_source_provenance
+        description: Synthetic LLM-vs-LLM, LLM-vs-human, or curated real human gameplay
+        detail_level: moderate
+
+  - category: training_methodology
+    description: How agents are trained or tuned, if at all
+    fields:
+      - name: training_paradigm
+        description: Tuning-free prompting, SFT, RL/DPO, CFR-in-latent-space, KTO
+        detail_level: moderate
+      - name: agent_controllability
+        description: Whether agent skill can be tuned to a target win rate / difficulty
+        detail_level: moderate
+      - name: strategy_space_analysis
+        description: Whether emergent strategies / strategy-space expansion are analyzed
+        detail_level: moderate
+
+  - category: optimization
+    description: Prompt-optimization and RL techniques used to improve the agent
+    fields:
+      - name: prompt_optimizer_used
+        description: Which DSPy/prompt optimizer is applied (GEPA, MIPROv2, BootstrapFewShot, SIMBA), if any
+        detail_level: moderate
+      - name: rl_algorithm
+        description: Specific RL / preference-optimization algorithm (PPO, GRPO, DPO, KTO, CFR-in-latent-space)
+        detail_level: moderate
+      - name: reward_design
+        description: How the training signal is defined (win/loss outcome, dense auxiliary listening/speaking rewards, win-rate-constrained, detector-based)
+        detail_level: detailed
+      - name: optimization_target
+        description: What is optimized (prompts/instructions, demonstrations, policy weights, decision chains)
+        detail_level: moderate
+      - name: self_play_loop
+        description: Whether iterative self-play / population-based training generates the training data
+        detail_level: moderate
+      - name: credit_assignment
+        description: How credit is assigned across multi-turn dialogue and delayed game outcomes
+        detail_level: detailed
+      - name: optimization_cost
+        description: Training/optimization compute and sample efficiency
+        detail_level: brief
+
+  - category: engineering
+    description: Practical reproducibility and tooling
+    fields:
+      - name: framework_used
+        description: Underlying framework/library (DSPy, LangChain, custom, game engine)
+        detail_level: brief
+      - name: open_source
+        description: Whether code and/or data are publicly released
+        detail_level: brief
+      - name: reproducibility
+        description: Ease of reproducing results (configs, seeds, datasets, docs)
+        detail_level: moderate
+
+  - category: findings
+    description: Key conclusions and limitations
+    fields:
+      - name: key_results
+        description: Headline findings and quantitative outcomes
+        detail_level: detailed
+      - name: identified_limitations
+        description: Stated limitations and weaknesses
+        detail_level: moderate
+      - name: deception_emergence
+        description: Evidence of emergent deceptive behavior and its forms
+        detail_level: detailed
+      - name: deceiver_detector_asymmetry
+        description: Whether LLMs are stronger as deceivers than as deception detectors
+        detail_level: moderate
+
+uncertain: []

@@ -1,0 +1,64 @@
+{
+  "name": "The Traitors: Deception and Trust in Multi-Agent Language Model Simulations",
+  "year": 2025,
+  "authors_org": "Pedro M. P. Curvo (University of Amsterdam). Presented at the NeurIPS 2025 Workshop on Multi-Turn Interactions in Large Language Models.",
+  "paper_url": "https://arxiv.org/abs/2505.12923",
+  "repo_url": "https://github.com/pedrocurvo/TheTraitors",
+
+  "games_supported": "A single custom social-deduction environment based on the reality TV show 'The Traitors'. A minority of agents (Traitors) covertly mislead a majority (Faithful), who must infer hidden identities through dialogue and voting. It does not cover Werewolf, Mafia, or Avalon directly, though it is conceptually in the same family.",
+  "num_players": "Configurable agent count; the released framework demonstrates games with around 10 agents, with a minority designated as Traitors. [uncertain]",
+  "hidden_role_mechanic": "Agents are secretly assigned as Traitors or Faithful at game start. Traitors know each other's identities and the full hidden state, while Faithful agents have only their own role and must deduce who the Traitors are from public dialogue. This creates asymmetric information that Traitors exploit.",
+  "rule_variant_coverage": "Primarily one rule set modeled on the TV show (round-table discussion, banishment votes, traitor 'murders' at night, a shared prize pot Traitors can steal). The framework adds configurability for heterogeneous agent populations, specialized traits, and adaptive behaviors rather than distinct named role sets. [uncertain]",
+  "multimodal_support": "No. The simulation is fully text-based; no video, audio, or voice-prosody modalities are handled.",
+
+  "reasoning_paradigm": "LLM-based natural-language reasoning. Agents reason over persistent memory and evolving social dynamics to produce accusations, defenses, and votes. The work is grounded in formal frameworks from game theory, behavioral economics, and social cognition rather than using ReAct/MCTS/RL policies.",
+  "memory_mechanism": "Agents maintain persistent memory across the game. The released framework describes an 'advanced memory system' that categorizes information, with each agent holding its own memory, role, and LLM client. History of dialogue and prior interactions accumulates and is fed back into agent prompts via a prompt manager.",
+  "belief_state_representation": "Beliefs about which agents are Traitors are represented in natural language and updated as the game proceeds (belief updates under asymmetric information). The framework tracks evolving trust/suspicion toward other agents; there is no explicit probabilistic belief table.",
+  "planning_approach": "Forward-looking reasoning about the effect of statements and votes; agents weigh accusations, defenses, and alliance-building. Planning is conducted in natural language within agent reasoning rather than via explicit search or written multi-step plans. [uncertain]",
+  "action_tool_design": "Actions (speak/accuse/defend, build alliances, cast banishment votes, and for Traitors, choose murder targets) are produced as structured natural-language outputs orchestrated by a prompt manager and game engine, not as external callable tool functions.",
+  "theory_of_mind_evaluation": "Yes, theory of mind is central. Agents must model other players' beliefs and likely actions, and the evaluation suite captures trust dynamics and collective inference quality, which serve as ToM measures. The headline finding is explicitly framed around a deceiver-vs-detector ToM asymmetry.",
+
+  "turn_structure": "Round-based loop with synchronous discussion turns. Within a round agents participate in a shared discussion, conduct private reasoning, then cast banishment votes; Traitors additionally eliminate a Faithful agent. Eliminated agents leave and the loop repeats.",
+  "phase_handling": "Distinct phases are managed by the game engine: a round-table discussion phase, a banishment voting phase, and a Traitor 'murder' phase, with outcome revelation between rounds.",
+  "communication_protocol": "Public natural-language discussion visible to all agents, followed by votes; Traitors also have a private channel/coordination among themselves for choosing murder targets.",
+  "communication_synchrony": "Synchronous, turn-based discussion (agents speak in sequence within a round), with votes cast after the discussion concludes; no asynchronous bidding or scheduler-driven interruption.",
+
+  "metrics": "A suite of evaluation metrics capturing deception success, trust dynamics, and collective inference quality, plus game outcomes such as survival duration and Traitor vs Faithful win rates / financial outcomes (prize-pot share).",
+  "deception_metric_design": "Deception is quantified via a custom metric set measuring deception success rate (how often Traitors mislead Faithful), trust dynamics, and vulnerability to others' falsehoods. Measurement focuses on false claims and contradictions and on the influence of deceptive statements on subsequent votes, rather than a formal lie taxonomy.",
+  "persuasion_modeling": "Yes, indirectly. The framework analyzes how effectively agents convince others through discourse and the resulting shifts in trust and voting patterns, treating persuasive influence as part of deception success and trust-dynamics metrics.",
+  "rating_system": "No formal competitive rating system (no Elo/TrueSkill). Models are compared via aggregate win rates and the evaluation-metric suite across simulation runs.",
+  "competition_format": "Cross-play between LLM agents: different LLM backends are assigned to agents and compared on deception and detection performance within mixed populations.",
+  "llms_evaluated": "DeepSeek-V3, GPT-4o-mini, and GPT-4o (initial experiments). The framework also supports models via OpenAI, DeepSeek, Together AI, Hugging Face Inference, and local MLX models.",
+  "human_baseline_comparison": "No human baseline. All experiments are LLM-vs-LLM simulations; agents are not compared against human players.",
+  "data_source_provenance": "Synthetic LLM-vs-LLM gameplay. All data is generated by autonomous multi-agent LLM simulations; no human gameplay data is used.",
+
+  "training_paradigm": "Tuning-free prompting. Agents are pretrained LLMs prompted via the framework; no SFT, RL, or preference optimization is performed.",
+  "agent_controllability": "Partial. The framework supports heterogeneous agent populations, specialized traits, and adaptive behaviors, allowing some control over agent disposition, but it does not tune agents to a precise target win rate. [uncertain]",
+  "strategy_space_analysis": "The paper analyzes emergent deceptive behavior, trust formation, and strategic communication dynamics, observing how strategies evolve, though it does not formalize a strategy-space-expansion analysis.",
+
+  "prompt_optimizer_used": "None. No DSPy or prompt-optimization technique (GEPA, MIPROv2, BootstrapFewShot, SIMBA) is used; prompts are managed by a hand-written prompt manager.",
+  "rl_algorithm": "None. No RL or preference-optimization algorithm is applied.",
+  "reward_design": "No training reward. Game outcomes (deception success, survival, prize-pot share, win/loss) are used only as evaluation signals.",
+  "optimization_target": "Nothing is optimized; the work evaluates pretrained models as-is.",
+  "self_play_loop": "Multi-agent self-play / cross-play generates the simulation data, but there is no iterative training loop that updates agent parameters.",
+  "credit_assignment": "Not applicable; no learning occurs. Deception influence is attributed statistically through the trust-dynamics and deception-success metrics rather than via training credit assignment.",
+  "optimization_cost": "No training cost; only API/inference cost across simulation runs. Exact compute is not specified. [uncertain]",
+
+  "framework_used": "A custom Python multi-agent framework (TheTraitors) with components for agents, a game engine (traitors_game.py), a prompt manager, an LLM-client abstraction across providers, and a metrics module. No DSPy or LangChain.",
+  "open_source": "Yes. Code is publicly released on GitHub (github.com/pedrocurvo/TheTraitors) under CC-BY 4.0.",
+  "reproducibility": "Moderate to good. The framework is open-sourced with YAML config files and a CLI/Python API for running experiments, but results depend on proprietary API models whose versions drift over time.",
+
+  "key_results": "Initial experiments across DeepSeek-V3, GPT-4o-mini, and GPT-4o reveal a notable asymmetry: advanced models such as GPT-4o demonstrate superior deceptive capabilities yet are disproportionately vulnerable to others' falsehoods. This suggests deception skills may scale faster with model capability than deception-detection skills. Deception, trust formation, and strategic communication emerge naturally in the simulations.",
+  "identified_limitations": "Initial experiments cover only a few models and the framework is new; the environment is a stylized single game; no human baseline is included; results depend on proprietary models. Belief and trust metrics are bespoke and not yet externally validated. [uncertain]",
+  "deception_emergence": "Clear emergent deception. Without explicit instruction to lie, Traitor agents fabricate claims, deflect accusations, and build false alliances; deception, trust, and strategic communication emerge from the multi-agent dynamics under asymmetric information.",
+  "deceiver_detector_asymmetry": "Yes, this is the central finding: LLMs are stronger as deceivers than as deception detectors. More capable models deceive better but are also more vulnerable to being deceived, indicating deception scales faster than detection.",
+
+  "uncertain": [
+    "num_players",
+    "rule_variant_coverage",
+    "planning_approach",
+    "agent_controllability",
+    "optimization_cost",
+    "identified_limitations"
+  ]
+}

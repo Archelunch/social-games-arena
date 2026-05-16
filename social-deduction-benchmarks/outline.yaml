@@ -1,0 +1,85 @@
+topic: >-
+  Benchmarking multi-agent LLM systems playing social deduction games
+  (Mafia, Secret Hitler, Werewolf) using DSPy + ReAct, with memory,
+  planning, observations, and game actions as tools
+
+description: >-
+  Survey of existing benchmarks, papers, frameworks, game environments,
+  and agent-architecture references for evaluating LLMs as players in
+  social deduction / hidden-role games. Focus areas: game-loop design,
+  memory & planning, action/tool design, and competitive LLM-vs-LLM
+  evaluation. Diplomacy / pure-negotiation work intentionally excluded.
+
+items:
+  # --- Werewolf / Mafia: foundational & 2024-2026 benchmarks ---
+  - name: "Exploring LLMs for Communication Games: Werewolf (Xu et al., 2023)"
+    note: Early empirical no-tuning prompting framework for LLM Werewolf
+  - name: "Werewolf Arena (Google, 2024)"
+    note: LLM Werewolf tournament with bidding-based speech and Elo ranking
+  - name: "WereBench / WereAlign — Beyond Survival (arXiv:2510.11389)"
+    note: Human-aligned strategy benchmark from 100+ hrs televised Werewolf
+  - name: "WOLF — Werewolf-based Observations for LLM Deception (arXiv:2512.09187)"
+    note: Decomposes deceiver/detector asymmetry across role-conditioned turns
+  - name: "Time to Talk — Asynchronous Group Communication in Mafia (arXiv:2506.05309)"
+    note: Generator + scheduler agents modeling what and when to say
+  - name: "Hidden in Plain Text — Deception Quality vs Human Baselines (arXiv:2601.13709)"
+    note: Async Mafia; detector-accuracy surrogate; LLMs blend in better than humans
+  - name: "Fine-Grained and Thematic Evaluation of LLM SDG Players (arXiv:2408.09946)"
+    note: Per-skill thematic evaluation methodology beyond win rate
+  - name: "Community LLM Werewolf/Mafia arenas — MafiaBench, Foaster.ai"
+    note: Live Swiss/Elo tournaments and continuously-updated leaderboards
+
+  # --- Werewolf / Mafia: agent architectures & training ---
+  - name: "MultiMind — Multimodal Reasoning + Theory of Mind Werewolf Agents (arXiv:2504.18039)"
+    note: ToM reasoning combined with MCTS planning
+  - name: "DVM — Towards Controllable LLM Agents in SDGs (arXiv:2501.06695)"
+    note: Predictor/Decider/Discussor + RL targeting a controllable win rate
+  - name: "LSPO — Iterative Latent Space Policy Optimization (arXiv:2502.04686)"
+    note: CFR in latent space + DPO; iterative strategy-space expansion
+  - name: "Learning to Discuss Strategically — One Night Ultimate Werewolf (NeurIPS 2024)"
+    note: RL-instructed LLM agent + ONUW environment (KylJin/Werewolf repo)
+  - name: "MaKTO — Multi-agent Kahneman-Tversky Optimization (Mafia)"
+    note: Preference-style optimization for social deduction play
+  - name: "Training Language Models for Social Deduction with Multi-Agent RL"
+    note: Auxiliary dense listening/speaking rewards to improve weak ToM
+
+  # --- Avalon / hidden-role ---
+  - name: "AvalonBench / Avalon's Game of Thoughts (AGoT)"
+    note: "Resistance: Avalon environment with recursive reasoning agents"
+  - name: "InMind / InMind-Avalon (arXiv:2508.16072)"
+    note: 30 annotated human Avalon sessions; individual reasoning-style capture
+  - name: "The Stackelberg Speaker — Persuasive Communication in SDGs (arXiv:2510.09087)"
+    note: Turn-based dialogue as Stackelberg game; RL-optimized persuasion
+
+  # --- Other social-deduction games ---
+  - name: "AmongAgents — Among Us text-based agent benchmark"
+    note: Among Us hidden-role tasks in a text environment
+  - name: "Hoodwinked — deception & lie-detection text game"
+    note: Text game measuring emergent deception and detection
+  - name: "The Traitors — Deception and Trust in Multi-Agent Simulations (arXiv:2505.12923)"
+    note: Persistent memory + belief updates under asymmetric information
+  - name: "Murder-mystery benchmarks — WhodunitBench + ThinkThrice / Jubensha (ACL 2024, NeurIPS 2024)"
+    note: Multimodal murder-mystery and Chinese script-murder deduction
+  - name: "Who's the Impostor? — Impostor Game benchmark (NeurIPS 2025)"
+    note: Lightweight 4-player majority/impostor deduction benchmark
+
+  # --- Competitions & meta-benchmarks ---
+  - name: "MindGames Challenge — NeurIPS 2025 Theory-of-Mind Competition"
+    note: Live arena with TrueSkill across Werewolf, Stag Hunt, Blotto, Hanabi
+  - name: "Strategic-game meta-benchmarks — DSGBench, GTBench, GAMA-Bench, AgentBench"
+    note: Standardized multi-game strategic-reasoning evaluation platforms
+
+  # --- Game environments & engineering references ---
+  - name: "Multi-agent game-environment libraries — OpenSpiel, PettingZoo, ChatArena, TextArena"
+    note: Engines and env libraries for building social-game benchmarks
+  - name: "DSPy agent stack — ReAct & memory (mem0) tutorials, optimizers (MIPROv2/GEPA/Bootstrap)"
+    note: "Core methodology: DSPy ReAct + memory tool + prompt optimization"
+  - name: "TextGrad — Automatic differentiation via text / textual-gradient prompt optimization"
+    note: Optimizer that backpropagates natural-language feedback; comparison point vs GEPA/MIPROv2
+  - name: "Memory & agent-architecture references — Generative Agents, ReAct/Reflexion, AgentArch, MemoryAgentBench"
+    note: Memory-stream design, reasoning paradigms, architecture ablations
+
+execution:
+  batch_size: 5
+  items_per_agent: 6
+  output_dir: ./results

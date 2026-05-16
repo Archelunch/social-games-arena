@@ -1,0 +1,62 @@
+{
+  "name": "Hoodwinked: Deception and Cooperation in a Text-Based Game for Language Models",
+  "year": 2023,
+  "authors_org": "Aidan O'Gara (University of Southern California / Center for AI Safety)",
+  "paper_url": "https://arxiv.org/abs/2308.01404",
+  "repo_url": "https://github.com/aogara-ds/hoodwinked",
+
+  "games_supported": "A single custom text-based social-deduction game called Hoodwinked, inspired by Mafia and Among Us. Players are locked in a house; innocents must find a key and escape while one killer eliminates them. It does not cover other named games (Werewolf, Avalon, etc.).",
+  "num_players": "4 players (1 killer/impostor + 3 innocents) in the reported experiments",
+  "hidden_role_mechanic": "One player is secretly assigned the killer role; the other players are innocents who do not know the killer's identity. Asymmetric information arises because only the killer knows the truth, and eyewitnesses may privately observe a murder while non-witnesses must infer the killer from discussion.",
+  "rule_variant_coverage": "Effectively a single rule set (one killer, fixed house layout of four rooms, search/escape/murder actions). Ablations vary only the presence/absence of the discussion phase rather than introducing new role sets. [uncertain]",
+  "multimodal_support": "No. Text-only game; no video, audio, or voice-prosody modalities are handled.",
+
+  "reasoning_paradigm": "Direct LLM prompting (turn-by-turn response generation). No explicit ReAct, chain-of-thought, MCTS, or RL policy module; agents sample actions from enumerated choices and generate free-text discussion statements.",
+  "memory_mechanism": "Memory is supplied through personalized natural-language prompts. Each prompt to a player concatenates the rules, the player's identity/role, their action history, witnessed murders, accumulated discussion text, and prior voting results. There is no external vector store or learned memory; history is appended verbatim into the context window.",
+  "belief_state_representation": "No explicit probabilistic belief table or latent belief state. Beliefs about the hidden killer are represented implicitly in natural language within the prompt context and are expressed only through votes and discussion utterances.",
+  "planning_approach": "No explicit planning module. The model generates each action or discussion statement reactively from the current game-state prompt without lookahead search or written plans.",
+  "action_tool_design": "Actions are exposed as enumerated numbered option lists embedded in the prompt (e.g., move to a room, search a location, escape; the killer additionally gets murder options targeting same-room players). The model samples from a probability distribution over these enumerated choices rather than calling external tool functions.",
+  "theory_of_mind_evaluation": "Theory of mind is evaluated indirectly through deception and detection outcomes. The paper measures whether eyewitnesses are persuaded to change votes and whether non-witnesses can infer the killer from discussion, which serves as a behavioral proxy for modeling other agents' beliefs; there is no dedicated ToM probe.",
+
+  "turn_structure": "Two-stage loop. Stage 1: each player takes individual turns selecting actions (move/search rooms, escape, or for the killer, murder). Stage 2: after a murder, surviving players take turns producing discussion statements, then cast simultaneous votes to banish one player. The loop repeats until innocents escape or are all killed.",
+  "phase_handling": "Distinct action phase and discussion+voting phase. The action phase is broken by a murder event, which triggers the discussion phase followed by a banishment vote; the game then returns to the action phase.",
+  "communication_protocol": "Public natural-language discussion in a shared transcript that all surviving players see, followed by simultaneous (secret) votes to banish a player. No private channels between players.",
+  "communication_synchrony": "Synchronous turn-based. Players speak in sequence during the discussion phase, and votes are cast simultaneously after discussion concludes; there is no asynchronous bidding or scheduler-driven speech.",
+
+  "metrics": "Killer win rate / escape rate, killer banishment rate (fraction of games where the killer is voted out), vote accuracy of witnesses vs non-witnesses, and pairwise model-vs-model comparisons of killer effectiveness.",
+  "deception_metric_design": "Deception is quantified via vote-swing surrogates: the change in the probability that a player correctly votes for the killer attributable to the discussion phase. Eyewitnesses became ~12 percentage points less likely to vote correctly after the killer's discussion (evidence the killer's lies work), while non-witnesses became ~22 percentage points more likely to identify the killer (evidence discussion aids detection). No formal lie taxonomy.",
+  "persuasion_modeling": "Persuasion is explicitly analyzed: the paper attributes stronger killers' success to superior persuasive skill in discussion rather than different in-game actions, measured by the discussion-induced shift in others' votes.",
+  "rating_system": "No formal rating system (no Elo/TrueSkill). Models are compared via head-to-head pairwise win/banishment comparisons.",
+  "competition_format": "Cross-play / pairwise comparison: different LLMs are placed in the killer or innocent roles and compared across many games (24 pairwise model comparisons reported).",
+  "llms_evaluated": "GPT-3 Ada, GPT-3 Curie, GPT-3.5 (chat), and GPT-4.",
+  "human_baseline_comparison": "No human baseline in the paper. The game is released publicly and the authors state human gameplay data collection is planned for future work, but no human-vs-LLM comparison is reported.",
+  "data_source_provenance": "Synthetic LLM-vs-LLM gameplay. Results are generated entirely from self-play / cross-play of LLM agents (hundreds of games), with no human gameplay data used.",
+
+  "training_paradigm": "Tuning-free prompting. Models are accessed via the OpenAI API with no fine-tuning, SFT, or RL; discussion statements are sampled at temperature 1 with a ~50-token cap.",
+  "agent_controllability": "Not directly tunable to a target win rate. Difficulty is varied only coarsely by choosing the model family (more capable models are stronger killers) and by toggling the discussion phase on/off. [uncertain]",
+  "strategy_space_analysis": "The paper qualitatively analyzes emergent strategies (the killer denying the crime, accusing innocents, deflecting blame) but does not formally analyze strategy-space expansion.",
+
+  "prompt_optimizer_used": "None. No DSPy or prompt-optimization technique (GEPA, MIPROv2, BootstrapFewShot, SIMBA) is used; prompts are hand-written templates.",
+  "rl_algorithm": "None. No RL or preference-optimization algorithm is applied.",
+  "reward_design": "No training reward. The game outcome (escape vs. killed; killer banished vs. not) is used only as an evaluation signal, not as a training reward.",
+  "optimization_target": "Nothing is optimized; the study is an evaluation of pretrained models as-is.",
+  "self_play_loop": "Self-play / cross-play is used to generate evaluation data, but there is no iterative training loop that updates the agents.",
+  "credit_assignment": "Not applicable; no learning occurs. Discussion influence is measured statistically via vote-swing rather than assigned as training credit.",
+  "optimization_cost": "No training cost. Only API inference cost over hundreds of games (4 players each). [uncertain]",
+
+  "framework_used": "Custom Python game engine that manages backend game state and procedurally generates personalized prompts; uses the OpenAI API for inference. No DSPy or LangChain.",
+  "open_source": "Yes. Source code is publicly released on GitHub (github.com/aogara-ds/hoodwinked).",
+  "reproducibility": "Moderate. Code is open-sourced and the game rules and prompt construction are documented in the paper, but results depend on proprietary OpenAI API models whose versions change over time, limiting exact reproducibility.",
+
+  "key_results": "More capable models are more effective killers, outperforming weaker models in 18 of 24 pairwise comparisons. The improvement is mediated by stronger persuasive skill in discussion rather than different in-game actions. Discussion increases the killer's banishment rate (e.g., 33% to 55% for GPT-3 Curie; 32% to 43% for GPT-3.5), showing discussion helps innocents overall. Advanced models were banished in ~36% of games versus ~51% for weaker models. Killers' lies measurably reduce eyewitness vote accuracy (~-12 pp) while discussion improves non-witness accuracy (~+22 pp).",
+  "identified_limitations": "Model capability does not correlate perfectly with killer effectiveness (GPT-3.5 sometimes beats GPT-4), suggesting confounders. The game is small (4 players, simple house) and only OpenAI models were tested. No human baseline is included, and the deception measure is an indirect vote-swing proxy.",
+  "deception_emergence": "Clear emergent deception: without being instructed to lie, killers spontaneously deny their crime, fabricate alibis, and accuse innocent players. These lies have a measurable causal effect, reducing eyewitnesses' probability of voting for the true killer by roughly 12 percentage points.",
+  "deceiver_detector_asymmetry": "The paper shows capable models are strong, persuasive deceivers, but it also finds discussion helps detection (non-witnesses improve), so it does not cleanly conclude deception scales faster than detection. The dominant emphasis is on demonstrating effective emergent deception. [uncertain]",
+
+  "uncertain": [
+    "rule_variant_coverage",
+    "agent_controllability",
+    "optimization_cost",
+    "deceiver_detector_asymmetry"
+  ]
+}

@@ -1,0 +1,66 @@
+{
+  "name": "Murder-Mystery Benchmarks: WhodunitBench (NeurIPS 2024) and ThinkThrice / 'Deciphering Digital Detectives' Jubensha (ACL 2024 Findings)",
+  "year": 2024,
+  "authors_org": "WhodunitBench: Junlin Wang et al. (incl. Guanbin Li; Sun Yat-sen University and collaborators), NeurIPS 2024 Datasets & Benchmarks (spotlight). ThinkThrice: Dekun Wu, Haochen Shi, Zhiyuan Sun, Bang Liu et al. (Universite de Montreal / Mila), ACL 2024 Findings.",
+  "paper_url": "WhodunitBench: https://openreview.net/forum?id=qmvtDIfbmS ; ThinkThrice/Jubensha: https://arxiv.org/abs/2312.00746",
+  "repo_url": "WhodunitBench: https://github.com/jun0wanan/WhodunitBench-Murder_Mystery_Games ; ThinkThrice: https://github.com/jackwu502/ThinkThrice",
+
+  "games_supported": "Both target murder-mystery / script-murder (Jubensha, 'Scripted Murders', 剧本杀) deduction games. WhodunitBench uses 50 curated multimodal murder-mystery scripts; ThinkThrice/Jubensha uses Chinese Jubensha scripts where players read character scripts to deduce the murderer. Neither covers Werewolf/Mafia/Avalon.",
+  "num_players": "ThinkThrice gameplay experiments use 4-5 players per game (1 murderer + civilians); the underlying Jubensha dataset has games with 1-20 players. WhodunitBench scripts are multi-character murder-mystery games with one murderer and several other roles per script. [uncertain]",
+  "hidden_role_mechanic": "Each player receives a private character script invisible to others; one player is the murderer. The murderer knows the truth and may lie strategically, while other characters hold partial private information and must honestly share clues to collectively identify the killer. Asymmetric information is distributed across per-character scripts.",
+  "rule_variant_coverage": "WhodunitBench spans 50 distinct murder-mystery scripts; ThinkThrice draws on a corpus of 1,115 Jubensha scripts (4-20 players, 4k-518k tokens each). Breadth is in scenario/script diversity rather than distinct rule systems; the core deduction rules are fixed.",
+  "multimodal_support": "WhodunitBench is explicitly multimodal: it evaluates large multimodal agents using image clues plus text, requiring multimodal perception. The Jubensha dataset includes text/audio/video material, but the ThinkThrice experiments are text-only.",
+
+  "reasoning_paradigm": "WhodunitBench evaluates multimodal perception, interaction, reasoning, and decision-making by LMAs. ThinkThrice introduces a three-stage reasoning pipeline (Memory Retrieval, Self-Refinement, Self-Verification) layered on standard LLM prompting; no RL or MCTS.",
+  "memory_mechanism": "ThinkThrice uses a vector database: agent observations are embedded (OpenAI text-embedding-ada-002) and stored in a Faiss index, retrieving the top-5 semantically similar historical records for inclusion in context; agents also retain character-script information. WhodunitBench provides agents with accumulated dialogue, clues, and role information across the game's stages (its 'chain of evaluation' tracks evolving context). [uncertain]",
+  "belief_state_representation": "Beliefs are represented in natural language. Agents accumulate case knowledge from dialogue and scripts and express deductions in text; there is no explicit probabilistic belief table. WhodunitBench probes belief reasoning through multiple-choice and open-ended questions rather than a maintained belief state.",
+  "planning_approach": "No explicit search-based planning. ThinkThrice agents generate responses and questions based on current dialogue, retrieved memories, character relations, and rules, with Self-Refinement decomposing questions into sub-questions. WhodunitBench evaluates multi-step decision-making but agents do not run formal planning algorithms.",
+  "action_tool_design": "Actions are exposed as natural-language generation orchestrated by a host/game controller: agents answer questions, ask questions of other players, examine clues, and cast votes. A host module issues pre-set commands to drive game progression. Actions are not external callable functions.",
+  "theory_of_mind_evaluation": "Both highlight theory of mind. WhodunitBench explicitly concludes that fully applying theory of mind to complete a game like a human remains a significant challenge. ThinkThrice measures cross-character inference (integrating information from others' scripts) via inferential QA, an indirect ToM probe; neither maintains an explicit ToM model.",
+
+  "turn_structure": "Synchronous turn-taking: one agent acts at a time. ThinkThrice runs an 8-stage game flow (script distribution, self-introduction, initial questioning, two open-questioning rounds, clue distribution, three final-questioning rounds, anonymous voting). WhodunitBench runs an arena-style full-game playthrough plus a staged 'chain of evaluation'.",
+  "phase_handling": "Distinct phases are managed by a host/game controller. ThinkThrice sequences introduction, multiple questioning rounds, clue release, and a final voting phase. WhodunitBench separates an arena game-play mode from a multi-stage QA evaluation chain.",
+  "communication_protocol": "Public natural-language dialogue: agents introduce themselves, question one another, and respond, followed by anonymous voting. Private information stays in each agent's character script; there is no private chat channel.",
+  "communication_synchrony": "Synchronous and turn-based: agents respond to the host and to other players sequentially; only one agent speaks at a given moment, with no asynchronous bidding or scheduler-driven speech.",
+
+  "metrics": "ThinkThrice: factual QA accuracy (own vs others' scripts), chat-history-to-script similarity (embeddings/TF-IDF/trigram), inferential QA Overall Accuracy and Informed Accuracy (answer + valid reasoning), civilian win rate, and murderer-identification accuracy. WhodunitBench: scores over 3000+ multiple-choice and open-ended questions plus arena win/identification outcomes across four ability areas.",
+  "deception_metric_design": "Neither benchmark defines a dedicated emergent-deception metric. ThinkThrice's Self-Verification checks answer authenticity against the character script (it evaluates honest information provision rather than deception). The murderer's strategic lying is part of the game but is not quantified by a lie taxonomy or detector-accuracy surrogate. [uncertain]",
+  "persuasion_modeling": "Not modeled. Both focus on information gathering and multi-step reasoning; persuasive influence and rhetorical strategy are not explicitly measured or optimized.",
+  "rating_system": "No competitive rating system (no Elo/TrueSkill). Performance is reported as accuracy scores and win/identification rates.",
+  "competition_format": "Both are evaluation benchmarks rather than tournaments. Agents (single model controlling all roles, or LMAs under test) play through scripted games; WhodunitBench adds an arena-style playthrough plus a structured QA chain.",
+  "llms_evaluated": "ThinkThrice: GPT-3.5-turbo-16k for gameplay, GPT-4-1106-preview for reasoning evaluation, with text-embedding-ada-002 / text-embedding-3-large for retrieval and scoring. WhodunitBench: a range of large multimodal agents / multimodal LLMs (e.g., GPT-4V-class and open multimodal models). [uncertain]",
+  "human_baseline_comparison": "No human-player baseline in either benchmark. ThinkThrice uses two native-speaker annotators only to validate automatic metrics on subsamples (~200 factual and ~100 inferential QA items), with 0.7-0.95 correlation to automatic scores. WhodunitBench compares LMA performance against human-level expectations qualitatively.",
+  "data_source_provenance": "Curated real human-authored game material played by LLM/LMA agents. ThinkThrice collected 1,115 real Jubensha scripts from online platforms; WhodunitBench curated 50 murder-mystery scripts with image and text clues. Gameplay itself is synthetic LLM-vs-LLM.",
+
+  "training_paradigm": "Tuning-free. No agent training; both rely on in-context learning and prompt engineering. ThinkThrice adds inference-time Self-Refinement and Self-Verification loops that regenerate answers until authenticity thresholds are met.",
+  "agent_controllability": "Not tunable to a target win rate. Difficulty is determined by the script and the chosen model rather than by an adjustable skill parameter. [uncertain]",
+  "strategy_space_analysis": "Limited. WhodunitBench analyzes capability gaps in multi-agent collaboration and multi-step reasoning; ThinkThrice analyzes which pipeline components help, but neither performs a formal emergent-strategy / strategy-space-expansion analysis.",
+
+  "prompt_optimizer_used": "None. No DSPy or prompt optimizer (GEPA, MIPROv2, BootstrapFewShot, SIMBA); prompts are hand-engineered.",
+  "rl_algorithm": "None. No RL or preference-optimization algorithm is used.",
+  "reward_design": "No training reward. Game outcomes and QA accuracy are used purely as evaluation signals. ThinkThrice's Self-Verification uses an internal authenticity-threshold check to gate answer acceptance, not a learning reward.",
+  "optimization_target": "Nothing is trained; the studies evaluate pretrained models. ThinkThrice's pipeline optimizes answer quality at inference time via refinement/verification rather than optimizing weights or prompts.",
+  "self_play_loop": "No iterative self-play training loop. Games are run for evaluation only.",
+  "credit_assignment": "Not applicable; no learning. ThinkThrice attributes answer quality to specific pipeline modules via ablations rather than multi-turn credit assignment.",
+  "optimization_cost": "No training cost. ThinkThrice reports substantial inference cost (~$11.90 per game); 3 runs per game are used to reduce variance. WhodunitBench cost is not specified. [uncertain]",
+
+  "framework_used": "Custom Python implementations. ThinkThrice uses Faiss for vector memory plus OpenAI APIs and structured prompting; WhodunitBench provides a custom evaluation engine (e.g., GameStart.py) with curated multimodal datasets. Neither uses DSPy or LangChain.",
+  "open_source": "Yes. Both release code and data: WhodunitBench on github.com/jun0wanan/WhodunitBench-Murder_Mystery_Games and ThinkThrice on github.com/jackwu502/ThinkThrice.",
+  "reproducibility": "Moderate. Both release code and datasets and document their pipelines; however results depend on proprietary OpenAI/multimodal models whose versions change, and LLM stochasticity causes variance (ThinkThrice mitigates with 3 runs per game).",
+
+  "key_results": "WhodunitBench: current large multimodal agents do acceptably on basic perceptual tasks but are insufficiently equipped for complex multi-agent collaboration and multi-step reasoning, and full human-like theory-of-mind use to complete a game remains a significant challenge. ThinkThrice: the full Memory-Retrieval + Self-Refinement + Self-Verification pipeline raises performance substantially (e.g., GPT-4 with full-script access reaches ~60% overall inferential accuracy with the pipeline vs ~15% without); agents answer questions about their own script far better (0.772) than about others' scripts (0.495), and reach 0.831 similarity to full scripts, showing weakness at integrating others' hidden information.",
+  "identified_limitations": "WhodunitBench: agents struggle with multi-agent collaboration, long multi-step reasoning, and theory of mind. ThinkThrice: Chinese-only dataset limits cross-linguistic generalization; high LLM stochasticity; reproducibility complicated by OpenAI model-version drift; substantial per-game cost; agents weak at reasoning over other characters' hidden information.",
+  "deception_emergence": "The murderer role involves strategic lying, and both works observe that murderers can mislead other characters. However, neither benchmark systematically quantifies emergent deception; ThinkThrice in fact focuses on honest information sharing and verification, treating the murderer's deception as a game element rather than a measured behavior. [uncertain]",
+  "deceiver_detector_asymmetry": "Not directly studied. Neither benchmark frames or measures a deceiver-vs-detector capability asymmetry; the focus is on perception, multi-step reasoning, information integration, and theory-of-mind limitations. [uncertain]",
+
+  "uncertain": [
+    "num_players",
+    "memory_mechanism",
+    "deception_metric_design",
+    "llms_evaluated",
+    "agent_controllability",
+    "optimization_cost",
+    "deception_emergence",
+    "deceiver_detector_asymmetry"
+  ]
+}
