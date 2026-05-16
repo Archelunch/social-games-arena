@@ -11,7 +11,7 @@ Pick the next task whose dependencies are all `[x]`. Update this file when a tas
 The game-agnostic, pure, seeded state machine. No game rules here.
 
 - [x] **T01** — Scaffold `pyproject.toml` (Poetry, py3.13; deps: `dspy`, `litellm`, `trueskill`; dev: `pytest`, `ruff`, `pyrefly`), `src/social_deduction_bench/` package layout, `.gitignore` (`.reviews/`, `.dspy_cache/`, caches), `[tool.ruff]` + `[tool.pyrefly]` config. _Depends: —_
-- [ ] **T02** — Seeded RNG utility: a `Random` threaded explicitly through the engine; no global random state. _Depends: T01_
+- [x] **T02** — Seeded RNG utility: a `Random` threaded explicitly through the engine; no global random state. _Depends: T01_
 - [ ] **T03** — Game state model: players, roles, alive/dead, round, current phase. Frozen/structured types. _Depends: T01_
 - [ ] **T04** — Event stream: append-only event log + JSONL serialization (write + read back). _Depends: T03_
 - [ ] **T05** — Observation routing: public events to all, private events to one agent; agents never see hidden state. _Depends: T04_

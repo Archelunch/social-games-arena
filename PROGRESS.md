@@ -2,8 +2,36 @@
 
 Append-only. Newest entry on top. Read this first when starting a session.
 
-**Current state:** T01 done — project scaffolded, all checks green.
-**Next task:** T02 — seeded RNG utility.
+**Current state:** T02 done — seeded `GameRNG` landed, all checks green.
+**Next task:** T03 — game state model (players, roles, alive/dead, round, phase).
+
+---
+
+## 2026-05-16 — T02: seeded RNG utility
+
+- Added `src/social_deduction_bench/engine/rng.py` — `GameRNG`, a seed-owned
+  random stream wrapping a private `random.Random`. Operations: `shuffle`
+  (returns a new list, non-mutating), `choice`, `sample`. PEP 695 generics.
+  Exported from `engine/__init__.py`.
+- Tests `tests/engine/test_rng.py` (8): same-seed determinism, seed divergence,
+  shuffle purity, no global-`random` state leak, instance independence, seed
+  exposure, seed read-only, and a golden-literal sequence for seed 42.
+- **Decision:** `seed` is a read-only property — a reassignable seed could
+  silently desync replay from the recorded event stream (review High item).
+- **Decision:** golden-literal test pins seed-42 draws so a future interpreter
+  / algorithm change that breaks replay fails loudly (review Medium item).
+- **Decision:** kept a single stream with only 3 ops — no checkpoint/restore,
+  no labelled sub-streams. Both are speculative until a caller exists.
+  - **Parked for T04/T05:** replay will need RNG stream checkpoint/restore.
+  - **Parked for `games/werewolf`:** decide single-stream vs labelled
+    sub-streams before the game module consumes `GameRNG`.
+- `/sdb-review`: all 3 reviewers PASS, 0 critical. Reports in
+  `.reviews/20260516-1603-f0a953f/`.
+- Verified: `pytest` 14/14, `ruff check`, `ruff format --check`,
+  `pyrefly check` (0 errors, 1 intentional `# type: ignore` on the
+  read-only-property assignment test).
+
+**Next:** T03 — game state model.
 
 ---
 
