@@ -23,9 +23,9 @@ The game-agnostic, pure, seeded state machine. No game rules here.
 
 The Werewolf-specific rules plugged into the M1 engine.
 
-- [ ] **T09** — Role definitions (Werewolf, Seer, Doctor, Villager) + 7-player default config. _Depends: T03_
+- [ ] **T09** — Role definitions (Werewolf, Seer, Doctor, Villager) + 7-player default config. The game definition also **declares its private event types** (`seer_inspect`, `werewolf_chat`, `doctor_protect`) for the engine's private-event guard — see Notes. _Depends: T03_
 - [ ] **T10** — Seeded role assignment. _Depends: T02, T09_
-- [ ] **T11** — Night resolution: werewolf joint kill vote, seer inspect, doctor protect, protection suppresses the kill. _Depends: T06, T07, T10_
+- [ ] **T11** — Night resolution: werewolf joint kill vote, seer inspect, doctor protect, protection suppresses the kill. Private night events carry non-empty `recipients`; the engine **rejects a declared-private event type emitted with empty `recipients`** — see Notes. _Depends: T06, T07, T10_
 - [ ] **T12** — Day resolution: exile vote, majority rule, tie → no exile. _Depends: T06, T07_
 - [ ] **T13** — Win-condition checks: villagers win when both werewolves dead; werewolves win at parity. Checked after night AND after exile. _Depends: T11, T12_
 - [ ] **T14** — Full game-loop integration test: a scripted 7-player game runs to a terminal state deterministically. _Depends: T08, T13_
@@ -61,3 +61,4 @@ The tools the ReAct agent calls. See WEREWOLF_DESIGN.md §6.
 
 - M1 is fully game-agnostic; M2 is the first game plugged in. ONUW and Secret Hitler reuse M1/M3-M5.
 - Open design questions (discussion slot count `K`, exile tie-break, cross-game memory) are parked in WEREWOLF_DESIGN.md §12 — resolve before the task that needs them, not earlier.
+- **Private-event guard (cross-game).** An `Event` is private exactly when its `recipients` set is non-empty; "public" is the empty set. The game-agnostic engine cannot tell a broadcast from a private event that forgot its recipients, since it sees `type` only as an opaque string. So each game **declares its private event types** (T09) and the engine **rejects a declared-private type emitted with empty `recipients`** (enforced in T11). One shared M1 check, reused by Werewolf / ONUW / Secret Hitler — not re-coded per game. Rationale: WEREWOLF_DESIGN.md §3. Origin: integrity-review High on the T04 multi-recipient `recipients` change (2026-05-18).

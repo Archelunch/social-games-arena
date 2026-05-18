@@ -50,11 +50,21 @@ short enough to stay cheap.
 The **engine** is the single source of truth. Two hard rules:
 
 1. **Agents never read hidden state.** They only receive *observations* the
-   engine chooses to emit (public events to everyone; private events only to the
-   relevant agent).
+   engine chooses to emit (public events to everyone; private events only to
+   their named recipients — which may be a group, e.g. the werewolf pack).
 2. **Agents only change state via validated tool calls.** Illegal moves (dead
    target, wrong phase, wrong role) are rejected with an error observation the
    agent can retry inside its ReAct loop.
+
+**Private-event guard.** An event is private exactly when it carries a non-empty
+`recipients` set; "public" is the empty set. The engine core is game-agnostic —
+it sees an event's `type` only as an opaque string — so it cannot, on its own,
+tell an intentional broadcast from a private event emitted with no recipients.
+Therefore each **game definition declares its private event types** (Werewolf:
+`seer_inspect`, `werewolf_chat`, `doctor_protect`), and the engine rejects any
+declared-private type emitted with empty `recipients`. The hidden-state
+guarantee is thus enforced once, in shared engine machinery, and reused by every
+game (ONUW, Secret Hitler) rather than re-implemented per game.
 
 The engine is seeded → deterministic → fully replayable. Every game is logged as
 an append-only event stream for debugging and replay.

@@ -5,11 +5,13 @@ Append-only. Newest entry on top. Read this first when starting a session.
 **Current state:** T04 done — append-only event stream + JSONL landed, all checks green.
 **Next task:** T05 — observation routing (public to all, private to recipients).
 
-**Parked for T05/T11:** the game layer must reject private-typed events
-(`seer_inspect`, `werewolf_chat`, `doctor_protect`) emitted with empty
-`recipients` — T04 defines "public" as the empty tuple and, being game-agnostic,
-cannot infer privacy from the opaque `type` string (integrity-review High,
-2026-05-18 recipients change).
+**Tracked design decision (T09 + T11):** the private-event guard — each game
+declares its private event types, the engine rejects a declared-private type
+emitted with empty `recipients` — is now recorded as acceptance criteria on T09
+(declaration) and T11 (enforcement) in `BACKLOG.md`, with the cross-game
+rationale in `BACKLOG.md` Notes and `WEREWOLF_DESIGN.md` §3. Shared M1
+machinery, reused by Werewolf / ONUW / Secret Hitler. (Origin: integrity-review
+High on the T04 multi-recipient `recipients` change.)
 
 ---
 
