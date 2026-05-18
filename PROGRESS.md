@@ -2,8 +2,8 @@
 
 Append-only. Newest entry on top. Read this first when starting a session.
 
-**Current state:** T04 done — append-only event stream + JSONL landed, all checks green.
-**Next task:** T05 — observation routing (public to all, private to recipients).
+**Current state:** T05 done — read-side observation routing landed, all checks green.
+**Next task:** T06 — phase state machine (night/day transitions, terminal hook).
 
 **Tracked design decision (T09 + T11):** the private-event guard — each game
 declares its private event types, the engine rejects a declared-private type
@@ -12,6 +12,52 @@ emitted with empty `recipients` — is now recorded as acceptance criteria on T0
 rationale in `BACKLOG.md` Notes and `WEREWOLF_DESIGN.md` §3. Shared M1
 machinery, reused by Werewolf / ONUW / Secret Hitler. (Origin: integrity-review
 High on the T04 multi-recipient `recipients` change.)
+
+---
+
+## 2026-05-18 — T05: observation routing
+
+- Added `src/social_deduction_bench/engine/observation.py` — the read-side of
+  invariant #2 (agents never read hidden state). T04 carried the `recipients`
+  marker; T05 is the filter that consumes it. Two pure, stateless functions:
+  - `observations_for(events, player)` — every public broadcast plus the
+    private events naming `player` as a recipient, in original log order.
+  - `public_events(events)` — public broadcasts only, the spectator / replay
+    (T28) view.
+  Both take `Iterable[Event]` (works with `EventLog`, the `.events` snapshot,
+  or a bare list/generator) and return `tuple[Event, ...]`. Exported from
+  `engine/__init__.py`.
+- Tests `tests/engine/test_observation.py` (14): public broadcast reaches all,
+  private delivered to its recipient, the core leak test (a non-recipient's
+  observations contain zero private events), multi-recipient pack-chat routing,
+  `seq`/order preservation, source-log non-mutation, determinism across two
+  independent logs, blank-player rejection, unknown-player → public-only,
+  exact recipient-name matching (case/whitespace significant), bare-iterable
+  input, empty input. Suite 77/77.
+- **Decision:** routed events keep their original engine-assigned `seq`, so a
+  filtered observer sees non-contiguous `seq` (e.g. 0, 1, 3). Not a
+  hidden-state leak — a gap reveals only that *some* private action occurred
+  (already common knowledge from the public rules), never its content, type,
+  or recipients. Renumbering would break replay (T28) / determinism (T08) /
+  metrics (T24), which correlate events by the stable global `seq`. Residual
+  gap-counting side channel accepted; a public `private_action_occurred`
+  placeholder is a game-layer call, out of T05 scope. All three reviewers
+  endorsed this trade-off.
+- **Decision:** `observations_for` rejects a blank / non-`str` `player` with
+  `ValueError` — silently degrading to public-only would mask a caller bug.
+  No roster validation: the game-agnostic router has no roster; a non-blank
+  unknown name correctly matches no `recipients` and yields public-only.
+- **Decision:** recipient matching is exact (literal string) — no case-fold,
+  no trim — so a near-miss name cannot leak a private event.
+- `/sdb-review`: python + test + integrity reviewers all PASS (0 critical,
+  0 high). Addressed the 2 Mediums + 1 Low test-hardening nits: `assert seen`
+  guard on the leak test (was vacuous-safe on an empty stream), determinism
+  test now routes two independent logs, added the exact recipient-name match
+  test. Reports in `.reviews/20260518-1302-0fa9436-t05obs/`.
+- Verified: `pytest` 77/77, `ruff check`, `ruff format --check`,
+  `pyrefly check` (0 errors).
+
+**Next:** T06 — phase state machine.
 
 ---
 
