@@ -46,7 +46,7 @@ class GameState:
 
     @classmethod
     def initial(cls, players: Sequence[tuple[str, str]]) -> "GameState":
-        """Build the canonical start position: all players alive, round 0, NIGHT.
+        """Build the canonical start position: all players alive, round 1, NIGHT.
 
         `players` is an ordered sequence of `(name, role)` pairs. Duplicate
         names are rejected because `name` is the lookup and observation-routing
@@ -56,7 +56,7 @@ class GameState:
         if len(names) != len(set(names)):
             raise ValueError("player names must be unique; duplicate name(s) given")
         built = tuple(PlayerState(name=name, role=role) for name, role in players)
-        return cls(players=built, round=0, phase=Phase.NIGHT)
+        return cls(players=built, round=1, phase=Phase.NIGHT)
 
     def player(self, name: str) -> PlayerState:
         """Return the player with `name`; raise `KeyError` on miss (fail loud)."""

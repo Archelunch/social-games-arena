@@ -17,16 +17,16 @@ from social_deduction_bench.engine import GameState, Phase
 PLAYERS = [("Alice", "villager"), ("Bob", "werewolf"), ("Cara", "seer"), ("Dan", "doctor")]
 
 
-def test_initial_state_has_all_players_alive_round_zero_night() -> None:
+def test_initial_state_has_all_players_alive_round_one_night() -> None:
     """`initial()` pins the canonical start contract.
 
-    Every game must begin from the same position — all players alive, round 0,
-    NIGHT — matching the WEREWOLF_DESIGN.md loop, which increments the round
-    before the first night.
+    Every game must begin from the same position — all players alive, round 1,
+    NIGHT. The first night is round 1 because the WEREWOLF_DESIGN.md §4 loop
+    increments the round before the first night.
     """
     state = GameState.initial(PLAYERS)
 
-    assert state.round == 0
+    assert state.round == 1
     assert state.phase is Phase.NIGHT
     assert [p.name for p in state.players] == ["Alice", "Bob", "Cara", "Dan"]
     assert [p.role for p in state.players] == ["villager", "werewolf", "seer", "doctor"]
@@ -55,7 +55,7 @@ def test_initial_state_accepts_empty_roster() -> None:
 
     assert state.players == ()
     assert state.alive_names() == ()
-    assert state.round == 0
+    assert state.round == 1
     assert state.phase is Phase.NIGHT
 
 
@@ -123,8 +123,8 @@ def test_with_phase_and_advanced_round_do_not_mutate_original() -> None:
     assert before.with_phase(Phase.DAY).phase is Phase.DAY
     assert before.phase is Phase.NIGHT
 
-    assert before.advanced_round().round == 1
-    assert before.round == 0
+    assert before.advanced_round().round == 2
+    assert before.round == 1
 
 
 def test_with_player_killed_only_affects_target() -> None:

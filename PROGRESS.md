@@ -2,8 +2,8 @@
 
 Append-only. Newest entry on top. Read this first when starting a session.
 
-**Current state:** T05 done — read-side observation routing landed, all checks green.
-**Next task:** T06 — phase state machine (night/day transitions, terminal hook).
+**Current state:** T06 done — phase state machine + terminal hook landed, all checks green.
+**Next task:** T07 — tool-call validation (reject illegal moves). _Depends: T05, T06 — both done._
 
 **Tracked design decision (T09 + T11):** the private-event guard — each game
 declares its private event types, the engine rejects a declared-private type
@@ -12,6 +12,55 @@ emitted with empty `recipients` — is now recorded as acceptance criteria on T0
 rationale in `BACKLOG.md` Notes and `WEREWOLF_DESIGN.md` §3. Shared M1
 machinery, reused by Werewolf / ONUW / Secret Hitler. (Origin: integrity-review
 High on the T04 multi-recipient `recipients` change.)
+
+---
+
+## 2026-05-18 — T06: phase state machine
+
+- Added `src/social_deduction_bench/engine/phase.py` — the engine-owned
+  night/day transition (invariant #1: the engine, not a game, advances
+  phase/round) plus the terminal-detection hook:
+  - `advance_phase(state) -> GameState` — pure derivation: NIGHT→DAY keeps the
+    round, DAY→NIGHT opens the next round. Reuses T03's `with_phase` /
+    `advanced_round`; no RNG, no clock (invariant #4: deterministic,
+    replayable). `match` over `Phase` with a fail-loud `case _`.
+  - `TerminalCheck` (`Protocol`) — the seam a game's win condition plugs into.
+    `__call__(self, state, /)` — the parameter is positional-only so a game's
+    callable need not match the parameter name (Pyrefly enforces name match on
+    `Protocol.__call__` otherwise).
+  - `is_terminal(state, check)` — thin relay; the engine forms no opinion on
+    what ends a game. Werewolf supplies the check in T13.
+  Exported from `engine/__init__.py`.
+- Tests `tests/engine/test_phase.py` (9): NIGHT→DAY same round, DAY→NIGHT next
+  round, full cycle from `initial()` pinning the round-1 convention, input
+  non-mutation, roster preservation, death persistence across a phase change,
+  determinism across two independent runs (now also asserts the cycle visits
+  the expected distinct `(round, phase)` positions), hook delegation, and the
+  hook receiving the actual state by identity. Suite 86/86.
+- **Decision (user):** minimal hook now, not a full `GameDefinition` ABC. T06
+  ships only the one-method `TerminalCheck` Protocol; the broader game-module
+  interface (terminal + declared private-event types + roles) emerges in T09
+  where it earns being an interface.
+- **Decision (user):** first night = round 1. `WEREWOLF_DESIGN.md` §4's loop
+  increments `round` before the first night; T03 had shipped `initial()` with
+  `round=0`. T06 amends `GameState.initial()` to `round=1` and updates
+  `test_state.py` (one rename + 3 round assertions). Blast radius verified
+  contained — `Event.round` is an independent int literal, no rating/metrics
+  code keys on round 0.
+- **Decision:** `advance_phase` does not consult the terminal hook — terminal
+  is a query the game loop (T14) makes between resolutions, not a transition
+  guard. The transition stays a pure, unconditional NIGHT↔DAY function.
+- `/sdb-review`: python + test + integrity reviewers all PASS (0 critical,
+  0 high). Addressed the 1 Medium (strengthened the determinism test to also
+  pin the distinct `(round, phase)` sequence, so an identity-degenerate
+  `advance_phase` fails it) and the 1 Low / surfaced conflict (`case _` arm:
+  `AssertionError`→`ValueError` to match `state.py`'s fail-loud convention and
+  avoid `python -O` stripping). Reports in
+  `.reviews/20260518-1521-9c2f326-t06phase/`.
+- Verified: `pytest` 86/86, `ruff check`, `ruff format --check`,
+  `pyrefly check` (0 errors).
+
+**Next:** T07 — tool-call validation.
 
 ---
 

@@ -9,6 +9,7 @@ from social_deduction_bench.engine.events import (
     write_jsonl,
 )
 from social_deduction_bench.engine.observation import observations_for, public_events
+from social_deduction_bench.engine.phase import TerminalCheck, advance_phase, is_terminal
 from social_deduction_bench.engine.rng import GameRNG
 from social_deduction_bench.engine.state import GameState, Phase, PlayerState
 
@@ -21,6 +22,9 @@ __all__ = [
     "Phase",
     "PlayerState",
     "StreamHeader",
+    "TerminalCheck",
+    "advance_phase",
+    "is_terminal",
     "observations_for",
     "public_events",
     "read_jsonl",
