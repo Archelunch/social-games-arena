@@ -5,7 +5,6 @@ from social_deduction_bench.engine.events import (
     EventLog,
     EventStream,
     StreamHeader,
-    Visibility,
     read_jsonl,
     write_jsonl,
 )
@@ -21,7 +20,6 @@ __all__ = [
     "Phase",
     "PlayerState",
     "StreamHeader",
-    "Visibility",
     "read_jsonl",
     "write_jsonl",
 ]

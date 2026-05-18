@@ -5,20 +5,27 @@ Upholds benchmark invariant #5: every game is an append-only event stream
 the log captures it, it cannot be reordered or edited — and `EventLog` exposes
 only `append`, never a way to delete or rewrite a recorded event.
 
-It also carries invariant #2's routing marker: each event is `PUBLIC` or
-`PRIVATE`, and a `PRIVATE` event must name its `recipient`. An unaddressed
-private event — a hidden-state-leak vector — is rejected at construction and at
-read-back, never stored or routed silently.
+It also carries invariant #2's routing marker: each event names its
+`recipients`. An empty tuple means a public broadcast (visible to everyone); a
+non-empty tuple means the event is private to exactly those players — the
+werewolf pack chat is the multi-recipient case, one private channel shared by
+the whole pack. A blank or duplicate recipient — a routing-corruption vector —
+is rejected at construction and at read-back, never stored or routed silently.
+
+Because "public" is defined as the empty tuple, this game-agnostic core — which
+treats `type` as an opaque string — cannot distinguish an intentional broadcast
+from a private event emitted without recipients. The game layer that emits
+private event types (seer results, werewolf chat) owns that check.
 
 Serialization is deterministic (fixed key order, default separators) so that,
 per invariant #4, two runs of the same seeded game produce byte-identical
-transcripts that T08's determinism harness can compare.
+transcripts that T08's determinism harness can compare. Recipients are stored
+in canonical sorted order so two semantically-equal events serialize identically.
 """
 
 import json
 from collections.abc import Iterable, Iterator, Mapping
 from dataclasses import dataclass, field
-from enum import StrEnum
 from pathlib import Path
 from types import MappingProxyType
 
@@ -47,24 +54,16 @@ def _check_json_payload_value(value: object) -> None:
     raise ValueError(f"payload value {type(value).__name__} is not a JSON primitive")
 
 
-class Visibility(StrEnum):
-    """Who an event is addressed to; drives T05's observation routing.
-
-    `PUBLIC` events broadcast to everyone; `PRIVATE` events reach only their
-    named `recipient`.
-    """
-
-    PUBLIC = "public"
-    PRIVATE = "private"
-
-
 @dataclass(frozen=True, slots=True)
 class Event:
     """One immutable, recorded event in the append-only stream.
 
-    `seq` is the gap-free, log-assigned ordering index. `payload` is normalized
-    to an isolated, read-only mapping so neither the caller's source dict nor
-    the stored view can mutate recorded history.
+    `seq` is the gap-free, log-assigned ordering index. `recipients` is the
+    routing marker (invariant #2): an empty tuple is a public broadcast, a
+    non-empty tuple is private to exactly those players — the werewolf pack
+    chat is the multi-recipient case. `payload` is normalized to an isolated,
+    read-only mapping so neither the caller's source dict nor the stored view
+    can mutate recorded history.
     """
 
     seq: int
@@ -72,25 +71,36 @@ class Event:
     phase: Phase
     type: str
     payload: Mapping[str, object]
-    visibility: Visibility = Visibility.PUBLIC
-    recipient: str | None = None
+    recipients: tuple[str, ...] = ()
 
     def __post_init__(self) -> None:
-        """Enforce the routing marker and isolate the payload.
+        """Validate `recipients`, store them sorted, and isolate the payload.
 
-        A `PRIVATE` event must name a `recipient` and a `PUBLIC` one must not —
-        either contradiction makes the event unroutable (invariant #2). The
+        Every recipient must be a non-empty `str` and no recipient may repeat —
+        a blank entry matches no player and a duplicate would deliver one
+        private event twice, both routing-corruption vectors (invariant #2).
+        Validated recipients are stored in canonical sorted order so two
+        semantically-equal events serialize identically (invariant #4). The
         payload is copied into a `MappingProxyType` so it is read-only and
         decoupled from the caller's dict.
         """
-        if self.visibility is Visibility.PRIVATE and self.recipient is None:
-            raise ValueError("a PRIVATE event must name a recipient")
-        if self.visibility is Visibility.PUBLIC and self.recipient is not None:
-            raise ValueError("a PUBLIC event must not name a recipient")
+        seen: set[str] = set()
+        for recipient in self.recipients:
+            if not isinstance(recipient, str) or not recipient:
+                raise ValueError(f"every recipient must be a non-empty str, got {recipient!r}")
+            if recipient in seen:
+                raise ValueError(f"duplicate recipient {recipient!r}")
+            seen.add(recipient)
+        object.__setattr__(self, "recipients", tuple(sorted(self.recipients)))
         copied = dict(self.payload)
         for value in copied.values():
             _check_json_payload_value(value)
         object.__setattr__(self, "payload", MappingProxyType(copied))
+
+    @property
+    def is_public(self) -> bool:
+        """Return whether the event is a public broadcast (has no recipients)."""
+        return not self.recipients
 
     def to_json_dict(self) -> dict[str, object]:
         """Return a plain, JSON-ready dict; enum fields become their string values."""
@@ -100,31 +110,32 @@ class Event:
             "phase": self.phase.value,
             "type": self.type,
             "payload": dict(self.payload),
-            "visibility": self.visibility.value,
-            "recipient": self.recipient,
+            "recipients": list(self.recipients),
         }
 
     @classmethod
     def from_json_dict(cls, raw: Mapping[str, object]) -> "Event":
         """Rebuild an `Event` from its JSON dict.
 
-        `Phase(...)` and `Visibility(...)` raise `ValueError` on an unknown
-        value, and `__post_init__` re-checks the routing marker — a corrupt or
-        tampered record fails loud rather than loading silently. `seq` and
-        `round` are type-checked so a tampered string does not slip through to
-        a misleading "non-contiguous seq" message.
+        `Phase(...)` raises `ValueError` on an unknown value, and
+        `__post_init__` re-validates `recipients` — a corrupt or tampered
+        record fails loud rather than loading silently. `seq` and `round` are
+        type-checked so a tampered string does not slip through to a misleading
+        "non-contiguous seq" message. `recipients` must be a list: a bare JSON
+        string would otherwise splay into one recipient per character.
         """
         for int_field in ("seq", "round"):
             if not isinstance(raw[int_field], int):
                 raise ValueError(f"event '{int_field}' must be an int, got {type(raw[int_field]).__name__}")
+        if not isinstance(raw["recipients"], list):
+            raise ValueError(f"event 'recipients' must be a list, got {type(raw['recipients']).__name__}")
         return cls(
             seq=raw["seq"],  # type: ignore[arg-type]
             round=raw["round"],  # type: ignore[arg-type]
             phase=Phase(raw["phase"]),  # type: ignore[arg-type]
             type=raw["type"],  # type: ignore[arg-type]
             payload=raw["payload"],  # type: ignore[arg-type]
-            visibility=Visibility(raw["visibility"]),  # type: ignore[arg-type]
-            recipient=raw["recipient"],  # type: ignore[arg-type]
+            recipients=tuple(raw["recipients"]),
         )
 
 
@@ -184,13 +195,13 @@ class EventLog:
         phase: Phase,
         type: str,
         payload: Mapping[str, object] | None = None,
-        visibility: Visibility = Visibility.PUBLIC,
-        recipient: str | None = None,
+        recipients: tuple[str, ...] = (),
     ) -> Event:
         """Build, store, and return an `Event` with the next contiguous `seq`.
 
         Callers never supply `seq`; it is `len(self)` so the index is gap-free
         and strictly increasing. A `None` payload becomes an empty mapping.
+        An empty `recipients` tuple makes the event a public broadcast.
         """
         event = Event(
             seq=len(self._events),
@@ -198,8 +209,7 @@ class EventLog:
             phase=phase,
             type=type,
             payload=payload if payload is not None else {},
-            visibility=visibility,
-            recipient=recipient,
+            recipients=recipients,
         )
         self._events.append(event)
         return event
@@ -243,8 +253,8 @@ class EventStream:
 
         Rejects empty input (no header), any line that is not valid JSON, and
         any event `seq` that is not the contiguous, strictly increasing
-        sequence `0, 1, 2, ...`. Unknown enum values and unaddressed private
-        events fail inside `Event`.
+        sequence `0, 1, 2, ...`. Unknown enum values and corrupt `recipients`
+        fail inside `Event`.
         """
         materialized = [line.rstrip("\n") for line in lines]
         if not materialized:
@@ -267,8 +277,7 @@ class EventStream:
                 phase=event.phase,
                 type=event.type,
                 payload=event.payload,
-                visibility=event.visibility,
-                recipient=event.recipient,
+                recipients=event.recipients,
             )
         return cls(header=header, log=log)
 

@@ -8,8 +8,10 @@ These encode benchmark invariants #2, #4, and #5:
 - #4 — deterministic and replayable: the JSONL round-trip must be lossless and
   serialization byte-identical for equal streams, so T08 can compare two runs.
 - #2 — agents never read hidden state. T05 routes events; T04 only carries the
-  `visibility`/`recipient` marker, and a private event with no addressee — a
-  hidden-state-leak vector — must be rejected, never silently loaded.
+  `recipients` marker — an empty tuple means a public broadcast, a non-empty
+  tuple means private to exactly those players (e.g. the werewolf pack chat).
+  A blank or duplicate recipient — a routing-corruption vector — must be
+  rejected, never silently loaded.
 
 If the log becomes mutable beyond appends, loses ordering, or the round-trip
 drops a field, these fail loudly.
@@ -28,7 +30,6 @@ from social_deduction_bench.engine import (
     GameState,
     Phase,
     StreamHeader,
-    Visibility,
     read_jsonl,
     write_jsonl,
 )
@@ -46,8 +47,7 @@ def _sample_stream() -> EventStream:
         phase=Phase.NIGHT,
         type="seer_inspect",
         payload={"target": "Bob", "is_werewolf": True},
-        visibility=Visibility.PRIVATE,
-        recipient="Cara",
+        recipients=("Cara",),
     )
     log.append(round=1, phase=Phase.DAY, type="speak", payload={"text": "I suspect Bob"})
     header = StreamHeader(seed=20260518, game_id="game-test", players=PLAYERS)
@@ -97,44 +97,50 @@ def test_event_payload_cannot_be_mutated_after_construction() -> None:
     assert event.payload["votes"] == 3
 
 
-def test_private_event_without_recipient_raises() -> None:
-    """A PRIVATE event with no `recipient` is rejected at construction.
+def test_event_rejects_blank_recipient() -> None:
+    """A blank recipient name is rejected at construction.
 
-    Invariant #2: an unaddressed private event cannot be routed by T05 — it
-    would either leak to everyone or vanish. It must fail loud, not be stored.
+    Invariant #2: an empty-string recipient matches no player, so T05 could
+    neither route the event nor flag it — it must fail loud, not be stored.
     """
     with pytest.raises(ValueError, match="recipient"):
-        Event(seq=0, round=1, phase=Phase.NIGHT, type="seer_inspect", payload={}, visibility=Visibility.PRIVATE)
+        Event(seq=0, round=1, phase=Phase.NIGHT, type="seer_inspect", payload={}, recipients=("",))
 
 
-def test_public_event_with_recipient_raises() -> None:
-    """A PUBLIC event carrying a `recipient` is rejected.
+def test_event_rejects_duplicate_recipients() -> None:
+    """A recipient listed twice is rejected at construction.
 
-    A public event addressed to one player is a contradiction that would make
-    the routing marker ambiguous for T05; the marker must be unambiguous.
+    A duplicate would make T05 deliver one private event to the same agent
+    twice — a corrupted observation stream. The recipient set must be unique.
     """
     with pytest.raises(ValueError, match="recipient"):
-        Event(
-            seq=0,
-            round=1,
-            phase=Phase.DAY,
-            type="speak",
-            payload={},
-            visibility=Visibility.PUBLIC,
-            recipient="Alice",
-        )
+        Event(seq=0, round=1, phase=Phase.NIGHT, type="werewolf_chat", payload={}, recipients=("Bob", "Bob"))
 
 
-def test_public_event_defaults_to_no_recipient() -> None:
-    """A PUBLIC event built without a recipient is valid and has `recipient is None`.
+def test_event_defaults_to_public_with_no_recipients() -> None:
+    """An event built without `recipients` is a public broadcast.
 
-    Pins the common-case default so T05 can treat the absence of a recipient as
-    "broadcast to everyone".
+    Pins the common-case default: an empty recipient tuple means `is_public`,
+    so T05 treats the event as visible to every player.
     """
     event = Event(seq=0, round=1, phase=Phase.DAY, type="speak", payload={})
 
-    assert event.visibility is Visibility.PUBLIC
-    assert event.recipient is None
+    assert event.recipients == ()
+    assert event.is_public is True
+
+
+def test_event_stores_recipients_in_sorted_order() -> None:
+    """`recipients` is canonicalized to sorted order at construction.
+
+    Invariant #4: two events with the same recipients in different input order
+    must be equal and serialize identically — so the order is canonicalized
+    eagerly at construction, not left to depend on the caller's order.
+    """
+    unsorted = Event(seq=0, round=1, phase=Phase.NIGHT, type="werewolf_chat", payload={}, recipients=("Dan", "Bob"))
+    sorted_ = Event(seq=0, round=1, phase=Phase.NIGHT, type="werewolf_chat", payload={}, recipients=("Bob", "Dan"))
+
+    assert unsorted.recipients == ("Bob", "Dan")
+    assert unsorted == sorted_
 
 
 def test_event_rejects_non_json_payload_value() -> None:
@@ -269,19 +275,47 @@ def test_jsonl_round_trip_preserves_header() -> None:
     assert restored.header == original.header
 
 
-def test_jsonl_round_trip_preserves_enum_fields() -> None:
-    """`phase` and `visibility` come back as enum members, not bare strings.
+def test_jsonl_round_trip_preserves_phase_and_recipients() -> None:
+    """`phase` comes back an enum and `recipients` a tuple, not bare strings/lists.
 
-    A round-trip that returned strings would break every `is`-comparison and
-    every routing check downstream.
+    A round-trip that returned a string phase or a list of recipients would
+    break every `is`-comparison and every routing check downstream.
     """
     restored = EventStream.from_jsonl_lines(_sample_stream().to_jsonl_lines())
     events = restored.log.events
 
     assert events[0].phase is Phase.NIGHT
     assert events[2].phase is Phase.DAY
-    assert events[0].visibility is Visibility.PUBLIC
-    assert events[1].visibility is Visibility.PRIVATE
+    assert events[0].is_public is True
+    assert events[0].recipients == ()
+    assert events[1].is_public is False
+    assert events[1].recipients == ("Cara",)
+
+
+def test_jsonl_round_trip_preserves_multi_recipient_private_event() -> None:
+    """A private event addressed to several players round-trips in canonical order.
+
+    The werewolf pack shares one private chat channel (WEREWOLF_DESIGN.md §2):
+    a `werewolf_chat` event is private to every werewolf at once, so a single
+    recipient is not enough. Recipients are stored sorted so two semantically
+    equal events serialize identically — invariant #4's determinism.
+    """
+    log = EventLog()
+    log.append(
+        round=1,
+        phase=Phase.NIGHT,
+        type="werewolf_chat",
+        payload={"text": "kill the seer"},
+        recipients=("Dan", "Bob"),  # deliberately unsorted on input
+    )
+    stream = EventStream(header=StreamHeader(seed=1, game_id="g", players=PLAYERS), log=log)
+
+    restored = EventStream.from_jsonl_lines(stream.to_jsonl_lines())
+    event = restored.log.events[0]
+
+    assert event.recipients == ("Bob", "Dan")
+    assert event.is_public is False
+    assert restored.log.events == stream.log.events
 
 
 def test_jsonl_first_line_is_the_header() -> None:
@@ -371,15 +405,30 @@ def test_from_jsonl_lines_rejects_out_of_order_seq() -> None:
         EventStream.from_jsonl_lines(shuffled)
 
 
-def test_from_jsonl_lines_rejects_private_event_missing_recipient() -> None:
-    """JSONL with a `private` event whose recipient is null is rejected.
+def test_from_jsonl_lines_rejects_blank_recipient() -> None:
+    """JSONL with a blank recipient name is rejected on read-back.
 
-    Invariant #2: a tampered transcript that would leak a hidden-state event to
-    everyone must be rejected at load time, not routed by T05.
+    Invariant #2: a tampered transcript whose recipient matches no player must
+    fail loud at load time, never be handed to T05's router.
     """
     lines = list(_sample_stream().to_jsonl_lines())
-    # The private event in _sample_stream() is addressed to "Cara".
-    lines[2] = _tamper_value(lines[2], "Cara", None)
+    # The private event in _sample_stream() is addressed to ["Cara"].
+    lines[2] = _tamper_value(lines[2], ["Cara"], [""])
+
+    with pytest.raises(ValueError, match="recipient"):
+        EventStream.from_jsonl_lines(lines)
+
+
+def test_from_jsonl_lines_rejects_non_string_recipient() -> None:
+    """JSONL with a non-string element in `recipients` is rejected on read-back.
+
+    A recipient that is not a player name (a number, a nested list) matches no
+    player and cannot be routed by T05; a tampered transcript carrying one must
+    fail loud, not be coerced.
+    """
+    lines = list(_sample_stream().to_jsonl_lines())
+    # The private event is addressed to ["Cara"]; corrupt the element type.
+    lines[2] = _tamper_value(lines[2], ["Cara"], [123])
 
     with pytest.raises(ValueError, match="recipient"):
         EventStream.from_jsonl_lines(lines)
@@ -409,16 +458,17 @@ def test_from_jsonl_lines_rejects_empty_input() -> None:
         EventStream.from_jsonl_lines([])
 
 
-def test_from_jsonl_lines_rejects_unknown_visibility_value() -> None:
-    """JSONL with an unrecognized `visibility` string is rejected.
+def test_from_jsonl_lines_rejects_non_list_recipients() -> None:
+    """JSONL whose `recipients` is not a list is rejected on read-back.
 
-    Symmetric to the unknown-`phase` case: invariant #2's routing marker must
-    be a known value, or a tampered transcript could carry an unroutable event.
+    A bare string would silently splay into one recipient per character via
+    `tuple("everyone")`; a corrupt `recipients` shape must fail loud instead.
     """
     lines = list(_sample_stream().to_jsonl_lines())
-    lines[1] = _tamper_value(lines[1], Visibility.PUBLIC.value, "whispered")
+    # lines[1] is the public phase_change event: recipients == [].
+    lines[1] = _tamper_value(lines[1], [], "everyone")
 
-    with pytest.raises(ValueError, match="whispered"):
+    with pytest.raises(ValueError, match="recipients"):
         EventStream.from_jsonl_lines(lines)
 
 

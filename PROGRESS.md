@@ -3,7 +3,50 @@
 Append-only. Newest entry on top. Read this first when starting a session.
 
 **Current state:** T04 done — append-only event stream + JSONL landed, all checks green.
-**Next task:** T05 — observation routing (public to all, private to one agent).
+**Next task:** T05 — observation routing (public to all, private to recipients).
+
+**Parked for T05/T11:** the game layer must reject private-typed events
+(`seer_inspect`, `werewolf_chat`, `doctor_protect`) emitted with empty
+`recipients` — T04 defines "public" as the empty tuple and, being game-agnostic,
+cannot infer privacy from the opaque `type` string (integrity-review High,
+2026-05-18 recipients change).
+
+---
+
+## 2026-05-18 — T04 follow-up: multi-recipient private events
+
+- Schema change to `engine/events.py`: replaced `Event.visibility`
+  (`Visibility` enum) + `Event.recipient: str | None` with a single
+  `recipients: tuple[str, ...]` field. Empty tuple = public broadcast;
+  non-empty = private to exactly those players. Removed the `Visibility` enum.
+  Added an `is_public` property. `__post_init__` validates recipients
+  (non-empty `str`, no duplicates) and stores them in canonical sorted order.
+- **Why:** `WEREWOLF_DESIGN.md` gives the werewolves a *shared private chat
+  channel* (`werewolf_chat`). A single `recipient: str | None` could not
+  address the pack; a private event must reach multiple players. Surfaced by a
+  user question — the original T04 plan missed it.
+- **Decision:** `recipients` is the single source of truth for public/private —
+  no separate `Visibility` field. This eliminates the old
+  public-with-recipient / private-without-recipient contradiction class by
+  construction. Trade-off: a private event emitted with no recipients is
+  indistinguishable from a broadcast; that check moves to the game layer (see
+  the parked note above).
+- **Decision:** recipients stored sorted (`tuple(sorted(...))`) so two
+  semantically-equal events serialize byte-identically (invariant #4).
+- Tests `tests/engine/test_events.py` updated to the new contract (33; suite
+  63/63): blank/duplicate recipient rejection, multi-recipient round-trip,
+  construction-level sort canonicalization, corrupt-`recipients` read-back
+  (non-list, blank element, non-string element).
+- `/sdb-review`: python + test + integrity reviewers all PASS (0 critical).
+  Integrity raised 1 High (public ⟺ empty-recipients ambiguity) — resolved as a
+  documented design trade-off + the T05/T11 parked note; the game-agnostic core
+  cannot own it. python-reviewer's `TypeError` Medium was a misread (verified:
+  non-`str` elements already raise `ValueError`). Reports in
+  `.reviews/20260518-1225-28231c1-recipients/`.
+- Verified: `pytest` 63/63, `ruff check`, `ruff format --check`,
+  `pyrefly check` (0 errors).
+
+**Next:** T05 — observation routing.
 
 ---
 
