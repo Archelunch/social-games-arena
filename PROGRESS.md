@@ -2,8 +2,43 @@
 
 Append-only. Newest entry on top. Read this first when starting a session.
 
-**Current state:** T02 done — seeded `GameRNG` landed, all checks green.
-**Next task:** T03 — game state model (players, roles, alive/dead, round, phase).
+**Current state:** T03 done — engine game-state model landed, all checks green.
+**Next task:** T04 — event stream (append-only event log + JSONL serialization).
+
+---
+
+## 2026-05-18 — T03: engine game-state model
+
+- Added `src/social_deduction_bench/engine/state.py` — `Phase` (`StrEnum`,
+  NIGHT/DAY), `PlayerState` and `GameState` (`frozen=True, slots=True`
+  dataclasses). Pure query helpers (`player`, `alive_players`, `alive_names`,
+  `is_alive`) and pure derivation helpers (`with_player_killed`, `with_phase`,
+  `advanced_round`) that return new instances. `GameState.initial()` classmethod
+  builds the canonical start (all alive, round 0, NIGHT). Exported from
+  `engine/__init__.py`.
+- Tests `tests/engine/test_state.py` (16): start contract, duplicate-name
+  rejection, empty-roster acceptance, frozen `GameState`/`PlayerState`, tuple
+  container, derivation purity, idempotent kill, target-only kill, `KeyError`
+  on unknown lookup/kill target, alive filtering, structural equality.
+- **Decision:** role is a plain `str` — the engine stays game-agnostic; the
+  Werewolf role set is defined in T09. No `engine → games` import.
+- **Decision:** `Phase` is NIGHT/DAY only — no setup/terminal sentinel. "Setup"
+  is the `initial()` output; "terminal" is a game property answered by T06 +
+  M2 win conditions, not a phase.
+- **Decision:** `GameState` does not carry the seed — that lives on `GameRNG`;
+  T04 records it once in the event-stream header.
+- **Decision:** `initial()` takes a `Sequence[(name, role)]`, not a `Mapping`,
+  so duplicate names are visible and rejected with `ValueError` (a duplicate is
+  a private-event misrouting / hidden-state-leak vector).
+- `/sdb-review`: all 3 reviewers PASS, 0 critical / 0 high. Addressed 2 Medium
+  test-coverage gaps (missing unknown-name kill test; strengthened idempotent
+  test to full structural equality) and 1 Low (`with_player_killed` reuses
+  `player()` for its existence check). Reports in
+  `.reviews/20260518-0829-e4e91ab/`.
+- Verified: `pytest` 30/30, `ruff check`, `ruff format --check`,
+  `pyrefly check` (0 errors).
+
+**Next:** T04 — event stream.
 
 ---
 
