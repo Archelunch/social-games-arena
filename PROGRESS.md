@@ -2,8 +2,8 @@
 
 Append-only. Newest entry on top. Read this first when starting a session.
 
-**Current state:** T06 done — phase state machine + terminal hook landed, all checks green.
-**Next task:** T07 — tool-call validation (reject illegal moves). _Depends: T05, T06 — both done._
+**Current state:** T07 done — game-agnostic tool-call validation landed, all checks green.
+**Next task:** T08 — determinism harness (same seed → identical event stream). _Depends: T04 — done._
 
 **Tracked design decision (T09 + T11):** the private-event guard — each game
 declares its private event types, the engine rejects a declared-private type
@@ -12,6 +12,40 @@ emitted with empty `recipients` — is now recorded as acceptance criteria on T0
 rationale in `BACKLOG.md` Notes and `WEREWOLF_DESIGN.md` §3. Shared M1
 machinery, reused by Werewolf / ONUW / Secret Hitler. (Origin: integrity-review
 High on the T04 multi-recipient `recipients` change.)
+
+---
+
+## 2026-05-19 — T07: tool-call validation
+
+- Added `src/social_deduction_bench/engine/validation.py` — the game-agnostic
+  primitive enforcing invariant #3 (agents change state only via validated
+  tool calls). Three frozen, slotted dataclasses — `ToolCall`
+  (`caller`/`tool`/`target`), `ToolRequirement` (`phase`/`role`/
+  `requires_target`, each `None` = "no constraint"), `ValidationResult`
+  (`valid`/`reason`) — plus `validate_tool_call(state, call, requirement)`.
+- `validate_tool_call` is a pure read over `GameState`: fixed-order,
+  first-failure checks (caller known → alive → role → phase → target present →
+  target known → target alive). Returns a verdict + informative reason string;
+  it does not build or append the error `Event`.
+- Exported the four symbols from `engine/__init__.py`.
+- Tests `tests/engine/test_validation.py` (17): happy path, each illegal-move
+  class with paired positive/negative gate tests, empty-requirement passthrough,
+  fixed check-order pins (caller-before-target, role-before-phase,
+  phase-before-missing-target), state-purity, result immutability.
+- **Decision:** T07 returns a verdict, not an `Event` — error-observation
+  emission (round/phase/recipients, private to the caller) is deferred to the
+  game loop / T17 tool wiring. Keeps M1 game-agnostic.
+- **Decision:** the caller is always required alive (dead players never act)
+  and dead targets are always rejected — no "dead target allowed" flag, since
+  no tool needs one. Game-agnostic assumptions, not Werewolf rules.
+- `/sdb-review`: all 3 reviewers PASS, 0 critical / 0 high. Two Medium
+  test-polish items (placeholder tool name; unpinned role/phase order) both
+  fixed before commit — added the two ordering tests. Reports in
+  `.reviews/20260518-2207-04a732a-T07/`.
+- Verified: `pytest` 103/103, `ruff check`, `ruff format --check`,
+  `pyrefly check` (0 errors).
+
+**Next:** T08 — determinism harness.
 
 ---
 
