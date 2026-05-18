@@ -2,8 +2,57 @@
 
 Append-only. Newest entry on top. Read this first when starting a session.
 
-**Current state:** T03 done — engine game-state model landed, all checks green.
-**Next task:** T04 — event stream (append-only event log + JSONL serialization).
+**Current state:** T04 done — append-only event stream + JSONL landed, all checks green.
+**Next task:** T05 — observation routing (public to all, private to one agent).
+
+---
+
+## 2026-05-18 — T04: event stream
+
+- Added `src/social_deduction_bench/engine/events.py` — the append-only event
+  log + JSONL serialization:
+  - `Visibility` (`StrEnum`, PUBLIC/PRIVATE) — invariant #2's routing marker.
+  - `Event` (`frozen`, `slots`): `seq`, `round`, `phase`, `type` (opaque str),
+    `payload`, `visibility`, `recipient`. `__post_init__` enforces
+    `PRIVATE ⟺ recipient`, copies `payload` into a `MappingProxyType`, and
+    rejects non-JSON-primitive payload values so the round-trip stays lossless.
+  - `StreamHeader` (`frozen`): `seed`, `game_id`, `players` roster.
+  - `EventLog` — mutable append-only class; `append()` assigns `seq`, `events`
+    returns a read-only tuple snapshot, no remove/clear/insert.
+  - `EventStream` (`frozen`): header + log; `to_jsonl_lines` /
+    `from_jsonl_lines` (fail-loud on corruption); `write_jsonl` / `read_jsonl`.
+  Exported from `engine/__init__.py`.
+- Tests `tests/engine/test_events.py` (30): event frozen/immutable payload,
+  routing-marker rejection, contiguous `seq`, append-only view, header
+  seed/roster, lossless JSONL round-trip (incl. enums, empty log),
+  byte-identical serialization, and fail-loud read-back (non-contiguous /
+  out-of-order `seq`, missing recipient, unknown phase/visibility, non-int
+  `seq`, malformed JSON line, malformed player pair, empty input). Suite 60/60.
+- **Decision:** no Pydantic — frozen dataclasses + explicit `to_json_dict` /
+  `from_json_dict`, consistent with `state.py`/`rng.py`, keeps the engine core
+  dependency-light.
+- **Decision:** `EventLog` is the deliberate exception to the engine's
+  frozen-everywhere style — invariant #5 is "append-only", and a frozen log
+  forces O(n²) rebuilds. Safety property is append-only (no remove/edit), not
+  immutability; individual `Event`s stay frozen.
+- **Decision:** `event.type` is an opaque `str`, not an enum — concrete event
+  vocabularies belong to T06/T11/T12 and other games; the engine core stays
+  game-agnostic. Same rationale as the plain-`str` role in T03.
+- **Decision (user, plan):** whole-stream `write_jsonl` only — no incremental
+  streaming writer yet (`to_jsonl_lines` is line-oriented so live-append drops
+  in later). `game_id` is a caller-supplied `str` (no `uuid4`). Model-name
+  header metadata deferred to a T27-era extension.
+- `/sdb-review`: python-reviewer NEEDS FIXES (1 High), test-reviewer PASS,
+  integrity-reviewer PASS. Fixed all 6 consolidated findings — High:
+  reject non-JSON payload values (tuple→list round-trip lossiness); Mediums:
+  `seq`/`round` type-check on read-back, line-located error on malformed JSON,
+  strengthened the byte-identical test, added malformed-`visibility` +
+  empty-log tests; Low: player-pair unpack guard. Reports in
+  `.reviews/20260518-1022-b9a766d/`.
+- Verified: `pytest` 60/60, `ruff check`, `ruff format --check`,
+  `pyrefly check` (0 errors).
+
+**Next:** T05 — observation routing.
 
 ---
 
