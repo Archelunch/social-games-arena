@@ -28,9 +28,12 @@ class NightActions:
 
     Agent deliberation and tool validation are out of scope here — these are
     already-decided actions: a `werewolf name -> kill target name` mapping, and
-    the optional seer/doctor targets. Targets are trusted as given: legality
-    checks (target alive, a real player, the right phase/role) belong to
+    the optional seer/doctor targets. *Target* legality (the target is alive, a
+    real player, the right phase/role) is trusted as given — that belongs to
     tool-call validation at the game-loop boundary (T07/T15), not this resolver.
+    *Voter* legality is different: `resolve_night` rejects a kill vote cast by a
+    non-living player itself, because the referee must never tally an
+    ineligible ballot.
     """
 
     kill_votes: dict[str, str]
@@ -69,13 +72,20 @@ def resolve_night(state: GameState, actions: NightActions, rng: GameRNG) -> Nigh
     Pure: `state` is never mutated (invariant #1). The kill-vote tie-break is the
     only stochastic step and is seeded via `rng` over a sorted leader list, so it
     is replayable (invariant #4). The seer's result draft is private to the seer
-    (invariant #2). Raises `ValueError` outside the night phase or on empty
-    `kill_votes` — both are caller bugs.
+    (invariant #2). Raises `ValueError` outside the night phase, on empty
+    `kill_votes`, or when a kill vote is cast by a non-living player — the
+    engine-as-referee must reject an ineligible ballot rather than tally it.
+    All are caller bugs.
     """
     if state.phase is not Phase.NIGHT:
         raise ValueError(f"resolve_night requires the night phase, got {state.phase.value}")
     if not actions.kill_votes:
         raise ValueError("resolve_night requires at least one werewolf kill vote")
+
+    alive = set(state.alive_names())
+    illegal_voters = sorted(voter for voter in actions.kill_votes if voter not in alive)
+    if illegal_voters:
+        raise ValueError(f"resolve_night received kill votes from players who are not alive: {illegal_voters}")
 
     counts = Counter(actions.kill_votes.values())
     max_count = max(counts.values())

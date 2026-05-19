@@ -2,8 +2,8 @@
 
 Append-only. Newest entry on top. Read this first when starting a session.
 
-**Current state:** T11 done — night resolution + the private-event guard landed; all checks green (160/160).
-**Next task:** T12 — Day resolution (exile vote, plurality, tie → no exile). _Depends: T06, T07 — both done._
+**Current state:** T12 done — day resolution landed; all checks green (172/172).
+**Next task:** T13 — Win-condition checks (villagers win at 0 werewolves; werewolves win at parity). _Depends: T11, T12 — both done._
 
 **Tracked design decision (T09 + T11):** the private-event guard — each game
 declares its private event types, the engine rejects a declared-private type
@@ -17,6 +17,45 @@ Cross-game rationale in `BACKLOG.md` Notes and `WEREWOLF_DESIGN.md` §3.
 `games/werewolf/` (no `GameDefinition` bundle); resolution functions pure; the
 private-event guard is one shared `engine` function; T14 ships a production
 `run_game` driver + `DecisionSource` Protocol.
+
+---
+
+## 2026-05-19 — T12: day resolution
+
+- Added `games/werewolf/day.py` — `DayActions`/`DayResult` and `resolve_day`,
+  a pure derivation mirroring `resolve_night`: tally exile votes (abstentions
+  excluded), exile the **plurality** target, a tie resolves to **no exile**.
+  Takes no `GameRNG` — the §12 tie-break is deterministic, so the day phase is
+  replayable by construction (invariant #4). Emits one public `EXILE_RESOLVED`
+  draft. New event constants `EXILE_RESOLVED` + `ABSTAIN` in `events.py`.
+- **Decision (review-driven, resolves a doc/code conflict):** "majority" in
+  `WEREWOLF_DESIGN.md` §4 is implemented as **plurality** — a strict >50% rule
+  would stall most 7-player days. The doc is updated with a flagged note: §4
+  now says "plurality", §12 records the exile tie-break RESOLVED to no-exile.
+- **Decision (review High):** the integrity reviewer flagged that `resolve_day`
+  tallied every ballot with no living-voter check — a dead voter could tip a
+  plurality. Fixed: `resolve_day` now raises `ValueError` on a vote from a
+  non-living player (the engine-as-referee must reject an ineligible ballot).
+  The **same guard was added to `resolve_night`** (T11's file) so the two
+  resolvers are consistent referees — surfacing the asymmetry rather than
+  leaving it. *Target* legality stays trusted (tool-validation's job, T15);
+  only *voter* legality is enforced here. Both `NightActions`/`DayActions`
+  docstrings now state the split contract.
+- Tests `tests/games/werewolf/test_day.py` (11): plurality exile, tie → no
+  exile, all-abstain → no exile, abstentions excluded from the tally, plurality
+  below an absolute majority still exiles, dead-voter rejected, public
+  `EXILE_RESOLVED` + payload (named / `None` on a tie), input non-mutation
+  (whole-state equality), non-day-phase rejected, determinism. Plus one new
+  `test_night.py` test (dead-werewolf kill vote rejected). Suite 172/172.
+- `/sdb-review`: python + test reviewers PASS; integrity reviewer NEEDS FIXES
+  (1 High — the living-voter check, now fixed). All Mediums addressed before
+  commit: plurality-below-majority test added; purity test strengthened to
+  whole-object equality; trusted-target vs enforced-voter contract documented.
+  Reports in `.reviews/20260519-1123-1270d88/`.
+- Verified: `pytest` 172/172, `ruff check`, `ruff format --check`,
+  `pyrefly check` (0 errors).
+
+**Next:** T13 — win-condition checks.
 
 ---
 

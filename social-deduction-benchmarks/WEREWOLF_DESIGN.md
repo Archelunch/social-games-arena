@@ -95,7 +95,7 @@ while not terminal:
     announce death(s)
     discussion: K speaking slots, order decided by bidding
     voting: every alive player casts an exile vote
-    resolve exile (majority; tie -> no exile)
+    resolve exile (plurality; tie -> no exile)   # see §12
     check terminal
 ```
 
@@ -266,6 +266,11 @@ games; ratings aggregate across the population.
 
 - Discussion slot count `K` and number of discussion rounds per day — tune for
   signal vs. token cost.
-- Tie-break on exile votes — no-exile (current) vs. revote.
+- Tie-break on exile votes — **RESOLVED (T12, 2026-05-19): no-exile on a tie.**
+  No revote, no seed tie-break, so day resolution is RNG-free and deterministic.
+  Relatedly, the §4 loop's "exile" rule is implemented as **plurality** (most
+  votes wins), not an absolute >50% majority: with 7 players a strict-majority
+  rule would stall most days. "Majority" in earlier drafts of this doc meant
+  plurality; §4 now says so.
 - Whether werewolves see each other's identity at game start (default: yes).
 - Cross-game memory persistence (would push Tier 2 retrieval).

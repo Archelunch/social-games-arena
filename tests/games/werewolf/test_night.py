@@ -254,6 +254,20 @@ def test_resolve_night_rejects_a_non_night_phase() -> None:
         resolve_night(state, actions, GameRNG(0))
 
 
+def test_resolve_night_rejects_a_kill_vote_from_a_dead_werewolf() -> None:
+    """A kill vote cast by a dead werewolf fails loud — the referee rejects it.
+
+    A dead werewolf must not influence the joint kill; tallying its vote could
+    tip the target. This mirrors day resolution's living-voter guard so both
+    resolvers are consistent referees.
+    """
+    state = GameState.initial(ROSTER).with_player_killed("Wolf2")
+    actions = NightActions(kill_votes={"Wolf1": "Vil1", "Wolf2": "Vil1"})
+
+    with pytest.raises(ValueError, match="not alive"):
+        resolve_night(state, actions, GameRNG(0))
+
+
 def test_empty_kill_votes_is_rejected() -> None:
     """A night with no werewolf kill votes fails loud.
 
