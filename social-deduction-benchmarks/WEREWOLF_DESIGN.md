@@ -272,5 +272,12 @@ games; ratings aggregate across the population.
   votes wins), not an absolute >50% majority: with 7 players a strict-majority
   rule would stall most days. "Majority" in earlier drafts of this doc meant
   plurality; §4 now says so.
+- Self-targeting on night-ability tools — **RESOLVED (T15, 2026-05-19): forbidden.**
+  `submit_kill_vote`, `seer_inspect`, and `doctor_protect` reject a call whose
+  target is the caller. The doc was silent; no doctor self-protect, no seer
+  self-inspect, no werewolf self-kill-vote.
+- `submit_bid` amount range — **RESOLVED (T15, 2026-05-19): lower bound 0.**
+  The tool rejects a negative bid; the upper bound ("N" in §6.1) and the top-K
+  speaker selection are deferred to the discussion-bidding task (T18).
 - Whether werewolves see each other's identity at game start (default: yes).
 - Cross-game memory persistence (would push Tier 2 retrieval).

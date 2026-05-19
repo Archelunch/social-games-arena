@@ -2,8 +2,8 @@
 
 Append-only. Newest entry on top. Read this first when starting a session.
 
-**Current state:** T14 done — full game loop landed. **M2 (Werewolf game rules) complete**; all checks green (191/191).
-**Next task:** T15 — Game-action tools (`werewolf_chat`, `submit_kill_vote`, `seer_inspect`, …). First M3 task. _Depends: T11, T12 — both done._
+**Current state:** T15 done — the seven Werewolf game-action tools landed. **M3 (tool set) begun**; all checks green (229/229).
+**Next task:** T17 — Tool/role/phase gating: expose each tool only to its allowed role in its allowed phase. _Depends: T15 — done._ (T18, bidding-based speech ordering, is also unblocked by T15.)
 
 **Tracked design decision (T09 + T11):** the private-event guard — each game
 declares its private event types, the engine rejects a declared-private type
@@ -17,6 +17,61 @@ Cross-game rationale in `BACKLOG.md` Notes and `WEREWOLF_DESIGN.md` §3.
 `games/werewolf/` (no `GameDefinition` bundle); resolution functions pure; the
 private-event guard is one shared `engine` function; T14 ships a production
 `run_game` driver + `DecisionSource` Protocol.
+
+---
+
+## 2026-05-19 — T15: Werewolf game-action tools (M3 begins)
+
+- Added `games/werewolf/tools.py` — the seven game-action tools (WEREWOLF_DESIGN.md
+  §6): `werewolf_chat`, `submit_kill_vote`, `seer_inspect`, `doctor_protect`,
+  `submit_bid`, `speak`, `submit_exile_vote`. Each is a pure verdict function
+  `(state, caller, arg) -> ToolResult` — it reads `GameState`, never mutates it,
+  emits no events. `ToolResult` (frozen) carries `valid`/`reason`/`value`
+  (the parsed argument on success, `None` on rejection).
+- Role/phase/target gates are delegated to the engine's `validate_tool_call`
+  via `WEREWOLF_TOOL_REQUIREMENTS`, a `MappingProxyType` registry of one
+  `ToolRequirement` per tool (the catalog T17 gating will filter). Tool-specific
+  argument rules are checked in the per-tool functions after the generic gate.
+- **Scope decision (plan, D-scope):** T15 is purely additive — verdict + parsed
+  value only. No event emission (would collide with the resolver-emitted
+  `SEER_INSPECT`/`DOCTOR_PROTECT` drafts and need the loop's `EventLog`), no
+  accumulation into `NightActions`/`DayActions` (the M4 `DecisionSource` adapter
+  owns that). No engine/loop/resolver changes.
+- **Decision (user):** self-targeting on a night-ability tool is **forbidden** —
+  `submit_kill_vote`/`seer_inspect`/`doctor_protect` reject `caller == target`.
+  **Decision (user):** `submit_bid` gates only `amount >= 0`; the upper bound is
+  deferred to T18 (bidding). The doc was silent on both — `WEREWOLF_DESIGN.md`
+  §12 updated with two flagged RESOLVED notes.
+- **Decision:** `submit_exile_vote` is registered `requires_target=False` because
+  its target may be the `ABSTAIN` literal (`validate_tool_call` would reject
+  `"abstain"` as an unknown player). The function branches: an abstain vote runs
+  caller/phase gates only; a non-abstain vote runs the full player-target gate
+  via a requirement derived from the registry entry with `dataclasses.replace`.
+- **Decision (plan deviation):** did *not* add re-exports to `games/werewolf/__init__.py`.
+  The plan suggested it ("matches `engine/__init__.py`"), but the werewolf
+  sub-package convention is direct module imports (`loop.py`, every test imports
+  from `night`/`day`/`events` directly) — a lone re-export surface would break
+  conformance (CLAUDE.md rule 10). T17 imports `from ...werewolf.tools import`.
+- Tests `tests/games/werewolf/test_tools.py` (38): registry covers exactly the
+  seven tools + is immutable + per-tool phase/role gates pinned; one happy path
+  per tool incl. `abstain` accepted as a legal value; engine-gate rejections
+  (wrong role for all four night tools, wrong phase, dead/unknown target, dead
+  caller, day-tool-at-night, abstain-path caller/phase gates); tool-specific
+  rejections (self-target ×3, negative bid, empty/whitespace message); purity
+  (state byte-identical after a valid and an invalid call), determinism (same
+  rejected call → identical reason), `ToolResult` frozen/shape. Suite 229/229.
+- `/sdb-review`: python + integrity reviewers PASS; test reviewer NEEDS FIXES
+  (1 High). Addressed before commit — High: dead-caller/dead-target tests both
+  asserted `"dead"` (indistinguishable) → now assert `"caller"`/`"target"`;
+  Mediums: message tests assert `"non-empty"`, added the four night-tool
+  role-gate tests + the two abstain-path engine-gate tests; `submit_exile_vote`
+  derives its requirement from the registry (one source of truth); `submit_bid`
+  reason uses the `SUBMIT_BID` constant. Reports in
+  `.reviews/20260519-1444-12c7d40-T15/`.
+- Verified: `pytest` 229/229, `ruff check`, `ruff format --check`,
+  `pyrefly check` (0 errors).
+
+**Next:** T17 — tool/role/phase gating.
 
 ---
 

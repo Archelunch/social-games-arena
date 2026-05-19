@@ -1,0 +1,386 @@
+"""Tests for the Werewolf game-action tools (T15).
+
+The seven game-action tools (WEREWOLF_DESIGN.md §6) are how an agent *commits*
+a move. T15's `tools.py` turns a raw, parametrized invocation into a validated,
+parsed action or an informative rejection — it does not emit events or mutate
+state. These tests encode that contract and the benchmark invariants:
+
+- #3 — agents change state only via *validated* tool calls; an illegal move
+  (dead/unknown/self target, wrong role, wrong phase, bad argument) is rejected
+  with an informative reason, never silently accepted.
+- #1/#3 — a tool call is a pure verdict: it never mutates `GameState`.
+- #4 — a rejected call's reason is deterministic, so the recorded error
+  observation is byte-identical on replay.
+
+Session decisions encoded here: self-targeting on a night-ability tool is
+forbidden; `submit_bid` rejects only negative amounts (the upper bound is T18's).
+"""
+
+import pytest
+
+from social_deduction_bench.engine import GameState, Phase
+from social_deduction_bench.games.werewolf.events import ABSTAIN
+from social_deduction_bench.games.werewolf.tools import (
+    DOCTOR_PROTECT,
+    SEER_INSPECT,
+    SPEAK,
+    SUBMIT_BID,
+    SUBMIT_EXILE_VOTE,
+    SUBMIT_KILL_VOTE,
+    WEREWOLF_CHAT,
+    WEREWOLF_TOOL_REQUIREMENTS,
+    ToolResult,
+    doctor_protect,
+    seer_inspect,
+    speak,
+    submit_bid,
+    submit_exile_vote,
+    submit_kill_vote,
+    werewolf_chat,
+)
+
+ROSTER = (
+    ("Wolf1", "werewolf"),
+    ("Wolf2", "werewolf"),
+    ("Seer", "seer"),
+    ("Doc", "doctor"),
+    ("Vil1", "villager"),
+    ("Vil2", "villager"),
+    ("Vil3", "villager"),
+)
+
+ALL_TOOL_NAMES = frozenset(
+    {WEREWOLF_CHAT, SUBMIT_KILL_VOTE, SEER_INSPECT, DOCTOR_PROTECT, SUBMIT_BID, SPEAK, SUBMIT_EXILE_VOTE}
+)
+
+
+def _night() -> GameState:
+    """A fresh night-phase game (initial state — round 1, NIGHT)."""
+    return GameState.initial(ROSTER)
+
+
+def _day() -> GameState:
+    """A fresh day-phase game."""
+    return GameState.initial(ROSTER).with_phase(Phase.DAY)
+
+
+# --- registry / catalog -----------------------------------------------------
+
+
+def test_registry_covers_exactly_the_seven_tools() -> None:
+    """The requirement registry has a gate for every tool and no extras.
+
+    Invariant #3: a tool with no declared `ToolRequirement` would be ungated.
+    The registry must name exactly the seven tools — no omission, no stray key.
+    """
+    assert set(WEREWOLF_TOOL_REQUIREMENTS) == ALL_TOOL_NAMES
+
+
+def test_registry_is_immutable() -> None:
+    """The registry cannot be mutated, so a tool's gates cannot drift mid-game."""
+    with pytest.raises(TypeError):
+        WEREWOLF_TOOL_REQUIREMENTS[SPEAK] = WEREWOLF_TOOL_REQUIREMENTS[SUBMIT_BID]  # type: ignore[index]
+
+
+def test_night_tools_gate_the_night_phase_and_their_role() -> None:
+    """The four night tools are gated to NIGHT and their acting role (§5/§6.1)."""
+    expected = {
+        WEREWOLF_CHAT: ("werewolf", False),
+        SUBMIT_KILL_VOTE: ("werewolf", True),
+        SEER_INSPECT: ("seer", True),
+        DOCTOR_PROTECT: ("doctor", True),
+    }
+    for tool, (role, requires_target) in expected.items():
+        req = WEREWOLF_TOOL_REQUIREMENTS[tool]
+        assert req.phase is Phase.NIGHT
+        assert req.role == role
+        assert req.requires_target is requires_target
+
+
+def test_day_tools_gate_the_day_phase_and_no_role() -> None:
+    """The three day tools are gated to DAY with no role restriction (§5/§6.1).
+
+    `submit_exile_vote` declares `requires_target=False` so the `ABSTAIN` literal
+    is not rejected as an unknown player — its function does the target branch.
+    """
+    for tool in (SUBMIT_BID, SPEAK, SUBMIT_EXILE_VOTE):
+        req = WEREWOLF_TOOL_REQUIREMENTS[tool]
+        assert req.phase is Phase.DAY
+        assert req.role is None
+        assert req.requires_target is False
+
+
+# --- happy paths ------------------------------------------------------------
+
+
+def test_submit_kill_vote_living_target_accepted() -> None:
+    """A werewolf voting a living non-self player at night is accepted."""
+    result = submit_kill_vote(_night(), "Wolf1", "Vil1")
+    assert result == ToolResult(valid=True, value="Vil1")
+
+
+def test_seer_inspect_living_target_accepted() -> None:
+    """The seer inspecting a living non-self player at night is accepted."""
+    result = seer_inspect(_night(), "Seer", "Wolf1")
+    assert result == ToolResult(valid=True, value="Wolf1")
+
+
+def test_doctor_protect_living_target_accepted() -> None:
+    """The doctor protecting a living non-self player at night is accepted."""
+    result = doctor_protect(_night(), "Doc", "Vil2")
+    assert result == ToolResult(valid=True, value="Vil2")
+
+
+def test_werewolf_chat_nonempty_message_accepted() -> None:
+    """A werewolf chatting a non-empty message at night is accepted.
+
+    The message is not a player name; acceptance proves no player-target lookup
+    runs for a message-only tool.
+    """
+    result = werewolf_chat(_night(), "Wolf1", "let us target Vil1 tonight")
+    assert result == ToolResult(valid=True, value="let us target Vil1 tonight")
+
+
+def test_submit_bid_zero_accepted() -> None:
+    """A bid of 0 (the floor — no desire to speak) is accepted."""
+    assert submit_bid(_day(), "Vil1", 0) == ToolResult(valid=True, value=0)
+
+
+def test_submit_bid_positive_accepted() -> None:
+    """A positive bid is accepted — T15 sets no upper bound (T18 owns that)."""
+    assert submit_bid(_day(), "Vil1", 7) == ToolResult(valid=True, value=7)
+
+
+def test_speak_nonempty_message_accepted() -> None:
+    """A living player speaking a non-empty message in the day is accepted."""
+    result = speak(_day(), "Vil1", "I suspect Wolf2")
+    assert result == ToolResult(valid=True, value="I suspect Wolf2")
+
+
+def test_submit_exile_vote_player_target_accepted() -> None:
+    """An exile vote naming a living player is accepted with that player."""
+    assert submit_exile_vote(_day(), "Vil1", "Wolf2") == ToolResult(valid=True, value="Wolf2")
+
+
+def test_submit_exile_vote_abstain_accepted() -> None:
+    """`abstain` is a legal exile-vote value — never rejected as an unknown player.
+
+    `validate_tool_call` would reject `"abstain"` as an unknown target; the tool
+    must special-case the `ABSTAIN` literal and accept it.
+    """
+    assert submit_exile_vote(_day(), "Vil1", ABSTAIN) == ToolResult(valid=True, value=ABSTAIN)
+
+
+# --- rejection: engine gates delegated to validate_tool_call ----------------
+
+
+def test_submit_kill_vote_by_non_werewolf_rejected() -> None:
+    """A non-werewolf calling `submit_kill_vote` is rejected on the role gate."""
+    result = submit_kill_vote(_night(), "Seer", "Vil1")
+    assert result.valid is False
+    assert "role" in result.reason
+
+
+def test_seer_inspect_in_the_day_phase_rejected() -> None:
+    """`seer_inspect` outside the night phase is rejected on the phase gate."""
+    result = seer_inspect(_day(), "Seer", "Wolf1")
+    assert result.valid is False
+    assert "phase" in result.reason
+
+
+def test_submit_kill_vote_dead_target_rejected() -> None:
+    """A kill vote on an already-dead player is rejected (invariant #3).
+
+    The reason must name the *target* — a dead-target reason that read like a
+    dead-caller reason would mislead the agent's self-correction.
+    """
+    state = _night().with_player_killed("Vil1")
+    result = submit_kill_vote(state, "Wolf1", "Vil1")
+    assert result.valid is False
+    assert "target" in result.reason
+
+
+def test_submit_kill_vote_unknown_target_rejected() -> None:
+    """A kill vote on a name that is not a player is rejected."""
+    result = submit_kill_vote(_night(), "Wolf1", "Nobody")
+    assert result.valid is False
+    assert "unknown target" in result.reason
+
+
+def test_tool_call_by_a_dead_caller_rejected() -> None:
+    """A dead player cannot act — the call is rejected on the caller gate.
+
+    The reason must name the *caller*, distinguishing it from a dead-target
+    rejection so a gate-order regression cannot slip past this test.
+    """
+    state = _night().with_player_killed("Wolf1")
+    result = submit_kill_vote(state, "Wolf1", "Vil1")
+    assert result.valid is False
+    assert "caller" in result.reason
+
+
+def test_submit_exile_vote_unknown_player_target_rejected() -> None:
+    """A non-`abstain` exile vote on an unknown name is rejected.
+
+    Proves the player-target gates still run for `submit_exile_vote` even though
+    its registry requirement declares `requires_target=False`.
+    """
+    result = submit_exile_vote(_day(), "Vil1", "Nobody")
+    assert result.valid is False
+    assert "unknown target" in result.reason
+
+
+def test_werewolf_chat_by_non_werewolf_rejected() -> None:
+    """A non-werewolf calling `werewolf_chat` is rejected on the role gate.
+
+    The role gate must fire for a message tool too — a target-less tool still
+    carries a role requirement.
+    """
+    result = werewolf_chat(_night(), "Seer", "let me into the pack chat")
+    assert result.valid is False
+    assert "role" in result.reason
+
+
+def test_seer_inspect_by_non_seer_rejected() -> None:
+    """A non-seer calling `seer_inspect` is rejected on the role gate."""
+    result = seer_inspect(_night(), "Doc", "Wolf1")
+    assert result.valid is False
+    assert "role" in result.reason
+
+
+def test_doctor_protect_by_non_doctor_rejected() -> None:
+    """A non-doctor calling `doctor_protect` is rejected on the role gate."""
+    result = doctor_protect(_night(), "Seer", "Vil1")
+    assert result.valid is False
+    assert "role" in result.reason
+
+
+def test_submit_bid_in_the_night_phase_rejected() -> None:
+    """A day-only tool called at night is rejected on the phase gate."""
+    result = submit_bid(_night(), "Vil1", 3)
+    assert result.valid is False
+    assert "phase" in result.reason
+
+
+def test_submit_exile_vote_abstain_by_a_dead_caller_rejected() -> None:
+    """An abstain vote still runs the caller gate — a dead player cannot abstain.
+
+    The abstain path skips only the player-*target* gate; it must still gate the
+    caller, or a dead player could slip an abstain ballot into the tally.
+    """
+    state = _day().with_player_killed("Vil1")
+    result = submit_exile_vote(state, "Vil1", ABSTAIN)
+    assert result.valid is False
+    assert "caller" in result.reason
+
+
+def test_submit_exile_vote_abstain_in_the_night_phase_rejected() -> None:
+    """An abstain vote outside the day phase is rejected on the phase gate.
+
+    The abstain path must still run the phase gate — abstaining is a day action.
+    """
+    result = submit_exile_vote(_night(), "Vil1", ABSTAIN)
+    assert result.valid is False
+    assert "phase" in result.reason
+
+
+# --- rejection: tool-specific argument gates --------------------------------
+
+
+def test_submit_kill_vote_self_target_rejected() -> None:
+    """A werewolf cannot kill-vote itself — self-targeting is forbidden."""
+    result = submit_kill_vote(_night(), "Wolf1", "Wolf1")
+    assert result.valid is False
+    assert "cannot target the caller" in result.reason
+
+
+def test_seer_inspect_self_target_rejected() -> None:
+    """The seer cannot inspect itself — self-targeting is forbidden."""
+    result = seer_inspect(_night(), "Seer", "Seer")
+    assert result.valid is False
+    assert "cannot target the caller" in result.reason
+
+
+def test_doctor_protect_self_target_rejected() -> None:
+    """The doctor cannot protect itself — self-targeting is forbidden."""
+    result = doctor_protect(_night(), "Doc", "Doc")
+    assert result.valid is False
+    assert "cannot target the caller" in result.reason
+
+
+def test_submit_bid_negative_amount_rejected() -> None:
+    """A negative bid is rejected — the one bid gate T15 owns."""
+    result = submit_bid(_day(), "Vil1", -1)
+    assert result.valid is False
+    assert "non-negative" in result.reason
+
+
+def test_werewolf_chat_empty_message_rejected() -> None:
+    """An empty werewolf-chat message is a malformed action — rejected."""
+    result = werewolf_chat(_night(), "Wolf1", "")
+    assert result.valid is False
+    assert "non-empty" in result.reason
+
+
+def test_speak_empty_message_rejected() -> None:
+    """An empty public statement is a malformed action — rejected."""
+    result = speak(_day(), "Vil1", "")
+    assert result.valid is False
+    assert "non-empty" in result.reason
+
+
+def test_speak_whitespace_only_message_rejected() -> None:
+    """A whitespace-only statement carries no content — rejected."""
+    result = speak(_day(), "Vil1", "   \n\t ")
+    assert result.valid is False
+    assert "non-empty" in result.reason
+
+
+# --- purity / determinism ---------------------------------------------------
+
+
+def test_a_valid_tool_call_does_not_mutate_state() -> None:
+    """An accepted tool call leaves `GameState` byte-identical (invariant #1)."""
+    state = _night()
+    submit_kill_vote(state, "Wolf1", "Vil1")
+    assert state == GameState.initial(ROSTER)
+
+
+def test_a_rejected_tool_call_does_not_mutate_state() -> None:
+    """A rejected tool call leaves the position byte-identical (invariant #3)."""
+    state = _night()
+    submit_kill_vote(state, "Wolf1", "Wolf1")
+    assert state == GameState.initial(ROSTER)
+
+
+def test_a_rejected_calls_reason_is_deterministic() -> None:
+    """The same rejected call yields an identical reason every time (invariant #4)."""
+    state = _night()
+    first = submit_kill_vote(state, "Seer", "Vil1")
+    second = submit_kill_vote(state, "Seer", "Vil1")
+    assert first.reason == second.reason
+    assert first == second
+
+
+# --- ToolResult shape -------------------------------------------------------
+
+
+def test_tool_result_is_frozen() -> None:
+    """`ToolResult` is immutable — a recorded verdict cannot be altered."""
+    result = submit_bid(_day(), "Vil1", 1)
+    with pytest.raises(AttributeError):
+        result.valid = False  # type: ignore[misc]
+
+
+def test_a_rejected_result_carries_no_value() -> None:
+    """On rejection `value` is None — there is no parsed action to carry."""
+    result = submit_bid(_day(), "Vil1", -1)
+    assert result.valid is False
+    assert result.value is None
+
+
+def test_a_valid_result_carries_no_reason() -> None:
+    """On success `reason` is empty — a reason exists only for a rejection."""
+    result = submit_bid(_day(), "Vil1", 1)
+    assert result.valid is True
+    assert result.reason == ""
