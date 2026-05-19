@@ -6,6 +6,7 @@ from social_deduction_bench.engine.events import (
     EventLog,
     EventStream,
     StreamHeader,
+    assert_recipients_present,
     read_jsonl,
     write_jsonl,
 )
@@ -35,6 +36,7 @@ __all__ = [
     "ValidationResult",
     "advance_phase",
     "assert_deterministic",
+    "assert_recipients_present",
     "assert_streams_identical",
     "is_terminal",
     "observations_for",

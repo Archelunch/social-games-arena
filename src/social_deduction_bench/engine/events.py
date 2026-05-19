@@ -54,6 +54,24 @@ def _check_json_payload_value(value: object) -> None:
     raise ValueError(f"payload value {type(value).__name__} is not a JSON primitive")
 
 
+def assert_recipients_present(type: str, recipients: tuple[str, ...], private_types: frozenset[str]) -> None:
+    """Reject a declared-private event emitted without recipients (invariant #2).
+
+    The game-agnostic core sees `type` as an opaque string, so it cannot tell an
+    intentional broadcast (empty `recipients`) from a private event that forgot
+    its recipients — both look identical. Each game therefore declares its
+    private event types in `private_types`; this guard raises `ValueError` when a
+    type in that set is emitted with empty `recipients`, the leak that would
+    otherwise broadcast a seer result or pack-chat message to every agent.
+    Otherwise returns `None`.
+
+    (`type` shadows the builtin intentionally: `EventLog.append` already names
+    this parameter `type`, so the guard matches the call site it protects.)
+    """
+    if type in private_types and not recipients:
+        raise ValueError(f"event type '{type}' is declared private but was emitted with no recipients")
+
+
 @dataclass(frozen=True, slots=True)
 class Event:
     """One immutable, recorded event in the append-only stream.

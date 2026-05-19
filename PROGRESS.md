@@ -2,8 +2,8 @@
 
 Append-only. Newest entry on top. Read this first when starting a session.
 
-**Current state:** T10 done — seeded role assignment landed; all checks green (138/138).
-**Next task:** T11 — Night resolution + private-event guard enforcement. _Depends: T06, T07, T10 — all done._
+**Current state:** T11 done — night resolution + the private-event guard landed; all checks green (160/160).
+**Next task:** T12 — Day resolution (exile vote, plurality, tie → no exile). _Depends: T06, T07 — both done._
 
 **Tracked design decision (T09 + T11):** the private-event guard — each game
 declares its private event types, the engine rejects a declared-private type
@@ -17,6 +17,58 @@ Cross-game rationale in `BACKLOG.md` Notes and `WEREWOLF_DESIGN.md` §3.
 `games/werewolf/` (no `GameDefinition` bundle); resolution functions pure; the
 private-event guard is one shared `engine` function; T14 ships a production
 `run_game` driver + `DecisionSource` Protocol.
+
+---
+
+## 2026-05-19 — T11: night resolution + private-event guard
+
+- **Engine:** added `assert_recipients_present(type, recipients, private_types)`
+  to `engine/events.py` (exported) — the shared, game-agnostic guard that
+  enforces invariant #2. The engine sees `type` as an opaque string, so it
+  cannot tell a broadcast from a private event that forgot its recipients; the
+  guard rejects any declared-private type emitted with empty `recipients`. The
+  declared set is a parameter — Werewolf / ONUW / Secret Hitler all reuse it.
+- **Game:** `games/werewolf/events.py` — event-type constants (`KILL_RESOLVED`
+  public; `SEER_INSPECT`/`DOCTOR_PROTECT`/`WEREWOLF_CHAT` private, bound by test
+  to `PRIVATE_EVENT_TYPES`) and the frozen `EventDraft` spec (the transient
+  event the loop turns into a logged `Event`).
+- **Game:** `games/werewolf/night.py` — `NightActions`/`NightResult` and
+  `resolve_night`, a pure derivation mirroring `advance_phase`: werewolf joint
+  kill vote (plurality; tie broken by `rng.choice` over a *sorted* leader list
+  — the single stochastic point, seed-derived per invariant #4), seer private
+  inspect (`recipients=(seer_name,)`, faction result), doctor protect, and
+  protection suppresses the kill iff `doctor_protect == kill_target`. Fixed
+  draft order seer→doctor→kill-resolved for byte-identical replay.
+- **Decision:** `resolve_night` trusts decided inputs — target legality (alive,
+  real player, right role/phase) is tool-call validation's job at the loop
+  boundary (T07/T15), not the resolver's. Documented on `NightActions`.
+- **Decision:** the private-event guard is declared+enforceable now, but the
+  guard and night code first *meet* in the T14 game loop, which appends drafts
+  through it. T11 adds a direct test (`resolve_night` drafts all pass the
+  guard) so a leak is caught at the resolver, not only at the loop.
+- **Tooling note:** `tests/games/werewolf/test_events.py` would have collided
+  by basename with `tests/engine/test_events.py` under pytest's package-less
+  prepend import mode. Resolved surgically by naming the file
+  `test_event_types.py` — no `pyproject.toml` / import-mode change (an
+  `--import-mode=importlib` patch was considered and rejected as out-of-scope
+  repo-wide behavior change for a game-rules task).
+- Tests: `tests/engine/test_event_guard.py` (4), `test_event_types.py` (4),
+  `test_night.py` (14). Cover: guard accept/reject/empty-set; constants bound
+  to the declared set; `EventDraft` frozen+defaults; plurality kill, protection
+  suppress / non-suppress, seed tie-break (golden pins + leader-set membership
+  + divergence), private seer result + faction correctness, public
+  `KILL_RESOLVED`, fixed draft order, no-action single-draft, every draft
+  passes the guard, input non-mutation, non-night-phase + empty-votes rejected.
+  Suite 160/160.
+- `/sdb-review`: python + test + integrity reviewers all PASS (0 critical,
+  0 high). Addressed the Mediums before commit: made the `NightActions`
+  trusted-inputs contract explicit; strengthened the seed-tie test with a
+  leader-set membership + divergence assertion; added the resolver-drafts-pass-
+  the-guard test. Reports in `.reviews/20260519-1116-f4de78d/`.
+- Verified: `pytest` 160/160, `ruff check`, `ruff format --check`,
+  `pyrefly check` (0 errors).
+
+**Next:** T12 — day resolution.
 
 ---
 
