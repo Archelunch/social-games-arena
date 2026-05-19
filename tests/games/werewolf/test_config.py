@@ -1,0 +1,108 @@
+"""Tests for the Werewolf game configuration (T09).
+
+These pin the benchmark's 7-player default (WEREWOLF_DESIGN.md §2): wrong role
+counts change game balance and would invalidate every leaderboard result. They
+also pin `PRIVATE_EVENT_TYPES` — the declared set the engine's private-event
+guard (T11) consumes. An omission from that set silently re-opens the
+hidden-state leak invariant #2 exists to prevent.
+"""
+
+from collections import Counter
+
+from social_deduction_bench.engine import GameState
+from social_deduction_bench.games.werewolf.config import (
+    DEFAULT_PLAYER_COUNT,
+    DEFAULT_ROLE_COUNTS,
+    PRIVATE_EVENT_TYPES,
+    default_role_multiset,
+)
+from social_deduction_bench.games.werewolf.roles import Role
+
+
+def test_default_config_is_seven_players() -> None:
+    """The benchmark default is 7 players (WEREWOLF_DESIGN.md §2).
+
+    7 is the pinned balance point — long enough that memory/planning matter,
+    short enough to stay cheap. The leaderboard is only comparable across games
+    of the same size.
+    """
+    assert DEFAULT_PLAYER_COUNT == 7
+
+
+def test_default_role_counts_are_two_wolves_one_seer_one_doctor_three_villagers() -> None:
+    """Role counts are pinned to 2 / 1 / 1 / 3 (WEREWOLF_DESIGN.md §2).
+
+    These exact counts set the game's balance; changing one (e.g. 3 werewolves)
+    is a different game and would silently invalidate cross-game ratings.
+    """
+    assert DEFAULT_ROLE_COUNTS == {
+        Role.WEREWOLF: 2,
+        Role.SEER: 1,
+        Role.DOCTOR: 1,
+        Role.VILLAGER: 3,
+    }
+
+
+def test_default_role_multiset_totals_the_declared_player_count() -> None:
+    """The role multiset has exactly one entry per seat.
+
+    A drift between `DEFAULT_PLAYER_COUNT` and the sum of role counts would
+    leave a seat unassigned or a role undealt in T10 — a count mismatch must be
+    impossible by construction.
+    """
+    assert len(default_role_multiset()) == DEFAULT_PLAYER_COUNT
+
+
+def test_default_role_multiset_contents_match_the_role_counts() -> None:
+    """The multiset contains each role exactly `DEFAULT_ROLE_COUNTS` times.
+
+    Pins that the expansion places every declared role the right number of
+    times — a dealt multiset missing a werewolf would make the game unwinnable
+    for villagers.
+    """
+    assert Counter(default_role_multiset()) == Counter(
+        {role.value: count for role, count in DEFAULT_ROLE_COUNTS.items()}
+    )
+
+
+def test_default_role_multiset_is_deterministic() -> None:
+    """Two calls return the identical, order-stable multiset.
+
+    Role assignment (T10) derives all of its randomness from the seeded RNG;
+    the multiset it shuffles must itself be deterministic, or replay would
+    diverge before the shuffle even runs (invariant #4).
+    """
+    assert default_role_multiset() == default_role_multiset()
+
+
+def test_private_event_types_are_exactly_the_three_declared() -> None:
+    """`PRIVATE_EVENT_TYPES` is exactly the three Werewolf private channels.
+
+    This frozenset *is* the input to the engine's private-event guard (T11). An
+    omitted type would let that event be emitted with empty recipients —
+    broadcasting hidden state and breaking invariant #2.
+    """
+    assert PRIVATE_EVENT_TYPES == frozenset({"seer_inspect", "werewolf_chat", "doctor_protect"})
+
+
+def test_private_event_types_is_an_immutable_frozenset() -> None:
+    """The declared private set is a `frozenset` — it cannot be mutated.
+
+    A mutable set could be edited mid-game, silently dropping a private type
+    from the guard's coverage.
+    """
+    assert isinstance(PRIVATE_EVENT_TYPES, frozenset)
+
+
+def test_default_multiset_builds_a_valid_game_state() -> None:
+    """The role multiset zips onto names into a `GameState` without raising.
+
+    Pins the contract with the engine (T03): the config's output is exactly the
+    `(name, role)` shape `GameState.initial` accepts, with no duplicate names.
+    """
+    multiset = default_role_multiset()
+    roster = [(f"P{i}", role) for i, role in enumerate(multiset)]
+    state = GameState.initial(roster)
+
+    assert len(state.players) == DEFAULT_PLAYER_COUNT
+    assert tuple(p.role for p in state.players) == multiset

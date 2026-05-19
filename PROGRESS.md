@@ -2,16 +2,60 @@
 
 Append-only. Newest entry on top. Read this first when starting a session.
 
-**Current state:** T08 done — determinism harness landed; M1 (engine core) complete, all checks green.
-**Next task:** T09 — Werewolf role definitions + 7-player config + declared private event types. _Depends: T03 — done._ First M2 task.
+**Current state:** T09 done — Werewolf roles + config landed; M2 (game rules) begun, all checks green.
+**Next task:** T10 — Seeded role assignment. _Depends: T02, T09 — both done._
 
 **Tracked design decision (T09 + T11):** the private-event guard — each game
 declares its private event types, the engine rejects a declared-private type
-emitted with empty `recipients` — is now recorded as acceptance criteria on T09
-(declaration) and T11 (enforcement) in `BACKLOG.md`, with the cross-game
-rationale in `BACKLOG.md` Notes and `WEREWOLF_DESIGN.md` §3. Shared M1
-machinery, reused by Werewolf / ONUW / Secret Hitler. (Origin: integrity-review
-High on the T04 multi-recipient `recipients` change.)
+emitted with empty `recipients` — is recorded as acceptance criteria on T09
+(declaration) and T11 (enforcement). T09 declares `PRIVATE_EVENT_TYPES`;
+enforcement (engine function + loop wiring + negative test) lands in T11.
+Cross-game rationale in `BACKLOG.md` Notes and `WEREWOLF_DESIGN.md` §3.
+
+**M2 plan:** the whole milestone (T09–T14) is planned in
+`~/.claude/plans/i-need-you-to-curried-conway.md`. Decided: flat modules in
+`games/werewolf/` (no `GameDefinition` bundle); resolution functions pure; the
+private-event guard is one shared `engine` function; T14 ships a production
+`run_game` driver + `DecisionSource` Protocol.
+
+---
+
+## 2026-05-19 — T09: Werewolf roles + config (M2 begins)
+
+- Added `src/social_deduction_bench/games/werewolf/` — the first concrete game
+  plugged into the M1 engine:
+  - `roles.py` — `Faction` (`StrEnum`, WEREWOLVES/VILLAGERS), `Role`
+    (`StrEnum`, WEREWOLF/SEER/DOCTOR/VILLAGER), a private `MappingProxyType`
+    role->faction map, and `faction_of(role: str) -> Faction`. `faction_of`
+    accepts the engine's opaque `str` role and fails loud (`ValueError`) on an
+    unknown role — an unrecognized role must never default into a faction and
+    silently corrupt the T13 win check.
+  - `config.py` — `DEFAULT_PLAYER_COUNT = 7`, `DEFAULT_ROLE_COUNTS`
+    (`MappingProxyType`, 2 WW / 1 Seer / 1 Doctor / 3 Villager),
+    `PRIVATE_EVENT_TYPES` (`frozenset`: `seer_inspect`, `werewolf_chat`,
+    `doctor_protect`), and `default_role_multiset()` — a deterministic 7-tuple
+    of role string values, one per seat.
+- **Decision (user):** flat modules, no `GameDefinition` bundle object. The
+  T06-parked "game-module interface" question is resolved to: each game exposes
+  plain constants/functions; a unifying interface is extracted only if
+  ONUW/Secret Hitler later earn it (`no abstractions for single-use code`).
+- `roles.py`/`config.py` use `MappingProxyType` + `frozenset` so the role map,
+  role counts, and declared private-event set cannot be mutated mid-game.
+- Tests `tests/games/werewolf/test_roles.py` (6) + `test_config.py` (8): role
+  ->faction map pinned; role/faction string literals pinned (they cross into
+  transcripts and `ToolRequirement.role`); `faction_of` fail-loud on unknown
+  role; closed role/faction sets; 7-player count + 2/1/1/3 counts pinned;
+  multiset totals/contents/determinism; `PRIVATE_EVENT_TYPES` is exactly the
+  three declared types; the multiset builds a valid `GameState` with roles
+  intact. Suite 126/126.
+- `/sdb-review`: python + test + integrity reviewers all PASS (0 critical,
+  0 high). Addressed the one actionable Medium — the `GameState` test now also
+  asserts role survival, not just player count. Remaining Mediums are T11
+  follow-ups (bind `PRIVATE_EVENT_TYPES` strings to the T11 emitter constants).
+- Verified: `pytest` 126/126, `ruff check`, `ruff format --check`,
+  `pyrefly check` (0 errors).
+
+**Next:** T10 — seeded role assignment.
 
 ---
 
