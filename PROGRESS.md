@@ -2,8 +2,8 @@
 
 Append-only. Newest entry on top. Read this first when starting a session.
 
-**Current state:** T13 done — win-condition checks landed; all checks green (183/183).
-**Next task:** T14 — Full game-loop integration test (scripted 7-player game runs to terminal, deterministic). _Depends: T08, T13 — both done._ Last M2 task.
+**Current state:** T14 done — full game loop landed. **M2 (Werewolf game rules) complete**; all checks green (191/191).
+**Next task:** T15 — Game-action tools (`werewolf_chat`, `submit_kill_vote`, `seer_inspect`, …). First M3 task. _Depends: T11, T12 — both done._
 
 **Tracked design decision (T09 + T11):** the private-event guard — each game
 declares its private event types, the engine rejects a declared-private type
@@ -17,6 +17,53 @@ Cross-game rationale in `BACKLOG.md` Notes and `WEREWOLF_DESIGN.md` §3.
 `games/werewolf/` (no `GameDefinition` bundle); resolution functions pure; the
 private-event guard is one shared `engine` function; T14 ships a production
 `run_game` driver + `DecisionSource` Protocol.
+
+---
+
+## 2026-05-19 — T14: full game-loop integration (M2 complete)
+
+- Added `games/werewolf/loop.py` — the production game-loop driver:
+  - `DecisionSource` (`Protocol`) — the seam supplying decided night/day
+    actions. Scripted in M2; an M4 DSPy agent adapter implements the same
+    Protocol with no driver change. Positional-only `state` param (matches the
+    `TerminalCheck` convention).
+  - `run_game(roster, seed, decisions, game_id, max_rounds)` — the single owner
+    of the `EventLog` and one seed-derived `GameRNG`. Runs the
+    WEREWOLF_DESIGN §4 loop: night → check terminal → day → check terminal →
+    next round. Logs every `EventDraft` through `assert_recipients_present`
+    *before* append (a leaky private event never enters the stream). Appends a
+    final public `GAME_OVER` event. `max_rounds` is a fail-loud `RuntimeError`
+    safety stop against a non-terminating script.
+- Added `games/werewolf/scripted.py` — `ScriptedDecisions`, a `DecisionSource`
+  backed by pre-written per-round action lists with cursor-advance semantics
+  and fail-loud exhaustion. Lives in `src/` (reused by T23), same rationale as
+  the determinism harness. New public event constant `GAME_OVER`.
+- **Decision (D3, plan):** the loop ships as production code, not test-only
+  orchestration — T23/T27 reuse `run_game`. It is a thin driver: one hard-coded
+  night→day→check loop parameterized only by `DecisionSource`. No phase
+  registry, no `GameDefinition` ABC.
+- Tests `tests/games/werewolf/test_game_loop.py` (8): a scripted 7-player
+  werewolf-win game reaches a terminal `GAME_OVER` (public); a scripted
+  villager-win game terminates *after a day exile* (the complementary
+  post-exile terminal path); `assert_deterministic` via the T08 harness; a
+  tied kill vote diverges by seed (the *victim* itself diverges); no private
+  event is logged with empty recipients; the transcript round-trips through
+  JSONL; a plain villager's `observations_for` view leaks no private event;
+  a non-terminating script hits the `max_rounds` `RuntimeError`. Suite 191/191.
+- `/sdb-review`: python + test + integrity reviewers all PASS (0 critical,
+  0 high). Addressed the actionable test Mediums before commit: added the
+  scripted villager-win game (exercises the post-exile break), strengthened the
+  seed-divergence test to assert the kill victim diverges, asserted `GAME_OVER`
+  is a public broadcast, switched the observer sample to a clearer villager.
+  Reports in `.reviews/20260519-1148-7683cec/`.
+- Verified: `pytest` 191/191, `ruff check`, `ruff format --check`,
+  `pyrefly check` (0 errors).
+
+**M2 (Werewolf game rules) is complete** — T09–T14 all done. The engine now
+runs a full, seeded, deterministic, replayable 7-player Werewolf game end to
+end with scripted decisions. M3 (the tool set agents call) is next.
+
+**Next:** T15 — game-action tools.
 
 ---
 

@@ -1,8 +1,9 @@
 """Werewolf event-type constants and the `EventDraft` resolution spec.
 
-These constants name every event the Werewolf rules emit. `KILL_RESOLVED` and
-`EXILE_RESOLVED` are public — the night's death and the day's exile
-announcements are common knowledge. The three private
+These constants name every event the Werewolf rules emit. `KILL_RESOLVED`,
+`EXILE_RESOLVED`, and `GAME_OVER` are public — the night's death, the day's
+exile announcement, and the final winning-faction declaration are common
+knowledge. The three private
 constants (`SEER_INSPECT`, `DOCTOR_PROTECT`, `WEREWOLF_CHAT`) are bound to
 `config.PRIVATE_EVENT_TYPES`, the frozenset the engine's private-event guard
 enforces; keeping the constants and that set in lockstep is what stops a private
@@ -19,6 +20,9 @@ KILL_RESOLVED = "kill_resolved"
 
 # Public: the day's exile announcement, broadcast to every player.
 EXILE_RESOLVED = "exile_resolved"
+
+# Public: the final transcript event, naming the winning faction.
+GAME_OVER = "game_over"
 
 # The literal an exile vote uses to mean "no choice"; excluded from the tally.
 ABSTAIN = "abstain"

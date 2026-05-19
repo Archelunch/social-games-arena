@@ -28,7 +28,7 @@ The Werewolf-specific rules plugged into the M1 engine.
 - [x] **T11** — Night resolution: werewolf joint kill vote, seer inspect, doctor protect, protection suppresses the kill. Private night events carry non-empty `recipients`; the engine **rejects a declared-private event type emitted with empty `recipients`** — see Notes. _Depends: T06, T07, T10_
 - [x] **T12** — Day resolution: exile vote, majority rule, tie → no exile. _Depends: T06, T07_
 - [x] **T13** — Win-condition checks: villagers win when both werewolves dead; werewolves win at parity. Checked after night AND after exile. _Depends: T11, T12_
-- [ ] **T14** — Full game-loop integration test: a scripted 7-player game runs to a terminal state deterministically. _Depends: T08, T13_
+- [x] **T14** — Full game-loop integration test: a scripted 7-player game runs to a terminal state deterministically. _Depends: T08, T13_
 
 ## M3 — Tool set
 
