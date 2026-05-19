@@ -1,5 +1,6 @@
 """Game-agnostic referee: state, phases, event log, RNG."""
 
+from social_deduction_bench.engine.determinism import assert_deterministic, assert_streams_identical
 from social_deduction_bench.engine.events import (
     Event,
     EventLog,
@@ -33,6 +34,8 @@ __all__ = [
     "ToolRequirement",
     "ValidationResult",
     "advance_phase",
+    "assert_deterministic",
+    "assert_streams_identical",
     "is_terminal",
     "observations_for",
     "public_events",

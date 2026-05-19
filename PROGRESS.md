@@ -2,8 +2,8 @@
 
 Append-only. Newest entry on top. Read this first when starting a session.
 
-**Current state:** T07 done — game-agnostic tool-call validation landed, all checks green.
-**Next task:** T08 — determinism harness (same seed → identical event stream). _Depends: T04 — done._
+**Current state:** T08 done — determinism harness landed; M1 (engine core) complete, all checks green.
+**Next task:** T09 — Werewolf role definitions + 7-player config + declared private event types. _Depends: T03 — done._ First M2 task.
 
 **Tracked design decision (T09 + T11):** the private-event guard — each game
 declares its private event types, the engine rejects a declared-private type
@@ -12,6 +12,51 @@ emitted with empty `recipients` — is now recorded as acceptance criteria on T0
 rationale in `BACKLOG.md` Notes and `WEREWOLF_DESIGN.md` §3. Shared M1
 machinery, reused by Werewolf / ONUW / Secret Hitler. (Origin: integrity-review
 High on the T04 multi-recipient `recipients` change.)
+
+---
+
+## 2026-05-19 — T08: determinism harness
+
+- Added `src/social_deduction_bench/engine/determinism.py` — the test utility
+  that turns invariant #4 (same seed → identical, replayable event stream)
+  from an aspiration into a gate. Two public functions:
+  - `assert_streams_identical(actual, expected)` — raises `AssertionError` on
+    the first divergence, in a fixed check order (header → event count →
+    events pairwise → JSONL serialization) so the failure reason is itself
+    deterministic. The message names the first divergent event's `seq`.
+  - `assert_deterministic(produce, seed)` — runs a `Callable[[int],
+    EventStream]` producer twice with `seed` and compares the two transcripts.
+  Both exported from `engine/__init__.py`.
+- **Source finding that shaped the design:** `EventLog` defines no `__eq__`,
+  so a frozen `EventStream`'s generated `__eq__` compares its `log` field by
+  *identity* — two streams with identical content are never `==`. The
+  comparator deliberately bypasses `EventStream ==`, comparing `header`
+  (frozen, structural) and the `log.events` tuples (`tuple[Event, ...]`,
+  structural) instead. We did **not** add `EventLog.__eq__` (T04 code, out of
+  scope; the user chose a dedicated comparator to own this gap).
+- **Decision (user):** harness lives in `src/` (`engine/determinism.py`), not
+  `tests/` — it is a public engine util that T14's integration test and the
+  T28 replay tool both consume; "test utility" describes its purpose, not its
+  location. **Decision (user):** expose both the producer-driven
+  `assert_deterministic` and the lower-level `assert_streams_identical`
+  comparator (T28's replay-vs-recorded check can reuse the latter).
+- **Decision:** explicit `raise AssertionError`, never bare `assert` — survives
+  `python -O`, matching the engine's fail-loud convention.
+- Tests `tests/engine/test_determinism.py` (9): seeded producer passes; the
+  critical negative test (a seed-ignoring producer is *caught*); seed
+  pass-through pinned (producer called twice with the exact seed);
+  independently-built equal streams compare equal *despite* raw `!=` (pins the
+  `EventLog`-no-`__eq__` rationale); payload / header / event-count / recipient
+  divergence each detected; first-divergent-`seq` pinpointing. Suite 112/112.
+- `/sdb-review`: python + test + integrity reviewers all PASS (0 critical,
+  0 high). Fixed both Mediums before commit — scoped the negative fixture's
+  `itertools.count()` into the one test that uses it (no shared module state);
+  added `match=` anchors to the header / event-count / recipient negative
+  tests. Reports in `.reviews/20260519-1031-c00a741-T08/`.
+- Verified: `pytest` 112/112, `ruff check`, `ruff format --check`,
+  `pyrefly check` (0 errors).
+
+**Next:** T09 — Werewolf role definitions (M2 begins).
 
 ---
 

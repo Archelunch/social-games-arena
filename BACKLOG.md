@@ -17,7 +17,7 @@ The game-agnostic, pure, seeded state machine. No game rules here.
 - [x] **T05** — Observation routing: public events to all, private events to one agent; agents never see hidden state. _Depends: T04_
 - [x] **T06** — Phase state machine: night/day transitions, terminal detection hook. _Depends: T03_
 - [x] **T07** — Tool-call validation: reject illegal moves (dead target, wrong phase/role) with an informative error observation. _Depends: T05, T06_
-- [ ] **T08** — Determinism harness: test utility asserting same seed → identical event stream. _Depends: T04_
+- [x] **T08** — Determinism harness: test utility asserting same seed → identical event stream. _Depends: T04_
 
 ## M2 — Werewolf game rules
 
