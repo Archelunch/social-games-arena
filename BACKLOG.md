@@ -24,7 +24,7 @@ The game-agnostic, pure, seeded state machine. No game rules here.
 The Werewolf-specific rules plugged into the M1 engine.
 
 - [x] **T09** — Role definitions (Werewolf, Seer, Doctor, Villager) + 7-player default config. The game definition also **declares its private event types** (`seer_inspect`, `werewolf_chat`, `doctor_protect`) for the engine's private-event guard — see Notes. _Depends: T03_
-- [ ] **T10** — Seeded role assignment. _Depends: T02, T09_
+- [x] **T10** — Seeded role assignment. _Depends: T02, T09_
 - [ ] **T11** — Night resolution: werewolf joint kill vote, seer inspect, doctor protect, protection suppresses the kill. Private night events carry non-empty `recipients`; the engine **rejects a declared-private event type emitted with empty `recipients`** — see Notes. _Depends: T06, T07, T10_
 - [ ] **T12** — Day resolution: exile vote, majority rule, tie → no exile. _Depends: T06, T07_
 - [ ] **T13** — Win-condition checks: villagers win when both werewolves dead; werewolves win at parity. Checked after night AND after exile. _Depends: T11, T12_

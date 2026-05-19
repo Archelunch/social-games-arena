@@ -2,8 +2,8 @@
 
 Append-only. Newest entry on top. Read this first when starting a session.
 
-**Current state:** T09 done — Werewolf roles + config landed; M2 (game rules) begun, all checks green.
-**Next task:** T10 — Seeded role assignment. _Depends: T02, T09 — both done._
+**Current state:** T10 done — seeded role assignment landed; all checks green (138/138).
+**Next task:** T11 — Night resolution + private-event guard enforcement. _Depends: T06, T07, T10 — all done._
 
 **Tracked design decision (T09 + T11):** the private-event guard — each game
 declares its private event types, the engine rejects a declared-private type
@@ -17,6 +17,40 @@ Cross-game rationale in `BACKLOG.md` Notes and `WEREWOLF_DESIGN.md` §3.
 `games/werewolf/` (no `GameDefinition` bundle); resolution functions pure; the
 private-event guard is one shared `engine` function; T14 ships a production
 `run_game` driver + `DecisionSource` Protocol.
+
+---
+
+## 2026-05-19 — T10: seeded role assignment
+
+- Added `src/social_deduction_bench/games/werewolf/assignment.py` — the seeded
+  name->role deal (invariant #4: the assignment derives entirely from the
+  engine seed, so a recorded game replays from turn one):
+  - `assign_roles(names, role_multiset, rng)` — shuffles the *roles* (not the
+    names) via `GameRNG.shuffle` and zips them onto fixed-order names, so the
+    transcript roster stays in caller order with only the role column varying
+    by seed. Fail-loud `ValueError` on a name/role count mismatch (either
+    direction) and on a role string that is not a real `Role`.
+  - `assign_default_roles(names, rng)` — convenience wrapper over the 7-player
+    `default_role_multiset()`.
+- **Decision:** shuffle roles against fixed-order names (not vice versa) — keeps
+  `StreamHeader.players` in caller order; only the role column is seed-derived.
+- Tests `tests/games/werewolf/test_assignment.py` (12): same-seed identity,
+  different-seed divergence, **golden seed-42 literal** (pins the exact deal
+  against an RNG/shuffle-algorithm change, mirroring `test_rng.py`), dealt
+  roles equal the multiset, every name seated once, count mismatch rejected
+  both directions, no global-`random` leak, input list not mutated, output
+  builds a `GameState`, wrapper matches the explicit call. Suite 138/138.
+- `/sdb-review`: python + test + integrity reviewers all PASS (0 critical,
+  0 high). Addressed the consolidated Mediums before commit: `assign_roles`
+  now validates each role string against `Role` (a typo'd role fails loud at
+  deal time, not as a corrupt T13 win count); added the more-names-than-roles
+  and unknown-role tests; fixed a test docstring that wrongly claimed
+  `GameState.initial` does no duplicate-name rejection. Reports in
+  `.reviews/20260519-1105-5f7f4f9/`.
+- Verified: `pytest` 138/138, `ruff check`, `ruff format --check`,
+  `pyrefly check` (0 errors).
+
+**Next:** T11 — night resolution + private-event guard enforcement.
 
 ---
 
