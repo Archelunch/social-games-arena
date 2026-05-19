@@ -2,8 +2,8 @@
 
 Append-only. Newest entry on top. Read this first when starting a session.
 
-**Current state:** T12 done — day resolution landed; all checks green (172/172).
-**Next task:** T13 — Win-condition checks (villagers win at 0 werewolves; werewolves win at parity). _Depends: T11, T12 — both done._
+**Current state:** T13 done — win-condition checks landed; all checks green (183/183).
+**Next task:** T14 — Full game-loop integration test (scripted 7-player game runs to terminal, deterministic). _Depends: T08, T13 — both done._ Last M2 task.
 
 **Tracked design decision (T09 + T11):** the private-event guard — each game
 declares its private event types, the engine rejects a declared-private type
@@ -17,6 +17,37 @@ Cross-game rationale in `BACKLOG.md` Notes and `WEREWOLF_DESIGN.md` §3.
 `games/werewolf/` (no `GameDefinition` bundle); resolution functions pure; the
 private-event guard is one shared `engine` function; T14 ships a production
 `run_game` driver + `DecisionSource` Protocol.
+
+---
+
+## 2026-05-19 — T13: win-condition checks
+
+- Added `games/werewolf/win.py` — `Winner` (`StrEnum`, WEREWOLVES/VILLAGERS),
+  `winner(state) -> Winner | None`, and `is_game_over(state) -> bool`.
+  `winner` is a pure read over `GameState`: villagers win at zero werewolves
+  alive; werewolves win at parity (`#werewolves_alive >= #non_werewolves_alive`).
+- **Decision (correctness invariant):** the villager check runs *before* the
+  werewolf parity check. At the moment the last werewolf dies, `0 >= 0` parity
+  is also true — checking parity first would mis-credit the werewolves a win at
+  the instant they are wiped out. A dedicated test pins this ordering.
+- `is_game_over` is the game's `TerminalCheck`: a plain function matching the
+  engine's positional-only single-arg Protocol (T06), so the loop (T14) calls
+  `is_terminal(state, is_game_over)`. The engine owns no win condition — it
+  only relays this verdict (invariant #1).
+- Tests `tests/games/werewolf/test_win.py` (11): villager win, werewolf parity
+  win, werewolf outnumber win, game continues at 2v5 and 2v3, the check-order
+  test (empty board → VILLAGERS not parity), `is_game_over` true/false, the
+  engine `is_terminal` seam, `winner` purity, `Winner` string literals pinned.
+  Suite 183/183.
+- `/sdb-review`: python + test + integrity reviewers all PASS (0 critical,
+  0 high). Only optional Low/Medium nits (a readability local; an unreachable
+  bad-role test) — none applied. Integrity flagged for T14: the loop must run
+  the check after *both* night resolution and exile. Reports in
+  `.reviews/20260519-1136-706debd/`.
+- Verified: `pytest` 183/183, `ruff check`, `ruff format --check`,
+  `pyrefly check` (0 errors).
+
+**Next:** T14 — full game-loop integration test (closes M2).
 
 ---
 
