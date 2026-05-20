@@ -39,6 +39,7 @@ def test_new_memory_is_empty_everything_blank() -> None:
     assert m.events == ()
     assert m.notes == ()
     assert dict(m.beliefs) == {}
+    assert m.plan == ""
     assert m.recall() == ""
 
 
@@ -207,6 +208,99 @@ def test_set_belief_accepts_empty_evidence() -> None:
     assert m.beliefs["Bob"].evidence == ""
 
 
+# --- set_plan ------------------------------------------------------------------
+
+
+def test_new_memory_plan_is_empty_string() -> None:
+    """A fresh memory's `plan` is the empty string (the §9 "no plan yet" state).
+
+    Pins the `str` invariant: callers (T16's `get_plan`) never need to
+    handle `None`. The default is a value, not a missing field.
+    """
+    m = GameMemory()
+    assert m.plan == ""
+    assert isinstance(m.plan, str)
+
+
+def test_set_plan_stores_text() -> None:
+    """`set_plan(text)` round-trips through the `plan` accessor (§9)."""
+    m = GameMemory()
+    m.set_plan("reveal seer result on R2 if accused")
+    assert m.plan == "reveal seer result on R2 if accused"
+
+
+def test_set_plan_overwrites_previous_plan() -> None:
+    """A second `set_plan` replaces the first — §9 calls plan "one persistent string," not a history.
+
+    Mirrors `set_belief`'s overwrite semantics: an updated strategic
+    posture replaces the prior one. A history would require a vocabulary
+    the spec does not define.
+    """
+    m = GameMemory()
+    m.set_plan("attack the doctor early")
+    m.set_plan("protect the seer instead")
+    assert m.plan == "protect the seer instead"
+
+
+@pytest.mark.parametrize("blank", ["", "   ", "\n", "\t"])
+def test_set_plan_rejects_blank_text(blank: str) -> None:
+    """Blank plan text is a write-side mistake — fail loud at write time.
+
+    Mirrors `Note.text`'s rule (`not s.strip()`): an empty plan is the
+    default state, not an explicit assertion. If an agent ever wants to
+    declare "no plan," it writes meaningful text like "no plan" — not a
+    blank.
+    """
+    m = GameMemory()
+    with pytest.raises(ValueError, match="Plan"):
+        m.set_plan(blank)
+
+
+@pytest.mark.parametrize("bad", [None, 123, 1.5, b"bytes", ["list"], {"k": "v"}])
+def test_set_plan_rejects_non_str(bad: object) -> None:
+    """`set_plan(non-str)` raises — belt-and-braces vs. Pyrefly.
+
+    Mirrors the `isinstance(self.text, str)` guard in `Note` and the
+    `isinstance` guards in `Belief`; surface a runtime contract violation
+    at the write seam rather than corrupting a later `get_plan` call.
+    `None` is included explicitly so a future "relax to truthy-only"
+    refactor cannot silently let `None` through as a meaningful "clear."
+    """
+    m = GameMemory()
+    with pytest.raises(ValueError, match="Plan"):
+        m.set_plan(bad)  # type: ignore[arg-type]
+
+
+def test_plan_is_not_surfaced_through_recall() -> None:
+    """`recall()` renders events + notes only (§7 Tier 0) — the plan is a separate read surface.
+
+    §9 says the plan "is part of memory," and a future refactor might be
+    tempted to fold it into `recall()` for symmetry. That change would
+    silently alter the LLM-facing context shape — pin the contract so it
+    has to rewrite this test deliberately. T16's `get_plan` cognitive
+    tool reads `memory.plan` directly.
+    """
+    m = GameMemory()
+    m.set_plan("unique-plan-marker-xyzzy")
+    m.record_event(_event(1, "kill_resolved"))
+    m.remember("a note", round_=1)
+    rendered = m.recall()
+    assert "unique-plan-marker-xyzzy" not in rendered
+    assert "plan" not in rendered  # neither the literal nor a "plan:" prefix
+
+
+def test_plan_property_is_read_only() -> None:
+    """`m.plan` is a property — direct assignment raises `AttributeError`.
+
+    Pins the property/no-setter shape so a future regression (replacing
+    the property with a plain attribute) cannot silently let callers
+    bypass `set_plan`'s validation.
+    """
+    m = GameMemory()
+    with pytest.raises(AttributeError):
+        m.plan = "rebind"  # type: ignore[misc]
+
+
 # --- recall (Tier 0) -----------------------------------------------------------
 
 
@@ -351,17 +445,20 @@ def test_two_memories_independent() -> None:
     m1.record_event(_event(1, "kill_resolved"))
     m1.remember("note", round_=1)
     m1.set_belief("Bob", "werewolf", "high", "")
+    m1.set_plan("attack Bob")
     assert m2.events == ()
     assert m2.notes == ()
     assert dict(m2.beliefs) == {}
+    assert m2.plan == ""
 
 
-def test_identical_operation_sequence_yields_identical_recall_output() -> None:
-    """Two memories built from the same op sequence produce byte-identical recall.
+def test_identical_operation_sequence_yields_identical_state() -> None:
+    """Two memories built from the same op sequence produce byte-identical state.
 
     Per-agent restatement of invariant #4: `recall` / `remember` /
-    `set_belief` add no nondeterminism (no time, uuid, randomness). Two
-    runs of the same seeded game must produce identical agent context.
+    `set_belief` / `set_plan` add no nondeterminism (no time, uuid,
+    randomness). Two runs of the same seeded game must produce identical
+    agent-side context — `recall` rendering, belief table, and plan.
     """
 
     def build() -> GameMemory:
@@ -370,11 +467,14 @@ def test_identical_operation_sequence_yields_identical_recall_output() -> None:
         m.remember("trust Cara", round_=2)
         m.record_event(_event(3, "exile_resolved", {"exiled": "Bob"}))
         m.set_belief("Bob", "werewolf", "high", "voted with the pack")
+        m.set_plan("alpha")
+        m.set_plan("beta")
         return m
 
     m1, m2 = build(), build()
     assert m1.recall() == m2.recall()
     assert m1.recall(last_n_rounds=2) == m2.recall(last_n_rounds=2)
+    assert m1.plan == m2.plan == "beta"
 
 
 def test_recall_does_not_mutate_internal_state() -> None:

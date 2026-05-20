@@ -2,8 +2,8 @@
 
 Append-only. Newest entry on top. Read this first when starting a session.
 
-**Current state:** T19 done — `GameMemory` (Tier 0) landed. **M4 in progress** (entry point complete); all checks green (303/303).
-**Next task:** T16 is now unblocked — cognitive tools (`get_public_state`, `get_private_info`, `recall`, `remember`, `get_beliefs`, `set_belief`, `get_plan`, `set_plan`). T20 (belief table refinement + persistent plan string) is also unblocked.
+**Current state:** T20 done — persistent `plan` string landed on `GameMemory`. **M4 in progress** (storage layer complete); all checks green (318/318).
+**Next task:** T16 — cognitive tools (`get_public_state`, `get_private_info`, `recall`, `remember`, `get_beliefs`, `set_belief`, `get_plan`, `set_plan`). T20 landed first to give `get_plan`/`set_plan` real storage; T16 is now a thin interface layer.
 
 **Tracked design decision (T09 + T11):** the private-event guard — each game
 declares its private event types, the engine rejects a declared-private type
@@ -17,6 +17,68 @@ Cross-game rationale in `BACKLOG.md` Notes and `WEREWOLF_DESIGN.md` §3.
 `games/werewolf/` (no `GameDefinition` bundle); resolution functions pure; the
 private-event guard is one shared `engine` function; T14 ships a production
 `run_game` driver + `DecisionSource` Protocol.
+
+---
+
+## 2026-05-20 — T20: persistent `plan` string on `GameMemory`
+
+- Added a per-agent persistent strategic plan (WEREWOLF_DESIGN.md §9) to
+  `agents/memory.py` — the storage T16's `get_plan` / `set_plan` cognitive
+  tools will read/write:
+  - `GameMemory._plan: str = ""` (initialized inside `__init__`, not at
+    class scope, so per-agent isolation holds).
+  - `set_plan(text: str) -> None` — overwrites the prior plan. Validates
+    `isinstance(text, str)` and `text.strip()`, raises `ValueError`
+    naming `Plan` on rejection. Blanks fail loud (mirrors `remember` and
+    `Note.text`); §9 frames the plan as a strategic statement, so an
+    explicit clear belongs as meaningful text, not a blank.
+  - `plan -> str` read-only property. ``""`` until first `set_plan`.
+- `recall()` is **unchanged** — events + notes only, per §7 Tier 0. The
+  plan is a separate read surface T16 reads directly. A regression test
+  (`test_plan_is_not_surfaced_through_recall`) pins the contract so any
+  future fold-in must rewrite that test deliberately.
+- **Decision (user, plan):** T20 lands before T16. The cognitive-tools
+  brief (T16) lists `get_plan` / `set_plan`, but the underlying storage
+  (this plan field) was T20's. Doing T20 first keeps T16 a thin
+  interface layer over a final storage shape.
+- **Decision (plan):** **no belief-table refinement.** T19 already
+  shipped the §8 row shape verbatim (`player`/`guess`/`confidence`/
+  `evidence`, fail-loud `__post_init__`, `MappingProxyType` view). The
+  spec does not call for `round` / history / faction vocab; adding any
+  would violate CLAUDE.md rule 2. T20 is plan-only.
+- **Decision (plan):** default `plan = ""` (not `None`). Keeps the
+  `str` invariant on the read accessor, so T16's `get_plan(state,
+  memory, caller) -> str` becomes a one-liner with no `Optional`
+  plumbing.
+- Tests `tests/agents/test_memory.py` (+18 cases): default-empty
+  (`""` + `isinstance(plan, str)`); round-trip; overwrite (mirrors
+  `set_belief`); blank rejection parametrized over `["", "   ", "\n",
+  "\t"]`; non-`str` rejection parametrized over
+  `[None, 123, 1.5, b"bytes", ["list"], {"k": "v"}]` (review-driven —
+  pins that a future "relax to truthy-only" refactor cannot silently
+  let `None` through); read-only property shape; `plan` not surfaced
+  through `recall()`. Two existing tests extended:
+  `test_two_memories_independent` now writes a plan on `m1` and asserts
+  `m2.plan == ""` (per-agent isolation, invariant #2); the determinism
+  test (now `test_identical_operation_sequence_yields_identical_state`)
+  writes two plans inside the build sequence and asserts both memories
+  converge on the second. Suite 318/318.
+- `/sdb-review`: python + test + integrity reviewers **all PASS** (0
+  critical, 0 high, 0 medium on python+integrity; 2 mediums + 1 coverage
+  on test, all addressed). Addressed before commit: capitalized the
+  error-message prefix to `"Plan"` (consistency with `"Note"` / `"Belief"`,
+  test matches updated); expanded the non-`str` rejection test to cover
+  `None`/`bytes`/`list`/`dict`/`float`; renamed the determinism test to
+  `_yields_identical_state` (the assertions now cover plan and beliefs,
+  not just recall output); added the `recall()` no-plan pin. Reports in
+  `.reviews/20260520-1627-97ba9ec-T20/`.
+- Verified: `pytest` 318/318, `ruff check`, `ruff format --check`,
+  `pyrefly check` (0 errors).
+
+**Next:** T16 — cognitive tools (`get_public_state`, `get_private_info`,
+`recall`, `remember`, `get_beliefs`, `set_belief`, `get_plan`, `set_plan`).
+Plain str-returning readers, plain positional args `(state, memory, caller)`,
+no `AgentContext` bundle (user decisions during T20 plan).
 
 ---
 

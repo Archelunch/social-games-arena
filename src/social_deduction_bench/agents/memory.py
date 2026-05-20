@@ -20,6 +20,10 @@ typo or case shift fails loud at write time rather than drifting case by
 case. Beliefs are a current view (each call replaces the row), not a
 history.
 
+§9 adds one persistent `plan` string per agent — written via `set_plan`,
+read via `plan`, with the same overwriting (not historical) semantics as
+a belief row. The default `""` is the "no plan yet" state.
+
 `record_event` is the ingestion seam the T21 agent loop calls once per
 decision point after `observations_for(events, player)`. The memory does
 not filter by recipient; that is the engine routing layer's job (T05).
@@ -121,6 +125,7 @@ class GameMemory:
         self._events: list[Event] = []
         self._notes: list[Note] = []
         self._beliefs: dict[str, Belief] = {}
+        self._plan: str = ""
 
     # --- ingest ---------------------------------------------------------
 
@@ -152,6 +157,17 @@ class GameMemory:
         """
         self._beliefs[player] = Belief(player=player, guess=guess, confidence=confidence, evidence=evidence)
 
+    def set_plan(self, text: str) -> None:
+        """Write or overwrite the agent's persistent strategic plan (§9).
+
+        Plans are a current view, not a history — a second call replaces
+        the previous one. Blanks fail loud (mirrors `remember`); an
+        explicit clear is meaningful text the LLM can write, not a blank.
+        """
+        if not isinstance(text, str) or not text.strip():
+            raise ValueError(f"Plan 'text' must be a non-blank str, got {text!r}")
+        self._plan = text
+
     # --- read-only snapshots -------------------------------------------
 
     @property
@@ -173,6 +189,11 @@ class GameMemory:
         wanting an isolated copy can `dict(m.beliefs)`.
         """
         return MappingProxyType(self._beliefs)
+
+    @property
+    def plan(self) -> str:
+        """The agent's current persistent plan (§9). ``""`` until first `set_plan`."""
+        return self._plan
 
     # --- Tier 0 retrieval ----------------------------------------------
 
