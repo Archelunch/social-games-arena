@@ -18,7 +18,7 @@ forbidden; `submit_bid` rejects only negative amounts (the upper bound is T18's)
 
 import pytest
 
-from social_deduction_bench.engine import GameState, Phase
+from social_deduction_bench.engine import GameState, Phase, available_tools
 from social_deduction_bench.games.werewolf.events import ABSTAIN
 from social_deduction_bench.games.werewolf.tools import (
     DOCTOR_PROTECT,
@@ -384,3 +384,95 @@ def test_a_valid_result_carries_no_reason() -> None:
     result = submit_bid(_day(), "Vil1", 1)
     assert result.valid is True
     assert result.reason == ""
+
+
+# --- T17: per-role/phase gating from the Werewolf registry ------------------
+#
+# `available_tools(state, caller, WEREWOLF_TOOL_REQUIREMENTS)` is the dual of
+# `validate_tool_call`: the agent's "menu" of legal moves right now. These
+# tests cross-check that the Werewolf registry produces the per-role menus
+# WEREWOLF_DESIGN.md §5 prescribes (decision points 1-6).
+
+
+def test_available_tools_werewolf_at_night() -> None:
+    """A werewolf's night menu is exactly the pack chat + kill vote (§5 row 1).
+
+    Pack chat lets them coordinate; the kill vote ends the decision point. Any
+    other tool here would expose a move the werewolves should not have.
+    """
+    menu = available_tools(_night(), "Wolf1", WEREWOLF_TOOL_REQUIREMENTS)
+    assert menu == (SUBMIT_KILL_VOTE, WEREWOLF_CHAT)
+
+
+def test_available_tools_seer_at_night() -> None:
+    """The seer's night menu is exactly `seer_inspect` (§5 row 2).
+
+    The seer has one night ability and one shot; the menu must mirror that.
+    """
+    assert available_tools(_night(), "Seer", WEREWOLF_TOOL_REQUIREMENTS) == (SEER_INSPECT,)
+
+
+def test_available_tools_doctor_at_night() -> None:
+    """The doctor's night menu is exactly `doctor_protect` (§5 row 3)."""
+    assert available_tools(_night(), "Doc", WEREWOLF_TOOL_REQUIREMENTS) == (DOCTOR_PROTECT,)
+
+
+def test_available_tools_plain_villager_at_night_is_empty() -> None:
+    """A plain villager has no night ability — the menu is empty.
+
+    Invariant #2 — a villager has no night affordance; surfacing any tool
+    would either let them act out of turn or hint that other roles exist.
+    """
+    assert available_tools(_night(), "Vil1", WEREWOLF_TOOL_REQUIREMENTS) == ()
+
+
+@pytest.mark.parametrize("caller", ["Wolf1", "Seer", "Doc", "Vil1"])
+def test_available_tools_any_role_at_day(caller: str) -> None:
+    """Every alive role gets the same day menu — bidding, speaking, exile vote.
+
+    §5 rows 4-6 are role-agnostic by design: every alive player bids, may
+    speak (refinement to bid-winners is T18), and casts an exile vote. A
+    role-specific day menu would change the social game.
+    """
+    menu = available_tools(_day(), caller, WEREWOLF_TOOL_REQUIREMENTS)
+    assert menu == (SPEAK, SUBMIT_BID, SUBMIT_EXILE_VOTE)
+
+
+def test_available_tools_dead_werewolf_is_empty() -> None:
+    """A dead werewolf has no menu, even though their role and phase match.
+
+    Invariant #1 — dead players never act. Defense-in-depth with the call-time
+    gate: an agent integration layer reading the menu must see "nothing", not
+    a list of tools the engine will instantly reject.
+    """
+    state = _night().with_player_killed("Wolf1")
+    assert available_tools(state, "Wolf1", WEREWOLF_TOOL_REQUIREMENTS) == ()
+
+
+def test_available_tools_changes_when_phase_flips() -> None:
+    """Same player at NIGHT and DAY sees different menus.
+
+    Phase is the dial that flips the board. A menu that did not change with
+    the phase would mean the gating is broken — either statically returning
+    everything or ignoring `state.phase`.
+    """
+    seer_night = available_tools(_night(), "Seer", WEREWOLF_TOOL_REQUIREMENTS)
+    seer_day = available_tools(_day(), "Seer", WEREWOLF_TOOL_REQUIREMENTS)
+    assert seer_night != seer_day
+    assert seer_night == (SEER_INSPECT,)
+    assert seer_day == (SPEAK, SUBMIT_BID, SUBMIT_EXILE_VOTE)
+
+
+def test_registry_coverage_parity() -> None:
+    """The union of all (role, phase) menus equals the registry's key set.
+
+    Nothing in the catalog is unreachable — if a tool is declared, *some*
+    living caller in *some* phase can call it. An orphaned tool would be a
+    benchmark bug (an agent could never invoke it, skewing metrics).
+    """
+    callers = ("Wolf1", "Seer", "Doc", "Vil1")
+    seen: set[str] = set()
+    for state in (_night(), _day()):
+        for caller in callers:
+            seen.update(available_tools(state, caller, WEREWOLF_TOOL_REQUIREMENTS))
+    assert seen == ALL_TOOL_NAMES

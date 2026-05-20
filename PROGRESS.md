@@ -2,8 +2,8 @@
 
 Append-only. Newest entry on top. Read this first when starting a session.
 
-**Current state:** T15 done — the seven Werewolf game-action tools landed. **M3 (tool set) begun**; all checks green (229/229).
-**Next task:** T17 — Tool/role/phase gating: expose each tool only to its allowed role in its allowed phase. _Depends: T15 — done._ (T18, bidding-based speech ordering, is also unblocked by T15.)
+**Current state:** T17 done — tool/role/phase exposure-query primitive landed in the engine. **M3 in progress**; all checks green (252/252).
+**Next task:** T18 — Bidding-based speech ordering: collect bids, top-K speak in bid order. _Depends: T15 — done._ T16 (cognitive tools) remains blocked by T18 + T19.
 
 **Tracked design decision (T09 + T11):** the private-event guard — each game
 declares its private event types, the engine rejects a declared-private type
@@ -17,6 +17,59 @@ Cross-game rationale in `BACKLOG.md` Notes and `WEREWOLF_DESIGN.md` §3.
 `games/werewolf/` (no `GameDefinition` bundle); resolution functions pure; the
 private-event guard is one shared `engine` function; T14 ships a production
 `run_game` driver + `DecisionSource` Protocol.
+
+---
+
+## 2026-05-20 — T17: tool/role/phase exposure query
+
+- Added `available_tools(state, caller, registry)` to `engine/validation.py`
+  (exported from `engine/__init__.py`) — the dual of `validate_tool_call`:
+  the latter rejects an illegal call, the former returns the *menu* of legal
+  calls the caller may make right now. Pure read over `GameState`; filters a
+  `Mapping[str, ToolRequirement]` to entries where `requirement.phase is None
+  or == state.phase` *and* `requirement.role is None or == caller.role`; dead
+  caller → empty tuple; unknown caller raises `KeyError` (matches
+  `state.player`). Output is `tuple(sorted(names))` so it is byte-identical
+  across runs (invariant #4).
+- **Decision (plan, user-confirmed):** scope is the **exposure query only**.
+  T07 had parked "error-observation emission" to "the game loop / T17 tool
+  wiring" — re-scoped to T19/T21 (the agent-invocation layer that owns the
+  retry loop and event context). `ToolResult.reason` still ends at memory;
+  becoming a private `Event` belongs with the agent integration.
+- **Decision:** primitive lives in `engine/validation.py`, next to
+  `ToolRequirement` and `validate_tool_call` — same conceptual unit. A new
+  `engine/gating.py` for one short function would have been the speculative
+  indirection CLAUDE.md rule 2 rejects.
+- **Decision:** no Werewolf-side wrapper. Callers invoke
+  `available_tools(state, caller, WEREWOLF_TOOL_REQUIREMENTS)` directly,
+  matching the T15 plan-deviation precedent (the werewolf sub-package
+  convention is direct module imports, no re-export surface).
+- **Decision:** dead caller → `()` (semantic emptiness) but unknown caller
+  → `KeyError` (structural fail-loud). Mirrors `observations_for`'s
+  blank-vs-unknown split — invariants get fail-loud, queries get empty.
+- Tests: `tests/engine/test_gating.py` (new, 12) — happy path (role+phase
+  match), per-axis filtering (wrong phase, wrong role), `None` = "no
+  constraint" on each axis and on both, dead-caller empty, unknown-caller
+  KeyError, empty-registry empty, state non-mutation (whole-object equality),
+  output is a sorted `tuple` with deliberately reversed insertion order,
+  determinism across two independent state builds. Werewolf cross-check in
+  `tests/games/werewolf/test_tools.py` (11 new cases incl. a parametrized
+  4-role day-menu test): per-role night menus (§5 rows 1–3), villager-empty
+  night, every role at DAY → `(SPEAK, SUBMIT_BID, SUBMIT_EXILE_VOTE)` (§5
+  rows 4–6), dead werewolf → empty, phase-flip changes the menu, registry
+  coverage parity (the union of all (role, phase) menus equals the registry's
+  key set — nothing in the catalog is unreachable). Suite 252/252.
+- `/sdb-review`: python + test + integrity reviewers **all PASS** (0
+  critical, 0 high, 0 medium). Two scoped-out follow-ups recorded in
+  `consolidated.md`: T18 must filter `speak` out of the day menu for
+  non-bid-winners once the speech sub-phase exists; T19/T21 should add an
+  integration test pinning that any tool surfaced by `available_tools` is one
+  `validate_tool_call` accepts. Reports in
+  `.reviews/20260520-0812-7e4bc81-T17/`.
+- Verified: `pytest` 252/252, `ruff check`, `ruff format --check`,
+  `pyrefly check` (0 errors).
+
+**Next:** T18 — bidding-based speech ordering.
 
 ---
 

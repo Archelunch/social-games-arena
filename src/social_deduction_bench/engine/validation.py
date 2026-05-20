@@ -17,6 +17,7 @@ Building and appending the error `Event` is left to the game loop; T07 supplies
 only the verdict and its reason string.
 """
 
+from collections.abc import Mapping
 from dataclasses import dataclass
 
 from social_deduction_bench.engine.state import GameState, Phase
@@ -126,3 +127,42 @@ def validate_tool_call(state: GameState, call: ToolCall, requirement: ToolRequir
             return ValidationResult(valid=False, reason=f"target '{call.target}' is dead and cannot be acted on")
 
     return ValidationResult(valid=True)
+
+
+def available_tools(
+    state: GameState,
+    caller: str,
+    registry: Mapping[str, ToolRequirement],
+) -> tuple[str, ...]:
+    """Tools `caller` may legally call right now, given `state` and `registry`.
+
+    The dual of `validate_tool_call`: that primitive rejects an illegal call,
+    this one returns the menu of legal calls. Both layers must agree — a tool
+    listed here must pass `validate_tool_call`; a tool that would pass must
+    appear here. The DSPy ReAct agent (T21) consumes this menu to choose its
+    next move; the menu is also defense-in-depth that hides illegal options
+    before the agent ever tries them.
+
+    Pure read: state is not mutated. A tool is included iff its requirement's
+    phase matches `state.phase` (or is unset) *and* its role matches the
+    caller's role (or is unset). `requires_target` does not gate exposure —
+    it constrains how a tool is called, not whether it is available. A dead
+    caller has no available tools (empty tuple), consistent with invariant #1.
+    Unknown caller raises `KeyError`, matching `state.player` — silently
+    degrading would mask a routing bug in the agent integration layer.
+
+    Names are returned sorted in a tuple so the output is byte-identical
+    across runs (invariant #4); replay and any consumer keyed on the menu
+    must see the same order regardless of dict iteration order or Python
+    minor version.
+    """
+    player = state.player(caller)
+    if not player.alive:
+        return ()
+    names = [
+        name
+        for name, requirement in registry.items()
+        if (requirement.phase is None or requirement.phase == state.phase)
+        and (requirement.role is None or requirement.role == player.role)
+    ]
+    return tuple(sorted(names))

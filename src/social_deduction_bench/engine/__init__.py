@@ -18,6 +18,7 @@ from social_deduction_bench.engine.validation import (
     ToolCall,
     ToolRequirement,
     ValidationResult,
+    available_tools,
     validate_tool_call,
 )
 
@@ -38,6 +39,7 @@ __all__ = [
     "assert_deterministic",
     "assert_recipients_present",
     "assert_streams_identical",
+    "available_tools",
     "is_terminal",
     "observations_for",
     "public_events",
