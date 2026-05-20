@@ -1,16 +1,13 @@
-"""`ReActDecisionSource` — the T22 `DecisionSource` adapter.
+"""`ReActDecisionSource` — a `DecisionSource` backed by per-player ReAct loops.
 
-Wires a per-player `react_decide` loop into the `run_game` driver. One ReAct
-loop runs per acting player per phase: at night the werewolves vote a kill, the
-seer inspects, the doctor protects; in the day every alive player votes (or
-abstains) on the exile. After each phase, the driver calls `observe` with the
-events just appended; the adapter routes them through `observations_for` into
-each player's `GameMemory` (invariant #2 — the only path from the engine into
-an agent's memory).
+One `react_decide` loop runs per acting player per phase: at night the
+werewolves vote a kill, the seer inspects, the doctor protects; in the day
+every alive player votes (or abstains) on the exile. After each phase, the
+driver calls `observe` with the events just appended; the adapter routes them
+through `observations_for` into each living player's `GameMemory`.
 
-The adapter walks alive players in *roster* order, not role-grouped or
-alphabetical order, so identical `(roster, scripted-LM-queue)` inputs replay to
-identical decisions (invariant #4).
+Iteration is roster order — deterministic and replayable for any fixed
+LM queue.
 """
 
 from __future__ import annotations
@@ -47,12 +44,11 @@ from social_deduction_bench.games.werewolf.tools import (
 
 
 def _require_str_target(value: object, *, terminal: str, caller: str) -> str:
-    """Narrow `Commit.value` to `str` for a target-shaped terminal; fail loud otherwise.
+    """Narrow `Commit.value` to `str` for a target-shaped terminal; raise `TypeError` otherwise.
 
-    Why: `Commit.value: object` is intentionally permissive at the loop layer,
-    but `NightActions` / `DayActions` carry `str` targets. A non-string here
-    would corrupt resolver behavior. Plain `assert` is stripped under `-O`, so
-    use an explicit guard.
+    `Commit.value: object` is permissive at the loop layer, but `NightActions`
+    and `DayActions` carry `str` targets. `assert` is stripped under `-O`, so
+    an explicit guard is used.
     """
     if not isinstance(value, str):
         raise TypeError(
@@ -87,12 +83,10 @@ _COGNITIVE_TOOLS: tuple[Callable[..., str], ...] = (
 
 
 def _bind_cognitive(fn: Callable[..., str], state: GameState, memory: GameMemory, caller: str) -> Callable[..., str]:
-    """Bind `(state, memory, caller)` into a cognitive tool, hiding them from the LLM-facing signature.
+    """Bind `(state, memory, caller)` into a cognitive tool, exposing only trailing args.
 
     DSPy's `Tool` derives its schema from `inspect.signature`; the wrapper drops
-    the first three params and re-publishes the trailing ones so the LLM only
-    sees the call-time arguments. `__name__` and `__doc__` are inherited so the
-    LLM sees the original tool name and docstring.
+    the first three params and re-publishes the trailing ones.
     """
     original_sig = inspect.signature(fn)
     trailing = list(original_sig.parameters.values())[3:]
@@ -107,7 +101,7 @@ def _bind_cognitive(fn: Callable[..., str], state: GameState, memory: GameMemory
 
 
 def _bind_terminal(fn: Callable[..., ToolResult], state: GameState, caller: str) -> Callable[..., ToolResult]:
-    """Bind `(state, caller)` into a game-action tool; the LLM sees only the trailing args."""
+    """Bind `(state, caller)` into a game-action tool, exposing only trailing args."""
     original_sig = inspect.signature(fn)
     trailing = list(original_sig.parameters.values())[2:]
     new_sig = original_sig.replace(parameters=trailing)
@@ -121,12 +115,7 @@ def _bind_terminal(fn: Callable[..., ToolResult], state: GameState, caller: str)
 
 
 class ReActDecisionSource:
-    """A `DecisionSource` that drives one `react_decide` loop per acting player per phase.
-
-    Owns one `GameMemory` per roster name; routes engine events into the right
-    memory via `observations_for` (invariant #2); aggregates per-player commits
-    into `NightActions` / `DayActions` in roster order (invariant #4).
-    """
+    """A `DecisionSource` that runs one `react_decide` loop per acting player per phase."""
 
     def __init__(
         self,
@@ -147,13 +136,9 @@ class ReActDecisionSource:
         return self._memories_view
 
     def observe(self, state: GameState, new_events: tuple[Event, ...], /) -> None:
-        """Route each new event to its recipients via `observations_for` (invariant #2).
+        """Route each new event to its recipients via `observations_for`.
 
-        The driver hands a sliced view of just-appended events on each call;
-        re-pushing prior events would corrupt per-player history, so we trust
-        the slice and route only what arrived. Dead players are skipped — they
-        will never be asked for an action again, so growing their memory is
-        wasted work and confuses post-game inspection.
+        Dead players are skipped — their memory will never be consulted again.
         """
         for name, _role in self._roster:
             if not state.is_alive(name):
@@ -164,9 +149,9 @@ class ReActDecisionSource:
     def night_actions(self, state: GameState, /) -> NightActions:
         """Run one ReAct loop per acting living player; aggregate to `NightActions`.
 
-        Walks roster order. Werewolves contribute kill votes; the seer (if
-        alive) contributes one inspect; the doctor (if alive) contributes one
-        protect; villagers do nothing at night.
+        Werewolves contribute kill votes; the seer (if alive) contributes one
+        inspect; the doctor (if alive) contributes one protect; villagers do
+        nothing at night.
         """
         if state.phase is not Phase.NIGHT:
             raise ValueError(f"night_actions requires the night phase, got {state.phase.value}")

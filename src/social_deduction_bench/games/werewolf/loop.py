@@ -37,14 +37,13 @@ from social_deduction_bench.games.werewolf.win import is_game_over, winner
 class DecisionSource(Protocol):
     """Supplies the decided actions for each phase, and absorbs the resulting events.
 
-    Scripted in M2; an M4 DSPy agent adapter implements the same Protocol — the
-    loop does not change. Each accessor receives the current `GameState` so an
-    agent-backed source can decide from the live position. After each *night*
-    and *day* resolution, the driver calls `observe` with the events that were
-    just appended; an agent-backed source uses it to push routed observations
-    into each player's `GameMemory`. The terminal `GAME_OVER` event is NOT
-    routed through `observe` — the game is over, no agent will consult its
-    memory afterwards. A scripted source ignores `observe` entirely.
+    Each accessor receives the current `GameState` so an agent-backed source
+    can decide from the live position. After each night and day resolution,
+    the driver calls `observe` with the events that were just appended; an
+    agent-backed source uses it to push routed observations into each player's
+    `GameMemory`. The terminal `GAME_OVER` event is not routed through
+    `observe` — no agent will consult its memory after the game ends. A
+    scripted source may ignore `observe` entirely.
     """
 
     def night_actions(self, state: GameState, /) -> NightActions: ...

@@ -55,9 +55,4 @@ class ScriptedDecisions:
         return actions
 
     def observe(self, state: GameState, new_events: tuple[Event, ...], /) -> None:
-        """No-op: a scripted source ignores the live transcript by design.
-
-        Symmetric with `night_actions` / `day_actions` ignoring `state`. An
-        agent-backed source uses `observe` to push routed events into each
-        player's `GameMemory`; a fixed script has nothing to record.
-        """
+        """No-op: a fixed script has no per-player memory to update."""

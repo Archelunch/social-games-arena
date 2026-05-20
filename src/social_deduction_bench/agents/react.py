@@ -1,17 +1,9 @@
-"""Per-decision-point ReAct loop primitive (T21).
+"""Per-decision-point ReAct loop primitive.
 
-Drives a `dspy.ReAct`'s `react` predictor under a scoped LM. Terminal-tool
-wrappers write into a per-loop side-band slot on a valid call; the LLM then
-emits `finish` to close the loop, and we return a `Commit` built from the
-slot. An empty slot after the loop ends (either via `finish` or `max_iters`)
-is fail-loud — the driver requires an action per acting player per phase, so
-a silent no-op is wrong.
-
-We do not call `ReAct.forward` directly. ReAct's default forward appends an
-`extract` step that consumes another LM call, which is wasted work for us:
-the commitment lives in the slot, not in the LM's `committed_action` output.
-Driving `react.react` + `react.tools` ourselves keeps the LM call count to
-"one per react iteration" and nothing else.
+Drives `dspy.ReAct.react` (the per-iteration predictor) directly, not
+`ReAct.forward` — `forward` would append an extra `extract` LM call that the
+caller does not need, since the commitment is captured side-band when a
+terminal tool reports a valid `ToolResult`.
 """
 
 from __future__ import annotations
@@ -29,11 +21,7 @@ from social_deduction_bench.games.werewolf.tools import ToolResult
 
 @dataclass(frozen=True, slots=True)
 class Commit:
-    """The decision a player-agent's loop committed to this turn.
-
-    Frozen + hashable so callers (T22's `DecisionSource` adapter) can use it as
-    a value type when aggregating `NightActions` / `DayActions`.
-    """
+    """The decision a player-agent's loop committed to this turn."""
 
     tool: str
     value: object
@@ -53,9 +41,9 @@ class _Slot:
 def _rename_cognitive(fn: Callable[..., str]) -> Callable[..., str]:
     """Strip a single trailing underscore from a cognitive closure's `__name__`.
 
-    Why: callers commonly bind `(state, memory, caller)` with a closure named
-    `recall_` to avoid shadowing the imported `recall`. The LLM-facing tool
-    name should be `recall`, not `recall_`.
+    A caller that binds `(state, memory, caller)` with a closure named `recall_`
+    (to avoid shadowing the imported `recall`) still gets `recall` as the
+    LLM-facing tool name.
     """
     name = fn.__name__
     if not name.endswith("_"):
@@ -72,11 +60,7 @@ def _rename_cognitive(fn: Callable[..., str]) -> Callable[..., str]:
 
 
 def _wrap_terminal(name: str, fn: Callable[..., ToolResult], slot: _Slot) -> Callable[..., str]:
-    """Wrap a terminal tool: on `valid`, write the slot and return a friendly observation; else return the reason.
-
-    Preserves `__name__` (overridden to `name`), `__doc__`, and `__signature__`
-    so DSPy's `Tool` inference sees the underlying tool's schema.
-    """
+    """Wrap a terminal tool to capture a valid commit into `slot` and return a string observation."""
 
     @functools.wraps(fn)
     def wrapper(**kwargs: object) -> str:
@@ -94,8 +78,6 @@ def _wrap_terminal(name: str, fn: Callable[..., ToolResult], slot: _Slot) -> Cal
 
 
 def _build_signature() -> type[dspy.Signature]:
-    """Build the minimal `decision_brief -> committed_action` signature ReAct needs."""
-
     class DecisionSignature(dspy.Signature):
         """Decide and commit one game action by calling the appropriate tool."""
 
@@ -106,13 +88,7 @@ def _build_signature() -> type[dspy.Signature]:
 
 
 def _format_trajectory(trajectory: dict[str, object]) -> str:
-    """Render the trajectory dict as labeled `[[ ## key ## ]]\\n{value}` blocks for the next LM step.
-
-    Why: plain labeled blocks are sufficient under `DummyLM` (which ignores the
-    prompt body). A real-LLM rollout (T23) may want to route this through
-    `dspy.settings.adapter.format_user_message_content` for full structural
-    parity with `dspy.ReAct.forward`; revisit then.
-    """
+    """Render the trajectory dict as labeled `[[ ## key ## ]]\\n{value}` blocks."""
     lines: list[str] = []
     for key, value in trajectory.items():
         lines.append(f"[[ ## {key} ## ]]\n{value}")
@@ -130,11 +106,9 @@ def react_decide(
 ) -> Commit:
     """Run one ReAct decision under a scoped LM and return the committed action.
 
-    Drives the ReAct `react` predictor in a fresh trajectory: each iteration is
-    one LM call. Terminals write into a side-band slot on a valid call; the LLM
-    then emits `finish` to close the loop. After the loop ends, an empty slot
-    is fail-loud per CLAUDE.md rule 11 — the driver cannot proceed without a
-    commit.
+    Each iteration is one LM call. Terminal-tool wrappers write into a private
+    slot on a valid call; the LLM then emits `finish` to close the loop. An
+    empty slot at loop exit raises `RuntimeError`.
     """
     slot = _Slot()
     renamed_cognitive = [_rename_cognitive(fn) for fn in cognitive_tools]
