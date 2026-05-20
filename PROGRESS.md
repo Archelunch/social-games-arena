@@ -2,8 +2,8 @@
 
 Append-only. Newest entry on top. Read this first when starting a session.
 
-**Current state:** T17 done — tool/role/phase exposure-query primitive landed in the engine. **M3 in progress**; all checks green (252/252).
-**Next task:** T18 — Bidding-based speech ordering: collect bids, top-K speak in bid order. _Depends: T15 — done._ T16 (cognitive tools) remains blocked by T18 + T19.
+**Current state:** T18 done — bidding-based speech-ordering resolver landed. **M3 in progress**; all checks green (267/267).
+**Next task:** T16 is still blocked by T19 (cognitive tools need `GameMemory`); the unblocked M4 entry point is T19 — `GameMemory` (Tier 0): events, notes, beliefs; `remember`/`recall`/`set_belief`.
 
 **Tracked design decision (T09 + T11):** the private-event guard — each game
 declares its private event types, the engine rejects a declared-private type
@@ -17,6 +17,74 @@ Cross-game rationale in `BACKLOG.md` Notes and `WEREWOLF_DESIGN.md` §3.
 `games/werewolf/` (no `GameDefinition` bundle); resolution functions pure; the
 private-event guard is one shared `engine` function; T14 ships a production
 `run_game` driver + `DecisionSource` Protocol.
+
+---
+
+## 2026-05-20 — T18: bidding-based speech ordering
+
+- Added `games/werewolf/discussion.py` — `BiddingActions` /
+  `DiscussionResult` frozen dataclasses and `resolve_discussion(state,
+  actions, rng)`, the pure resolver picking the top `K_DISCUSSION_SLOTS = 3`
+  bidders in descending bid order. Tie-break is one `rng.shuffle` per tied
+  amount group over a `sorted(...)` leader list — sorted before the draw so
+  the RNG sees byte-identical input regardless of bid-dict iteration order
+  (invariant #4). Voter-alive guard mirrors `resolve_day` / `resolve_night`:
+  a bid from a non-living (or unknown) player raises `ValueError` rather
+  than seating a phantom speaker.
+- Added `K_DISCUSSION_SLOTS: Final[int] = 3` (Werewolf Arena baseline for
+  7-player games) and `MAX_BID: Final[int] = 100` (the §6.1 `0..N` upper
+  bound parked since T15) to `games/werewolf/config.py`. `submit_bid` now
+  clamps to `[0, MAX_BID]` — the rejection reason names both the cap and
+  the offending amount for the agent's self-correction.
+- **Decision (user, plan):** `K_DISCUSSION_SLOTS = 3` (Werewolf Arena
+  baseline); `MAX_BID = 100` (bounded to deny an unbounded-bid griefing
+  surface — RNG cost, prompt-token bloat, integer overflow); **defer the
+  `run_game` wiring + `SPEECH` / per-bid event emission to T21** when the
+  DSPy agent layer drives speech turns and constrains the event-privacy
+  question. The T17-flagged "filter `speak` out of the day menu for
+  non-bid-winners" follow-up rides on the same T21 wiring (it needs a
+  sub-phase or "active speakers" slot in `GameState`).
+- **Decision (plan):** the resolver intentionally accepts an arbitrary or
+  empty bid subset rather than enforcing "every alive agent submits a bid"
+  (§4) — that invariant belongs to the loop (T21), which maps a missing or
+  timed-out bid to 0 before calling the resolver. Documented on
+  `BiddingActions`.
+- **Decision (plan):** no event emission yet. The pure resolver returns the
+  speaker tuple; `SPEECH` / `DISCUSSION_RESOLVED` event drafts and the
+  `DecisionSource` Protocol extension land with the loop wiring (T21), where
+  the event-privacy question is constrained by the agent caller.
+- **Decision (integrity review):** `K_DISCUSSION_SLOTS` and `MAX_BID` are
+  `Final[int]` so Pyrefly flags any reassignment — mirrors the
+  `MappingProxyType` / `frozenset` immutability discipline of the adjacent
+  constants.
+- Tests: `tests/games/werewolf/test_discussion.py` (11) — descending-bid
+  order pin (zero bid excluded only because K is full), fewer-than-K clamp,
+  zero bids can win a slot (§5 `0..N`), seeded tie-break (hand-verified
+  seed pair (0,1) diverges; permutation-set membership), tie-break replayable
+  across two fresh `GameRNG(7)` runs, mixed-tie test (unique top is always
+  slot 0, RNG only governs tie scopes), empty bids → empty speakers, input
+  non-mutation via whole-object equality, non-day-phase `ValueError`,
+  dead-bidder `ValueError`, unknown-bidder `ValueError` (defense against a
+  future refactor swapping `state.alive_names()` for `state.player(...).alive`).
+  `tests/games/werewolf/test_config.py` (2) — `K_DISCUSSION_SLOTS == 3`,
+  `MAX_BID == 100`. `tests/games/werewolf/test_tools.py` (2) — `submit_bid`
+  accepts the `MAX_BID` boundary, rejects `MAX_BID + 1` with a reason naming
+  both. Suite 267/267.
+- `/sdb-review`: python + test + integrity reviewers **all PASS** (0
+  critical, 0 high, 6 medium). All 6 mediums addressed before commit:
+  loop-responsibility note on `BiddingActions`; inline why-comment on the
+  sort-then-shuffle determinism rationale; `Final[int]` on both new config
+  constants; hand-verified-seed comment on the tie-break test; deleted the
+  duplicate `K_DISCUSSION_SLOTS` test; tightened the phase-rejection match
+  from `"day"` to `"day phase"`; added the unknown-bidder test from the
+  missing-coverage list. Reports in
+  `.reviews/20260520-1241-a26a3b1-T18/`.
+- Verified: `pytest` 267/267, `ruff check`, `ruff format --check`,
+  `pyrefly check` (0 errors).
+
+**Next:** T19 — `GameMemory` (Tier 0): events, notes, beliefs;
+`remember`/`recall`/`set_belief` (M4 entry point). T16 (cognitive tools)
+unblocks once T19 lands.
 
 ---
 

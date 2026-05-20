@@ -264,8 +264,10 @@ games; ratings aggregate across the population.
 
 ## 12. Open questions / later
 
-- Discussion slot count `K` and number of discussion rounds per day — tune for
-  signal vs. token cost.
+- Discussion slot count `K` — **PARTIALLY RESOLVED (T18, 2026-05-20):
+  `K_DISCUSSION_SLOTS = 3`** (Werewolf Arena baseline for 7-player games).
+  Number of discussion rounds per day remains open — tune for signal vs.
+  token cost once T23 produces real-LLM smoke games.
 - Tie-break on exile votes — **RESOLVED (T12, 2026-05-19): no-exile on a tie.**
   No revote, no seed tie-break, so day resolution is RNG-free and deterministic.
   Relatedly, the §4 loop's "exile" rule is implemented as **plurality** (most
@@ -276,8 +278,13 @@ games; ratings aggregate across the population.
   `submit_kill_vote`, `seer_inspect`, and `doctor_protect` reject a call whose
   target is the caller. The doc was silent; no doctor self-protect, no seer
   self-inspect, no werewolf self-kill-vote.
-- `submit_bid` amount range — **RESOLVED (T15, 2026-05-19): lower bound 0.**
-  The tool rejects a negative bid; the upper bound ("N" in §6.1) and the top-K
-  speaker selection are deferred to the discussion-bidding task (T18).
+- `submit_bid` amount range — **RESOLVED (T15+T18, 2026-05-20): `[0, 100]`.**
+  T15 set the lower bound to 0 (reject negative); T18 set the upper bound to
+  `MAX_BID = 100` (reject above). Bounded so an agent cannot grief a rated
+  game with an unbounded bid (RNG cost, prompt-token bloat, integer-overflow
+  surface). Top-K speaker selection lands in `resolve_discussion`
+  (`K_DISCUSSION_SLOTS = 3`, seeded tie-break via `rng.shuffle` over a sorted
+  per-amount tie group, so the §4 "majority by bidding" ordering is
+  deterministic and replayable, invariant #4).
 - Whether werewolves see each other's identity at game start (default: yes).
 - Cross-game memory persistence (would push Tier 2 retrieval).

@@ -37,7 +37,7 @@ The tools the ReAct agent calls. See WEREWOLF_DESIGN.md §6.
 - [x] **T15** — Game-action tools: `werewolf_chat`, `submit_kill_vote`, `seer_inspect`, `doctor_protect`, `submit_bid`, `speak`, `submit_exile_vote`. _Depends: T11, T12_
 - [ ] **T16** — Cognitive tools: `get_public_state`, `get_private_info`, `recall`, `remember`, `get_beliefs`, `set_belief`, `get_plan`, `set_plan`. _Depends: T18, T19_
 - [x] **T17** — Tool/role/phase gating: each tool exposed only to the allowed role in the allowed phase. _Depends: T15_
-- [ ] **T18** — Bidding-based speech ordering: collect bids, top-K speak in bid order. _Depends: T15_
+- [x] **T18** — Bidding-based speech ordering: collect bids, top-K speak in bid order. _Depends: T15_
 
 ## M4 — DSPy ReAct agent & memory
 

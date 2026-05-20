@@ -9,6 +9,7 @@ seeded role assignment has a stable input to shuffle (invariant #4).
 """
 
 from types import MappingProxyType
+from typing import Final
 
 from social_deduction_bench.games.werewolf.roles import Role
 
@@ -29,6 +30,18 @@ DEFAULT_ROLE_COUNTS: MappingProxyType[Role, int] = MappingProxyType(
 # This frozenset is the input to the engine's private-event guard; a `frozenset`
 # so it cannot be mutated mid-game and drop a type from the guard's coverage.
 PRIVATE_EVENT_TYPES: frozenset[str] = frozenset({"seer_inspect", "werewolf_chat", "doctor_protect"})
+
+# Number of speaking slots awarded each day's discussion (WEREWOLF_DESIGN.md §4).
+# The Werewolf Arena baseline for 7-player games; `resolve_discussion` clamps to
+# the number of bidders when fewer than K are present. `Final` matches the
+# immutability discipline of the adjacent `MappingProxyType` / `frozenset`
+# guards so Pyrefly flags any reassignment.
+K_DISCUSSION_SLOTS: Final[int] = 3
+
+# Upper inclusive bound on a `submit_bid` amount (WEREWOLF_DESIGN.md §6.1's `0..N`).
+# Bounded so an agent cannot grief a rated game with an unbounded bid (RNG cost,
+# prompt-token bloat, integer-overflow surface); the lower bound 0 stays from T15.
+MAX_BID: Final[int] = 100
 
 
 def default_role_multiset() -> tuple[str, ...]:

@@ -13,6 +13,8 @@ from social_deduction_bench.engine import GameState
 from social_deduction_bench.games.werewolf.config import (
     DEFAULT_PLAYER_COUNT,
     DEFAULT_ROLE_COUNTS,
+    K_DISCUSSION_SLOTS,
+    MAX_BID,
     PRIVATE_EVENT_TYPES,
     default_role_multiset,
 )
@@ -92,6 +94,26 @@ def test_private_event_types_is_an_immutable_frozenset() -> None:
     from the guard's coverage.
     """
     assert isinstance(PRIVATE_EVENT_TYPES, frozenset)
+
+
+def test_k_discussion_slots_is_three() -> None:
+    """`K_DISCUSSION_SLOTS` is pinned at 3 (Werewolf Arena baseline for 7-player games).
+
+    The slot count gates how much signal the day discussion produces; a silent
+    bump up or down would shift every rated game's information density. Pinned
+    in config too so a drift between code and `WEREWOLF_DESIGN.md` §4 is caught.
+    """
+    assert K_DISCUSSION_SLOTS == 3
+
+
+def test_max_bid_is_one_hundred() -> None:
+    """`MAX_BID` is pinned at 100, the upper bound on `submit_bid` (§6.1 `0..N`).
+
+    Bounded so an agent cannot grief the rated game with an unbounded bid (RNG
+    cost, prompt-token bloat, integer-overflow surface). The value is shared
+    config — `submit_bid` reads it — so changing it is one edit.
+    """
+    assert MAX_BID == 100
 
 
 def test_default_multiset_builds_a_valid_game_state() -> None:

@@ -15,6 +15,7 @@ from dataclasses import dataclass, replace
 from types import MappingProxyType
 
 from social_deduction_bench.engine import GameState, Phase, ToolCall, ToolRequirement, validate_tool_call
+from social_deduction_bench.games.werewolf.config import MAX_BID
 from social_deduction_bench.games.werewolf.events import ABSTAIN
 from social_deduction_bench.games.werewolf.roles import Role
 
@@ -118,13 +119,19 @@ def doctor_protect(state: GameState, caller: str, target: str) -> ToolResult:
 def submit_bid(state: GameState, caller: str, amount: int) -> ToolResult:
     """Bid for a speaking slot in today's discussion.
 
-    `amount` is a non-negative integer — bid higher when you most want to speak.
+    `amount` is an integer in `[0, MAX_BID]` — bid higher when you most want to
+    speak.
     """
     reason = _gate(state, caller, SUBMIT_BID, None)
     if reason is not None:
         return ToolResult(valid=False, reason=reason)
     if amount < 0:
         return ToolResult(valid=False, reason=f"tool {SUBMIT_BID!r} requires a non-negative amount, got {amount}")
+    if amount > MAX_BID:
+        return ToolResult(
+            valid=False,
+            reason=f"tool {SUBMIT_BID!r} requires an amount at most {MAX_BID}, got {amount}",
+        )
     return ToolResult(valid=True, value=amount)
 
 

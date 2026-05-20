@@ -13,12 +13,13 @@ state. These tests encode that contract and the benchmark invariants:
   observation is byte-identical on replay.
 
 Session decisions encoded here: self-targeting on a night-ability tool is
-forbidden; `submit_bid` rejects only negative amounts (the upper bound is T18's).
+forbidden; `submit_bid` clamps to `[0, MAX_BID]` (T18 added the upper bound).
 """
 
 import pytest
 
 from social_deduction_bench.engine import GameState, Phase, available_tools
+from social_deduction_bench.games.werewolf.config import MAX_BID
 from social_deduction_bench.games.werewolf.events import ABSTAIN
 from social_deduction_bench.games.werewolf.tools import (
     DOCTOR_PROTECT,
@@ -147,8 +148,17 @@ def test_submit_bid_zero_accepted() -> None:
 
 
 def test_submit_bid_positive_accepted() -> None:
-    """A positive bid is accepted — T15 sets no upper bound (T18 owns that)."""
+    """A positive bid below `MAX_BID` is accepted."""
     assert submit_bid(_day(), "Vil1", 7) == ToolResult(valid=True, value=7)
+
+
+def test_submit_bid_at_max_bid_boundary_accepted() -> None:
+    """The exact `MAX_BID` value is the upper inclusive bound — accepted.
+
+    The cap is inclusive: an agent that bids the maximum must succeed, or the
+    declared `[0, MAX_BID]` range would be off by one and exclude its top.
+    """
+    assert submit_bid(_day(), "Vil1", MAX_BID) == ToolResult(valid=True, value=MAX_BID)
 
 
 def test_speak_nonempty_message_accepted() -> None:
@@ -309,10 +319,24 @@ def test_doctor_protect_self_target_rejected() -> None:
 
 
 def test_submit_bid_negative_amount_rejected() -> None:
-    """A negative bid is rejected — the one bid gate T15 owns."""
+    """A negative bid is rejected — the lower bound of the `[0, MAX_BID]` range."""
     result = submit_bid(_day(), "Vil1", -1)
     assert result.valid is False
     assert "non-negative" in result.reason
+
+
+def test_submit_bid_above_max_bid_rejected() -> None:
+    """A bid above `MAX_BID` is rejected — the upper bound of the range.
+
+    Bounded to keep bid amounts comparable across rated games and to deny a
+    misbehaving agent an unbounded-amount griefing surface (prompt-token bloat,
+    integer-overflow surface). The reason must name both the cap and the
+    offending amount so the agent's self-correction has the constraint to read.
+    """
+    result = submit_bid(_day(), "Vil1", MAX_BID + 1)
+    assert result.valid is False
+    assert str(MAX_BID) in result.reason
+    assert str(MAX_BID + 1) in result.reason
 
 
 def test_werewolf_chat_empty_message_rejected() -> None:
