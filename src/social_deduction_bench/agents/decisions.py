@@ -115,17 +115,31 @@ def _bind_terminal(fn: Callable[..., ToolResult], state: GameState, caller: str)
 
 
 class ReActDecisionSource:
-    """A `DecisionSource` that runs one `react_decide` loop per acting player per phase."""
+    """A `DecisionSource` that runs one `react_decide` loop per acting player per phase.
+
+    Each roster seat is bound to its own `BaseLM` so a single game can seat a
+    mix of models (cross-play). The `lms` mapping must cover the roster exactly:
+    one entry per seat name, no extras. Mismatch is rejected at construction
+    with a `ValueError` naming the offending names.
+    """
 
     def __init__(
         self,
         *,
         roster: Sequence[tuple[str, str]],
-        lm: BaseLM,
+        lms: Mapping[str, BaseLM],
         max_iters: int = 10,
     ) -> None:
         self._roster: tuple[tuple[str, str], ...] = tuple(roster)
-        self._lm = lm
+        roster_names = {name for name, _ in self._roster}
+        lm_names = set(lms.keys())
+        missing = roster_names - lm_names
+        extra = lm_names - roster_names
+        if missing or extra:
+            raise ValueError(
+                f"lms must cover the roster exactly: missing={sorted(missing)}, extra={sorted(extra)}",
+            )
+        self._lms: Mapping[str, BaseLM] = MappingProxyType(dict(lms))
         self._max_iters = max_iters
         self._memories: dict[str, GameMemory] = {name: GameMemory() for name, _ in self._roster}
         self._memories_view: Mapping[str, GameMemory] = MappingProxyType(self._memories)
@@ -134,6 +148,11 @@ class ReActDecisionSource:
     def memories(self) -> Mapping[str, GameMemory]:
         """Read-only view of per-player memories; mutation raises `TypeError`."""
         return self._memories_view
+
+    @property
+    def lms(self) -> Mapping[str, BaseLM]:
+        """Read-only view of per-player LM seating; mutation raises `TypeError`."""
+        return self._lms
 
     def observe(self, state: GameState, new_events: tuple[Event, ...], /) -> None:
         """Route each new event to its recipients via `observations_for`.
@@ -209,6 +228,6 @@ class ReActDecisionSource:
             cognitive_tools=cognitive,
             terminal_tools=terminals,
             decision_brief=decision_brief,
-            lm=self._lm,
+            lm=self._lms[caller],
             max_iters=self._max_iters,
         )

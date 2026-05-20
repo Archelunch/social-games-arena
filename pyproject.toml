@@ -34,3 +34,5 @@ project-includes = ["src", "tests"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+markers = ["smoke: real-LLM smoke games (cost money; opt in with -m smoke)"]
+addopts = "-m 'not smoke'"

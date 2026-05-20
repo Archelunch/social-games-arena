@@ -2,13 +2,13 @@
 
 Append-only. Newest entry on top. Read this first when starting a session.
 
-**Current state:** T21 done — DSPy ReAct loop primitive (`agents/react.py`)
-plus the `ReActDecisionSource` adapter (`agents/decisions.py`) that wires
-per-player loops into `run_game`. The `DecisionSource` Protocol grew an
-`observe(state, new_events)` hook; the driver calls it after each phase and
-the adapter routes events into each player's `GameMemory` via
-`observations_for` (invariant #2). All checks green (399/399).
-**Next task:** T22 — per-player LM seating (M4 close).
+**Current state:** T23 done — real-LLM smoke game via OpenRouter, gated
+behind a `smoke` pytest marker (default-deselected) AND a
+`pytest.skip` on missing `OPENROUTER_API_KEY`. New
+`src/social_deduction_bench/settings.py` is now the single project
+home for env-var reads. M4 closes. All checks green (413/413 default
+suite, +1 smoke deselected).
+**Next task:** T24 — metric extraction (M5 begins).
 
 **Tracked design decision (T09 + T11):** the private-event guard — each game
 declares its private event types, the engine rejects a declared-private type
@@ -22,6 +22,171 @@ Cross-game rationale in `BACKLOG.md` Notes and `WEREWOLF_DESIGN.md` §3.
 `games/werewolf/` (no `GameDefinition` bundle); resolution functions pure; the
 private-event guard is one shared `engine` function; T14 ships a production
 `run_game` driver + `DecisionSource` Protocol.
+
+---
+
+## 2026-05-20 — T23: real-LLM smoke game via OpenRouter (M4 close)
+
+- Added the first end-to-end test that drives a real LLM through the
+  full Werewolf engine + adapter loop:
+  - `src/social_deduction_bench/settings.py` (new) — the single home
+    for `os.getenv` reads in the project (CLAUDE.md "single settings
+    module" rule). Frozen `Settings(openrouter_api_key, smoke_model)`
+    dataclass + `load()` factory. `load()` re-reads env on every call
+    so tests can `monkeypatch.setenv` and observe the change without
+    reload tricks.
+  - `tests/test_settings.py` (new, 5 cases) — env-unset → both None;
+    `OPENROUTER_API_KEY` read pinned by string (catches a rename);
+    `SDB_SMOKE_MODEL` read pinned; frozen instance rejects mutation;
+    review-driven "no extra fields" pin asserts the field set is
+    exactly `{openrouter_api_key, smoke_model}` (a new field added
+    without a matching `os.getenv` in `load()` would default to None
+    forever — caught here).
+  - `tests/agents/test_smoke_game.py` (new, 1 case) — file-level
+    `pytestmark = pytest.mark.smoke`; in-test `pytest.skip` when
+    `OPENROUTER_API_KEY` is absent. Builds 7 uniform
+    `dspy.LM("openrouter/{model}", api_key=..., temperature=0.0,
+    cache=False, max_tokens=512)` seats, runs `run_game(ROSTER,
+    seed=42, decisions=source, max_rounds=4)`, asserts:
+    `events[-1].type == GAME_OVER`; every event whose type is in
+    `PRIVATE_EVENT_TYPES` has non-empty `recipients` (invariant #2
+    end-to-end under real-LLM traffic); JSONL round-trip via
+    `EventStream.from_jsonl_lines` (invariant #5).
+  - `pyproject.toml` — extended `[tool.pytest.ini_options]`:
+    `markers = ["smoke: real-LLM smoke games (cost money; opt in
+    with -m smoke)"]` and `addopts = "-m 'not smoke'"`. Default
+    `poetry run pytest` does not collect the smoke test; explicit
+    `poetry run pytest -m smoke` is required.
+- **Decisions (user, plan):**
+  - **Two-lock cost gate**: pytest marker (default-deselected) AND
+    in-test `OPENROUTER_API_KEY` skip. A globally-set key on a
+    developer's machine cannot accidentally burn money on a plain
+    `poetry run pytest`.
+  - **`qwen/qwen3.5-9b` as default seat model** (user choice;
+    hardcoded verbatim per the "use the user's literal value" rule).
+    `SDB_SMOKE_MODEL` env var overrides.
+  - **Uniform single model across all 7 seats** in T23. Per-seat
+    cross-play is already pinned by T22's unit tests; T23's job is
+    to prove the loop survives a real LLM round-trip.
+  - **No determinism assertion.** Real LLMs do not replay
+    byte-identically without an exact prompt-cache hit; pinning
+    determinism here would make the test flaky. Engine-side
+    determinism is already covered by `assert_deterministic` in
+    T08/T22 (with `DummyLM`).
+  - **`cache=False` on every LM** (review-driven). DSPy's default
+    on-disk cache would let a second run be a 100% cache-hit, making
+    the test useless as a real-LLM gate. Every smoke invocation now
+    actually hits OpenRouter.
+  - **`max_iters=20`** (review-driven). Up from the adapter's default
+    of 10; a 9B open model on DSPy's ReAct loop needs more room to
+    reliably emit `finish`. A loop that exhausts iters raises
+    `RuntimeError` (T21 fail-loud), which would conflate model
+    discipline with adapter regressions — bump reduces that surface.
+- **Out of scope** (per CLAUDE.md rule 2): no CLI / runnable script,
+  no metric extraction (T24), no tournament loop (T27).
+- `/sdb-review`: python reviewer **PASS** (0/0/0); test reviewer
+  **NEEDS FIXES** (1 critical, 2 high, 3 medium); integrity reviewer
+  **NEEDS FIXES** (0 critical, 4 high). All findings addressed
+  before commit:
+  - **CRITICAL (test) / HIGH (integrity)** — the original recipients
+    assertion (`recipients == () or len >= 1`) was a tautology that
+    matches every tuple. Replaced with `if event.type in
+    PRIVATE_EVENT_TYPES: assert event.recipients` — pins invariant
+    #2 at the declared-private event types, end-to-end.
+  - **HIGH (test + integrity)** — `KILL_RESOLVED >= 1` was
+    structurally guaranteed (`night.py:121` drafts it every night,
+    even on doctor-save). Dropped — the `GAME_OVER` terminal
+    assertion + `max_rounds`-driven `RuntimeError` already pin
+    liveness.
+  - **HIGH (test)** — skip message expanded to name both the env
+    var to set AND the `-m smoke` invocation.
+  - **HIGH (integrity)** — `dspy.LM(cache=False)` so every smoke
+    run actually exercises the LLM.
+  - **HIGH (integrity)** — `max_iters=20` (was 12) to reduce
+    9B-model dead-end false failures.
+  - **MEDIUM (test)** — added the "no extra fields" pin on the
+    `Settings` dataclass.
+  - **NOT applied:** moving `_DEFAULT_MODEL` into `settings` —
+    that's test config, not env-var config; the `SDB_SMOKE_MODEL`
+    override path through `settings` is what the contract needs.
+  Reports in `.reviews/20260520-2026-1c08b9c-T23/`.
+- Verified: `pytest -q` 413 passed + 1 deselected; `pytest -m smoke
+  -q` (no key) 1 skipped + 413 deselected; `ruff check`, `ruff
+  format --check`, `pyrefly check` (0 errors).
+
+**M4 (DSPy ReAct agent + memory) is complete** — T19, T20, T21, T22,
+T23 all done. The benchmark can now host real LLMs at every seat,
+seated per-roster, behind a hard cost gate.
+
+**Next:** T24 — metric extraction from the event stream (M5 begins).
+
+---
+
+## 2026-05-20 — T22: per-player LM seating in `ReActDecisionSource` (M4 progress)
+
+- Extended the adapter so a single game can seat a mix of LLMs across
+  seats — the cross-play setup WEREWOLF_DESIGN.md §10 requires:
+  - `src/social_deduction_bench/agents/decisions.py` — `__init__`
+    swaps `lm: BaseLM` for `lms: Mapping[str, BaseLM]`; computes
+    `missing = roster_names - lm_names` and `extra = lm_names - roster_names`
+    and raises `ValueError` naming both sides (sorted, for message
+    determinism) on any mismatch. Stores `MappingProxyType(dict(lms))`
+    (defensive copy + immutable view). New `lms` read-only property
+    symmetric with `memories`. `_run_one` looks up
+    `self._lms[caller]` per ReAct loop.
+- **Decisions (user, plan):**
+  - **Strict `Mapping[str, BaseLM]`, one entry per seat.** No
+    `BaseLM | Mapping[...]` union shorthand, no `with_uniform_lm`
+    class method, no `Callable[[str], BaseLM]` factory. Each seat
+    is explicit; mismatch fails loud (CLAUDE.md rule 11).
+  - **Defensive copy on store.** `MappingProxyType(dict(lms))`
+    means the caller cannot mutate the source dict post-construction
+    and cannot reach in via `source.lms` either.
+  - **Sorted error names** (`sorted(missing)`, `sorted(extra)`) so the
+    `ValueError` message is byte-identical run-to-run regardless of
+    Python set iteration order — small but matches the codebase's
+    determinism discipline.
+  - **`react_decide` stays single-LM.** Per-seat is purely an adapter
+    concern. The loop primitive still takes one `lm`.
+- **Test migrations (11 existing tests):** introduced two helpers in
+  `tests/agents/test_decisions.py` — `_uniform_lms(lm, roster=ROSTER)`
+  (shares one `DummyLM` across all seats, preserving the legacy
+  single-cursor answer-queue semantics) and `_empty_lms(roster=ROSTER)`
+  (no-act tests). Every `lm=DummyLM(...)` call site became
+  `lms=_uniform_lms(DummyLM(...))` or `lms=_empty_lms()`; the swapped-
+  roster test threads its own roster through `_uniform_lms`.
+- **Tests added (`tests/agents/test_decisions.py`, 9 net new cases):**
+  missing-name rejected; extra-name rejected; exact-coverage accepted;
+  `lms` read-only mapping (mutation raises `TypeError`); per-seat LM
+  isolation in `night_actions` (each acting seat scripted with a
+  *distinct* target so a Wolf1↔Wolf2 swap would mis-attribute the
+  vote, with `DummyLM.history` length pinned at 2 per acting seat and
+  `[]` for villagers); dead seat does not consume its LM during
+  `day_actions`; full werewolf-win sweep with per-seat scripted LMs
+  reaches `GAME_OVER`; two-source determinism via
+  `assert_deterministic`; lms-dict insertion-order does not affect the
+  event stream (forward vs. reversed-key dict; both `run_game`
+  outputs byte-identical via `assert_streams_identical`). Suite
+  408/408.
+- `/sdb-review`: python + integrity reviewers **all PASS** (0
+  critical, 0 high, 0 medium); test reviewer PASS with 2 advisory
+  mediums — both addressed before commit:
+  - Per-seat isolation test now uses distinct targets per seat
+    (Wolf1 → Vil1, Wolf2 → Vil2, Seer1 → Wolf1, Doc1 → Vil3) so a
+    seat-key swap surfaces in `actions.kill_votes` /
+    `actions.seer_inspect` / `actions.doctor_protect`; the
+    `history`-length assertion alone would have missed it.
+  - Added `test_lms_dict_insertion_order_does_not_affect_event_stream`
+    — the regression guard that pins iteration through
+    `self._roster` (tuple) rather than `self._lms.keys()` (dict
+    insertion order). Two runs with the same per-seat mapping but
+    forward vs. reversed key order yield byte-identical streams.
+  Reports in `.reviews/20260520-1952-1c08b9c-T22/`.
+- Verified: `pytest` 408/408, `ruff check`, `ruff format --check`,
+  `pyrefly check` (0 errors).
+
+**Next:** T23 — smoke game with real LLM agents (auto-skips when no
+API key). M4 (DSPy ReAct agent + memory) closes.
 
 ---
 

@@ -44,8 +44,8 @@ The tools the ReAct agent calls. See WEREWOLF_DESIGN.md §6.
 - [x] **T19** — `GameMemory` (Tier 0): events, notes, beliefs; `remember`/`recall`/`set_belief`. _Depends: T01_
 - [x] **T20** — Belief table + persistent plan string wired into `GameMemory`. _Depends: T19_
 - [x] **T21** — DSPy ReAct agent: one decision-point loop, cognitive tools as intermediate steps, one game-action tool terminates the loop. _Depends: T16, T19_
-- [ ] **T22** — multi-model config: seat different LLMs as different players. _Depends: T21_
-- [ ] **T23** — Smoke game with real LLM agents (auto-skips when no API key). _Depends: T14, T22_
+- [x] **T22** — multi-model config: seat different LLMs as different players. _Depends: T21_
+- [x] **T23** — Smoke game with real LLM agents (auto-skips when no API key). _Depends: T14, T22_
 
 ## M5 — Rating, metrics & tournament
 
