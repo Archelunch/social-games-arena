@@ -19,7 +19,7 @@ the seam an M4 DSPy agent later implements; the loop itself does not change.
 
 import pytest
 
-from social_deduction_bench.engine import EventStream, GameState, assert_deterministic, observations_for
+from social_deduction_bench.engine import Event, EventStream, GameState, assert_deterministic, observations_for
 from social_deduction_bench.games.werewolf.config import PRIVATE_EVENT_TYPES
 from social_deduction_bench.games.werewolf.day import DayActions
 from social_deduction_bench.games.werewolf.events import GAME_OVER, KILL_RESOLVED
@@ -135,6 +135,9 @@ class _StallingDecisions:
 
     def day_actions(self, state: GameState, /) -> DayActions:
         return DayActions(exile_votes={})
+
+    def observe(self, state: GameState, new_events: tuple[Event, ...], /) -> None:
+        """No-op: this scripted source ignores the transcript."""
 
 
 def test_scripted_game_reaches_a_terminal_state() -> None:

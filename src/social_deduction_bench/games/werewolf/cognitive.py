@@ -1,6 +1,6 @@
 """Werewolf-specific cognitive tools: read the public game state and your own private info."""
 
-from social_deduction_bench.agents import GameMemory
+from social_deduction_bench.agents.memory import GameMemory
 from social_deduction_bench.engine import GameState
 from social_deduction_bench.games.werewolf.events import SEER_INSPECT
 from social_deduction_bench.games.werewolf.roles import Role, faction_of

@@ -10,7 +10,7 @@ ignores the live `GameState`; the `state` argument is accepted to satisfy the
 
 from dataclasses import dataclass, field
 
-from social_deduction_bench.engine import GameState
+from social_deduction_bench.engine import Event, GameState
 from social_deduction_bench.games.werewolf.day import DayActions
 from social_deduction_bench.games.werewolf.night import NightActions
 
@@ -53,3 +53,11 @@ class ScriptedDecisions:
         actions = self.days[self._day_cursor]
         self._day_cursor += 1
         return actions
+
+    def observe(self, state: GameState, new_events: tuple[Event, ...], /) -> None:
+        """No-op: a scripted source ignores the live transcript by design.
+
+        Symmetric with `night_actions` / `day_actions` ignoring `state`. An
+        agent-backed source uses `observe` to push routed events into each
+        player's `GameMemory`; a fixed script has nothing to record.
+        """

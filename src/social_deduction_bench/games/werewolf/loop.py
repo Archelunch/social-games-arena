@@ -18,6 +18,7 @@ from collections.abc import Sequence
 from typing import Protocol
 
 from social_deduction_bench.engine import (
+    Event,
     EventLog,
     EventStream,
     GameRNG,
@@ -34,16 +35,23 @@ from social_deduction_bench.games.werewolf.win import is_game_over, winner
 
 
 class DecisionSource(Protocol):
-    """Supplies the decided actions for each phase.
+    """Supplies the decided actions for each phase, and absorbs the resulting events.
 
     Scripted in M2; an M4 DSPy agent adapter implements the same Protocol — the
     loop does not change. Each accessor receives the current `GameState` so an
-    agent-backed source can decide from the live position.
+    agent-backed source can decide from the live position. After each *night*
+    and *day* resolution, the driver calls `observe` with the events that were
+    just appended; an agent-backed source uses it to push routed observations
+    into each player's `GameMemory`. The terminal `GAME_OVER` event is NOT
+    routed through `observe` — the game is over, no agent will consult its
+    memory afterwards. A scripted source ignores `observe` entirely.
     """
 
     def night_actions(self, state: GameState, /) -> NightActions: ...
 
     def day_actions(self, state: GameState, /) -> DayActions: ...
+
+    def observe(self, state: GameState, new_events: tuple[Event, ...], /) -> None: ...
 
 
 def _log_drafts(log: EventLog, state: GameState, drafts: Sequence[EventDraft]) -> None:
@@ -90,16 +98,20 @@ def run_game(
         if state.round > max_rounds:
             raise RuntimeError(f"game did not terminate within {max_rounds} rounds")
 
+        before_night = len(log.events)
         night = resolve_night(state, decisions.night_actions(state), rng)
         _log_drafts(log, state, night.drafts)
+        decisions.observe(state, log.events[before_night:])
         state = night.state
         if is_game_over(state):
             break
 
         state = advance_phase(state)
 
+        before_day = len(log.events)
         day = resolve_day(state, decisions.day_actions(state))
         _log_drafts(log, state, day.drafts)
+        decisions.observe(state, log.events[before_day:])
         state = day.state
         if is_game_over(state):
             break

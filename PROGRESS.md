@@ -2,10 +2,13 @@
 
 Append-only. Newest entry on top. Read this first when starting a session.
 
-**Current state:** T16 done — cognitive tools landed (6 game-agnostic in
-`agents/cognitive.py`, 2 werewolf-specific in `games/werewolf/cognitive.py`).
-**M3 complete**; M4 storage + cognitive surfaces complete; all checks green (375/375).
-**Next task:** T21 — DSPy ReAct agent loop (now unblocked: T16 + T19 both `[x]`).
+**Current state:** T21 done — DSPy ReAct loop primitive (`agents/react.py`)
+plus the `ReActDecisionSource` adapter (`agents/decisions.py`) that wires
+per-player loops into `run_game`. The `DecisionSource` Protocol grew an
+`observe(state, new_events)` hook; the driver calls it after each phase and
+the adapter routes events into each player's `GameMemory` via
+`observations_for` (invariant #2). All checks green (399/399).
+**Next task:** T22 — per-player LM seating (M4 close).
 
 **Tracked design decision (T09 + T11):** the private-event guard — each game
 declares its private event types, the engine rejects a declared-private type
@@ -19,6 +22,126 @@ Cross-game rationale in `BACKLOG.md` Notes and `WEREWOLF_DESIGN.md` §3.
 `games/werewolf/` (no `GameDefinition` bundle); resolution functions pure; the
 private-event guard is one shared `engine` function; T14 ships a production
 `run_game` driver + `DecisionSource` Protocol.
+
+---
+
+## 2026-05-20 — T21: DSPy ReAct loop + `DecisionSource` adapter (M4 entry)
+
+- Added the M4 capstone: the per-decision-point ReAct loop primitive that
+  turns a seated LLM into a Werewolf player, plus the adapter that wires
+  those loops into the existing `run_game` driver:
+  - `src/social_deduction_bench/agents/react.py` (new) — `Commit` frozen
+    public value type + `react_decide(*, caller, cognitive_tools,
+    terminal_tools, decision_brief, lm, max_iters=10) -> Commit`. Drives
+    `dspy.ReAct.react` (not `forward`) in a manual loop so each iteration
+    is exactly one LM call. Terminal-tool wrappers write `(name, value)`
+    into a `_Slot` on a valid `ToolResult`; the LLM then emits `finish` to
+    close the loop, and we return the slot as a `Commit`. An empty slot
+    after the loop is fail-loud (`RuntimeError` chained from any swallowed
+    upstream `ValueError`).
+  - `src/social_deduction_bench/agents/decisions.py` (new) —
+    `ReActDecisionSource`: per-player `GameMemory` table; roster-order
+    iteration; `_NIGHT_TERMINAL_BY_ROLE` table picks `submit_kill_vote` /
+    `seer_inspect` / `doctor_protect` for night, `submit_exile_vote` for
+    day; `observe(state, new_events)` routes through `observations_for`
+    into each *living* player's memory; `memories` exposes a
+    `MappingProxyType`.
+  - `src/social_deduction_bench/games/werewolf/loop.py` — extended the
+    `DecisionSource` Protocol with `observe(state, new_events)`; driver
+    calls it after each `_log_drafts` with `log.events[before:]`. The
+    terminal `GAME_OVER` event is NOT routed (game is over — documented
+    on the Protocol).
+  - `src/social_deduction_bench/games/werewolf/scripted.py` and inline
+    `_StallingDecisions` in `tests/games/werewolf/test_game_loop.py`
+    gained no-op `observe`.
+  - `src/social_deduction_bench/games/werewolf/cognitive.py` — one-line
+    import-path fix (`agents.memory` instead of `agents` package init) to
+    break a circular import surfaced by the new re-exports.
+  - `src/social_deduction_bench/agents/__init__.py` — re-exports
+    `Commit`, `ReActDecisionSource`, `react_decide`.
+- **Decisions (user, plan):**
+  - **`dspy.ReAct` with its `finish` terminator** rather than a custom
+    loop. Side-band `_Slot` captures the committed value when the
+    terminal returns a valid `ToolResult`; the LLM then calls `finish`.
+    Empty slot → `RuntimeError`. Trade-off: one extra LM round-trip per
+    decision (the `finish` hop) in exchange for not coupling to ReAct's
+    private structure.
+  - **Drive `react.react` directly, skip the extract step.** Avoids the
+    extra LM call `ReAct.forward` would append; the commitment lives in
+    the slot, not in the LM's `committed_action` output field.
+  - **Loop primitive + `DecisionSource` adapter together in T21.** T22
+    will extend the adapter for per-player LM seating; T23 is the
+    real-LLM smoke game.
+  - **Single LM across all seats** in T21. The adapter's constructor
+    takes one `lm: BaseLM`.
+  - **Protocol extension on `DecisionSource`.** One method:
+    `observe(state, new_events)`. Driver calls after each phase with
+    the freshly-appended slice. The scripted source is no-op.
+  - **Roster-order iteration.** `night_actions` and `day_actions` walk
+    `self._roster` (not `state.alive_players()`) so two independent
+    `ReActDecisionSource` instances with the same `(roster, lm-queue)`
+    inputs decide identically (invariant #4).
+  - **Dead players are skipped in `observe`** (review-driven): they will
+    never be asked for actions again, so growing their memory is wasted
+    work and confuses post-game inspection.
+  - **Closure binding for tools.** `_bind_cognitive` / `_bind_terminal`
+    use `inspect.signature(fn).replace(parameters=trailing)` +
+    `__signature__` assignment so DSPy's `Tool` infers the LLM-facing
+    schema from only the trailing args; `functools.wraps` carries
+    `__name__` / `__doc__` so the LLM sees the original tool name and
+    docstring.
+  - **`ScriptedLM` lives in tests** (no shared helper yet). The tests
+    use `dspy.utils.dummies.DummyLM` (a real DSPy testing facility);
+    CLAUDE.md rule 2 — promote when T22/T23 need it.
+- **Out of scope (per plan):** per-player LM seating (T22), real-LLM
+  smoke game (T23), werewolf-chat sub-loop, bidding/discussion
+  terminals, illegal-move-rate metric (T24), Tier 1/2 retrieval.
+- **Tests, react primitive** (`tests/agents/test_react.py`, 12 cases):
+  trivial-terminal-then-finish; cognitive-before-terminal trajectory
+  (4 LM calls pinned); invalid-then-valid retry; finish-without-commit
+  raises (regex pins `"finished without a committed"`); `max_iters`
+  exhausted without finish raises; `remember` and `set_belief` memory
+  side-effects; cognitive `"ok: ..."`-shaped observation does not
+  terminate; two-identical-runs determinism; LM-context restoration
+  with a sentinel `DummyLM` (not the `None is None` tautology);
+  exile-vote terminator passes `abstain` through; `Commit` frozen,
+  hashable, structurally equatable.
+- **Tests, adapter** (`tests/agents/test_decisions.py`, 12 cases):
+  `observe` routes public + private events correctly; non-duplication
+  across two slices; `night_actions` aggregates kill votes / seer
+  inspect / doctor protect; dead seer / dead doctor → `None`;
+  `day_actions` covers every alive player and passes ABSTAIN through;
+  roster-order pins LM call order; end-to-end `run_game` reaches
+  `GAME_OVER`; invariant #2 read-side closure (every recorded event is
+  public or names the player); `memories` is a read-only `Mapping`.
+- `/sdb-review`: python + test + integrity reviewers **all PASS** (0
+  critical, 0 high). 11 mediums addressed before commit (per T15/T16
+  precedent):
+  - `react.py`: weakened `_format_trajectory` docstring overclaim;
+    captured the upstream `ReAct.react` `ValueError` and chained it
+    into the `RuntimeError` (`raise ... from err`).
+  - `decisions.py`: replaced three `assert isinstance(value, str)` with
+    one `_require_str_target` helper that raises `TypeError` (not
+    stripped under `python -O`); added `-> Commit` annotation on
+    `_run_one`; `observe` now filters by `state.is_alive(name)`.
+  - `loop.py`: tightened the `DecisionSource` docstring to state
+    `GAME_OVER` is not routed through `observe`.
+  - `test_react.py`: removed dead `_extract()` scaffolding from all
+    scripts (the loop drives `react.react`, never the extract step);
+    rewrote stale comments; tightened the finish-without-commit and
+    max-iters regex to `r"Wolf1.*finished without a committed"`;
+    `test_lm_context_is_restored_after_react_decide` now installs a
+    sentinel `DummyLM` via `dspy.configure` and asserts that sentinel
+    survives, instead of `None is None`.
+- Verified: `pytest` 399/399, `ruff check`, `ruff format --check`,
+  `pyrefly check` (0 errors).
+
+**M4 (DSPy ReAct agent + memory) is half-closed** — T19, T20, T21 all
+done. T22 (per-player LM seating) and T23 (real-LLM smoke game) remain.
+
+**Next:** T22 — multi-model config: seat different LLMs as different
+players. The adapter currently takes a single `lm`; T22 extends to a
+mapping or a `Callable[[str], BaseLM]`.
 
 ---
 
