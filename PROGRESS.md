@@ -2,8 +2,10 @@
 
 Append-only. Newest entry on top. Read this first when starting a session.
 
-**Current state:** T20 done — persistent `plan` string landed on `GameMemory`. **M4 in progress** (storage layer complete); all checks green (318/318).
-**Next task:** T16 — cognitive tools (`get_public_state`, `get_private_info`, `recall`, `remember`, `get_beliefs`, `set_belief`, `get_plan`, `set_plan`). T20 landed first to give `get_plan`/`set_plan` real storage; T16 is now a thin interface layer.
+**Current state:** T16 done — cognitive tools landed (6 game-agnostic in
+`agents/cognitive.py`, 2 werewolf-specific in `games/werewolf/cognitive.py`).
+**M3 complete**; M4 storage + cognitive surfaces complete; all checks green (375/375).
+**Next task:** T21 — DSPy ReAct agent loop (now unblocked: T16 + T19 both `[x]`).
 
 **Tracked design decision (T09 + T11):** the private-event guard — each game
 declares its private event types, the engine rejects a declared-private type
@@ -17,6 +19,113 @@ Cross-game rationale in `BACKLOG.md` Notes and `WEREWOLF_DESIGN.md` §3.
 `games/werewolf/` (no `GameDefinition` bundle); resolution functions pure; the
 private-event guard is one shared `engine` function; T14 ships a production
 `run_game` driver + `DecisionSource` Protocol.
+
+---
+
+## 2026-05-20 — T16: cognitive tools (M3 close)
+
+- Added the eight cognitive tools from WEREWOLF_DESIGN.md §6.2 — the
+  read-only / private-scratchpad surface the T21 DSPy ReAct loop will
+  call between game actions:
+  - `src/social_deduction_bench/agents/cognitive.py` (new) — six
+    **game-agnostic** wrappers over `GameMemory`: `recall`, `remember`,
+    `get_beliefs`, `set_belief`, `get_plan`, `set_plan`. Each is a
+    thin str-returning delegation; ONUW / Secret Hitler reuse them
+    unchanged. A private `_validate_caller(state, caller)` runs
+    `state.player(caller)` up front so an unknown caller fails loud
+    (`KeyError`) before any memory mutation.
+  - `src/social_deduction_bench/games/werewolf/cognitive.py` (new) —
+    two **werewolf-specific** readers: `get_public_state` (round /
+    phase / alive / dead list, roles deliberately omitted) and
+    `get_private_info` (self-line for every caller; living-pack
+    `partners:` line for werewolves; `inspections:` history for the
+    seer, filtered out of `memory.events` to `SEER_INSPECT`).
+- **Decisions (user, plan):**
+  - **Split by game-agnosticism.** Six wrappers in `agents/`, two
+    readers in `games/werewolf/`. Mirrors T19/T20 storage placement.
+  - **Uniform `(state, memory, caller, ...)` positional signature**
+    on all eight tools; all return `str`. No `AgentContext` bundle —
+    a DSPy ReAct loop sees text observations either way.
+  - **Writers raise `ValueError`** (`remember` / `set_belief` /
+    `set_plan` let `GameMemory` / `Note` / `Belief` `__post_init__`
+    bubble up; CLAUDE.md rule 11 fail-loud). DSPy ReAct catches and
+    surfaces as an Observation; we do not synthesize an error string.
+  - **Label key=value render style** with sentinel `(none)` for
+    empty sections. `get_beliefs` sorts by player name (deliberately
+    reversed insertion to detect a missing sort); `get_public_state`
+    keeps engine player order; `get_private_info` sorts werewolf
+    partners by name and renders seer inspections in memory
+    insertion order. **Living-pack partners only** — dead werewolves
+    are excluded so the LLM coordinates with who is around to act.
+  - **No `query` arg on `recall` yet.** WEREWOLF_DESIGN.md §6.2 lists
+    `recall(query, last_n_rounds)`, but T19's `GameMemory.recall` is
+    Tier 0; T16 matches storage. Tier 1 grows the parameter at both
+    layers together.
+  - **Dead caller still reads private/public.** Cognitive layer
+    never gates on alive (mirrors `available_tools` (T17) split:
+    semantic emptiness for dead, structural fail-loud for unknown).
+  - **No `__init__.py` re-export.** Werewolf sub-package convention
+    is direct module imports (T15 precedent); `agents/__init__.py`
+    keeps its existing storage re-exports (`Belief`, `GameMemory`,
+    `Note`) but does not add the six cognitive functions.
+- **Tooling note:** `tests/games/werewolf/test_cognitive.py` would have
+  collided by basename with `tests/agents/test_cognitive.py` under
+  pytest's package-less prepend import mode (same issue T11 hit on
+  `test_events.py`). Resolved surgically by naming the werewolf-side
+  file `test_cognitive_views.py` — no import-mode change.
+- Tests `tests/agents/test_cognitive.py` (31): empty-memory recall,
+  delegation passthrough + `last_n_rounds` forwarding, `KeyError` on
+  unknown caller across all six wrappers, `ValueError` propagation
+  for blank note / bad confidence (parametrized over
+  `["uncertain", "LOW", "Medium", "extreme", "", "medum"]`) / blank
+  plan, `state.round` binding for `remember` with end-to-end `recall`
+  closure, `get_beliefs` empty sentinel + literal one-row pin +
+  sorted-by-name multi-row (deliberately reversed insertion) +
+  `(no evidence)` placeholder, **determinism as a function of write
+  sequence** (two independent memories built from same op sequence
+  render byte-identical), state non-mutation on a read call.
+- Tests `tests/games/werewolf/test_cognitive_views.py` (17):
+  `get_public_state` literal layout + breadcrumb on `phase=day`,
+  kill moves player to dead list, **dead-list follows engine player
+  order** (reverse-roster-order kills still render in roster order),
+  all-dead alive-(none), **invariant-#2 role leak guard** iterating
+  `Role` directly (auto-covers a future fifth role), state purity,
+  **determinism as a function of state** (two independent states from
+  same op sequence). `get_private_info`: werewolf living-partner list,
+  last-werewolf-alive `(none)`, seer no-inspections / inspection-history
+  pin / **memory-insertion-order pin with reversed writes** /
+  no-`partners:`-line guard / non-`SEER_INSPECT` event ignored
+  (full-string equality, not `.endswith`), villager + doctor self-line
+  only, **villager/doctor leak guard** with word-boundary regex
+  (`\b{role}\b` avoids the `villager` ⊂ `villagers` faction-substring
+  false positive), werewolf does-not-leak-non-pack-names, **dead-werewolf
+  spectator** still sees living pack, state purity, unknown caller →
+  `KeyError`. Suite 375/375.
+- `/sdb-review`: python + integrity reviewers **all PASS** (0 critical,
+  0 high, 0 medium); test reviewer PASS with 7 medium hardening items
+  + 5 missing-coverage items. **All 12 addressed before commit**: drop
+  the `_state(round_, phase)` foot-gun helper; rewrite both
+  "determinism" tests as functions-of-input (two independent
+  instances); iterate `Role` directly in the public-state leak guard;
+  add word-boundary regex to villager/doctor leak guards (catches the
+  `Doc`/`doctor` substring collision the consolidator flagged); switch
+  the non-`SEER_INSPECT` test from `.endswith` to full equality; add
+  `phase=day` breadcrumb to the literal-layout test; close the
+  `remember` test with an end-to-end `recall` assertion; parametrize
+  `set_belief` bad-confidence over six values; add the seer reversed-
+  insertion-order test, seer no-`partners:`-line guard, dead-list
+  non-roster-order test, dead-werewolf still-sees-living-pack test.
+  Reports in `.reviews/20260520-1646-57abfc5-T16/`.
+- Verified: `pytest` 375/375, `ruff check`, `ruff format --check`,
+  `pyrefly check` (0 errors).
+
+**M3 (Tool set) is complete** — T15, T17, T18, T16 all done. The
+agent-facing surface (game-action tools + role/phase gating + bidding +
+cognitive tools) is now fully in place. T21 (DSPy ReAct agent loop) is
+the next unblocker — its dependencies T16 and T19 are both `[x]`.
+
+**Next:** T21 — DSPy ReAct agent: one decision-point loop, cognitive
+tools as intermediate steps, one game-action tool terminates the loop.
 
 ---
 
