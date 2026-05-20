@@ -117,10 +117,9 @@ def doctor_protect(state: GameState, caller: str, target: str) -> ToolResult:
 
 
 def submit_bid(state: GameState, caller: str, amount: int) -> ToolResult:
-    """Bid for a speaking slot in today's discussion.
+    """Bid for a speaking slot in today's discussion; the top bidders get to speak.
 
-    `amount` is an integer in `[0, MAX_BID]` — bid higher when you most want to
-    speak.
+    `amount` is an integer from 0 to 100; bid higher when you most want to speak.
     """
     reason = _gate(state, caller, SUBMIT_BID, None)
     if reason is not None:
