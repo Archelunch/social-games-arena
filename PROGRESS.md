@@ -2,8 +2,8 @@
 
 Append-only. Newest entry on top. Read this first when starting a session.
 
-**Current state:** T18 done — bidding-based speech-ordering resolver landed. **M3 in progress**; all checks green (267/267).
-**Next task:** T16 is still blocked by T19 (cognitive tools need `GameMemory`); the unblocked M4 entry point is T19 — `GameMemory` (Tier 0): events, notes, beliefs; `remember`/`recall`/`set_belief`.
+**Current state:** T19 done — `GameMemory` (Tier 0) landed. **M4 in progress** (entry point complete); all checks green (303/303).
+**Next task:** T16 is now unblocked — cognitive tools (`get_public_state`, `get_private_info`, `recall`, `remember`, `get_beliefs`, `set_belief`, `get_plan`, `set_plan`). T20 (belief table refinement + persistent plan string) is also unblocked.
 
 **Tracked design decision (T09 + T11):** the private-event guard — each game
 declares its private event types, the engine rejects a declared-private type
@@ -17,6 +17,84 @@ Cross-game rationale in `BACKLOG.md` Notes and `WEREWOLF_DESIGN.md` §3.
 `games/werewolf/` (no `GameDefinition` bundle); resolution functions pure; the
 private-event guard is one shared `engine` function; T14 ships a production
 `run_game` driver + `DecisionSource` Protocol.
+
+---
+
+## 2026-05-20 — T19: `GameMemory` (Tier 0) — M4 entry point
+
+- Added `src/social_deduction_bench/agents/memory.py` — the per-agent
+  in-process memory the (future) DSPy ReAct agent (T21) and cognitive
+  tools (T16) consume:
+  - `Note` (`frozen=True, slots=True`): `round: int, text: str`.
+    `__post_init__` rejects negative rounds and blank text — fail-loud
+    at write time so `recall` cannot render empty lines as if real.
+  - `Belief` (`frozen=True, slots=True`): `player, guess, confidence,
+    evidence`. `confidence: Literal["low", "medium", "high"]` — a typo
+    (`"medum"`) or case shift (`"HIGH"`) fails fast at `set_belief`,
+    not later via drift in the structured-table contract.
+  - `GameMemory` — owns three append-only / overwriting buffers
+    (`_events`, `_notes`, `_beliefs`). Methods: `record_event`,
+    `remember`, `set_belief`. Read-only accessors return tuple
+    snapshots (`events`, `notes`) and a `MappingProxyType` (`beliefs`).
+    Tier 0 `recall(last_n_rounds: int | None = None) -> str` returns
+    `[R{round}] {event.type} {sorted-json-payload}` and `[R{round}]
+    note: {text}` lines sorted by `(round, kind, insertion_index)` —
+    events kind 0, notes kind 1, so same-round chronology is
+    "engine acted, then agent reflected." `last_n_rounds < 0` raises
+    `ValueError`; `last_n_rounds = 0` returns `""`.
+- `src/social_deduction_bench/agents/__init__.py` — re-exports
+  `Belief`, `GameMemory`, `Note` via `__all__` (sets the convention
+  for `agents/` before T16/T20/T21 land; mirrors `engine/__init__.py`).
+- **Decision (user, plan):** `Belief.confidence` is the ordinal
+  `Literal["low", "medium", "high"]`, not a float. The LLM ergonomics
+  argument won — three buckets are easier to emit consistently than a
+  free `0..1` probability. Migration risk to float later is small (add
+  a derived field); reverse direction would be lossy.
+- **Decision (user, plan):** `recall` is strict Tier 0 — no `query`
+  parameter. Tier 1's substring filter lands with its implementation;
+  adding a no-op `query: str | None = None` now would be the speculative
+  parameter CLAUDE.md rule 2 rejects.
+- **Decision (user, plan):** `agents/__init__.py` re-exports the public
+  surface via `__all__` (engine-style). `agents/` is the boundary
+  T16/T20/T21 cross, closer to `engine/` than to the flat-module
+  `games/werewolf/` convention.
+- **Decision (plan):** `record_event` is the ingestion seam (a method
+  on `GameMemory`), not a free function. The T21 agent loop calls it
+  after `observations_for(events, player)` once per decision point.
+  Memory does **not** dedup — a double-push is a loop bug surfaced by
+  loop tests, not silently absorbed here.
+- **Decision (review-driven):** dropped the `default=str` fallback in
+  `recall`'s `json.dumps`. The engine's `Event.__post_init__` already
+  gates payloads to JSON primitives — `default=str` would have been
+  dead defense that masks a future widening of the `Event` contract.
+  Fail-loud now matches `events.py::to_jsonl_lines` exactly.
+- Tests `tests/agents/test_memory.py` (36): construction + read-only
+  accessor contracts (tuple snapshots, `MappingProxyType` immutability);
+  `record_event` insertion order + no-dedup; `remember` blank-text +
+  negative-round rejection; `set_belief` overwrite, the three-bucket
+  acceptance, parametrized rejection of `"uncertain"`/`"LOW"`/etc.,
+  blank-player/guess rejection, empty-evidence acceptance; `recall`
+  empty-memory empty string, mixed events+notes round order, line
+  format (regex + literal — payload keys inserted in reverse order so
+  removing `sort_keys=True` would flip the rendered output), event-
+  before-note same-round ordering pin (new, from review), the
+  `last_n_rounds` filter incl. edge cases (zero, larger-than-history,
+  empty memory, negative → `ValueError`), notes contribute to
+  `latest`-round cutoff, stable order at same round; determinism +
+  isolation (two memories from identical op sequences yield byte-
+  identical `recall`; cross-instance independence). Suite 303/303.
+- `/sdb-review`: python + test + integrity reviewers all PASS
+  (0 critical, 0 high). Addressed three mediums before commit: dropped
+  `default=str`; strengthened the sort-keys test by switching to
+  `victim`/`actor` keys whose insertion order disagrees visibly with
+  sorted order; added the event-before-note same-round ordering test.
+  Reports in `.reviews/20260520-1444-7e5f852-T19/`.
+- Verified: `pytest` 303/303, `ruff check`, `ruff format --check`,
+  `pyrefly check` (0 errors).
+
+**Next:** T16 (cognitive tools) or T20 (belief table refinement +
+persistent plan string). Both are unblocked; T16 is the wider
+unblocker for T21 and the M4 agent loop.
 
 ---
 
