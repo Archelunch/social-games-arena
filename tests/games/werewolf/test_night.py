@@ -18,7 +18,13 @@ import pytest
 
 from social_deduction_bench.engine import GameRNG, GameState, Phase, assert_recipients_present
 from social_deduction_bench.games.werewolf.config import PRIVATE_EVENT_TYPES
-from social_deduction_bench.games.werewolf.events import DOCTOR_PROTECT, KILL_RESOLVED, SEER_INSPECT, EventDraft
+from social_deduction_bench.games.werewolf.events import (
+    DOCTOR_PROTECT,
+    KILL_BALLOTS,
+    KILL_RESOLVED,
+    SEER_INSPECT,
+    EventDraft,
+)
 from social_deduction_bench.games.werewolf.night import NightActions, resolve_night
 
 ROSTER = (
@@ -188,7 +194,7 @@ def test_drafts_are_in_fixed_seer_doctor_kill_order() -> None:
 
     result = resolve_night(state, actions, GameRNG(0))
 
-    assert [d.type for d in result.drafts] == [SEER_INSPECT, DOCTOR_PROTECT, KILL_RESOLVED]
+    assert [d.type for d in result.drafts] == [SEER_INSPECT, DOCTOR_PROTECT, KILL_BALLOTS, KILL_RESOLVED]
 
 
 def test_no_seer_or_doctor_action_emits_only_the_kill_event() -> None:
@@ -202,7 +208,7 @@ def test_no_seer_or_doctor_action_emits_only_the_kill_event() -> None:
 
     result = resolve_night(state, actions, GameRNG(0))
 
-    assert [d.type for d in result.drafts] == [KILL_RESOLVED]
+    assert [d.type for d in result.drafts] == [KILL_BALLOTS, KILL_RESOLVED]
 
 
 def test_every_night_draft_passes_the_private_event_guard() -> None:
@@ -266,6 +272,74 @@ def test_resolve_night_rejects_a_kill_vote_from_a_dead_werewolf() -> None:
 
     with pytest.raises(ValueError, match="not alive"):
         resolve_night(state, actions, GameRNG(0))
+
+
+def test_kill_resolved_payload_carries_victim_only_no_ballots() -> None:
+    """`KILL_RESOLVED.payload` is `{"victim"}` only — ballots ride a separate private event.
+
+    `KILL_RESOLVED` is a public broadcast (every player sees who died), but
+    the per-werewolf vote map is the pack's private coordination data. Mixing
+    the ballots into the public payload would broadcast hidden state to
+    villagers (invariant #2). The ballots live on a separate private
+    `KILL_BALLOTS` event addressed to the living werewolf pack.
+    """
+    state = GameState.initial(ROSTER)
+    actions = NightActions(kill_votes={"Wolf1": "Vil1", "Wolf2": "Vil2"})
+
+    result = resolve_night(state, actions, GameRNG(0))
+    draft = _draft(result.drafts, KILL_RESOLVED)
+
+    assert "ballots" not in draft.payload
+    assert set(draft.payload.keys()) == {"victim"}
+    assert draft.payload["victim"] == "Vil2"  # seed-0 tie-break still pins the victim
+
+
+def test_kill_ballots_event_is_private_to_the_living_werewolf_pack() -> None:
+    """`KILL_BALLOTS.recipients` is the sorted living werewolf pack (invariant #2).
+
+    The pack already sees these votes via `werewolf_chat`; logging them as a
+    private event preserves the audit trail for T24 attribution without
+    leaking to villagers. With both wolves alive the recipients are
+    `("Wolf1", "Wolf2")` (sorted).
+    """
+    state = GameState.initial(ROSTER)
+    actions = NightActions(kill_votes={"Wolf1": "Vil1", "Wolf2": "Vil2"})
+
+    result = resolve_night(state, actions, GameRNG(0))
+    draft = _draft(result.drafts, KILL_BALLOTS)
+
+    assert draft.recipients == ("Wolf1", "Wolf2")
+    assert draft.payload["ballots"] == {"Wolf1": "Vil1", "Wolf2": "Vil2"}
+
+
+def test_kill_ballots_recipients_exclude_a_dead_werewolf() -> None:
+    """A werewolf killed by exile earlier in the game is not a `KILL_BALLOTS` recipient.
+
+    `resolve_night` reads `state.alive_players()` when building the recipient
+    list; a dead wolf is dropped. Without this the dead wolf could spy on the
+    surviving wolf's vote via memory.
+    """
+    state = GameState.initial(ROSTER).with_player_killed("Wolf2")
+    actions = NightActions(kill_votes={"Wolf1": "Vil1"})
+
+    result = resolve_night(state, actions, GameRNG(0))
+    draft = _draft(result.drafts, KILL_BALLOTS)
+
+    assert draft.recipients == ("Wolf1",)
+    assert draft.payload["ballots"] == {"Wolf1": "Vil1"}
+
+
+def test_kill_ballots_payload_is_a_fresh_dict_not_the_input() -> None:
+    """Mutating the input `kill_votes` after resolution does not change the logged ballots."""
+    state = GameState.initial(ROSTER)
+    kill_votes = {"Wolf1": "Vil1", "Wolf2": "Vil1"}
+    actions = NightActions(kill_votes=kill_votes)
+
+    result = resolve_night(state, actions, GameRNG(0))
+    kill_votes["Wolf1"] = "Vil3"  # corrupt the source after resolution
+
+    draft = _draft(result.drafts, KILL_BALLOTS)
+    assert draft.payload["ballots"] == {"Wolf1": "Vil1", "Wolf2": "Vil1"}
 
 
 def test_empty_kill_votes_is_rejected() -> None:

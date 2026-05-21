@@ -32,10 +32,14 @@ from social_deduction_bench.engine import (
 from social_deduction_bench.engine.events import EventStream
 from social_deduction_bench.games.werewolf.events import (
     ABSTAIN,
+    BID,
     EXILE_RESOLVED,
     GAME_OVER,
     KILL_RESOLVED,
     SEER_INSPECT,
+    SPEECH,
+    TOOL_REJECTED,
+    WEREWOLF_CHAT,
 )
 from social_deduction_bench.games.werewolf.loop import run_game
 from social_deduction_bench.games.werewolf.roles import Role
@@ -235,29 +239,56 @@ def test_roster_order_determines_lm_call_order() -> None:
     assert actions.kill_votes == {"Wolf2": "Vil1", "Wolf1": "Vil2"}
 
 
+_K_SPEAKERS = 3  # `K_DISCUSSION_SLOTS` — see `games.werewolf.config`.
+
+
+def _day_dialogue_pairs(n_alive: int) -> list[dict[str, Any]]:
+    """Bid + speech answers for one day, in the order `run_game` will call them.
+
+    The loop walks the roster in order for `bids()` (one `submit_bid` commit per
+    alive player), then walks the chosen `speakers` tuple (length
+    `min(K, n_alive)`) for `speeches()`. The uniform-LM tests share one answer
+    queue across seats, so the queue must hold every commit + finish pair in
+    the order they will be consumed.
+    """
+    pairs: list[dict[str, Any]] = []
+    for _ in range(n_alive):
+        pairs += _commit_pair("submit_bid", {"amount": 0})
+    for _ in range(min(_K_SPEAKERS, n_alive)):
+        pairs += _commit_pair("speak", {"message": "no comment"})
+    return pairs
+
+
 def _werewolf_sweep_script() -> list[dict[str, Any]]:
     """A scripted full-game LM transcript ending in a werewolf victory.
 
     Three villagers die over three nights; days all abstain (no exile). The
     village goes from 5 villagers + 2 wolves to 2 villagers + 2 wolves at
-    parity — a werewolf win on the post-night terminal check.
+    parity — a werewolf win on the post-night terminal check. Each day
+    interleaves `bids()` + `speeches()` between the night kill and the exile
+    vote (T29 wiring); answers cover all three sub-phases.
     """
     answers: list[dict[str, Any]] = []
 
+    # Round 1: night (4 actors) -> day (6 alive: 6 bids, 3 speeches, 6 exile votes).
     answers += _commit_pair("submit_kill_vote", {"target": "Vil1"})
     answers += _commit_pair("submit_kill_vote", {"target": "Vil1"})
     answers += _commit_pair("seer_inspect", {"target": "Wolf1"})
     answers += _commit_pair("doctor_protect", {"target": "Seer1"})
+    answers += _day_dialogue_pairs(6)
     for _ in range(6):
         answers += _commit_pair("submit_exile_vote", {"target": ABSTAIN})
 
+    # Round 2: night (4 actors) -> day (5 alive: 5 bids, 3 speeches, 5 exile votes).
     answers += _commit_pair("submit_kill_vote", {"target": "Vil2"})
     answers += _commit_pair("submit_kill_vote", {"target": "Vil2"})
     answers += _commit_pair("seer_inspect", {"target": "Wolf2"})
     answers += _commit_pair("doctor_protect", {"target": "Vil3"})
+    answers += _day_dialogue_pairs(5)
     for _ in range(5):
         answers += _commit_pair("submit_exile_vote", {"target": ABSTAIN})
 
+    # Round 3 night ends the game on werewolf parity.
     answers += _commit_pair("submit_kill_vote", {"target": "Vil3"})
     answers += _commit_pair("submit_kill_vote", {"target": "Vil3"})
     answers += _commit_pair("seer_inspect", {"target": "Doc1"})
@@ -395,44 +426,67 @@ def test_dead_seat_does_not_consume_its_lm_in_day_actions() -> None:
         )
 
 
+def _bid_then_maybe_speech(amount: int, *, speaks: bool) -> list[dict[str, Any]]:
+    """One day's per-seat answers: a `submit_bid` commit and, when chosen, a `speak` commit."""
+    out = _commit_pair("submit_bid", {"amount": amount})
+    if speaks:
+        out += _commit_pair("speak", {"message": "no comment"})
+    return out
+
+
 def _per_seat_werewolf_sweep_lms() -> dict[str, DummyLM]:
     """Per-seat scripted answers for the same werewolf-win sweep as the legacy fixture.
 
     Three nights of wolves killing Vil1/Vil2/Vil3; days in between are unanimous
     abstains. The seer inspects Wolf1/Wolf2/Doc1; the doctor protects Seer1/Vil3/Seer1.
-    Villager seats only contribute their day-time abstain votes until they die.
+
+    Bids are distinct (Wolf1=10, Wolf2=9, Seer1=8, Doc1=7, Vil2=5, Vil3=4) so
+    `resolve_discussion` always picks Wolf1, Wolf2, Seer1 as the top-3
+    speakers — no seeded tie-break is in play, the speaker set is fixed every
+    day and the script aligns the `speak` answers to exactly those seats.
     """
     wolf1 = (
         _commit_pair("submit_kill_vote", {"target": "Vil1"})
+        + _bid_then_maybe_speech(10, speaks=True)
         + _commit_pair("submit_exile_vote", {"target": ABSTAIN})
         + _commit_pair("submit_kill_vote", {"target": "Vil2"})
+        + _bid_then_maybe_speech(10, speaks=True)
         + _commit_pair("submit_exile_vote", {"target": ABSTAIN})
         + _commit_pair("submit_kill_vote", {"target": "Vil3"})
     )
     wolf2 = (
         _commit_pair("submit_kill_vote", {"target": "Vil1"})
+        + _bid_then_maybe_speech(9, speaks=True)
         + _commit_pair("submit_exile_vote", {"target": ABSTAIN})
         + _commit_pair("submit_kill_vote", {"target": "Vil2"})
+        + _bid_then_maybe_speech(9, speaks=True)
         + _commit_pair("submit_exile_vote", {"target": ABSTAIN})
         + _commit_pair("submit_kill_vote", {"target": "Vil3"})
     )
     seer1 = (
         _commit_pair("seer_inspect", {"target": "Wolf1"})
+        + _bid_then_maybe_speech(8, speaks=True)
         + _commit_pair("submit_exile_vote", {"target": ABSTAIN})
         + _commit_pair("seer_inspect", {"target": "Wolf2"})
+        + _bid_then_maybe_speech(8, speaks=True)
         + _commit_pair("submit_exile_vote", {"target": ABSTAIN})
         + _commit_pair("seer_inspect", {"target": "Doc1"})
     )
     doc1 = (
         _commit_pair("doctor_protect", {"target": "Seer1"})
+        + _bid_then_maybe_speech(7, speaks=False)
         + _commit_pair("submit_exile_vote", {"target": ABSTAIN})
         + _commit_pair("doctor_protect", {"target": "Vil3"})
+        + _bid_then_maybe_speech(7, speaks=False)
         + _commit_pair("submit_exile_vote", {"target": ABSTAIN})
         + _commit_pair("doctor_protect", {"target": "Seer1"})
     )
-    vil2 = _commit_pair("submit_exile_vote", {"target": ABSTAIN})
-    vil3 = _commit_pair("submit_exile_vote", {"target": ABSTAIN}) + _commit_pair(
-        "submit_exile_vote", {"target": ABSTAIN}
+    vil2 = _bid_then_maybe_speech(5, speaks=False) + _commit_pair("submit_exile_vote", {"target": ABSTAIN})
+    vil3 = (
+        _bid_then_maybe_speech(4, speaks=False)
+        + _commit_pair("submit_exile_vote", {"target": ABSTAIN})
+        + _bid_then_maybe_speech(4, speaks=False)
+        + _commit_pair("submit_exile_vote", {"target": ABSTAIN})
     )
     return {
         "Wolf1": DummyLM(wolf1),
@@ -469,6 +523,286 @@ def test_two_sources_with_identical_per_seat_inputs_produce_identical_streams() 
         return run_game(ROSTER, seed=seed, decisions=source)
 
     assert_deterministic(produce, seed=42)
+
+
+def test_werewolf_chat_intermediate_emits_drafts_before_kill_vote() -> None:
+    """A werewolf that chats before committing produces one `WEREWOLF_CHAT` draft per call.
+
+    The draft is private to the *living* werewolf pack and carries
+    `{"speaker", "message"}`. The kill-vote terminal still ends the loop;
+    the chat call(s) are intermediate, not terminal.
+    """
+    seat_lms: dict[str, DummyLM] = {
+        "Wolf1": DummyLM(
+            [
+                _step("werewolf_chat", {"message": "hunt the seer"}, "talk"),
+                _step("submit_kill_vote", {"target": "Vil1"}, "vote"),
+                _finish(),
+            ]
+        ),
+        "Wolf2": DummyLM(_commit_pair("submit_kill_vote", {"target": "Vil1"})),
+        "Seer1": DummyLM(_commit_pair("seer_inspect", {"target": "Wolf1"})),
+        "Doc1": DummyLM(_commit_pair("doctor_protect", {"target": "Vil1"})),
+        "Vil1": DummyLM([]),
+        "Vil2": DummyLM([]),
+        "Vil3": DummyLM([]),
+    }
+    source = ReActDecisionSource(roster=ROSTER, lms=seat_lms)
+    state = GameState.initial(ROSTER)
+
+    actions = source.night_actions(state)
+    drafts = source.drain_drafts()
+
+    chat_drafts = [d for d in drafts if d.type == WEREWOLF_CHAT]
+    assert len(chat_drafts) == 1
+    assert chat_drafts[0].payload == {"speaker": "Wolf1", "message": "hunt the seer"}
+    assert chat_drafts[0].recipients == ("Wolf1", "Wolf2")
+    assert actions.kill_votes["Wolf1"] == "Vil1"
+
+
+def test_werewolf_chat_recipients_exclude_dead_pack_members() -> None:
+    """A werewolf killed earlier in the game is not a recipient of new pack chat.
+
+    Pre-T29 the pack was a static set; T29 makes it dynamic — a dead wolf
+    cannot read messages addressed to the living pack. Without this guard a
+    spectator wolf would re-enter the chat stream via memory.
+    """
+    state = GameState.initial(ROSTER).with_player_killed("Wolf2")
+    seat_lms: dict[str, DummyLM] = {
+        "Wolf1": DummyLM(
+            [
+                _step("werewolf_chat", {"message": "I'm alone now"}, "talk"),
+                _step("submit_kill_vote", {"target": "Vil1"}, "vote"),
+                _finish(),
+            ]
+        ),
+        "Wolf2": DummyLM([]),
+        "Seer1": DummyLM(_commit_pair("seer_inspect", {"target": "Wolf1"})),
+        "Doc1": DummyLM(_commit_pair("doctor_protect", {"target": "Vil1"})),
+        "Vil1": DummyLM([]),
+        "Vil2": DummyLM([]),
+        "Vil3": DummyLM([]),
+    }
+    source = ReActDecisionSource(roster=ROSTER, lms=seat_lms)
+
+    source.night_actions(state)
+    drafts = source.drain_drafts()
+    chat_drafts = [d for d in drafts if d.type == WEREWOLF_CHAT]
+
+    assert len(chat_drafts) == 1
+    assert chat_drafts[0].recipients == ("Wolf1",)
+
+
+def test_bids_emits_one_private_bid_per_alive_player() -> None:
+    """`bids()` runs one ReAct loop per alive player; each emits a private `BID` draft.
+
+    Each seat is scripted with a *distinct* amount equal to its roster index;
+    a regression that swapped seats <-> amounts (round-robin amount
+    assignment, dict-order leak, off-by-one) would produce a wrong
+    `{name: amount}` map and fail the explicit per-seat pin below.
+    """
+    state = advance_phase(GameState.initial(ROSTER))
+    expected = {name: amount for amount, (name, _role) in enumerate(ROSTER)}
+    seat_lms: dict[str, DummyLM] = {
+        name: DummyLM(_commit_pair("submit_bid", {"amount": amount})) for name, amount in expected.items()
+    }
+    source = ReActDecisionSource(roster=ROSTER, lms=seat_lms)
+
+    bids = source.bids(state)
+    drafts = source.drain_drafts()
+
+    assert bids == expected
+    bid_drafts = [d for d in drafts if d.type == BID]
+    assert {d.payload["bidder"] for d in bid_drafts} == set(expected)
+    for draft in bid_drafts:
+        bidder = draft.payload["bidder"]
+        amount = draft.payload["amount"]
+        assert isinstance(bidder, str)
+        assert isinstance(amount, int)
+        assert draft.recipients == (bidder,)
+        assert amount == expected[bidder]
+
+
+def test_bids_skips_dead_players() -> None:
+    """A dead seat does not bid; its LM is untouched."""
+    state = advance_phase(GameState.initial(ROSTER)).with_player_killed("Vil1")
+    seat_lms: dict[str, DummyLM] = {name: DummyLM(_commit_pair("submit_bid", {"amount": 1})) for name, _ in ROSTER}
+    source = ReActDecisionSource(roster=ROSTER, lms=seat_lms)
+
+    bids = source.bids(state)
+
+    assert "Vil1" not in bids
+    assert seat_lms["Vil1"].history == []
+
+
+def test_speeches_emits_public_drafts_in_speaker_order() -> None:
+    """`speeches(state, speakers)` runs one ReAct loop per speaker; each emits a public `SPEECH`."""
+    state = advance_phase(GameState.initial(ROSTER))
+    seat_lms: dict[str, DummyLM] = {
+        "Wolf1": DummyLM(_commit_pair("speak", {"message": "I am the seer"})),
+        "Wolf2": DummyLM([]),
+        "Seer1": DummyLM(_commit_pair("speak", {"message": "No, I am"})),
+        "Doc1": DummyLM([]),
+        "Vil1": DummyLM([]),
+        "Vil2": DummyLM(_commit_pair("speak", {"message": "I trust Seer1"})),
+        "Vil3": DummyLM([]),
+    }
+    source = ReActDecisionSource(roster=ROSTER, lms=seat_lms)
+
+    speeches = source.speeches(state, ("Wolf1", "Seer1", "Vil2"))
+    drafts = source.drain_drafts()
+    speech_drafts = [d for d in drafts if d.type == SPEECH]
+
+    assert speeches == (
+        ("Wolf1", "I am the seer"),
+        ("Seer1", "No, I am"),
+        ("Vil2", "I trust Seer1"),
+    )
+    assert len(speech_drafts) == 3
+    assert all(d.recipients == () for d in speech_drafts)
+    assert [d.payload["speaker"] for d in speech_drafts] == ["Wolf1", "Seer1", "Vil2"]
+    assert [d.payload["message"] for d in speech_drafts] == [
+        "I am the seer",
+        "No, I am",
+        "I trust Seer1",
+    ]
+
+
+def test_tool_rejection_emits_private_tool_rejected_draft() -> None:
+    """A rejected terminal call emits exactly one `TOOL_REJECTED` draft to the caller.
+
+    Wolf1 first tries to vote for itself (rejected: self-target), then a valid
+    vote. The buffer holds exactly one `TOOL_REJECTED` whose payload names the
+    tool, the rejected args, and the engine's reason, with `recipients=("Wolf1",)`.
+    """
+    seat_lms: dict[str, DummyLM] = {
+        "Wolf1": DummyLM(
+            [
+                _step("submit_kill_vote", {"target": "Wolf1"}, "bad"),
+                _step("submit_kill_vote", {"target": "Vil1"}, "retry"),
+                _finish(),
+            ]
+        ),
+        "Wolf2": DummyLM(_commit_pair("submit_kill_vote", {"target": "Vil1"})),
+        "Seer1": DummyLM(_commit_pair("seer_inspect", {"target": "Wolf1"})),
+        "Doc1": DummyLM(_commit_pair("doctor_protect", {"target": "Vil1"})),
+        "Vil1": DummyLM([]),
+        "Vil2": DummyLM([]),
+        "Vil3": DummyLM([]),
+    }
+    source = ReActDecisionSource(roster=ROSTER, lms=seat_lms)
+
+    source.night_actions(GameState.initial(ROSTER))
+    drafts = source.drain_drafts()
+    rejected = [d for d in drafts if d.type == TOOL_REJECTED]
+
+    assert len(rejected) == 1
+    assert rejected[0].recipients == ("Wolf1",)
+    assert rejected[0].payload["tool"] == "submit_kill_vote"
+    assert rejected[0].payload["args"] == {"target": "Wolf1"}
+    reason = rejected[0].payload["reason"]
+    assert isinstance(reason, str)
+    # Match the rejection *cause* (self-target), not just the player name in passing —
+    # a regression that rejected for a different reason but mentioned Wolf1 would slip
+    # through a name-only check.
+    assert "cannot target the caller" in reason
+
+
+def test_drain_drafts_empties_buffer_and_returns_tuple() -> None:
+    """`drain_drafts()` returns a tuple snapshot and clears the buffer (idempotent).
+
+    Script: Wolf1 chats once then commits. Wolf2 commits straight. Seer/Doc
+    each commit straight. No rejections. So the buffer should contain
+    exactly one draft (the WEREWOLF_CHAT). Pinning the exact count catches
+    a regression that double-emits or stages stray drafts.
+    """
+    seat_lms: dict[str, DummyLM] = {
+        "Wolf1": DummyLM(
+            [
+                _step("werewolf_chat", {"message": "go"}, "talk"),
+                _step("submit_kill_vote", {"target": "Vil1"}, "vote"),
+                _finish(),
+            ]
+        ),
+        "Wolf2": DummyLM(_commit_pair("submit_kill_vote", {"target": "Vil1"})),
+        "Seer1": DummyLM(_commit_pair("seer_inspect", {"target": "Wolf1"})),
+        "Doc1": DummyLM(_commit_pair("doctor_protect", {"target": "Vil1"})),
+        "Vil1": DummyLM([]),
+        "Vil2": DummyLM([]),
+        "Vil3": DummyLM([]),
+    }
+    source = ReActDecisionSource(roster=ROSTER, lms=seat_lms)
+
+    source.night_actions(GameState.initial(ROSTER))
+    first = source.drain_drafts()
+    second = source.drain_drafts()
+
+    assert isinstance(first, tuple)
+    assert len(first) == 1
+    assert first[0].type == WEREWOLF_CHAT
+    assert second == ()
+
+
+def test_drain_drafts_is_empty_after_construction() -> None:
+    """A freshly-built source has nothing pending — `drain_drafts()` returns `()`.
+
+    Guards against a regression that pre-populates `_pending_drafts` (e.g.,
+    a future "init-time announcement" feature that forgets to gate behind
+    the loop's drain points).
+    """
+    source = ReActDecisionSource(roster=ROSTER, lms=_empty_lms())
+    assert source.drain_drafts() == ()
+
+
+def test_tool_rejected_lands_in_the_event_stream_through_run_game() -> None:
+    """A rejected ReAct tool call surfaces as a private `TOOL_REJECTED` event in the transcript.
+
+    End-to-end pin closing the T17/T19/T21 carry-over: `validate_tool_call`
+    rejects a self-target kill, the adapter stages a `TOOL_REJECTED` draft,
+    and `run_game` routes that draft through `_log_drafts` so it lands in the
+    `EventStream` private to the caller. T24's illegal-move-rate metric will
+    consume this signal — make it integration-tested now.
+    """
+    lms = _per_seat_werewolf_sweep_lms()
+    # Override Wolf1's night-1 commit to add a self-target rejection then a valid retry.
+    # The valid retry produces the same `Vil1` kill commit the original script expected,
+    # so the rest of the game-long queue lines up unchanged.
+    wolf1_answers = lms["Wolf1"].history if hasattr(lms["Wolf1"], "history") else []
+    # Build fresh — DummyLM is easier to replace than to patch in place.
+    night1_with_rejection = [
+        _step("submit_kill_vote", {"target": "Wolf1"}, "bad"),  # self-target — rejected
+        _step("submit_kill_vote", {"target": "Vil1"}, "retry"),
+        _finish(),
+    ]
+    # The rest of Wolf1's day-1 / night-2 / day-2 / night-3 queue from the sweep.
+    rest_of_wolf1 = (
+        _bid_then_maybe_speech(10, speaks=True)
+        + _commit_pair("submit_exile_vote", {"target": ABSTAIN})
+        + _commit_pair("submit_kill_vote", {"target": "Vil2"})
+        + _bid_then_maybe_speech(10, speaks=True)
+        + _commit_pair("submit_exile_vote", {"target": ABSTAIN})
+        + _commit_pair("submit_kill_vote", {"target": "Vil3"})
+    )
+    del wolf1_answers
+    lms["Wolf1"] = DummyLM(night1_with_rejection + rest_of_wolf1)
+    source = ReActDecisionSource(roster=ROSTER, lms=lms)
+
+    stream = run_game(ROSTER, seed=42, decisions=source)
+    rejections = [e for e in stream.log.events if e.type == TOOL_REJECTED]
+
+    assert len(rejections) == 1
+    assert rejections[0].recipients == ("Wolf1",)
+    assert rejections[0].payload["tool"] == "submit_kill_vote"
+    assert rejections[0].payload["args"] == {"target": "Wolf1"}
+    reason = rejections[0].payload["reason"]
+    assert isinstance(reason, str)
+    assert "cannot target the caller" in reason
+
+    # The villager view of the same stream sees no TOOL_REJECTED event (invariant #2 closure).
+    from social_deduction_bench.engine import observations_for
+
+    villager_view = observations_for(stream.log.events, "Vil3")
+    assert all(e.type != TOOL_REJECTED for e in villager_view)
 
 
 def test_lms_dict_insertion_order_does_not_affect_event_stream() -> None:

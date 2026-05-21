@@ -12,11 +12,17 @@ import functools
 import inspect
 from collections.abc import Callable, Mapping, Sequence
 from dataclasses import dataclass
+from types import MappingProxyType
 
 import dspy
 from dspy.clients.base_lm import BaseLM
 
 from social_deduction_bench.games.werewolf.tools import ToolResult
+
+RejectCallback = Callable[[str, dict[str, object], str], None]
+"""Signature for `react_decide`'s `on_reject` hook: `(tool, args, reason) -> None`."""
+
+_EMPTY_INTERMEDIATES: Mapping[str, Callable[..., ToolResult]] = MappingProxyType({})
 
 
 @dataclass(frozen=True, slots=True)
@@ -59,8 +65,13 @@ def _rename_cognitive(fn: Callable[..., str]) -> Callable[..., str]:
     return wrapper
 
 
-def _wrap_terminal(name: str, fn: Callable[..., ToolResult], slot: _Slot) -> Callable[..., str]:
-    """Wrap a terminal tool to capture a valid commit into `slot` and return a string observation."""
+def _wrap_terminal(
+    name: str,
+    fn: Callable[..., ToolResult],
+    slot: _Slot,
+    on_reject: RejectCallback | None,
+) -> Callable[..., str]:
+    """Wrap a terminal tool: capture a valid commit into `slot`, surface a rejection through `on_reject`."""
 
     @functools.wraps(fn)
     def wrapper(**kwargs: object) -> str:
@@ -70,6 +81,35 @@ def _wrap_terminal(name: str, fn: Callable[..., ToolResult], slot: _Slot) -> Cal
             slot.tool_name = name
             slot.value = result.value
             return f"ok: {name} committed with {kwargs}"
+        if on_reject is not None:
+            on_reject(name, dict(kwargs), result.reason)
+        return f"error: {result.reason}"
+
+    wrapper.__name__ = name
+    wrapper.__signature__ = inspect.signature(fn)  # type: ignore[attr-defined]
+    return wrapper
+
+
+def _wrap_intermediate(
+    name: str,
+    fn: Callable[..., ToolResult],
+    on_reject: RejectCallback | None,
+) -> Callable[..., str]:
+    """Wrap an intermediate game-action tool.
+
+    A valid call returns an `ok:` observation and the loop continues — no
+    commit slot is set. A rejection fires `on_reject` and returns an `error:`
+    observation. Intermediate tools never terminate the loop; only `terminal`
+    tools (plus the implicit `finish`) do.
+    """
+
+    @functools.wraps(fn)
+    def wrapper(**kwargs: object) -> str:
+        result = fn(**kwargs)
+        if result.valid:
+            return f"ok: {name} called with {kwargs}"
+        if on_reject is not None:
+            on_reject(name, dict(kwargs), result.reason)
         return f"error: {result.reason}"
 
     wrapper.__name__ = name
@@ -102,18 +142,27 @@ def react_decide(
     terminal_tools: Mapping[str, Callable[..., ToolResult]],
     decision_brief: str,
     lm: BaseLM,
+    intermediate_tools: Mapping[str, Callable[..., ToolResult]] = _EMPTY_INTERMEDIATES,
     max_iters: int = 10,
+    on_reject: RejectCallback | None = None,
 ) -> Commit:
     """Run one ReAct decision under a scoped LM and return the committed action.
 
     Each iteration is one LM call. Terminal-tool wrappers write into a private
     slot on a valid call; the LLM then emits `finish` to close the loop. An
     empty slot at loop exit raises `RuntimeError`.
+
+    `intermediate_tools` are game-action tools that emit a side-effect but do
+    not terminate the loop — used for `werewolf_chat` so the werewolves can
+    speak (and emit `WEREWOLF_CHAT` events) before committing a kill vote.
+    `on_reject(tool, args, reason)` fires once per `ToolResult(valid=False)`
+    from either category; the adapter uses it to emit `TOOL_REJECTED` events.
     """
     slot = _Slot()
     renamed_cognitive = [_rename_cognitive(fn) for fn in cognitive_tools]
-    wrapped_terminals = [_wrap_terminal(name, fn, slot) for name, fn in terminal_tools.items()]
-    tools = [*renamed_cognitive, *wrapped_terminals]
+    wrapped_intermediate = [_wrap_intermediate(name, fn, on_reject) for name, fn in intermediate_tools.items()]
+    wrapped_terminals = [_wrap_terminal(name, fn, slot, on_reject) for name, fn in terminal_tools.items()]
+    tools = [*renamed_cognitive, *wrapped_intermediate, *wrapped_terminals]
 
     signature = _build_signature()
     react = dspy.ReAct(signature, tools=tools, max_iters=max_iters)

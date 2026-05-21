@@ -76,6 +76,9 @@ def resolve_day(state: GameState, actions: DayActions) -> DayResult:
 
     new_state = state.with_player_killed(exiled) if exiled is not None else state
 
-    exile_draft = EventDraft(type=EXILE_RESOLVED, payload={"exiled": exiled})
+    exile_draft = EventDraft(
+        type=EXILE_RESOLVED,
+        payload={"exiled": exiled, "ballots": dict(actions.exile_votes)},
+    )
 
     return DayResult(state=new_state, drafts=(exile_draft,), exiled=exiled)

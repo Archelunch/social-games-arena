@@ -77,14 +77,19 @@ def test_default_role_multiset_is_deterministic() -> None:
     assert default_role_multiset() == default_role_multiset()
 
 
-def test_private_event_types_are_exactly_the_three_declared() -> None:
-    """`PRIVATE_EVENT_TYPES` is exactly the three Werewolf private channels.
+def test_private_event_types_are_exactly_the_declared_set() -> None:
+    """`PRIVATE_EVENT_TYPES` is exactly the six Werewolf private channels.
 
     This frozenset *is* the input to the engine's private-event guard (T11). An
     omitted type would let that event be emitted with empty recipients —
-    broadcasting hidden state and breaking invariant #2.
+    broadcasting hidden state and breaking invariant #2. T29 added `bid`
+    (per-bidder private), `tool_rejected` (private to the caller), and
+    `kill_ballots` (private to the living werewolf pack — the public
+    `kill_resolved` carries only the resolved victim).
     """
-    assert PRIVATE_EVENT_TYPES == frozenset({"seer_inspect", "werewolf_chat", "doctor_protect"})
+    assert PRIVATE_EVENT_TYPES == frozenset(
+        {"seer_inspect", "werewolf_chat", "doctor_protect", "bid", "tool_rejected", "kill_ballots"}
+    )
 
 
 def test_private_event_types_is_an_immutable_frozenset() -> None:

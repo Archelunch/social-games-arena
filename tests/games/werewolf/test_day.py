@@ -135,6 +135,55 @@ def test_exile_resolved_payload_names_no_one_on_a_tie() -> None:
     assert exile_draft.payload["exiled"] is None
 
 
+def test_exile_resolved_payload_carries_the_full_ballot_map() -> None:
+    """`EXILE_RESOLVED.payload["ballots"]` carries the voter -> target map.
+
+    Replay and T24's exile-accuracy attribution need the per-voter ballot, not
+    only the resolved exile. The map must equal the input `exile_votes`
+    exactly. A tied vote still records both ballots — the tie-resolution
+    (no exile) is recorded in `exiled`, separately from the ballots.
+    """
+    state = _day_state()
+    exile_votes = {"Wolf1": "Vil1", "Wolf2": "Vil2", "Seer": "Wolf1", "Doc": "Wolf1"}
+    actions = DayActions(exile_votes=exile_votes)
+
+    result = resolve_day(state, actions)
+    exile_draft = next(d for d in result.drafts if d.type == EXILE_RESOLVED)
+
+    assert exile_draft.payload["ballots"] == exile_votes
+    assert exile_draft.payload["exiled"] == "Wolf1"
+
+
+def test_exile_resolved_ballots_preserve_abstain_targets() -> None:
+    """Abstain votes appear in `ballots` as the literal `"abstain"`.
+
+    Abstain is excluded from the *tally*, but the ballot itself is part of the
+    transcript — replay and metrics must be able to count abstentions per
+    voter. An all-abstain day still records every voter mapped to `"abstain"`.
+    """
+    state = _day_state()
+    actions = DayActions(exile_votes={"Wolf1": ABSTAIN, "Wolf2": ABSTAIN, "Seer": ABSTAIN})
+
+    result = resolve_day(state, actions)
+    exile_draft = next(d for d in result.drafts if d.type == EXILE_RESOLVED)
+
+    assert exile_draft.payload["ballots"] == {"Wolf1": ABSTAIN, "Wolf2": ABSTAIN, "Seer": ABSTAIN}
+    assert exile_draft.payload["exiled"] is None
+
+
+def test_exile_resolved_ballots_are_a_fresh_dict_not_the_input() -> None:
+    """Mutating the input `exile_votes` after resolution does not change the logged ballots."""
+    state = _day_state()
+    exile_votes = {"Wolf1": "Vil1", "Wolf2": "Vil1"}
+    actions = DayActions(exile_votes=exile_votes)
+
+    result = resolve_day(state, actions)
+    exile_votes["Wolf1"] = "Vil3"
+
+    exile_draft = next(d for d in result.drafts if d.type == EXILE_RESOLVED)
+    assert exile_draft.payload["ballots"] == {"Wolf1": "Vil1", "Wolf2": "Vil1"}
+
+
 def test_plurality_below_a_majority_still_exiles() -> None:
     """A plurality short of an outright majority still exiles the top candidate.
 

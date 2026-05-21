@@ -26,10 +26,12 @@ DEFAULT_ROLE_COUNTS: MappingProxyType[Role, int] = MappingProxyType(
     }
 )
 
-# The three Werewolf event types that must be routed to specific recipients only.
+# The six Werewolf event types that must be routed to specific recipients only.
 # This frozenset is the input to the engine's private-event guard; a `frozenset`
 # so it cannot be mutated mid-game and drop a type from the guard's coverage.
-PRIVATE_EVENT_TYPES: frozenset[str] = frozenset({"seer_inspect", "werewolf_chat", "doctor_protect"})
+PRIVATE_EVENT_TYPES: frozenset[str] = frozenset(
+    {"seer_inspect", "werewolf_chat", "doctor_protect", "bid", "tool_rejected", "kill_ballots"}
+)
 
 # Number of speaking slots awarded each day's discussion (WEREWOLF_DESIGN.md §4).
 # The Werewolf Arena baseline for 7-player games; `resolve_discussion` clamps to

@@ -2,13 +2,21 @@
 
 Append-only. Newest entry on top. Read this first when starting a session.
 
-**Current state:** T23 done — real-LLM smoke game via OpenRouter, gated
-behind a `smoke` pytest marker (default-deselected) AND a
-`pytest.skip` on missing `OPENROUTER_API_KEY`. New
-`src/social_deduction_bench/settings.py` is now the single project
-home for env-var reads. M4 closes. All checks green (413/413 default
-suite, +1 smoke deselected).
-**Next task:** T24 — metric extraction (M5 begins).
+**Current state:** T29 done — the full T29 dialogue/ballot/rejected-call
+event vocabulary is wired through `run_game` end-to-end. New event types
+`BID` (private to bidder), `DISCUSSION_RESOLVED` (public), `SPEECH`
+(public), `TOOL_REJECTED` (private to caller), and `KILL_BALLOTS`
+(private to living werewolf pack — split off from `KILL_RESOLVED` on
+integrity-review feedback to avoid leaking kill ballots to villagers).
+`KILL_RESOLVED` stays public with `{"victim"}` only; `EXILE_RESOLVED`
+gains a public `{"ballots"}` since exile votes are public by design.
+`DecisionSource` Protocol gains `bids` / `speeches` / `drain_drafts`;
+`ReActDecisionSource` runs per-player ReAct loops for each, plus a
+new intermediate-tool category in `react.py` lets werewolves call
+`werewolf_chat` during the night loop without terminating it. All
+checks green (458/458 default suite, +1 smoke deselected).
+**Next task:** T30 — per-decision trajectory + LM metadata sidecar
+`<game_id>.trajectories.jsonl` next to `events.jsonl`.
 
 **Tracked design decision (T09 + T11):** the private-event guard — each game
 declares its private event types, the engine rejects a declared-private type
@@ -22,6 +30,127 @@ Cross-game rationale in `BACKLOG.md` Notes and `WEREWOLF_DESIGN.md` §3.
 `games/werewolf/` (no `GameDefinition` bundle); resolution functions pure; the
 private-event guard is one shared `engine` function; T14 ships a production
 `run_game` driver + `DecisionSource` Protocol.
+
+---
+
+## 2026-05-21 — T29: dialogue, ballot attribution, rejected-call events (M5 begins)
+
+- **Engine event vocabulary** (`games/werewolf/events.py`,
+  `games/werewolf/config.py`):
+  - Added five new event-type constants. `DISCUSSION_RESOLVED` and
+    `SPEECH` are public; `BID`, `TOOL_REJECTED`, and `KILL_BALLOTS` are
+    private and bound into `PRIVATE_EVENT_TYPES` so the engine guard
+    rejects each one when emitted with empty recipients.
+  - `KILL_BALLOTS` did not appear in the original T29 plan — the
+    integrity reviewer flagged the originally-planned
+    `KILL_RESOLVED.payload["ballots"]` shape as a Critical leak (kill
+    ballots are werewolves' private coordination data, but
+    `KILL_RESOLVED` is broadcast to the whole village). The fix was to
+    split into two events: `KILL_RESOLVED` (public, `{"victim"}` only,
+    pre-T29 shape) and `KILL_BALLOTS` (private, recipients = sorted
+    living werewolf pack, `{"ballots"}`). `EXILE_RESOLVED.payload["ballots"]`
+    stays public — exile votes are public by design.
+- **`DecisionSource` Protocol** (`games/werewolf/loop.py`): three new
+  methods on top of `night_actions` / `day_actions` / `observe`:
+  - `bids(state) -> dict[str, int]` — one ReAct loop per alive player
+    in the agent-backed source; agent-side stages one `BID` draft per
+    bidder, private to that bidder.
+  - `speeches(state, speakers) -> tuple[(speaker, message), ...]` —
+    one ReAct loop per chosen speaker; stages one public `SPEECH`
+    draft per commit. Driver cross-checks the returned order against
+    the resolver's `discussion.speakers` (must be a prefix) — a
+    divergent script fails loud rather than logging a contradictory
+    transcript.
+  - `drain_drafts() -> tuple[EventDraft, ...]` — drains any staged
+    drafts (chat / bid / speech / tool-rejected) since the last drain.
+    The driver drains after each agent-facing step and routes the
+    drafts through the same `_log_drafts` + private-event guard as the
+    resolvers' drafts.
+- **`react.py` intermediate-tool category**: new `intermediate_tools`
+  mapping on `react_decide` for game-action tools that emit a side
+  effect but do **not** terminate the loop (only `werewolf_chat`
+  uses it today — wolves can chat zero-to-N times before committing a
+  kill vote). New `on_reject(tool, args, reason)` callback fires once
+  per `ToolResult(valid=False)` from either category; default `None`
+  is a quiet no-op (back-compat with the M4 tests).
+- **`ReActDecisionSource` wiring** (`agents/decisions.py`):
+  - Per-player ReAct loops drive `submit_bid`, `speak`, and the
+    werewolf-chat intermediate. Sub-helper `_invoke_react` centralises
+    the (cognitive tools, intermediates, terminals, on_reject) build.
+  - `on_reject` callbacks are **cached per caller** in `__init__`
+    (`self._on_reject_by_caller`) — reviewer caught that the previous
+    code built a fresh closure per `_invoke_react` call. Each
+    callback also sanitises the LLM's tool-call kwargs through
+    `_sanitize_arg` before staging the `TOOL_REJECTED` payload — a
+    non-JSON value from the LLM would otherwise crash
+    `Event.__post_init__` in mid-rejection.
+  - `_bind_werewolf_chat` builds the intermediate wrapper that stages
+    `WEREWOLF_CHAT` drafts to the **currently-living** werewolf pack
+    on every valid call. The living pack is computed once at the top
+    of `night_actions` (it cannot change during a single night —
+    no kills resolve until `resolve_night`).
+- **`run_game` loop** (`games/werewolf/loop.py`): two new helpers
+  `_run_night` and `_run_day` keep the loop body to a thin
+  termination + advance-phase wrapper (reviewer high finding).
+  `DISCUSSION_RESOLVED` is now built as an `EventDraft` and routed
+  through `_log_drafts` like every other event — the previous
+  inline `log.append` bypassed the recipients guard.
+- **`ScriptedDecisions`** (`games/werewolf/scripted.py`): three
+  default-empty staging fields — `night_chats`, `day_bids`,
+  `day_speeches` — let a fixed script supply chat lines / bids /
+  speeches without breaking the legacy `nights=` + `days=`-only
+  construction. Staged drafts flush through `drain_drafts()`.
+- **Decisions (review-driven):**
+  - **Three reviewers ran in parallel.** python: `NEEDS FIXES` (0
+    critical / 4 high / 4 medium). test: `PASS` (0 / 0 / 7 medium —
+    advisory). integrity: `NEEDS FIXES` (1 critical — stream stalled
+    at 600s but the critical was captured before the stall).
+  - **All Critical + High items addressed before commit.** Mediums
+    addressed except for Low cosmetic items (per CLAUDE.md rule 2).
+  - **`speeches` cross-check is prefix-based, not strict equality.**
+    A script may supply fewer than `K_DISCUSSION_SLOTS` speeches
+    (silent slots), but their order must match the start of the
+    resolver's chosen speakers. A full divergence is a caller bug
+    and raises `RuntimeError`.
+- **Test surface added:**
+  - `tests/games/werewolf/test_event_types.py` — parametrized
+    private-event-guard test now covers all six private types.
+  - `tests/games/werewolf/test_night.py` — `KILL_BALLOTS` is private
+    to the living pack (incl. dead-wolf exclusion); `KILL_RESOLVED`
+    carries `{"victim"}` only.
+  - `tests/games/werewolf/test_day.py` — `EXILE_RESOLVED.ballots`
+    payload, including all-abstain case.
+  - `tests/games/werewolf/test_scripted.py` (new) — 7 cases pinning
+    `ScriptedDecisions` chat / bid / speech staging through
+    `drain_drafts()`.
+  - `tests/agents/test_react.py` — `intermediate_tools` does not
+    terminate; `on_reject` fires for both categories; default `None`
+    is a quiet no-op.
+  - `tests/agents/test_decisions.py` — per-seat scripts now include
+    bids + speeches; new cases pin werewolf-chat intermediate, dead-
+    werewolf exclusion from chat recipients, per-seat BID drafts with
+    distinct amounts, speech-order pinning, `TOOL_REJECTED` draft
+    shape, `drain_drafts` idempotency, init-time emptiness; new
+    end-to-end test drives a self-target rejection through `run_game`
+    and asserts the `TOOL_REJECTED` event lands private to the
+    caller.
+  - `tests/games/werewolf/test_game_loop.py` — dialogue-rich scripted
+    game pins all five new event types end-to-end, JSONL round-trip,
+    determinism, the villager observation closure, and the
+    `KILL_BALLOTS` recipients (incl. a dedicated dead-werewolf-not-
+    a-recipient test).
+- `/sdb-review`: see `.reviews/20260520-2202-6818a74-T29/` for the
+  three reviewer reports + consolidated triage. Verdict: **all
+  Critical + High items resolved before commit.**
+- Verified: `pytest -q` 458 passed + 1 deselected; `pytest -m smoke -q`
+  (no key) 1 skipped + 458 deselected; `ruff check`, `ruff format
+  --check`, `pyrefly check` (0 errors).
+
+**M5 (Observability & analysis) progress:** T29 done. T30 (per-decision
+trajectory + LM metadata sidecar) and T31 (replay UI) remain.
+
+**Next:** T30 — per-decision trajectory + LM metadata sidecar
+`<game_id>.trajectories.jsonl` written next to `events.jsonl`.
 
 ---
 

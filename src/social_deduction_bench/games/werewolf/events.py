@@ -24,14 +24,27 @@ EXILE_RESOLVED = "exile_resolved"
 # Public: the final transcript event, naming the winning faction.
 GAME_OVER = "game_over"
 
+# Public: the day discussion's resolved speaker order, broadcast to every player.
+DISCUSSION_RESOLVED = "discussion_resolved"
+
+# Public: one chosen speaker's day statement, broadcast to every player.
+SPEECH = "speech"
+
 # The literal an exile vote uses to mean "no choice"; excluded from the tally.
 ABSTAIN = "abstain"
 
-# Private: each must be routed to specific recipients only. These three MUST
+# Private: each must be routed to specific recipients only. These six MUST
 # equal `config.PRIVATE_EVENT_TYPES`, the set the engine's guard enforces.
 SEER_INSPECT = "seer_inspect"
 DOCTOR_PROTECT = "doctor_protect"
 WEREWOLF_CHAT = "werewolf_chat"
+BID = "bid"
+TOOL_REJECTED = "tool_rejected"
+# The per-werewolf joint-kill ballot map. `KILL_RESOLVED` carries the
+# resolved victim publicly; this companion event carries the ballots and is
+# routed only to the living werewolf pack — they coordinate the vote via
+# `werewolf_chat`, so the ballot record is theirs, not the village's.
+KILL_BALLOTS = "kill_ballots"
 
 
 @dataclass(frozen=True, slots=True)

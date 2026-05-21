@@ -36,8 +36,10 @@ class BiddingActions:
 
     WEREWOLF_DESIGN.md §4 says "every alive agent submits a bid" — the resolver
     accepts an arbitrary subset (or none) because the "every-alive bids"
-    invariant is the loop's responsibility, not the resolver's. The agent loop
-    (T21) maps an absent/timeout bid to 0 before calling here.
+    invariant is the loop's responsibility, not the resolver's. The agent
+    adapter raises `RuntimeError` when a seat fails to commit a bid — a
+    silent default to 0 would absorb an agent-side bug, contrary to
+    CLAUDE.md rule 11 (fail loud).
     """
 
     bids: dict[str, int]

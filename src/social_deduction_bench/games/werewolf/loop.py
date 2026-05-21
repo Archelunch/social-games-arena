@@ -29,7 +29,12 @@ from social_deduction_bench.engine import (
 )
 from social_deduction_bench.games.werewolf.config import PRIVATE_EVENT_TYPES
 from social_deduction_bench.games.werewolf.day import DayActions, resolve_day
-from social_deduction_bench.games.werewolf.events import GAME_OVER, EventDraft
+from social_deduction_bench.games.werewolf.discussion import BiddingActions, resolve_discussion
+from social_deduction_bench.games.werewolf.events import (
+    DISCUSSION_RESOLVED,
+    GAME_OVER,
+    EventDraft,
+)
 from social_deduction_bench.games.werewolf.night import NightActions, resolve_night
 from social_deduction_bench.games.werewolf.win import is_game_over, winner
 
@@ -44,11 +49,26 @@ class DecisionSource(Protocol):
     `GameMemory`. The terminal `GAME_OVER` event is not routed through
     `observe` — no agent will consult its memory after the game ends. A
     scripted source may ignore `observe` entirely.
+
+    Beyond the per-phase action accessors, three hooks support T29's dialogue
+    surface: `bids` returns the day's bid map (one ReAct loop per alive player
+    in an agent-backed source); `speeches` returns each chosen speaker's
+    statement; `drain_drafts` returns any agent-staged event drafts
+    (`WEREWOLF_CHAT`, `BID`, `SPEECH`, `TOOL_REJECTED`) since the last drain.
+    The driver calls `drain_drafts` after each agent-facing step and routes
+    the drafts through the same private-event guard as the resolvers'
+    drafts.
     """
 
     def night_actions(self, state: GameState, /) -> NightActions: ...
 
     def day_actions(self, state: GameState, /) -> DayActions: ...
+
+    def bids(self, state: GameState, /) -> dict[str, int]: ...
+
+    def speeches(self, state: GameState, speakers: tuple[str, ...], /) -> tuple[tuple[str, str], ...]: ...
+
+    def drain_drafts(self) -> tuple[EventDraft, ...]: ...
 
     def observe(self, state: GameState, new_events: tuple[Event, ...], /) -> None: ...
 
@@ -70,6 +90,72 @@ def _log_drafts(log: EventLog, state: GameState, drafts: Sequence[EventDraft]) -
             payload=draft.payload,
             recipients=draft.recipients,
         )
+
+
+def _drain_into_log(log: EventLog, state: GameState, decisions: DecisionSource) -> None:
+    """Drain any agent-staged drafts and log them through the private-event guard."""
+    _log_drafts(log, state, decisions.drain_drafts())
+
+
+def _run_night(state: GameState, log: EventLog, decisions: DecisionSource, rng: GameRNG) -> GameState:
+    """Resolve one night phase end-to-end and return the post-night state.
+
+    Order: collect actions (which may stage `WEREWOLF_CHAT` / `TOOL_REJECTED`
+    drafts via the adapter), drain those drafts, resolve the night, log the
+    resolver's drafts, then route the appended events back through `observe`.
+    """
+    before = len(log.events)
+    night_actions = decisions.night_actions(state)
+    _drain_into_log(log, state, decisions)
+    night = resolve_night(state, night_actions, rng)
+    _log_drafts(log, state, night.drafts)
+    decisions.observe(state, log.events[before:])
+    return night.state
+
+
+def _run_day(state: GameState, log: EventLog, decisions: DecisionSource, rng: GameRNG) -> GameState:
+    """Resolve one day phase end-to-end and return the post-day state.
+
+    Sub-phases in order: bidding → discussion resolution → speeches → exile
+    vote. After each agent-facing step the adapter's staged drafts are
+    drained through the private-event guard. The chosen speakers (returned by
+    `speeches`) are cross-checked against the resolver's order — divergence
+    is a caller bug, fail loud rather than silently log a contradictory
+    transcript.
+    """
+    before = len(log.events)
+
+    bid_map = decisions.bids(state)
+    _drain_into_log(log, state, decisions)
+
+    discussion = resolve_discussion(state, BiddingActions(bids=bid_map), rng)
+    _log_drafts(
+        log,
+        state,
+        (
+            EventDraft(
+                type=DISCUSSION_RESOLVED,
+                payload={"speakers": list(discussion.speakers), "bids": dict(bid_map)},
+                recipients=(),
+            ),
+        ),
+    )
+
+    given_speakers = decisions.speeches(state, discussion.speakers)
+    given_order = tuple(speaker for speaker, _ in given_speakers)
+    expected_prefix = discussion.speakers[: len(given_order)]
+    if given_order and given_order != expected_prefix:
+        raise RuntimeError(
+            f"decisions.speeches returned {given_order!r} but resolver chose {discussion.speakers!r}",
+        )
+    _drain_into_log(log, state, decisions)
+
+    day_actions = decisions.day_actions(state)
+    _drain_into_log(log, state, decisions)
+    day = resolve_day(state, day_actions)
+    _log_drafts(log, state, day.drafts)
+    decisions.observe(state, log.events[before:])
+    return day.state
 
 
 def run_game(
@@ -97,21 +183,12 @@ def run_game(
         if state.round > max_rounds:
             raise RuntimeError(f"game did not terminate within {max_rounds} rounds")
 
-        before_night = len(log.events)
-        night = resolve_night(state, decisions.night_actions(state), rng)
-        _log_drafts(log, state, night.drafts)
-        decisions.observe(state, log.events[before_night:])
-        state = night.state
+        state = _run_night(state, log, decisions, rng)
         if is_game_over(state):
             break
 
         state = advance_phase(state)
-
-        before_day = len(log.events)
-        day = resolve_day(state, decisions.day_actions(state))
-        _log_drafts(log, state, day.drafts)
-        decisions.observe(state, log.events[before_day:])
-        state = day.state
+        state = _run_day(state, log, decisions, rng)
         if is_game_over(state):
             break
 

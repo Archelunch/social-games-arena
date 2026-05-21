@@ -33,6 +33,7 @@ from social_deduction_bench.games.werewolf.tools import (
     ToolResult,
     submit_exile_vote,
     submit_kill_vote,
+    werewolf_chat,
 )
 
 
@@ -102,6 +103,14 @@ def _kill_vote_terminal(state: GameState, caller: str) -> Callable[..., ToolResu
         return submit_kill_vote(state, caller, target)
 
     return submit_kill_vote_
+
+
+def _chat_intermediate(state: GameState, caller: str) -> Callable[..., ToolResult]:
+    def werewolf_chat_(message: str) -> ToolResult:
+        """Send a private message to your fellow werewolves."""
+        return werewolf_chat(state, caller, message)
+
+    return werewolf_chat_
 
 
 def _exile_vote_terminal(state: GameState, caller: str) -> Callable[..., ToolResult]:
@@ -359,3 +368,163 @@ def test_commit_dataclass_is_frozen_and_equatable() -> None:
     assert hash(a) == hash(b)
     with pytest.raises(FrozenInstanceError):
         a.tool = "x"  # type: ignore[misc]
+
+
+def test_intermediate_tool_call_does_not_terminate_the_loop() -> None:
+    """A valid `intermediate_tools` call does NOT commit; the loop continues to the terminal.
+
+    Intermediate tools (e.g. `werewolf_chat`) emit a side-effect (an event)
+    and the LLM keeps going until a terminal tool fires. The final `Commit`
+    must come from the terminal, never from the intermediate.
+    """
+    state = _state()
+    memory = GameMemory()
+    cognitive = _cognitive_closures(state, memory, "Wolf1")
+    intermediates = {"werewolf_chat": _chat_intermediate(state, "Wolf1")}
+    terminals = {"submit_kill_vote": _kill_vote_terminal(state, "Wolf1")}
+
+    answers = [
+        _step("werewolf_chat", {"message": "hunt the seer"}, "talk first"),
+        _step("submit_kill_vote", {"target": "Vil1"}, "then vote"),
+        _finish(),
+    ]
+    commit = react_decide(
+        caller="Wolf1",
+        cognitive_tools=cognitive,
+        intermediate_tools=intermediates,
+        terminal_tools=terminals,
+        decision_brief="kill",
+        lm=DummyLM(answers),
+        max_iters=10,
+    )
+
+    assert commit == Commit(tool="submit_kill_vote", value="Vil1")
+
+
+def test_intermediate_tool_rejection_fires_on_reject_and_loop_retries() -> None:
+    """A rejected intermediate call fires `on_reject(tool, args, reason)` and continues.
+
+    The same callback fires for terminal rejections — this pins the
+    intermediate path. The error observation goes back to the LLM as before so
+    it can self-correct, and the loop is not aborted.
+    """
+    state = _state()
+    memory = GameMemory()
+    cognitive = _cognitive_closures(state, memory, "Wolf1")
+    intermediates = {"werewolf_chat": _chat_intermediate(state, "Wolf1")}
+    terminals = {"submit_kill_vote": _kill_vote_terminal(state, "Wolf1")}
+    rejections: list[tuple[str, dict[str, Any], str]] = []
+
+    def on_reject(tool: str, args: dict[str, Any], reason: str) -> None:
+        rejections.append((tool, args, reason))
+
+    answers = [
+        _step("werewolf_chat", {"message": "   "}, "blank chat"),  # rejected: empty message
+        _step("werewolf_chat", {"message": "real talk"}, "retry chat"),
+        _step("submit_kill_vote", {"target": "Vil1"}, "vote"),
+        _finish(),
+    ]
+    commit = react_decide(
+        caller="Wolf1",
+        cognitive_tools=cognitive,
+        intermediate_tools=intermediates,
+        terminal_tools=terminals,
+        decision_brief="kill",
+        lm=DummyLM(answers),
+        max_iters=10,
+        on_reject=on_reject,
+    )
+
+    assert commit == Commit(tool="submit_kill_vote", value="Vil1")
+    assert len(rejections) == 1
+    tool, args, reason = rejections[0]
+    assert tool == "werewolf_chat"
+    assert args == {"message": "   "}
+    assert "non-empty" in reason
+
+
+def test_terminal_tool_rejection_fires_on_reject_callback() -> None:
+    """A rejected terminal call fires `on_reject` with the engine's rejection reason.
+
+    The same callback path as intermediates — pins one rejection per invalid
+    call, regardless of tool category. The LLM still sees the `error:`
+    observation and the loop continues until a valid terminal commits.
+    """
+    state = _state()
+    memory = GameMemory()
+    cognitive = _cognitive_closures(state, memory, "Wolf1")
+    terminals = {"submit_kill_vote": _kill_vote_terminal(state, "Wolf1")}
+    rejections: list[tuple[str, dict[str, Any], str]] = []
+
+    def on_reject(tool: str, args: dict[str, Any], reason: str) -> None:
+        rejections.append((tool, args, reason))
+
+    answers = [
+        _step("submit_kill_vote", {"target": "Wolf1"}),  # self-target, rejected
+        _step("submit_kill_vote", {"target": "Vil1"}),  # valid
+        _finish(),
+    ]
+    react_decide(
+        caller="Wolf1",
+        cognitive_tools=cognitive,
+        terminal_tools=terminals,
+        decision_brief="kill",
+        lm=DummyLM(answers),
+        max_iters=10,
+        on_reject=on_reject,
+    )
+
+    assert len(rejections) == 1
+    tool, args, reason = rejections[0]
+    assert tool == "submit_kill_vote"
+    assert args == {"target": "Wolf1"}
+    assert "Wolf1" in reason
+
+
+def test_on_reject_not_invoked_on_a_clean_run() -> None:
+    """A run with no rejections never fires `on_reject`.
+
+    The callback is invariant-protected: no spurious calls on valid trajectories.
+    """
+    state = _state()
+    memory = GameMemory()
+    cognitive = _cognitive_closures(state, memory, "Wolf1")
+    terminals = {"submit_kill_vote": _kill_vote_terminal(state, "Wolf1")}
+    rejections: list[tuple[str, dict[str, Any], str]] = []
+
+    answers = [
+        _step("submit_kill_vote", {"target": "Vil1"}),
+        _finish(),
+    ]
+    react_decide(
+        caller="Wolf1",
+        cognitive_tools=cognitive,
+        terminal_tools=terminals,
+        decision_brief="kill",
+        lm=DummyLM(answers),
+        max_iters=10,
+        on_reject=lambda tool, args, reason: rejections.append((tool, args, reason)),
+    )
+
+    assert rejections == []
+
+
+def test_default_on_reject_is_a_no_op() -> None:
+    """`react_decide` accepts a rejected call without an `on_reject` callback.
+
+    Back-compat with T22 tests that don't pass the new keyword: a rejected
+    terminal still produces an `error:` observation the LLM sees and a retry
+    can still commit. The default `None` callback must be a quiet no-op.
+    """
+    state = _state()
+    memory = GameMemory()
+    cognitive = _cognitive_closures(state, memory, "Wolf1")
+    terminals = {"submit_kill_vote": _kill_vote_terminal(state, "Wolf1")}
+
+    answers = [
+        _step("submit_kill_vote", {"target": "Wolf1"}),
+        _step("submit_kill_vote", {"target": "Vil1"}),
+        _finish(),
+    ]
+    commit = _run(caller="Wolf1", cognitive_tools=cognitive, terminal_tools=terminals, answers=answers)
+    assert commit.value == "Vil1"

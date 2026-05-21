@@ -15,6 +15,7 @@ from dataclasses import dataclass
 from social_deduction_bench.engine import GameRNG, GameState, Phase
 from social_deduction_bench.games.werewolf.events import (
     DOCTOR_PROTECT,
+    KILL_BALLOTS,
     KILL_RESOLVED,
     SEER_INSPECT,
     EventDraft,
@@ -118,6 +119,14 @@ def resolve_night(state: GameState, actions: NightActions, rng: GameRNG) -> Nigh
     killed = None if actions.doctor_protect == kill_target else kill_target
     new_state = state.with_player_killed(killed) if killed is not None else state
 
+    living_pack = tuple(sorted(p.name for p in state.alive_players() if p.role == Role.WEREWOLF.value))
+    drafts.append(
+        EventDraft(
+            type=KILL_BALLOTS,
+            payload={"ballots": dict(actions.kill_votes)},
+            recipients=living_pack,
+        )
+    )
     drafts.append(EventDraft(type=KILL_RESOLVED, payload={"victim": killed}))
 
     return NightResult(state=new_state, drafts=tuple(drafts), killed=killed)
