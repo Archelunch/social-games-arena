@@ -29,6 +29,12 @@ from social_deduction_bench.agents.cognitive import (
 )
 from social_deduction_bench.agents.memory import GameMemory
 from social_deduction_bench.agents.react import Commit, react_decide
+from social_deduction_bench.agents.trajectory import (
+    LMCallRecord,
+    ReActStep,
+    Trajectory,
+    sanitize_arg,
+)
 from social_deduction_bench.engine import Event, GameState, Phase, observations_for
 from social_deduction_bench.games.werewolf.cognitive import get_private_info, get_public_state
 from social_deduction_bench.games.werewolf.day import DayActions
@@ -80,20 +86,6 @@ def _require_str_message(value: object, *, terminal: str, caller: str) -> str:
             f"agent {caller!r} committed {terminal!r} with non-str value {value!r}; expected a message",
         )
     return value
-
-
-def _sanitize_arg(value: object) -> object:
-    """Coerce a single tool-call argument to a JSON primitive `Event` will accept.
-
-    `pred.next_tool_args` is LLM-derived: it can contain shapes
-    `Event.__post_init__` rejects (sets, nested dicts with non-string keys,
-    custom objects). Any such value would crash the whole game when the
-    `TOOL_REJECTED` draft is logged. Primitives pass through; everything else
-    is stringified via `repr` so the audit trail survives without exploding.
-    """
-    if isinstance(value, bool | int | float | str) or value is None:
-        return value
-    return repr(value)
 
 
 def _require_int_amount(value: object, *, terminal: str, caller: str) -> int:
@@ -205,6 +197,9 @@ class ReActDecisionSource:
         self._on_reject_by_caller: dict[str, Callable[[str, dict[str, object], str], None]] = {
             name: self._build_on_reject(name) for name, _ in self._roster
         }
+        self._role_by_name: Mapping[str, str] = MappingProxyType({name: role for name, role in self._roster})
+        self._trajectories: list[Trajectory] = []
+        self._decision_seq: int = 0
 
     @property
     def memories(self) -> Mapping[str, GameMemory]:
@@ -215,6 +210,18 @@ class ReActDecisionSource:
     def lms(self) -> Mapping[str, BaseLM]:
         """Read-only view of per-player LM seating; mutation raises `TypeError`."""
         return self._lms
+
+    @property
+    def trajectories(self) -> tuple[Trajectory, ...]:
+        """Read-only snapshot of accumulated per-decision trajectories (T30 sidecar).
+
+        Each entry is one decision-point ReAct loop's record: thought trace,
+        tool args, observations, plus per-LM-call telemetry. Decision order
+        matches `decision_seq` (gap-free starting at 0). The returned tuple
+        is a fresh snapshot — later loops grow the source's internal list
+        but not the caller's snapshot.
+        """
+        return tuple(self._trajectories)
 
     def observe(self, state: GameState, new_events: tuple[Event, ...], /) -> None:
         """Route each new event to its recipients via `observations_for`.
@@ -260,7 +267,7 @@ class ReActDecisionSource:
                     type=TOOL_REJECTED,
                     payload={
                         "tool": tool,
-                        "args": {key: _sanitize_arg(value) for key, value in args.items()},
+                        "args": {key: sanitize_arg(value) for key, value in args.items()},
                         "reason": reason,
                     },
                     recipients=(caller,),
@@ -451,10 +458,24 @@ class ReActDecisionSource:
         terminals: Mapping[str, Callable[..., ToolResult]],
         intermediates: Mapping[str, Callable[..., ToolResult]] = _EMPTY_INTERMEDIATES,
     ) -> Commit:
-        """Wire one player's cognitive tools + reject callback and run `react_decide`."""
+        """Wire one player's cognitive tools + reject callback and run `react_decide`.
+
+        Also collects the loop's structured trajectory + LM telemetry into a
+        `Trajectory` and appends it to the source's accumulator (T30 sidecar).
+        The sink fires only after a successful commit; a failed loop raises
+        before the trajectory is recorded.
+        """
         memory = self._memories[caller]
         cognitive = [_bind_cognitive(fn, state, memory, caller) for fn in _COGNITIVE_TOOLS]
-        return react_decide(
+
+        # `react_decide` fires the sink once after a successful commit; an
+        # uncommitted loop raises and `captured` stays empty.
+        captured: list[tuple[tuple[ReActStep, ...], tuple[LMCallRecord, ...]]] = []
+
+        def sink(steps: tuple[ReActStep, ...], lm_calls: tuple[LMCallRecord, ...]) -> None:
+            captured.append((steps, lm_calls))
+
+        commit = react_decide(
             caller=caller,
             cognitive_tools=cognitive,
             intermediate_tools=intermediates,
@@ -463,4 +484,22 @@ class ReActDecisionSource:
             lm=self._lms[caller],
             max_iters=self._max_iters,
             on_reject=self._on_reject_by_caller[caller],
+            trace_sink=sink,
         )
+
+        steps, lm_calls = captured[0]
+        self._trajectories.append(
+            Trajectory(
+                decision_seq=self._decision_seq,
+                round=state.round,
+                phase=state.phase.value,
+                caller=caller,
+                role=self._role_by_name[caller],
+                terminal_tool=commit.tool,
+                committed_value=commit.value,
+                react_trajectory=steps,
+                lm_calls=lm_calls,
+            )
+        )
+        self._decision_seq += 1
+        return commit

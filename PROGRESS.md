@@ -2,21 +2,20 @@
 
 Append-only. Newest entry on top. Read this first when starting a session.
 
-**Current state:** T29 done — the full T29 dialogue/ballot/rejected-call
-event vocabulary is wired through `run_game` end-to-end. New event types
-`BID` (private to bidder), `DISCUSSION_RESOLVED` (public), `SPEECH`
-(public), `TOOL_REJECTED` (private to caller), and `KILL_BALLOTS`
-(private to living werewolf pack — split off from `KILL_RESOLVED` on
-integrity-review feedback to avoid leaking kill ballots to villagers).
-`KILL_RESOLVED` stays public with `{"victim"}` only; `EXILE_RESOLVED`
-gains a public `{"ballots"}` since exile votes are public by design.
-`DecisionSource` Protocol gains `bids` / `speeches` / `drain_drafts`;
-`ReActDecisionSource` runs per-player ReAct loops for each, plus a
-new intermediate-tool category in `react.py` lets werewolves call
-`werewolf_chat` during the night loop without terminating it. All
-checks green (458/458 default suite, +1 smoke deselected).
-**Next task:** T30 — per-decision trajectory + LM metadata sidecar
-`<game_id>.trajectories.jsonl` next to `events.jsonl`.
+**Current state:** T30 done — the per-decision trajectory + LM
+telemetry sidecar is in place. New module `agents/trajectory.py` defines
+the four sidecar value types (`ReActStep`, `LMCallRecord`, `Trajectory`,
+`TrajectoryStream`) and the shared `sanitize_arg` helper. `react_decide`
+gains an optional `trace_sink` callback that fires once per successful
+commit with the structured per-iteration trajectory and per-LM-call
+telemetry (model, tokens, latency, cost). `ReActDecisionSource`
+accumulates `Trajectory` records via the sink and exposes them as a
+read-only snapshot through a new `trajectories` property. The engine
+event log is untouched: invariants #1 (engine as source of truth) and
+#5 (append-only event stream) hold, the sidecar is agent-side
+observability only. All checks green (498/498 default suite, +1 smoke
+deselected). **Next task:** T31 — replay UI consuming `events.jsonl`
++ `trajectories.jsonl`, joined by `(round, phase, caller, decision_seq)`.
 
 **Tracked design decision (T09 + T11):** the private-event guard — each game
 declares its private event types, the engine rejects a declared-private type
@@ -30,6 +29,164 @@ Cross-game rationale in `BACKLOG.md` Notes and `WEREWOLF_DESIGN.md` §3.
 `games/werewolf/` (no `GameDefinition` bundle); resolution functions pure; the
 private-event guard is one shared `engine` function; T14 ships a production
 `run_game` driver + `DecisionSource` Protocol.
+
+---
+
+## 2026-05-21 — T30: per-decision trajectory + LM metadata sidecar (M5 progress)
+
+- **New module `agents/trajectory.py`** — the sidecar's value types,
+  mirroring `engine/events.py`'s shape so the two files share their
+  integrity story:
+  - `ReActStep(frozen, slots)` — `iter, thought, tool, args,
+    observation`. `args` is wrapped in `MappingProxyType` at
+    construction (post-review High fix) so the audit step is genuinely
+    immutable, not just "frozen with a mutable inner dict."
+  - `LMCallRecord(frozen, slots)` — `model, prompt_tokens,
+    completion_tokens, latency_ms, cost_usd`. No `cached` field —
+    `cost_usd is None` already conveys cache-hit-or-non-billable; T31
+    can render accordingly.
+  - `Trajectory(frozen, slots)` — `decision_seq, round, phase, caller,
+    role, terminal_tool, committed_value, react_trajectory, lm_calls`.
+    `phase` stored as the `Phase.value` string for JSON-friendliness.
+  - `TrajectoryStream(frozen)` — `header: StreamHeader, trajectories:
+    tuple[Trajectory, ...]`. Reuses the engine's `StreamHeader` so the
+    sidecar is self-contained (seed + game_id + roster pinned at the
+    top of its own file). Mirror methods to `EventStream`:
+    `to_jsonl_lines` (sort_keys=True), `from_jsonl_lines` (fail-loud
+    on malformed JSON, gapped `decision_seq`, missing header),
+    module-level `write_jsonl` / `read_jsonl`.
+  - `sanitize_arg` (hoisted from `decisions.py`) — single sanitizer
+    used by both the `TOOL_REJECTED` draft path and the new sidecar
+    value types.
+- **`agents/react.py`** — `trace_sink: TraceSink | None = None`
+  callback added to `react_decide`. Fires once after a successful
+  commit with `(steps: tuple[ReActStep, ...], lm_calls:
+  tuple[LMCallRecord, ...])`. On `RuntimeError` (no commit) the sink
+  is not called — one trajectory == one committed decision. The
+  per-iteration projection captures:
+  - **Steps**: thought / tool / args / observation, with `args`
+    sanitized + frozen via `MappingProxyType`.
+  - **LM calls**: built from `lm.history` entries appended during the
+    iteration, paired by **uuid-marker scheme** (post-review High
+    fix). The original `len(lm.history)`-slice approach was fragile
+    against DSPy's bounded `settings.max_history_size` rotation and
+    silently dropped under `disable_history`; the uuid-set comparison
+    is robust to both.
+  - **Latency**: `time.monotonic()` delta around `react.react(...)`
+    divided across the iteration's new history entries (almost always
+    one; multi-entry warns via `logger.warning`).
+  - **Token coercion**: a new `_coerce_int` helper (post-review High
+    fix) downgrades non-numeric provider responses (`None`, missing,
+    bool, string) to `0`. Telemetry is observability, never a
+    kill-switch — a quirky provider response must not abort a game
+    mid-decision.
+- **`agents/decisions.py`** — `ReActDecisionSource` accumulates
+  `Trajectory` records in `self._trajectories` (private list);
+  exposed via the new `trajectories` read-only property as a snapshot
+  tuple. `_invoke_react` builds the sink closure once per call and
+  appends the assembled `Trajectory` with `decision_seq` (gap-free,
+  starting at 0), `round` / `phase` captured at decision time. The
+  local `_sanitize_arg` was removed; both call sites (`TOOL_REJECTED`
+  draft and sidecar value types) now use the shared
+  `agents.trajectory.sanitize_arg`. `_role_by_name` indexed once at
+  `__init__` for O(1) role lookup during trajectory assembly.
+- **`agents/__init__.py`** — re-exports `LMCallRecord`, `ReActStep`,
+  `Trajectory`, `TrajectoryStream` so consumers (T31 visualizer, T24
+  metrics) import from `social_deduction_bench.agents` directly.
+- **Decisions (user, plan):**
+  - **Adapter property + caller-wires-IO**, not `run_game`-extended.
+    `run_game` keeps returning `EventStream` unchanged; the caller
+    reads `source.trajectories` and wraps in `TrajectoryStream(...)`.
+    The scripted `DecisionSource` Protocol stays the same — only
+    agent-backed sources have trajectories.
+  - **No `cached` field on `LMCallRecord`.** `cost_usd is None`
+    encodes cache-hit-or-non-billable; adding a separate flag would
+    need a `model == "dummy"` carve-out and conflate the two cases
+    anyway.
+  - **Sidecar is agent-side, NOT part of determinism.** The engine's
+    `EventStream` determinism contract is unaffected.
+    `assert_streams_identical` continues to compare only event
+    streams. Wall-clock fields (`latency_ms`, `cost_usd`) vary
+    run-to-run even with the same seed — by design.
+  - **Sink does NOT fire on failed loops.** Keeps the invariant "one
+    sidecar line per committed decision" simple. T24's illegal-move
+    metric will count failures via `TOOL_REJECTED` events and the
+    loop's `RuntimeError` boundary, not via partial trajectories.
+- **Test surface added:**
+  - `tests/agents/test_trajectory.py` (new, 22 cases) — value-type
+    frozen + structurally equatable, JSON round-trip, JSONL stream
+    round-trip, header-first / one-line-per-trajectory invariants,
+    empty-trajectories handling, byte-identical serialization for
+    equal streams, `write_jsonl` / `read_jsonl` through tmp_path,
+    fail-loud reads (empty input, malformed JSON, gapped
+    `decision_seq`, out-of-order `decision_seq`), sanitization at
+    construction, latency type/sign pin.
+  - `tests/agents/test_react.py` (+9 cases) — `trace_sink` default
+    no-op back-compat, sink fires once with structured steps + LM
+    calls, sink does NOT fire on failed commit, rejection observation
+    lands in the same trajectory as the eventual success, the new
+    `_coerce_int` helper handles `None`/`bool`/`str`/`float`,
+    `_lm_calls_for_iteration` warns on empty + multi-entry slices,
+    **bounded-history-rotation regression** via a `_RotatingLM` that
+    pops `lm.history` between calls (the test would fail under the
+    pre-fix `len(lm.history)` slicing), `ReActStep.args` immutability
+    pin (`step.args["k"] = ...` raises `TypeError`).
+  - `tests/agents/test_decisions.py` (+9 cases) — empty
+    `trajectories` on construction, one trajectory per acting living
+    player at night, `terminal_tool` / `role` / `phase` / `round`
+    correctness, `committed_value` matches the terminal's parsed
+    value, `lm_calls` non-empty per loop, werewolf-chat intermediate
+    lands BEFORE the kill terminal in the same trajectory (chat-then-
+    kill is one trajectory, not two), rejected-terminal shows as
+    `error:` step in the same trajectory whose retry committed,
+    `decision_seq` gap-free across a full `run_game`, snapshot
+    semantics (mutating returned tuple does not affect later growth),
+    bid + speech loops each contribute one trajectory each.
+  - `tests/agents/test_smoke_game.py` (+1 assertion under the
+    existing `pytest.mark.smoke`) — after `run_game`, the source's
+    `trajectories` is non-empty,
+    `TrajectoryStream(stream.header, source.trajectories)` round-trips
+    through `to_jsonl_lines` → `from_jsonl_lines` losslessly, and
+    every `LMCallRecord.latency_ms` is a non-negative float.
+- `/sdb-review`: python reviewer **NEEDS FIXES** (0 critical / 3 high
+  / 4 medium); test + integrity reviewers **PASS** (0 critical / 0
+  high). All three Highs addressed before commit:
+  - **HIGH (python #1, integrity-medium #1)** — `int(usage.get(...))`
+    on `None` / non-numeric provider response was a crash-the-game
+    hazard. Replaced with `_coerce_int` helper that downgrades to `0`.
+  - **HIGH (python #2)** — `len(lm.history)` slicing was fragile under
+    DSPy's bounded-history rotation and broken under
+    `settings.disable_history`. Replaced with a uuid-marker set:
+    snapshot pre-iteration uuids, slice on entries whose uuid wasn't
+    in the snapshot. Regression test installs a `_RotatingLM` that
+    pops history between iterations.
+  - **HIGH (python #3)** — `ReActStep.args` was a plain `dict`,
+    leaving the "frozen audit trail" mutable. Wrapped in
+    `MappingProxyType` at `__post_init__`. Pin test:
+    `step.args["k"] = ...` raises `TypeError`.
+  - **Mediums addressed**: warning logs on empty / multi-entry LM
+    history slices; per-iteration `len(steps) == len(calls)` symmetry
+    assertion in the trace-sink test; dropped the redundant `tuple(...)`
+    cast in `_invoke_react` (Trajectory.__post_init__ normalizes
+    once). The `from_json_dict` `KeyError`-vs-`ValueError`
+    consistency item left as-is to match the engine's existing
+    `Event.from_json_dict` convention (CLAUDE.md rule 10).
+  - **Low items** (cosmetic — TYPE_CHECKING moves, `dict(...)` outer
+    copy in step construction) — bundled into the High #2 fix path
+    (the outer copy was dropped when wiring the new arg-passing
+    shape).
+  - Reports in `.reviews/20260521-0805-c28f9ac-T30/`.
+- Verified: `pytest -q` 498 passed + 1 deselected; `pytest -m smoke -q`
+  (no key) 1 skipped + 498 deselected; `ruff check`, `ruff format
+  --check`, `pyrefly check` (0 errors).
+
+**M5 (Observability & analysis) progress:** T29 + T30 done. T31
+(replay UI) remains.
+
+**Next:** T31 — Replay UI for audience and behavior analysis.
+Standalone HTML viewer consuming `events.jsonl` +
+`trajectories.jsonl`, joined by `(round, phase, caller,
+decision_seq)`. Audience-facing.
 
 ---
 

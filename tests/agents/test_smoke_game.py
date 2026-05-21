@@ -23,6 +23,7 @@ import pytest
 
 from social_deduction_bench import settings
 from social_deduction_bench.agents.decisions import ReActDecisionSource
+from social_deduction_bench.agents.trajectory import TrajectoryStream
 from social_deduction_bench.engine.events import EventStream
 from social_deduction_bench.games.werewolf.config import PRIVATE_EVENT_TYPES
 from social_deduction_bench.games.werewolf.events import GAME_OVER
@@ -92,3 +93,23 @@ def test_real_llm_smoke_game_reaches_terminal_state() -> None:
         json.loads(line)  # raises on malformed JSON
     rebuilt = EventStream.from_jsonl_lines(lines)
     assert rebuilt.log.events == stream.log.events
+
+    # T30 sidecar — the agent-internal trajectory log written next to
+    # `events.jsonl`. Every committed ReAct loop contributes one record;
+    # the JSONL round-trip is lossless except for wall-clock fields the
+    # sidecar's determinism contract explicitly excludes.
+    trajectories = source.trajectories
+    assert trajectories, "real-LLM game produced no trajectories"
+    trajectory_stream = TrajectoryStream(header=stream.header, trajectories=trajectories)
+    trajectory_lines = list(trajectory_stream.to_jsonl_lines())
+    for line in trajectory_lines:
+        json.loads(line)
+    rebuilt_trajectories = TrajectoryStream.from_jsonl_lines(trajectory_lines)
+    assert rebuilt_trajectories.trajectories == trajectories
+    # Wall-clock fields are non-negative floats (real LLM > 0; cache-hit
+    # or DummyLM may report 0). Pin only what the determinism contract
+    # promises.
+    for trajectory in trajectories:
+        for call in trajectory.lm_calls:
+            assert isinstance(call.latency_ms, float)
+            assert call.latency_ms >= 0.0

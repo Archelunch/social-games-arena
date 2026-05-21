@@ -821,3 +821,268 @@ def test_lms_dict_insertion_order_does_not_affect_event_stream() -> None:
     forward_stream = run_game(ROSTER, seed=42, decisions=ReActDecisionSource(roster=ROSTER, lms=forward))
     reversed_stream = run_game(ROSTER, seed=42, decisions=ReActDecisionSource(roster=ROSTER, lms=reversed_keys))
     assert_streams_identical(forward_stream, reversed_stream)
+
+
+# --- T30: per-decision trajectory accumulation ---------------------------
+
+
+def test_trajectories_is_empty_on_construction() -> None:
+    """A freshly-built source has no trajectories.
+
+    The accumulator must start empty so `decision_seq=0` is the first
+    decision of the game, not a leftover from prior wiring.
+    """
+    source = ReActDecisionSource(roster=ROSTER, lms=_empty_lms())
+    assert source.trajectories == ()
+
+
+def test_night_actions_accumulates_one_trajectory_per_acting_player() -> None:
+    """One night = one trajectory per acting living player (wolves + seer + doctor).
+
+    Villagers are not asked at night — they must not contribute a
+    trajectory. Verifies that the sidecar's "one line per decision-point
+    loop" rule maps cleanly onto the engine's role-gating.
+    """
+    answers = (
+        _commit_pair("submit_kill_vote", {"target": "Vil1"})
+        + _commit_pair("submit_kill_vote", {"target": "Vil1"})
+        + _commit_pair("seer_inspect", {"target": "Wolf1"})
+        + _commit_pair("doctor_protect", {"target": "Vil1"})
+    )
+    source = ReActDecisionSource(roster=ROSTER, lms=_uniform_lms(DummyLM(answers)))
+    state = GameState.initial(ROSTER)
+
+    source.night_actions(state)
+
+    trajectories = source.trajectories
+    assert len(trajectories) == 4
+
+    callers = tuple(t.caller for t in trajectories)
+    assert callers == ("Wolf1", "Wolf2", "Seer1", "Doc1")
+
+    # decision_seq is gap-free starting at 0
+    assert tuple(t.decision_seq for t in trajectories) == (0, 1, 2, 3)
+
+    # role + terminal_tool agree with each seat's role gate
+    terminals_by_caller = {t.caller: t.terminal_tool for t in trajectories}
+    assert terminals_by_caller == {
+        "Wolf1": "submit_kill_vote",
+        "Wolf2": "submit_kill_vote",
+        "Seer1": "seer_inspect",
+        "Doc1": "doctor_protect",
+    }
+    roles_by_caller = {t.caller: t.role for t in trajectories}
+    assert roles_by_caller == {
+        "Wolf1": Role.WEREWOLF.value,
+        "Wolf2": Role.WEREWOLF.value,
+        "Seer1": Role.SEER.value,
+        "Doc1": Role.DOCTOR.value,
+    }
+    # phase is the engine's NIGHT value, captured at decision time
+    assert all(t.phase == Phase.NIGHT.value for t in trajectories)
+    assert all(t.round == 1 for t in trajectories)
+
+
+def test_trajectory_committed_value_matches_commit() -> None:
+    """`Trajectory.committed_value` equals the terminal's parsed value.
+
+    For target-shaped terminals this is the player name; for bids it is
+    the amount. A mismatch would mean the sidecar's "what did the agent
+    do" column is silently wrong.
+    """
+    answers = (
+        _commit_pair("submit_kill_vote", {"target": "Vil2"})
+        + _commit_pair("submit_kill_vote", {"target": "Vil3"})
+        + _commit_pair("seer_inspect", {"target": "Wolf1"})
+        + _commit_pair("doctor_protect", {"target": "Seer1"})
+    )
+    source = ReActDecisionSource(roster=ROSTER, lms=_uniform_lms(DummyLM(answers)))
+    source.night_actions(GameState.initial(ROSTER))
+
+    by_caller = {t.caller: t for t in source.trajectories}
+    assert by_caller["Wolf1"].committed_value == "Vil2"
+    assert by_caller["Wolf2"].committed_value == "Vil3"
+    assert by_caller["Seer1"].committed_value == "Wolf1"
+    assert by_caller["Doc1"].committed_value == "Seer1"
+
+
+def test_trajectory_lm_calls_non_empty_per_loop() -> None:
+    """Every trajectory has at least one `LMCallRecord` (each loop calls the LM).
+
+    A loop with no LM calls would mean `react_decide` returned without
+    talking to the model — that's only possible on a bug. Pin it so a
+    regression that broke the snapshot doesn't ship.
+    """
+    answers = (
+        _commit_pair("submit_kill_vote", {"target": "Vil1"})
+        + _commit_pair("submit_kill_vote", {"target": "Vil1"})
+        + _commit_pair("seer_inspect", {"target": "Wolf1"})
+        + _commit_pair("doctor_protect", {"target": "Vil1"})
+    )
+    source = ReActDecisionSource(roster=ROSTER, lms=_uniform_lms(DummyLM(answers)))
+    source.night_actions(GameState.initial(ROSTER))
+
+    for trajectory in source.trajectories:
+        assert len(trajectory.lm_calls) > 0
+        for call in trajectory.lm_calls:
+            assert call.model == "dummy"
+            assert call.cost_usd is None
+            assert call.latency_ms >= 0.0
+
+
+def test_werewolf_chat_intermediate_lands_in_react_trajectory_before_terminal() -> None:
+    """A chat-then-kill turn produces ONE trajectory whose steps go chat -> kill.
+
+    The intermediate (`werewolf_chat`) must appear as a `ReActStep`
+    before the terminal commit, in the same trajectory. Without this,
+    the sidecar would hide the wolves' coordination from replay.
+    """
+    seat_lms: dict[str, DummyLM] = {
+        "Wolf1": DummyLM(
+            [
+                _step("werewolf_chat", {"message": "lets kill Vil1"}),
+                _step("submit_kill_vote", {"target": "Vil1"}),
+                _finish(),
+            ]
+        ),
+        "Wolf2": DummyLM(_commit_pair("submit_kill_vote", {"target": "Vil1"})),
+        "Seer1": DummyLM(_commit_pair("seer_inspect", {"target": "Wolf1"})),
+        "Doc1": DummyLM(_commit_pair("doctor_protect", {"target": "Vil1"})),
+        "Vil1": DummyLM([]),
+        "Vil2": DummyLM([]),
+        "Vil3": DummyLM([]),
+    }
+    source = ReActDecisionSource(roster=ROSTER, lms=seat_lms)
+    source.night_actions(GameState.initial(ROSTER))
+
+    wolf1_traj = next(t for t in source.trajectories if t.caller == "Wolf1")
+    tools_seen = tuple(step.tool for step in wolf1_traj.react_trajectory)
+    assert "werewolf_chat" in tools_seen
+    assert "submit_kill_vote" in tools_seen
+    # The chat happens BEFORE the kill commit in the recorded trajectory.
+    assert tools_seen.index("werewolf_chat") < tools_seen.index("submit_kill_vote")
+    # And it's still one trajectory — the intermediate did not split the loop.
+    assert sum(1 for t in source.trajectories if t.caller == "Wolf1") == 1
+
+
+def test_rejected_terminal_shows_up_as_error_step_in_same_trajectory() -> None:
+    """A rejected terminal attempt is a step (error: ...) in the trajectory that finally commits.
+
+    The audit trail must show the agent's bad call so debugging can see
+    what the model tried before retrying. Without it, the sidecar would
+    look like the agent always got things right on the first try.
+    """
+    seat_lms: dict[str, DummyLM] = {
+        "Wolf1": DummyLM(
+            [
+                _step("submit_kill_vote", {"target": "Wolf1"}),  # self-target -> rejected
+                _step("submit_kill_vote", {"target": "Vil1"}),  # valid
+                _finish(),
+            ]
+        ),
+        "Wolf2": DummyLM(_commit_pair("submit_kill_vote", {"target": "Vil1"})),
+        "Seer1": DummyLM(_commit_pair("seer_inspect", {"target": "Wolf1"})),
+        "Doc1": DummyLM(_commit_pair("doctor_protect", {"target": "Vil1"})),
+        "Vil1": DummyLM([]),
+        "Vil2": DummyLM([]),
+        "Vil3": DummyLM([]),
+    }
+    source = ReActDecisionSource(roster=ROSTER, lms=seat_lms)
+    source.night_actions(GameState.initial(ROSTER))
+
+    wolf1_traj = next(t for t in source.trajectories if t.caller == "Wolf1")
+    has_error_step = any(step.observation.startswith("error:") for step in wolf1_traj.react_trajectory)
+    has_ok_step = any(step.observation.startswith("ok:") for step in wolf1_traj.react_trajectory)
+    assert has_error_step
+    assert has_ok_step
+    # One trajectory, with both the rejection and the success.
+    assert sum(1 for t in source.trajectories if t.caller == "Wolf1") == 1
+
+
+def test_full_run_game_accumulates_trajectories_with_gap_free_decision_seq() -> None:
+    """A full scripted game produces a gap-free decision_seq from 0.
+
+    `decision_seq` is the visualizer's ordering key. A gap or duplicate
+    would split or merge two decision points in the replay, silently
+    misrepresenting the game.
+    """
+    answers = _werewolf_sweep_script()
+    source = ReActDecisionSource(roster=ROSTER, lms=_uniform_lms(DummyLM(answers)))
+    run_game(ROSTER, seed=42, decisions=source)
+
+    trajectories = source.trajectories
+    assert len(trajectories) > 0
+    assert tuple(t.decision_seq for t in trajectories) == tuple(range(len(trajectories)))
+
+    # The first decision must be a night werewolf kill vote (roster order: Wolf1).
+    first = trajectories[0]
+    assert first.caller == "Wolf1"
+    assert first.phase == Phase.NIGHT.value
+    assert first.terminal_tool == "submit_kill_vote"
+    assert first.round == 1
+
+
+def test_trajectories_property_returns_snapshot_not_live_view() -> None:
+    """`source.trajectories` returns an immutable snapshot of the source's accumulator.
+
+    The visualizer (T31) may grab `source.trajectories` and serialize it
+    while a later phase is still running on the same source. The captured
+    snapshot must not grow when new trajectories land — a live view would
+    race.
+    """
+    n_alive = len(ROSTER)
+    answers = (
+        _commit_pair("submit_kill_vote", {"target": "Vil1"})
+        + _commit_pair("submit_kill_vote", {"target": "Vil1"})
+        + _commit_pair("seer_inspect", {"target": "Wolf1"})
+        + _commit_pair("doctor_protect", {"target": "Vil1"})
+    )
+    for _ in range(n_alive):
+        answers += _commit_pair("submit_bid", {"amount": 0})
+    source = ReActDecisionSource(roster=ROSTER, lms=_uniform_lms(DummyLM(answers)))
+    state = GameState.initial(ROSTER)
+    source.night_actions(state)
+
+    snapshot = source.trajectories
+    assert isinstance(snapshot, tuple)
+    assert len(snapshot) == 4
+
+    # Run more decisions on the SAME source: the snapshot must not grow.
+    day_state = advance_phase(state)
+    source.bids(day_state)
+    assert len(source.trajectories) == 4 + n_alive
+    assert len(snapshot) == 4
+
+
+def test_bid_and_speech_loops_each_emit_a_trajectory() -> None:
+    """Each `bids()` and `speeches()` ReAct loop contributes one trajectory.
+
+    Bids and speeches are decision points — the sidecar audits them just
+    like night and exile votes. A regression that wired the trace_sink
+    only into one phase would fail here.
+    """
+    state = advance_phase(GameState.initial(ROSTER))
+    n_alive = len(ROSTER)
+    bid_answers: list[dict[str, Any]] = []
+    for _ in range(n_alive):
+        bid_answers += _commit_pair("submit_bid", {"amount": 0})
+    source = ReActDecisionSource(roster=ROSTER, lms=_uniform_lms(DummyLM(bid_answers)))
+
+    source.bids(state)
+    bid_trajectories = source.trajectories
+    assert len(bid_trajectories) == n_alive
+    assert all(t.terminal_tool == "submit_bid" for t in bid_trajectories)
+    assert all(t.phase == Phase.DAY.value for t in bid_trajectories)
+    assert all(isinstance(t.committed_value, int) for t in bid_trajectories)
+
+    # Speeches: one trajectory per chosen speaker.
+    speech_answers: list[dict[str, Any]] = []
+    for _ in range(3):
+        speech_answers += _commit_pair("speak", {"message": "hi"})
+    speech_source = ReActDecisionSource(roster=ROSTER, lms=_uniform_lms(DummyLM(speech_answers)))
+    speech_source.speeches(state, ("Wolf1", "Seer1", "Vil2"))
+
+    speech_trajectories = speech_source.trajectories
+    assert len(speech_trajectories) == 3
+    assert tuple(t.caller for t in speech_trajectories) == ("Wolf1", "Seer1", "Vil2")
+    assert all(t.terminal_tool == "speak" for t in speech_trajectories)

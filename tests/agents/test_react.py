@@ -528,3 +528,310 @@ def test_default_on_reject_is_a_no_op() -> None:
     ]
     commit = _run(caller="Wolf1", cognitive_tools=cognitive, terminal_tools=terminals, answers=answers)
     assert commit.value == "Vil1"
+
+
+# --- T30: `trace_sink` plumbing ------------------------------------------
+
+
+def test_default_trace_sink_is_a_no_op() -> None:
+    """`react_decide` runs and commits exactly as before when `trace_sink` is omitted.
+
+    Back-compat guard for every existing call site (e.g. T22 tests and
+    the adapter's pre-T30 wiring): passing no sink must leave the legacy
+    commit-return contract byte-identical.
+    """
+    state = _state()
+    memory = GameMemory()
+    cognitive = _cognitive_closures(state, memory, "Wolf1")
+    terminals = {"submit_kill_vote": _kill_vote_terminal(state, "Wolf1")}
+
+    answers = [
+        _step("submit_kill_vote", {"target": "Vil1"}),
+        _finish(),
+    ]
+    commit = react_decide(
+        caller="Wolf1",
+        cognitive_tools=cognitive,
+        terminal_tools=terminals,
+        decision_brief="kill",
+        lm=DummyLM(answers),
+        max_iters=10,
+        # Note: no trace_sink kwarg.
+    )
+
+    assert commit == Commit(tool="submit_kill_vote", value="Vil1")
+
+
+def test_trace_sink_fires_once_with_structured_steps_and_lm_calls() -> None:
+    """`trace_sink` fires exactly once per successful commit with structured records.
+
+    The sidecar (T30) needs both the agent's reasoning trace and the LM
+    telemetry, paired per-iteration. The sink contract is: one call after
+    `finish`, receiving the full ReAct trajectory and the LM-history slice
+    for the loop.
+    """
+    from social_deduction_bench.agents.trajectory import LMCallRecord, ReActStep
+
+    state = _state()
+    memory = GameMemory()
+    cognitive = _cognitive_closures(state, memory, "Wolf1")
+    terminals = {"submit_kill_vote": _kill_vote_terminal(state, "Wolf1")}
+
+    captured: list[tuple[tuple[ReActStep, ...], tuple[LMCallRecord, ...]]] = []
+
+    def sink(steps: tuple[ReActStep, ...], calls: tuple[LMCallRecord, ...]) -> None:
+        captured.append((steps, calls))
+
+    answers = [
+        _step("get_public_state", {}, thought="orient"),
+        _step("submit_kill_vote", {"target": "Vil2"}, thought="kill Vil2"),
+        _finish(thought="done"),
+    ]
+    lm = DummyLM(answers)
+    commit = react_decide(
+        caller="Wolf1",
+        cognitive_tools=cognitive,
+        terminal_tools=terminals,
+        decision_brief="kill",
+        lm=lm,
+        max_iters=10,
+        trace_sink=sink,
+    )
+
+    assert commit == Commit(tool="submit_kill_vote", value="Vil2")
+    assert len(captured) == 1, "trace_sink must fire exactly once per commit"
+
+    steps, calls = captured[0]
+    # Iteration count matches the LM-history growth — one ReActStep per loop iteration.
+    assert len(steps) == len(lm.history)
+    # Step <-> LM-call symmetry. If these diverge, the per-iteration pairing is
+    # broken and telemetry rows misalign with thoughts in the replay UI (T31).
+    assert len(steps) == len(calls)
+    assert tuple(step.iter for step in steps) == tuple(range(len(steps)))
+    # The committed terminal shows up as the last non-finish step.
+    assert any(step.tool == "submit_kill_vote" and step.args["target"] == "Vil2" for step in steps)
+    # Each LM call carries a record. DummyLM emits dummy telemetry.
+    for call in calls:
+        assert call.model == "dummy"
+        assert call.prompt_tokens == 0
+        assert call.completion_tokens == 0
+        assert call.cost_usd is None
+        assert isinstance(call.latency_ms, float)
+        assert call.latency_ms >= 0.0
+
+
+def test_trace_sink_does_not_fire_when_loop_fails_to_commit() -> None:
+    """On `RuntimeError` (no commit), `trace_sink` is NOT called.
+
+    "One sidecar line per committed decision" stays simple: a failed loop
+    has no `Commit` and therefore no `Trajectory`. T24's illegal-move metric
+    will count failures via `TOOL_REJECTED` events and the loop's
+    `RuntimeError`, not via partial trajectories.
+    """
+    from social_deduction_bench.agents.trajectory import LMCallRecord, ReActStep
+
+    state = _state()
+    memory = GameMemory()
+    cognitive = _cognitive_closures(state, memory, "Wolf1")
+    terminals = {"submit_kill_vote": _kill_vote_terminal(state, "Wolf1")}
+
+    captured: list[tuple[tuple[ReActStep, ...], tuple[LMCallRecord, ...]]] = []
+
+    def sink(steps: tuple[ReActStep, ...], calls: tuple[LMCallRecord, ...]) -> None:
+        captured.append((steps, calls))
+
+    answers = [_finish()]  # no terminal committed
+    with pytest.raises(RuntimeError, match=r"Wolf1.*finished without a committed"):
+        react_decide(
+            caller="Wolf1",
+            cognitive_tools=cognitive,
+            terminal_tools=terminals,
+            decision_brief="kill",
+            lm=DummyLM(answers),
+            max_iters=10,
+            trace_sink=sink,
+        )
+
+    assert captured == []
+
+
+def test_trace_sink_captures_rejection_observation_in_step() -> None:
+    """A rejected tool call surfaces as an `error:`-prefixed observation in `ReActStep`.
+
+    The audit trail must show the LLM's bad-call attempt as a real step
+    (with the rejection observation) before the retry that committed.
+    Without this, the sidecar would hide the agent's mistakes.
+    """
+    from social_deduction_bench.agents.trajectory import LMCallRecord, ReActStep
+
+    state = _state()
+    memory = GameMemory()
+    cognitive = _cognitive_closures(state, memory, "Wolf1")
+    terminals = {"submit_kill_vote": _kill_vote_terminal(state, "Wolf1")}
+
+    captured: list[tuple[tuple[ReActStep, ...], tuple[LMCallRecord, ...]]] = []
+
+    def sink(steps: tuple[ReActStep, ...], calls: tuple[LMCallRecord, ...]) -> None:
+        captured.append((steps, calls))
+
+    answers = [
+        _step("submit_kill_vote", {"target": "Wolf1"}),  # self-target -> rejected
+        _step("submit_kill_vote", {"target": "Vil1"}),  # valid
+        _finish(),
+    ]
+    react_decide(
+        caller="Wolf1",
+        cognitive_tools=cognitive,
+        terminal_tools=terminals,
+        decision_brief="kill",
+        lm=DummyLM(answers),
+        max_iters=10,
+        trace_sink=sink,
+    )
+
+    steps, _ = captured[0]
+    # The first step's observation starts with "error:" (rejection); the second
+    # step's starts with "ok:" (committed).
+    rejection_step = next(s for s in steps if s.tool == "submit_kill_vote" and s.args["target"] == "Wolf1")
+    success_step = next(s for s in steps if s.tool == "submit_kill_vote" and s.args["target"] == "Vil1")
+    assert rejection_step.observation.startswith("error:")
+    assert success_step.observation.startswith("ok:")
+
+
+def test_lm_telemetry_survives_non_numeric_usage_fields() -> None:
+    """A provider that returns `None` for `prompt_tokens` does not abort the loop.
+
+    Regression guard: telemetry is observability, never a kill-switch. The
+    coercion helper must downgrade non-numeric usage values to `0` so a
+    quirky provider response cannot abort a live game mid-decision.
+    """
+    from social_deduction_bench.agents.react import _coerce_int
+
+    assert _coerce_int(42) == 42
+    assert _coerce_int(3.7) == 3
+    assert _coerce_int(None) == 0
+    assert _coerce_int("not a number") == 0
+    assert _coerce_int(True) == 0  # bool is int — exclude as a usage signal
+    assert _coerce_int(False) == 0
+
+
+def test_lm_calls_for_iteration_logs_warning_on_empty_history(caplog: pytest.LogCaptureFixture) -> None:
+    """An iteration that appends no LM-history entries logs a warning.
+
+    A cache hit or `settings.disable_history` results in zero new history
+    entries. The function returns `[]` so telemetry is missing but loud —
+    silent drops would hide the cause (cache vs. bug) at the replay layer.
+    """
+    import logging
+
+    from social_deduction_bench.agents.react import _lm_calls_for_iteration
+
+    with caplog.at_level(logging.WARNING, logger="social_deduction_bench.agents.react"):
+        records = _lm_calls_for_iteration([], elapsed_ms=1.0)
+
+    assert records == []
+    assert any("no LM-history entries" in record.message for record in caplog.records)
+
+
+def test_lm_calls_for_iteration_divides_elapsed_across_multi_entries(caplog: pytest.LogCaptureFixture) -> None:
+    """A multi-entry slice splits elapsed_ms evenly and warns.
+
+    A provider with internal retries can append more than one history
+    entry per `react.react` call. Splitting latency evenly conserves the
+    total attributed to the iteration; a warning surfaces the unexpected
+    shape for debugging.
+    """
+    import logging
+
+    from social_deduction_bench.agents.react import _lm_calls_for_iteration
+
+    history_slice: list[dict[str, object]] = [
+        {"model": "m1", "usage": {"prompt_tokens": 10, "completion_tokens": 5}, "cost": 0.001, "uuid": "u1"},
+        {"model": "m2", "usage": {"prompt_tokens": 20, "completion_tokens": 8}, "cost": 0.002, "uuid": "u2"},
+    ]
+    with caplog.at_level(logging.WARNING, logger="social_deduction_bench.agents.react"):
+        records = _lm_calls_for_iteration(history_slice, elapsed_ms=100.0)
+
+    assert len(records) == 2
+    assert records[0].latency_ms == 50.0
+    assert records[1].latency_ms == 50.0
+    assert records[0].prompt_tokens == 10
+    assert records[1].prompt_tokens == 20
+    assert any("2 LM-history entries" in record.message for record in caplog.records)
+
+
+def test_trace_sink_survives_bounded_lm_history_rotation() -> None:
+    """`react_decide` captures LM calls correctly even when `lm.history` rotates.
+
+    The original `len(lm.history)`-slicing approach silently mis-attributed
+    entries when DSPy's `settings.max_history_size` rotation popped older
+    entries. The uuid-marker scheme is robust: each iteration captures
+    only entries with uuids not in the pre-iteration set.
+
+    Simulate rotation by manually popping `lm.history` between iterations;
+    the recorded steps must still equal the iteration count.
+    """
+    from social_deduction_bench.agents.trajectory import LMCallRecord, ReActStep
+
+    state = _state()
+    memory = GameMemory()
+    cognitive = _cognitive_closures(state, memory, "Wolf1")
+    terminals = {"submit_kill_vote": _kill_vote_terminal(state, "Wolf1")}
+
+    captured: list[tuple[tuple[ReActStep, ...], tuple[LMCallRecord, ...]]] = []
+
+    def sink(steps: tuple[ReActStep, ...], calls: tuple[LMCallRecord, ...]) -> None:
+        captured.append((steps, calls))
+
+    # Class that wraps DummyLM but rotates history (drops oldest) after each call.
+    class _RotatingLM(DummyLM):
+        def __call__(self, *args: Any, **kwargs: Any) -> Any:
+            out = super().__call__(*args, **kwargs)
+            # Keep only the last 1 entry — simulates a bounded-history rotation.
+            if len(self.history) > 1:
+                del self.history[: len(self.history) - 1]
+            return out
+
+    answers = [
+        _step("get_public_state", {}, thought="orient"),
+        _step("submit_kill_vote", {"target": "Vil1"}, thought="kill"),
+        _finish(),
+    ]
+    lm = _RotatingLM(answers)
+    react_decide(
+        caller="Wolf1",
+        cognitive_tools=cognitive,
+        terminal_tools=terminals,
+        decision_brief="kill",
+        lm=lm,
+        max_iters=10,
+        trace_sink=sink,
+    )
+
+    steps, calls = captured[0]
+    # All three iterations recorded; the rotation does NOT lose records.
+    assert len(steps) == 3
+    # Even though history was constantly rotated down to 1 entry, each
+    # iteration's call was captured (the uuid-marker scheme decoupled
+    # iteration capture from history length).
+    assert len(calls) == 3
+
+
+def test_react_step_args_is_immutable_after_construction() -> None:
+    """`ReActStep.args` cannot be mutated after the step is recorded.
+
+    The audit trail in the sidecar must be tamper-proof — a mutable inner
+    mapping would let a later phase silently rewrite history. The `args`
+    must reject `step.args["target"] = "X"` with `TypeError`.
+    """
+    from social_deduction_bench.agents.trajectory import ReActStep
+
+    step = ReActStep(
+        iter=0,
+        thought="t",
+        tool="submit_bid",
+        args={"amount": 5},
+        observation="ok",
+    )
+    with pytest.raises(TypeError):
+        step.args["amount"] = 99  # type: ignore[index]
