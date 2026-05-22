@@ -27,8 +27,9 @@ import concurrent.futures
 import dataclasses
 import itertools
 import json
+import logging
 import re
-from collections.abc import Sequence
+from collections.abc import Callable, Sequence
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Protocol
@@ -45,6 +46,8 @@ from social_deduction_bench.games.werewolf.metrics import (
 )
 from social_deduction_bench.games.werewolf.roles import Faction, faction_of
 from social_deduction_bench.rating.trueskill import Leaderboard, rate_games
+
+logger = logging.getLogger(__name__)
 
 
 @dataclass(frozen=True, slots=True)
@@ -67,13 +70,19 @@ class Matchup:
 
 @dataclass(frozen=True, slots=True)
 class TournamentResult:
-    """The full sweep: every matchup, its game metrics, the leaderboard, and rollups."""
+    """The completed sweep: rated matchups, their metrics, the board, rollups, failures.
+
+    `matchups` and `games` are aligned and in schedule order — they cover only the
+    games that actually produced a result. `failed` lists the matchups whose runner
+    raised (empty unless `run_tournament(..., skip_failures=True)`).
+    """
 
     matchups: tuple[Matchup, ...]
     games: tuple[GameMetrics, ...]
     leaderboard: Leaderboard
     aggregate: AggregateMetrics
     split: DeceiverDetectorReport
+    failed: tuple[Matchup, ...] = ()
 
 
 class GameRunner(Protocol):
@@ -148,32 +157,55 @@ def run_tournament(
     runner: GameRunner,
     *,
     max_concurrency: int = 1,
+    skip_failures: bool = False,
 ) -> TournamentResult:
     """Run every matchup through `runner`, then rate and roll up the results.
 
     Results are reassembled in schedule order regardless of completion order, so a
     concurrent run is byte-identical to a sequential one (invariant #4 for the
-    aggregation step): `ThreadPoolExecutor.map` preserves input order. A thread pool
-    (not asyncio) is used because the production runner calls `asyncio.run`
-    internally, so each game needs its own thread/event loop.
+    aggregation step): futures are gathered in submission order. A thread pool (not
+    asyncio) is used because the production runner calls `asyncio.run` internally, so
+    each game needs its own thread/event loop.
+
+    With `skip_failures` (for an unattended paid sweep), a game whose runner raises is
+    logged and dropped — the rest still rate, and the dropped matchups land in
+    `TournamentResult.failed`. Without it (the default), a failure propagates so a bug
+    fails loud instead of silently shrinking the sweep.
     """
+    completed: list[tuple[Matchup, GameMetrics]] = []
+    failed: list[Matchup] = []
+
+    def _record(matchup: Matchup, produce: Callable[[], GameMetrics]) -> None:
+        try:
+            completed.append((matchup, produce()))
+        except Exception:
+            if not skip_failures:
+                raise
+            logger.warning("tournament game %s failed, skipping", matchup.game_id, exc_info=True)
+            failed.append(matchup)
+
     if not matchups:
-        games: tuple[GameMetrics, ...] = ()
+        pass
     elif max_concurrency <= 1:
-        games = tuple(runner(m) for m in matchups)
+        for m in matchups:
+            _record(m, lambda m=m: runner(m))
     else:
         with concurrent.futures.ThreadPoolExecutor(max_workers=min(max_concurrency, len(matchups))) as ex:
-            games = tuple(ex.map(runner, matchups))
+            futures = [(m, ex.submit(runner, m)) for m in matchups]
+            for m, future in futures:  # submission order == schedule order
+                _record(m, future.result)
 
+    games = tuple(metrics for _, metrics in completed)
     leaderboard = rate_games(to_game_results(list(games)))
     aggregate = aggregate_metrics(games)
     split = deceiver_detector_split(games)
     return TournamentResult(
-        matchups=tuple(matchups),
+        matchups=tuple(m for m, _ in completed),
         games=games,
         leaderboard=leaderboard,
         aggregate=aggregate,
         split=split,
+        failed=tuple(failed),
     )
 
 
@@ -188,6 +220,8 @@ def tournament_summary_dict(result: TournamentResult) -> dict[str, object]:
     summary = {
         "n_games": result.leaderboard.n_games,
         "n_skipped": result.leaderboard.n_skipped,
+        "n_failed": len(result.failed),
+        "failed": [m.game_id for m in result.failed],
         "leaderboard": [dataclasses.asdict(r) for r in result.leaderboard.ratings],
         "aggregate": dataclasses.asdict(result.aggregate),
         "split": dataclasses.asdict(result.split),

@@ -101,6 +101,18 @@ def _champion_runner(champion: str):
     return run
 
 
+def _failing_runner(champion: str, fail_game_ids: set[str]):
+    """A champion runner that raises on the named game ids (simulates a game crash)."""
+    base = _champion_runner(champion)
+
+    def run(matchup: Matchup) -> GameMetrics:
+        if matchup.game_id in fail_game_ids:
+            raise RuntimeError(f"boom {matchup.game_id}")
+        return base(matchup)
+
+    return run
+
+
 # --- scheduling: coverage ------------------------------------------------
 
 
@@ -277,3 +289,53 @@ def test_tournament_summary_dict_matches_written_file(tmp_path) -> None:
     path = tmp_path / "summary.json"
     write_tournament_summary(result, path)
     assert json.loads(path.read_text(encoding="utf-8")) == tournament_summary_dict(result)
+
+
+# --- fault tolerance: skip-and-continue ----------------------------------
+
+
+def test_run_tournament_skips_failed_game_and_continues() -> None:
+    # An unattended paid sweep must not lose the whole run to one flaky game. With
+    # skip_failures, a raising game is dropped, the rest still rate, and the failed
+    # matchup is reported so the operator knows what to retry.
+    matchups = schedule_tournament(["A", "B", "C"], games_per_pair=2, seed=1, names=_DEFAULT_NAMES)
+    fail_id = matchups[3].game_id  # an A-vs-B cross game
+    result = run_tournament(matchups, _failing_runner("A", {fail_id}), skip_failures=True)
+
+    # Survivors keep schedule order (not just the right set) — the sequential analogue
+    # of the seq==par guard, so a reorder bug fails here directly.
+    assert [g.game_id for g in result.games] == [m.game_id for m in matchups if m.game_id != fail_id]
+    assert {m.game_id for m in result.failed} == {fail_id}
+    assert {r.model for r in result.leaderboard.ratings} == {"A", "B", "C"}
+
+
+def test_run_tournament_reraises_failure_when_not_skipping() -> None:
+    # Default is strict: a game crash propagates (so a bug in dev fails loud rather
+    # than silently shrinking the sweep).
+    matchups = schedule_tournament(["A", "B"], games_per_pair=2, seed=1, names=_DEFAULT_NAMES)
+    fail_id = matchups[2].game_id
+    with pytest.raises(RuntimeError, match="boom"):
+        run_tournament(matchups, _failing_runner("A", {fail_id}))
+
+
+def test_run_tournament_skip_failures_is_deterministic_under_concurrency() -> None:
+    # Skipping must not depend on completion order: the surviving set, its order, and
+    # the reported failures are identical whether run serially or in parallel.
+    matchups = schedule_tournament(["A", "B", "C"], games_per_pair=2, seed=1, names=_DEFAULT_NAMES)
+    fail_id = matchups[2].game_id
+    seq = run_tournament(matchups, _failing_runner("A", {fail_id}), skip_failures=True, max_concurrency=1)
+    par = run_tournament(matchups, _failing_runner("A", {fail_id}), skip_failures=True, max_concurrency=4)
+    assert seq == par
+
+
+def test_summary_reports_failed_games() -> None:
+    # The persisted summary must record what failed so a re-run / retry is informed.
+    matchups = schedule_tournament(["A", "B"], games_per_pair=2, seed=1, names=_DEFAULT_NAMES)
+    fail_id = matchups[2].game_id  # an A-vs-B cross game
+    result = run_tournament(matchups, _failing_runner("A", {fail_id}), skip_failures=True)
+    data = tournament_summary_dict(result)
+    assert data["n_failed"] == 1
+    assert data["failed"] == [fail_id]
+    games = data["games"]
+    assert isinstance(games, list)
+    assert len(games) == len(matchups) - 1

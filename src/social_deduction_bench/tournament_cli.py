@@ -40,7 +40,7 @@ from social_deduction_bench.engine import EventStream
 from social_deduction_bench.games.werewolf.day import DayActions
 from social_deduction_bench.games.werewolf.events import GAME_OVER
 from social_deduction_bench.games.werewolf.loop import run_game
-from social_deduction_bench.games.werewolf.metrics import GameMetrics, extract_game_metrics
+from social_deduction_bench.games.werewolf.metrics import GameMetrics, extract_game_metrics, extract_run_dir
 from social_deduction_bench.games.werewolf.night import NightActions
 from social_deduction_bench.games.werewolf.roles import Role
 from social_deduction_bench.games.werewolf.scripted import ScriptedDecisions
@@ -180,40 +180,51 @@ def run_sweep(
     temperature: float = 0.7,
     reasoning: bool = False,
     dry_run: bool = False,
+    resume: bool = False,
+    skip_failures: bool = False,
     model_resolver: Callable[[str], str] = lambda label: label,
 ) -> TournamentResult:
     """Schedule, run, and persist a full cross-play sweep, returning the result.
 
-    `dry_run` uses scripted werewolves-win games (no `api_key` needed); otherwise
-    each seat plays its label's resolved model through the real runner. Writes each
+    `dry_run` uses scripted werewolves-win games (no `api_key` needed); otherwise each
+    seat plays its label's resolved model through the real runner. `resume` reuses any
+    already-completed game directory (re-running only the missing games — so a crashed
+    sweep finishes without re-paying for finished games), then re-aggregates the full
+    set. `skip_failures` keeps the sweep going past a single game's crash. Writes each
     game's artifacts under `output_dir/<game_id>/` plus `output_dir/summary.json`.
     """
     matchups = schedule_tournament(models, games_per_pair=games_per_pair, seed=seed, names=names)
     output_dir = Path(output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    if dry_run:
-
-        def runner(m: Matchup) -> GameMetrics:
+    def _play(m: Matchup) -> GameMetrics:
+        if dry_run:
             return run_one_scripted_game(m, output_dir=output_dir)
-    else:
         if api_key is None:
             raise ValueError("run_sweep requires api_key in real mode (pass dry_run=True for scripted games)")
-        key = api_key
+        return run_one_real_game(
+            m,
+            output_dir=output_dir,
+            api_key=api_key,
+            model_resolver=model_resolver,
+            max_iters=max_iters,
+            max_tokens=max_tokens,
+            temperature=temperature,
+            reasoning=reasoning,
+        )
 
-        def runner(m: Matchup) -> GameMetrics:
-            return run_one_real_game(
-                m,
-                output_dir=output_dir,
-                api_key=key,
-                model_resolver=model_resolver,
-                max_iters=max_iters,
-                max_tokens=max_tokens,
-                temperature=temperature,
-                reasoning=reasoning,
-            )
+    def runner(m: Matchup) -> GameMetrics:
+        game_dir = output_dir / m.game_id
+        # `manifest.json` is the completeness sentinel: `_write_outputs` writes it
+        # LAST (after events/trajectories/memories), so its presence means the dir
+        # is whole. Gating on `events.jsonl` would treat a torn write (crash between
+        # events and manifest) as complete, and `extract_run_dir` would then fall
+        # back to inferred/`unknown` models and mis-rate that game.
+        if resume and (game_dir / "manifest.json").exists():
+            return extract_run_dir(game_dir)
+        return _play(m)
 
-    result = run_tournament(matchups, runner, max_concurrency=concurrency)
+    result = run_tournament(matchups, runner, max_concurrency=concurrency, skip_failures=skip_failures)
     write_tournament_summary(result, output_dir / "summary.json")
     return result
 
@@ -253,11 +264,35 @@ def _build_parser() -> argparse.ArgumentParser:
         action="store_true",
         help="Use scripted werewolves-win games (no API key, no API calls) for plumbing tests.",
     )
+    parser.add_argument(
+        "--resume",
+        action="store_true",
+        help=(
+            "Reuse already-completed game directories under --output-dir (re-run only "
+            "the missing games), then re-aggregate. Pass the SAME --models/--games-per-pair/"
+            "--seed so the schedule matches. Use to recover a crashed sweep without re-paying."
+        ),
+    )
     return parser
 
 
+def _exit_code(result: TournamentResult, n_scheduled: int) -> int:
+    """0 normally; 1 when games were scheduled but every one failed.
+
+    A totally-failed unattended sweep must not look like success (it would otherwise
+    exit 0 with an empty leaderboard). An empty schedule (`n_scheduled == 0`) is a
+    no-op, not a failure.
+    """
+    if n_scheduled and not result.games:
+        return 1
+    return 0
+
+
 def main(argv: Sequence[str] | None = None) -> int:
-    """CLI entry point. Returns 0 on success, 2 when a real run lacks an API key."""
+    """CLI entry point. Returns 0 on success, 2 when a real run lacks an API key.
+
+    Returns 1 when games were scheduled but all of them failed.
+    """
     args = _build_parser().parse_args(argv)
     models = [m.strip() for m in args.models.split(",") if m.strip()]
 
@@ -288,13 +323,20 @@ def main(argv: Sequence[str] | None = None) -> int:
         temperature=args.temperature,
         reasoning=args.reasoning,
         dry_run=args.dry_run,
+        resume=args.resume,
+        # A real unattended sweep should survive one game's crash; a dry-run stays
+        # strict so a scripting bug fails loud.
+        skip_failures=not args.dry_run,
     )
 
     print(f"tournament: {result.leaderboard.n_games} rated, {result.leaderboard.n_skipped} skipped")
     for rating in result.leaderboard.ratings:
         print(f"  {rating.model}: skill={rating.skill:.2f} mu={rating.mu:.2f} W{rating.wins}-L{rating.losses}")
+    if result.failed:
+        failed_ids = ", ".join(m.game_id for m in result.failed)
+        print(f"warning: {len(result.failed)} game(s) failed: {failed_ids}", file=sys.stderr)
     print(f"summary: {Path(args.output_dir) / 'summary.json'}")
-    return 0
+    return _exit_code(result, len(result.matchups) + len(result.failed))
 
 
 if __name__ == "__main__":

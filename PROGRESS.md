@@ -19,12 +19,14 @@ games are rate-skipped (`n_skipped`) but kept in the metric rollups.
 `<out>/<game_id>/` plus a deterministic `<out>/summary.json` (no
 wall-clock). `--dry-run` runs roster-aware scripted wolves-win games (no
 key); real mode fails loud (exit 2, no spend) without `OPENROUTER_API_KEY`.
-758/758 default suite green (+19), ruff + pyrefly clean; `/sdb-review` PASS
-(0 critical/high). **Next task:** the static results site (T28 leaderboard
-output + T31 replay UI). NOTE for unattended paid sweeps: the runner
-persists each game immediately but a single game's exception still aborts
-the whole `run_tournament` (no skip-and-continue, no resume-from-disk yet)
-— harden before a large paid run (see T27 review M1/M2).
+769/769 default suite green, ruff + pyrefly clean; `/sdb-review` PASS.
+**Hardened for unattended paid sweeps:** `run_tournament(..., skip_failures=True)`
+skips a crashed game (logged + in `TournamentResult.failed` + summary
+`n_failed`/`failed`) instead of aborting; `run_sweep(..., resume=True)` reuses
+completed game dirs (gated on `manifest.json`, the last-written artifact, so a
+torn write is re-run) and re-runs only the missing games; `sdb-tournament
+--resume`; real mode exits 1 if every scheduled game failed. **Next task:**
+the static results site (T28 leaderboard output + T31 replay UI).
 
 **Note (post-T30, unticked in BACKLOG):** commits `dadfd1e` +
 `163a179` landed an agent-play overhaul (CLI `sdb-werewolf`, rich live
@@ -87,12 +89,16 @@ private-event guard is one shared `engine` function; T14 ships a production
   12 skipped, each model W4-L4 (side-swap balance).
 - **Review:** `/sdb-review` PASS (0 critical/high; 4 medium, 3 low).
   Fixed the cheap ones: golden-literal pin for `randrange` (M3),
-  scripted-winner assertion in the dry-run CLI test (L1). **Deferred
-  (flagged for the next Python task):** M1 — a single game's exception
-  still aborts the whole sweep (no skip-and-continue / resume-from-disk),
-  and M2 — validate the real runner at concurrency≥2 against a live key
-  before a large paid sweep. Per-game artifacts ARE persisted immediately,
-  so a crash loses only the in-memory summary, not completed games.
+  scripted-winner assertion in the dry-run CLI test (L1).
+- **Hardening follow-up (same day, after a second `/sdb-review`):** added
+  `skip_failures` (skip-and-continue) + `resume`-from-disk (gated on
+  `manifest.json`, the last-written artifact, so a torn write is re-run not
+  loaded) + `--resume` + an all-games-failed exit code. Per-game artifacts
+  were already persisted immediately, so a crash loses only the in-memory
+  summary; resume rebuilds it without re-paying for finished games.
+  **Still open:** M2 — validate the real runner at concurrency≥2 against a
+  live key before a large paid sweep (the `-m smoke` test runs at
+  concurrency=2; needs `OPENROUTER_API_KEY`).
 - **Verify:** 758 passed, 2 deselected (smoke); ruff + pyrefly clean.
 - **Next:** the static results site (T28 leaderboard output + T31 replay
   UI) — and harden the runner (M1/M2) before an unattended paid sweep.
