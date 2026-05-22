@@ -15,6 +15,7 @@ from __future__ import annotations
 import asyncio
 import functools
 import inspect
+import logging
 from collections.abc import Callable, Mapping, Sequence
 from dataclasses import dataclass
 from types import MappingProxyType
@@ -65,6 +66,8 @@ from social_deduction_bench.games.werewolf.tools import (
     submit_kill_vote,
     werewolf_chat,
 )
+
+logger = logging.getLogger(__name__)
 
 _EMPTY_INTERMEDIATES: Mapping[str, Callable[..., ToolResult]] = MappingProxyType({})
 
@@ -218,25 +221,46 @@ _COGNITIVE_HINT = (
     "`recall` reviews earlier rounds, `set_belief` records who you suspect, `set_plan` notes your strategy."
 )
 
+# How a player's own role reads in the brief's identity line. The seer/doctor are
+# unique ("the"); werewolf/villager are not ("a"). Rendered only into the caller's
+# OWN brief, so naming the role here leaks nothing (invariant #2). The day briefs
+# (bid/speak/react/vote) never restated the role, so a wolf mid-day lost track and
+# claimed "I am a villager" — this line keeps identity + role present every turn.
+_ROLE_PHRASE: Mapping[str, str] = MappingProxyType(
+    {
+        Role.WEREWOLF.value: "a werewolf",
+        Role.SEER.value: "the seer",
+        Role.DOCTOR.value: "the doctor",
+        Role.VILLAGER.value: "a villager",
+    }
+)
+
 
 def _render_context(caller: str, role: str, state: GameState, memory: GameMemory) -> str:
     """Render the "What you know" block appended to the caller's brief.
 
-    Built only from information the caller is entitled to: its own role and
-    (for a werewolf) the living pack, plus its own `GameMemory` (plan,
-    suspicions, recent events). The pack line is gated on the caller being a
-    werewolf, so a non-wolf brief never enumerates the wolves — no hidden
-    state leaks because the block is injected only into the caller's own
-    brief. Pre-rendering this is what lets the toolbelt drop the read-only
-    cognitive tools. Recent events are rendered in plain language by
-    `describe_events` (so a night-kill reads differently from a day-exile)
-    rather than as the raw `recall` JSON.
+    Built only from information the caller is entitled to: its own identity and
+    role, (for a werewolf) its living allies, plus its own `GameMemory` (plan,
+    suspicions, recent events). The identity line restates "you are X, <role>"
+    every turn (the day briefs otherwise dropped the role). The ally line is gated
+    on the caller being a werewolf and excludes the caller's own name, so a non-
+    wolf brief never enumerates the wolves and a wolf does not see its own name
+    beside its packmate's (which caused name/self confusion) — no hidden state
+    leaks because the block is injected only into the caller's own brief.
+    Pre-rendering this is what lets the toolbelt drop the read-only cognitive
+    tools. Recent events are rendered in plain language by `describe_events` (so a
+    night-kill reads differently from a day-exile) rather than as raw `recall` JSON.
     """
-    lines: list[str] = ["What you know:"]
+    role_phrase = _ROLE_PHRASE.get(role, f"a {role}")
+    lines: list[str] = ["What you know:", f"- You are {caller}, {role_phrase}."]
 
     if role == Role.WEREWOLF.value:
-        pack = sorted(p.name for p in state.alive_players() if p.role == Role.WEREWOLF.value)
-        lines.append(f"- Your pack (you and your allies): {', '.join(pack)}.")
+        allies = sorted(p.name for p in state.alive_players() if p.role == Role.WEREWOLF.value and p.name != caller)
+        if allies:
+            ally_word = "ally" if len(allies) == 1 else "allies"
+            lines.append(f"- Your werewolf {ally_word} (besides you): {', '.join(allies)}.")
+        else:
+            lines.append("- You are the only living werewolf — no allies remain.")
 
     # Public rules every player is entitled to know — not strategy. Stating the
     # win conditions and which channels are public fixes an information
@@ -407,7 +431,6 @@ class ReActDecisionSource:
         *,
         roster: Sequence[tuple[str, str]],
         lms: Mapping[str, BaseLM],
-        reaction_lms: Mapping[str, BaseLM] | None = None,
         max_iters: int = 10,
         on_trajectory: Callable[[Trajectory], None] | None = None,
         on_decision_start: Callable[[str, str], None] | None = None,
@@ -424,22 +447,6 @@ class ReActDecisionSource:
                 f"lms must cover the roster exactly: missing={sorted(missing)}, extra={sorted(extra)}",
             )
         self._lms: Mapping[str, BaseLM] = MappingProxyType(dict(lms))
-        # The reaction round runs a short-capped LM per seat so the extra
-        # per-player call stays terse (config.REACTION_MAX_TOKENS). Production
-        # (cli.py) passes seat LMs cloned with a smaller `max_tokens`; callers
-        # that omit it (tests) fall back to the full LMs, so a scripted DummyLM is
-        # not deep-copied (which would fork its answer cursor). When provided it
-        # must cover the roster exactly, same as `lms`.
-        if reaction_lms is None:
-            self._reaction_lms: Mapping[str, BaseLM] = self._lms
-        else:
-            r_missing = roster_names - set(reaction_lms)
-            r_extra = set(reaction_lms) - roster_names
-            if r_missing or r_extra:
-                raise ValueError(
-                    f"reaction_lms must cover the roster exactly: missing={sorted(r_missing)}, extra={sorted(r_extra)}",
-                )
-            self._reaction_lms = MappingProxyType(dict(reaction_lms))
         self._max_iters = max_iters
         self._memories: dict[str, GameMemory] = {name: GameMemory() for name, _ in self._roster}
         self._memories_view: Mapping[str, GameMemory] = MappingProxyType(self._memories)
@@ -794,16 +801,24 @@ class ReActDecisionSource:
 
     async def _run_next_reaction(self, state: GameState, reactor: str) -> None:
         role = self._role_by_name[reactor]
-        result = await self._invoke_react_async(
-            state=state,
-            caller=reactor,
-            role=role,
-            decision_brief=_format_brief(
-                _REACTION_BRIEF, caller=reactor, role=role, state=state, memory=self._memories[reactor]
-            ),
-            terminal_fns=_REACTION_TERMINALS,
-            lm=self._reaction_lms[reactor],
-        )
+        try:
+            result = await self._invoke_react_async(
+                state=state,
+                caller=reactor,
+                role=role,
+                decision_brief=_format_brief(
+                    _REACTION_BRIEF, caller=reactor, role=role, state=state, memory=self._memories[reactor]
+                ),
+                terminal_fns=_REACTION_TERMINALS,
+            )
+        except Exception as err:
+            # The reaction round is optional signal: a seat that fails to commit a
+            # valid reaction (a truncated / unparseable LM response, or no commit
+            # within max_iters) simply stays silent. Unlike a night kill or exile
+            # vote, a missing reaction is a legal "pass", so degrade to one and log
+            # it — a single bad reaction must never abort the whole benchmark game.
+            logger.warning("reaction loop for %s failed (%s); treating as a pass", reactor, type(err).__name__)
+            return
         self._record_result(state, result)
         self._stage_reaction_draft(result.caller, result.commit)
 
@@ -845,7 +860,6 @@ class ReActDecisionSource:
         terminal_name: str = "",
         terminal_fn: Callable[..., ToolResult] | None = None,
         terminal_fns: Mapping[str, Callable[..., ToolResult]] | None = None,
-        lm: BaseLM | None = None,
         living_pack: tuple[str, ...] = (),
         chat_terminal: bool = False,
     ) -> _DecisionResult:
@@ -868,9 +882,6 @@ class ReActDecisionSource:
         - otherwise — the single `terminal_fn`; a living werewolf at night
           additionally gets `werewolf_chat` as an intermediate so it can
           speak before committing its kill vote.
-
-        `lm` overrides the seat's default LM (the reaction round passes a
-        short-capped clone); `None` uses `self._lms[caller]`.
         """
         memory = self._memories[caller]
         cognitive = [_bind_cognitive(fn, state, memory, caller) for fn in _COGNITIVE_TOOLS]
@@ -927,7 +938,7 @@ class ReActDecisionSource:
             intermediate_tools=intermediates,
             terminal_tools=terminals,
             decision_brief=decision_brief,
-            lm=lm if lm is not None else self._lms[caller],
+            lm=self._lms[caller],
             max_iters=self._max_iters,
             on_reject=local_on_reject,
             trace_sink=sink,

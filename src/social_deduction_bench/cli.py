@@ -41,7 +41,6 @@ from social_deduction_bench.agents.trajectory import (
 )
 from social_deduction_bench.engine import Event, EventStream, GameRNG, GameState, write_jsonl
 from social_deduction_bench.games.werewolf.assignment import assign_default_roles
-from social_deduction_bench.games.werewolf.config import REACTION_MAX_TOKENS
 from social_deduction_bench.games.werewolf.day import DayActions
 from social_deduction_bench.games.werewolf.events import ABSTAIN, GAME_OVER, EventDraft
 from social_deduction_bench.games.werewolf.loop import DecisionSource, run_game
@@ -367,15 +366,9 @@ def _build_react_source(
         )
         for name, _ in roster
     }
-    # The day reaction round runs a short-capped clone of each seat's LM so the
-    # extra per-player call stays terse (config.REACTION_MAX_TOKENS). `lm.copy`
-    # only updates the `max_tokens` kwarg; api_key / temperature / reasoning carry
-    # over.
-    reaction_lms = {name: lm.copy(max_tokens=REACTION_MAX_TOKENS) for name, lm in lms.items()}
     return ReActDecisionSource(
         roster=tuple(roster),
         lms=lms,
-        reaction_lms=reaction_lms,
         max_iters=max_iters,
         on_trajectory=on_trajectory,  # type: ignore[arg-type]
         on_decision_start=on_decision_start,  # type: ignore[arg-type]

@@ -247,6 +247,32 @@ def test_loop_that_never_commits_a_terminal_raises() -> None:
         _run(caller="Wolf1", cognitive_tools=cognitive, terminal_tools=terminals, answers=answers, max_iters=3)
 
 
+def test_unparseable_lm_response_is_converted_to_a_no_commit_runtime_error() -> None:
+    """A truncated / unparseable LM response ends the loop as a clean `RuntimeError`,
+    not a raw `AdapterParseError`.
+
+    A too-small `max_tokens` truncates the response mid-`next_thought`, so the
+    required output fields never appear and the adapter raises
+    `AdapterParseError` (a plain `Exception`, not `ValueError`). Before this was
+    caught it propagated out of `run_game` and crashed a live game. The loop now
+    converts any such parse failure into the same no-commit `RuntimeError` every
+    other dead-end produces, so callers handle it uniformly (a vote exits cleanly;
+    a day reaction degrades to a pass). An empty `DummyLM` answer queue triggers
+    the sentinel response the JSON adapter cannot parse — and the raised error
+    must NOT be an `AdapterParseError`.
+    """
+    from dspy.utils.exceptions import AdapterParseError
+
+    state = _state()
+    memory = GameMemory()
+    cognitive = _cognitive_closures(state, memory, "Wolf1")
+    terminals = {"submit_kill_vote": _kill_vote_terminal(state, "Wolf1")}
+
+    with pytest.raises(RuntimeError, match=r"Wolf1.*finished without a committed") as excinfo:
+        _run(caller="Wolf1", cognitive_tools=cognitive, terminal_tools=terminals, answers=[], max_iters=2)
+    assert not isinstance(excinfo.value, AdapterParseError)
+
+
 def test_remember_mutates_memory_notes() -> None:
     state = _state()
     memory = GameMemory()

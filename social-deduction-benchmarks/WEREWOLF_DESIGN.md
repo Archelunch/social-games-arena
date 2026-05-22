@@ -145,9 +145,10 @@ as the discussion tie-break, *after* it), with drain + observe between reactors,
 so a player reacting later sees the earlier accusations and can answer the same
 day. A seeded order — not roster order — keeps a fixed seat from gaining a
 systematic last-mover information edge that would confound cross-play ratings.
-Each reaction runs under a short token cap (`REACTION_MAX_TOKENS`) so the extra
-per-player call stays terse. (A *guaranteed* rebuttal turn for anyone accused
-late in the order is deliberately deferred — see §12.)
+A reaction whose loop fails to commit (a truncated / unparseable response, or no
+commit within `max_iters`) degrades to a silent **pass** — the round is optional
+signal, so one bad reaction never aborts the game. (A *guaranteed* rebuttal turn
+for anyone accused late in the order is deliberately deferred — see §12.)
 
 ---
 
@@ -172,8 +173,12 @@ point. (The agent loop builds its own ReAct predictor without DSPy's
 auto-injected `finish` tool, so a model cannot plan a wasted second round-trip.)
 
 **Brief grounding.** Each decision point's first message (the ReAct "brief")
-is grounded with what the agent is entitled to know: its role, the living
-roster, and — for a werewolf — its living pack; the public rules (each faction's
+is grounded with what the agent is entitled to know: an identity line restating
+"you are <name>, <role>" *every* turn (the day briefs otherwise dropped the role,
+so a wolf mid-day claimed to be a villager), the living roster, and — for a
+werewolf — its living allies *excluding its own name* (listing the caller beside
+its packmate made a wolf conflate the two and defend the wrong player); the
+public rules (each faction's
 win condition; which channels are public — `speak` and votes are seen by all,
 `werewolf_chat` is pack-private; and how the night resolves — the doctor's guard
 saves only if it matches the wolves' target, so guarding an un-targeted player
@@ -408,9 +413,12 @@ games; ratings aggregate across the population.
   the engine seed *after* the discussion tie-break — so it is replayable
   (invariant #4) and avoids a fixed seat-position advantage that would confound
   cross-play ratings; drain + observe between reactors lets a later reactor answer
-  an earlier accusation the same day. Each reaction runs under
-  `REACTION_MAX_TOKENS` to stay cheap. **Open:** a *guaranteed* rebuttal turn for a
-  player accused late in the seeded order (currently they answer next day);
-  deferred to bound the per-day LM-call count.
+  an earlier accusation the same day. A reaction that fails to commit degrades to
+  a silent pass (optional signal must not crash the game). **Open:** genuinely
+  *cheap* reactions — the short per-call token cap tried first truncated ReAct's
+  mandatory `next_thought` mid-stream and broke parsing, so reactions currently
+  use the full per-decision budget; a single-shot (non-ReAct) reaction predictor
+  would be the way to make them cheap. Also open: a *guaranteed* rebuttal turn for
+  a player accused late in the seeded order (currently they answer next day).
 - Whether werewolves see each other's identity at game start (default: yes).
 - Cross-game memory persistence (would push Tier 2 retrieval).

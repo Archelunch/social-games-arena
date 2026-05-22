@@ -110,12 +110,38 @@ def test_defense_renders_third_person_with_reason() -> None:
 
 
 def test_defense_renders_first_person_for_the_defender() -> None:
-    """The defender sees its own defense in the first person ("you defended …").
+    """The defender sees its own defense of another player in the first person."""
+    events = (_ev(0, 1, Phase.DAY, DEFENSE, {"defender": "Bob", "defended": "Carol", "reason": "Carol is clean"}),)
+    assert describe_events(events, caller="Bob") == 'Day R1: you defended Carol: "Carol is clean"'
 
-    Includes the self-defense case (defender == defended) reading naturally.
+
+def test_self_defense_renders_as_defended_yourself() -> None:
+    """A player defending itself reads "you defended yourself".
+
+    Self-defense (defender == defended == caller) is the accused rebutting; the
+    natural phrasing avoids the stilted "you defended Bob" when Bob is the reader.
     """
     events = (_ev(0, 1, Phase.DAY, DEFENSE, {"defender": "Bob", "defended": "Bob", "reason": "I was protecting"}),)
-    assert describe_events(events, caller="Bob") == 'Day R1: you defended Bob: "I was protecting"'
+    assert describe_events(events, caller="Bob") == 'Day R1: you defended yourself: "I was protecting"'
+
+
+def test_accusation_against_the_caller_reads_as_accused_you() -> None:
+    """When the caller is the accusation TARGET, its brief says "… accused you".
+
+    Real-run bug: the target's name was rendered third-person even in its own
+    brief, so a weak model did not register that IT was the one accused (and a
+    packmate conflated its own name with its ally's). First-personing the target
+    makes "you are the one accused" unmistakable.
+    """
+    events = (_ev(0, 1, Phase.DAY, ACCUSATION, {"accuser": "Dave", "target": "Bob", "reason": "you dodged"}),)
+    assert describe_events(events, caller="Bob") == 'Day R1: Dave accused you: "you dodged"'
+
+
+def test_defense_of_the_caller_reads_as_defended_you() -> None:
+    """When the caller is the defense TARGET (by someone else), its brief says
+    "… defended you" — so it sees who is backing it."""
+    events = (_ev(0, 1, Phase.DAY, DEFENSE, {"defender": "Carol", "defended": "Bob", "reason": "Bob is fine"}),)
+    assert describe_events(events, caller="Bob") == 'Day R1: Carol defended you: "Bob is fine"'
 
 
 def test_speech_quotes_the_speaker() -> None:

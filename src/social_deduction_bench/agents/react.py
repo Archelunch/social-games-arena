@@ -23,6 +23,7 @@ from typing import Any, Literal
 import dspy
 from dspy.clients.base_lm import BaseLM
 from dspy.streaming import StreamListener, StreamResponse
+from dspy.utils.exceptions import AdapterParseError
 
 from social_deduction_bench.agents.trajectory import LMCallRecord, ReActStep
 from social_deduction_bench.games.werewolf.tools import ToolResult
@@ -347,7 +348,7 @@ async def react_decide_async(
     trajectory: dict[str, object] = {}
     react_steps: list[ReActStep] = []
     lm_calls: list[LMCallRecord] = []
-    react_error: ValueError | None = None
+    react_error: BaseException | None = None
     with dspy.context(lm=lm):
         for idx in range(max_iters):
             # Snapshot the LM-history uuid set BEFORE this iteration's call.
@@ -363,7 +364,13 @@ async def react_decide_async(
                     pred = await streamed_caller(idx, decision_brief, _format_trajectory(trajectory))
                 else:
                     pred = await predict.acall(decision_brief=decision_brief, trajectory=_format_trajectory(trajectory))
-            except ValueError as err:
+            except (ValueError, AdapterParseError, BaseExceptionGroup) as err:
+                # A truncated or otherwise unparseable LM response raises
+                # `AdapterParseError` (which `dspy.streamify`'s task group re-raises
+                # wrapped in an `ExceptionGroup`); a malformed call raises
+                # `ValueError`. Either ends this loop with no commit, surfaced as
+                # the `RuntimeError` below — the caller decides whether that is
+                # fatal (a kill/exile vote) or a graceful pass (a day reaction).
                 react_error = err
                 break
             elapsed_ms = (time.monotonic() - t0) * 1000.0

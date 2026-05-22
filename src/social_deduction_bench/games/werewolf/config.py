@@ -51,12 +51,6 @@ MAX_BID: Final[int] = 100
 # engine stores this as an opaque `PlayerState.bid_budget`; `run_game` seeds it.
 BID_BUDGET: Final[int] = 100
 
-# Output-token cap for the day reaction round (WEREWOLF_DESIGN.md §4). Every
-# living player reacts once per day with a short structured accuse/defend/pass;
-# capping the reaction loop's `max_tokens` keeps that extra per-player call cheap
-# and terse. Tunable; smaller than a full decision's budget on purpose.
-REACTION_MAX_TOKENS: Final[int] = 256
-
 
 def default_role_multiset() -> tuple[str, ...]:
     """Expand `DEFAULT_ROLE_COUNTS` into one role string per seat.

@@ -604,29 +604,6 @@ def test_next_reaction_pass_turn_stages_no_draft() -> None:
     assert len(source.trajectories) == 1  # the seat still committed a decision
 
 
-def test_next_reaction_uses_the_reaction_lm_not_the_full_lm() -> None:
-    """The reaction loop is driven by `reaction_lms[seat]`, not `lms[seat]`.
-
-    Production seats a short-capped clone for the reaction round; this pins the
-    wiring by scripting DIFFERENT answers on the two maps and asserting the
-    reaction LM's answer is the one that produced the draft, with the full LM's
-    queue left untouched.
-    """
-    full = DummyLM([_step("accuse", {"target": "Wolf1", "reason": "from the FULL lm"})])
-    short = DummyLM([_step("accuse", {"target": "Wolf2", "reason": "from the REACTION lm"})])
-    lms = _empty_lms()
-    lms["Vil1"] = full
-    reaction_lms = _empty_lms()
-    reaction_lms["Vil1"] = short
-    source = ReActDecisionSource(roster=ROSTER, lms=lms, reaction_lms=reaction_lms)
-
-    source.next_reaction(_day_state(), "Vil1")
-    drafts = source.drain_drafts()
-
-    assert drafts[0].payload == {"accuser": "Vil1", "target": "Wolf2", "reason": "from the REACTION lm"}
-    assert full.history == []  # the full LM was not consulted for the reaction
-
-
 def test_next_reaction_rejects_a_dead_reactor() -> None:
     """`next_reaction` fails loud for a dead reactor — the driver must not seat one."""
     state = _day_state().with_player_killed("Vil1")
@@ -635,16 +612,24 @@ def test_next_reaction_rejects_a_dead_reactor() -> None:
         source.next_reaction(state, "Vil1")
 
 
-def test_reaction_lms_must_cover_the_roster() -> None:
-    """A `reaction_lms` map that misses a seat is rejected at construction.
+def test_failed_reaction_loop_degrades_to_a_silent_pass() -> None:
+    """A reaction whose loop never commits stages nothing and does NOT raise.
 
-    Symmetric with the `lms` coverage check: a missing reaction LM would crash
-    mid-game on the first reaction, so fail loud at construction instead.
+    The reaction round is optional signal — a seat whose LM produces a
+    truncated / unparseable response (or never commits within max_iters) must
+    silently pass, not abort the game. This is the fix for the live crash where a
+    too-small reaction token cap truncated the model mid-thought and the
+    `AdapterParseError` propagated out of `run_game`. Here an empty `DummyLM`
+    exhausts the loop with no commit; `next_reaction` must swallow it, stage no
+    draft, and record no trajectory.
     """
-    short = _empty_lms()
-    del short["Vil3"]
-    with pytest.raises(ValueError, match="reaction_lms must cover the roster"):
-        ReActDecisionSource(roster=ROSTER, lms=_empty_lms(), reaction_lms=short)
+    lms = _empty_lms()  # every seat's DummyLM is empty -> the loop cannot commit
+    source = ReActDecisionSource(roster=ROSTER, lms=lms, max_iters=2)
+
+    source.next_reaction(_day_state(), "Vil1")  # must not raise
+
+    assert source.drain_drafts() == ()  # no public accusation/defense staged
+    assert source.trajectories == ()  # a failed loop records no trajectory
 
 
 def test_reaction_accusation_is_observed_by_other_living_players() -> None:
@@ -1526,14 +1511,14 @@ def test_decision_brief_alive_list_reflects_current_state() -> None:
 # --- brief grounding: pack identity + memory context (D1) --------------------
 
 
-def test_wolf_brief_names_the_living_pack() -> None:
-    """A werewolf's brief lists its living pack so it never spends an iteration
-    calling `get_private_info` just to learn who its allies are.
+def test_wolf_brief_names_its_ally_excluding_itself() -> None:
+    """A werewolf's brief names its living ally — and NOT itself — so it never
+    confuses its own name with its packmate's.
 
-    Real-run waste: wolves burned a full ReAct iteration (~5k tokens, ~30s+)
-    on `get_private_info` only to discover their partner. Handing the pack in
-    the brief removes that iteration. The pack is rendered only into the
-    wolf's OWN brief, so no hidden state leaks to non-wolves.
+    Real-run bug: with the ally line reading "Your pack: Alice, Bob", a wolf
+    seated at Bob latched onto "Alice" as itself ("me (Alice)") and defended the
+    wrong player. Excluding the caller's own name from the ally line removes that
+    ambiguity. Rendered only into the wolf's OWN brief, so no hidden state leaks.
     """
     from social_deduction_bench.agents.decisions import _NIGHT_BRIEFS, _format_brief
 
@@ -1545,9 +1530,52 @@ def test_wolf_brief_names_the_living_pack() -> None:
         state=state,
         memory=GameMemory(),
     )
-    assert "Wolf1" in brief
-    assert "Wolf2" in brief
-    assert "pack" in brief.lower()
+    ally_line = next(ln for ln in brief.splitlines() if "besides you" in ln)
+    assert "Wolf2" in ally_line  # the living ally is named
+    assert "Wolf1" not in ally_line  # the caller's own name is excluded
+
+
+def test_last_living_wolf_brief_says_no_allies_remain() -> None:
+    """A lone surviving wolf's brief says no allies remain, not an empty ally list.
+
+    With self excluded, a sole wolf has no names to list; the brief must read
+    cleanly ("only living werewolf") rather than an empty/dangling line.
+    """
+    from social_deduction_bench.agents.decisions import _NIGHT_BRIEFS, _format_brief
+
+    state = GameState.initial(ROSTER).with_player_killed("Wolf2")
+    brief = _format_brief(
+        _NIGHT_BRIEFS[Role.WEREWOLF.value],
+        caller="Wolf1",
+        role=Role.WEREWOLF.value,
+        state=state,
+        memory=GameMemory(),
+    )
+    assert "only living werewolf" in brief.lower()
+
+
+def test_brief_states_caller_identity_and_role_every_phase() -> None:
+    """Every brief restates "you are <name>, <role>" — including the day briefs.
+
+    Real-run bug: the day briefs (bid/speak/react/vote) dropped the role, so a
+    werewolf mid-day asserted "I am a villager" while naming its own pack. The
+    identity line keeps name + role present each turn. It is the caller's own
+    role, rendered only in its brief, so it leaks nothing.
+    """
+    from social_deduction_bench.agents.decisions import _BID_BRIEF, _DAY_BRIEF, _format_brief
+
+    wolf_day = _format_brief(
+        _BID_BRIEF, caller="Wolf1", role=Role.WEREWOLF.value, state=GameState.initial(ROSTER), memory=GameMemory()
+    )
+    villager_day = _format_brief(
+        _DAY_BRIEF, caller="Vil1", role=Role.VILLAGER.value, state=GameState.initial(ROSTER), memory=GameMemory()
+    )
+    seer_day = _format_brief(
+        _DAY_BRIEF, caller="Seer1", role=Role.SEER.value, state=GameState.initial(ROSTER), memory=GameMemory()
+    )
+    assert "You are Wolf1, a werewolf" in wolf_day
+    assert "You are Vil1, a villager" in villager_day
+    assert "You are Seer1, the seer" in seer_day
 
 
 def test_villager_brief_omits_pack_line() -> None:

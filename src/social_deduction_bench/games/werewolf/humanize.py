@@ -94,13 +94,22 @@ def _describe(event: Event, caller: str | None) -> str | None:
 
     if event.type == ACCUSATION:
         accuser = payload.get("accuser")
+        target = payload.get("target")
         who = "you" if speaker_self and accuser == caller else accuser
-        return f'{label}: {who} accused {payload.get("target")}: "{payload.get("reason")}"'
+        whom = "you" if speaker_self and target == caller else target
+        return f'{label}: {who} accused {whom}: "{payload.get("reason")}"'
 
     if event.type == DEFENSE:
         defender = payload.get("defender")
+        defended = payload.get("defended")
         who = "you" if speaker_self and defender == caller else defender
-        return f'{label}: {who} defended {payload.get("defended")}: "{payload.get("reason")}"'
+        if speaker_self and defender == caller and defended == caller:
+            whom = "yourself"
+        elif speaker_self and defended == caller:
+            whom = "you"
+        else:
+            whom = defended
+        return f'{label}: {who} defended {whom}: "{payload.get("reason")}"'
 
     if event.type == SEER_INSPECT:
         return f"{label}: your inspection of {payload.get('target')} returned: {payload.get('faction')}."
