@@ -18,10 +18,19 @@ from pathlib import Path
 import pytest
 
 from social_deduction_bench.agents.trajectory import TrajectoryStream
-from social_deduction_bench.cli import _DEFAULT_NAMES, _seeded_roster, main
+from social_deduction_bench.cli import (
+    _DEFAULT_NAMES,
+    _build_manifest,
+    _build_parser,
+    _model_arg_summary,
+    _resolve_seat_models,
+    _seeded_roster,
+    main,
+)
 from social_deduction_bench.engine import EventStream
 from social_deduction_bench.games.werewolf.config import DEFAULT_ROLE_COUNTS
 from social_deduction_bench.games.werewolf.roles import Role
+from social_deduction_bench.rating.manifest import read_json as read_manifest
 
 
 def _invoke(argv: list[str], monkeypatch: pytest.MonkeyPatch) -> int:
@@ -459,3 +468,134 @@ def test_dry_run_completes_under_one_second(tmp_path: Path, monkeypatch: pytest.
     _invoke(["--dry-run", "--seed", "9", "--game-id", "speed"], monkeypatch)
     elapsed = _time.monotonic() - t0
     assert elapsed < 2.0, f"dry-run took {elapsed:.2f}s; async overhead regressed"
+
+
+# --- per-seat models: faction-split mode ---------------------------------
+
+_FACTION_ROSTER: tuple[tuple[str, str], ...] = (
+    ("Alice", Role.WEREWOLF.value),
+    ("Bob", Role.WEREWOLF.value),
+    ("Carol", Role.SEER.value),
+    ("Dave", Role.DOCTOR.value),
+    ("Eve", Role.VILLAGER.value),
+)
+
+
+def test_resolve_seat_models_uniform_seats_one_model_everywhere() -> None:
+    seat_models = _resolve_seat_models(_FACTION_ROSTER, model="qwen", werewolf_model=None, villager_model=None)
+    assert seat_models == {name: "qwen" for name, _ in _FACTION_ROSTER}
+
+
+def test_resolve_seat_models_faction_split_maps_every_role_by_faction() -> None:
+    # Pins all four roles: only the werewolf role takes the wolf model; seer, doctor,
+    # and plain villager (all the villager faction) take the village model.
+    seat_models = _resolve_seat_models(_FACTION_ROSTER, model="ignored", werewolf_model="wolfM", villager_model="vilM")
+    assert seat_models == {
+        "Alice": "wolfM",
+        "Bob": "wolfM",
+        "Carol": "vilM",
+        "Dave": "vilM",
+        "Eve": "vilM",
+    }
+
+
+def test_faction_split_follows_dealt_roles_across_seeds_not_seat_positions() -> None:
+    """The wolf model lands on whichever seats the seed dealt as werewolves.
+
+    Roles rotate across seeds (`_seeded_roster`), so a faction-based assignment must
+    move with them — otherwise a model pinned to a seat name would systematically
+    always (or never) play wolf, breaking cross-play fairness.
+    """
+    wolf_seat_sets: set[frozenset[str]] = set()
+    for seed in range(6):
+        roster = _seeded_roster(seed)
+        seat_models = _resolve_seat_models(roster, model="x", werewolf_model="W", villager_model="V")
+        wolves = frozenset(name for name, role in roster if role == Role.WEREWOLF.value)
+        wolf_seat_sets.add(wolves)
+        assert {name for name, m in seat_models.items() if m == "W"} == set(wolves)
+        assert {name for name, m in seat_models.items() if m == "V"} == {name for name, _ in roster} - set(wolves)
+    assert len(wolf_seat_sets) > 1  # the wolf seats actually move across seeds
+
+
+def test_resolve_seat_models_requires_both_faction_models() -> None:
+    with pytest.raises(ValueError, match="both"):
+        _resolve_seat_models(_FACTION_ROSTER, model="x", werewolf_model="W", villager_model=None)
+    with pytest.raises(ValueError, match="both"):
+        _resolve_seat_models(_FACTION_ROSTER, model="x", werewolf_model=None, villager_model="V")
+
+
+def test_parser_exposes_faction_model_flags_defaulting_none() -> None:
+    args = _build_parser().parse_args([])
+    assert args.werewolf_model is None
+    assert args.villager_model is None
+    args = _build_parser().parse_args(["--werewolf-model", "W", "--villager-model", "V"])
+    assert args.werewolf_model == "W"
+    assert args.villager_model == "V"
+
+
+def test_help_documents_faction_model_flags(capsys: pytest.CaptureFixture[str]) -> None:
+    with pytest.raises(SystemExit):
+        main(["--help"])
+    out = capsys.readouterr().out
+    assert "--werewolf-model" in out
+    assert "--villager-model" in out
+
+
+def test_model_arg_summary_reflects_the_mode() -> None:
+    assert _model_arg_summary(_build_parser().parse_args(["--model", "qwen"])) == "qwen"
+    assert _model_arg_summary(_build_parser().parse_args(["--dry-run"])) == "scripted"
+    faction = _model_arg_summary(_build_parser().parse_args(["--werewolf-model", "W", "--villager-model", "V"]))
+    assert "W" in faction
+    assert "V" in faction
+
+
+def test_faction_mode_with_only_one_model_exits_cleanly(
+    monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
+) -> None:
+    # A half-specified faction mode must fail loud with a clean arg-error exit (2)
+    # and NEVER silently seat a default model on the missing faction.
+    # The key is SET here so a missing-key exit (also code 2) can't be mistaken for
+    # the faction error: this proves the faction validation fires first, and the
+    # stderr message confirms it is the faction error rather than the key guard.
+    monkeypatch.setenv("OPENROUTER_API_KEY", "test-key")
+    with pytest.raises(SystemExit) as exc:
+        main(["--werewolf-model", "x", "--seed", "1"])
+    assert exc.value.code == 2
+    assert "both --werewolf-model and --villager-model" in capsys.readouterr().err
+
+
+def test_build_manifest_records_per_faction_seat_models() -> None:
+    args = _build_parser().parse_args(["--werewolf-model", "W", "--villager-model", "V"])
+    roster = (("Alice", Role.WEREWOLF.value), ("Bob", Role.SEER.value))
+    seat_models = _resolve_seat_models(
+        roster, model=args.model, werewolf_model=args.werewolf_model, villager_model=args.villager_model
+    )
+    manifest = _build_manifest(
+        args=args, roster=roster, seed=1, game_id="g", winner="villagers", rounds=2, seat_models=seat_models
+    )
+    assert dict(manifest.models) == {"Alice": "W", "Bob": "V"}
+    assert "werewolves=W" in manifest.model_arg
+    assert "villagers=V" in manifest.model_arg
+
+
+def test_dry_run_ignores_faction_flags_and_records_scripted(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    # Dry-run is scripted (no LMs); faction flags must not seat anything, and the
+    # manifest must record the scripted sentinel rather than the requested models.
+    code = _invoke(
+        [
+            "--dry-run",
+            "--werewolf-model",
+            "W",
+            "--villager-model",
+            "V",
+            "--game-id",
+            "fac",
+            "--output-dir",
+            str(tmp_path),
+        ],
+        monkeypatch,
+    )
+    assert code == 0
+    manifest = read_manifest(tmp_path / "fac" / "manifest.json")
+    assert set(dict(manifest.models).values()) == {"scripted"}
+    assert manifest.model_arg == "scripted"

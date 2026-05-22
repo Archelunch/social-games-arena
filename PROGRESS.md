@@ -11,9 +11,13 @@ the event + trajectory streams (winner/length/per-role win, illegal-move
 rate, tokens, tool usage). The CLI now writes `manifest.json` as a 4th
 artifact per run. The engine event log stays the sole source of truth
 for outcomes (invariant #1); the manifest is consulted only for model
-identity. 702/702 default suite green, ruff + pyrefly clean. **Next
-task:** T25 (deceiver/detector split) or the static results site
-(folds T31 replay + T28 leaderboard) — both consume this metric layer.
+identity. Plus a follow-on (below): the CLI now supports **faction-split
+cross-play** (`--werewolf-model` / `--villager-model`), so runs are no
+longer forced to be self-play. 712/712 default suite green, ruff +
+pyrefly clean. **Next task:** T25 (deceiver/detector split) or the static
+results site (folds T31 replay + T28 leaderboard) — both consume this
+metric layer. With cross-play seating now available, the 10–20-runs-per-
+pair sweep is unblocked.
 
 **Note (post-T30, unticked in BACKLOG):** commits `dadfd1e` +
 `163a179` landed an agent-play overhaul (CLI `sdb-werewolf`, rich live
@@ -34,6 +38,44 @@ Cross-game rationale in `BACKLOG.md` Notes and `WEREWOLF_DESIGN.md` §3.
 `games/werewolf/` (no `GameDefinition` bundle); resolution functions pure; the
 private-event guard is one shared `engine` function; T14 ships a production
 `run_game` driver + `DecisionSource` Protocol.
+
+---
+
+## 2026-05-22 — Per-seat models: faction-split CLI cross-play
+
+- **`cli.py`** — `sdb-werewolf` gained a second seating mode so runs are
+  no longer forced self-play (the adapter already did per-seat LMs via
+  T22; the gap was purely the CLI copying one `--model` to all seats):
+  - `--model X` — uniform (unchanged).
+  - `--werewolf-model X --villager-model Y` — faction split: werewolf
+    seats play X, the village faction (villager/seer/doctor) plays Y.
+  - New pure helper `_resolve_seat_models(roster, *, model,
+    werewolf_model, villager_model)` maps each seat to its model by
+    `faction_of(role)` over the **seed-dealt** roster, so the wolf-model
+    follows whichever seats the seed made wolves — fair, deterministic,
+    not seat-name-pinned (invariant #4). Exactly one faction flag set
+    fails loud (`ValueError` → clean `SystemExit(2)` + stderr), BEFORE
+    the API-key check, so a half-specified mode never silently seats a
+    default model on the missing faction.
+  - `_model_arg_summary(args)` feeds the header + the T24 manifest's
+    `model_arg`; `_build_manifest` now takes the resolved `seat_models`
+    map so `manifest.json > models` records the true per-seat models
+    (or the `"scripted"` sentinel for `--dry-run`, which seats no LMs
+    even if faction flags are passed). No metrics/manifest module change
+    — they already consume the per-seat `models` map.
+- **Decision (user):** keep it to two modes for now — uniform and a
+  two-model faction split (deceivers vs detectors). 3+ models /
+  count-based or positional seating / per-seat sampling deferred to the
+  tournament runner (T27), which will seat models programmatically.
+- **`/sdb-review`** (`.reviews/...-faction`): python + integrity
+  reviewers PASS; test reviewer 1 High — the bad-combo test deleted the
+  API key and asserted only exit 2, which the missing-key path also
+  produces, so it couldn't prove the faction error fires first. Fixed:
+  set the key + assert the faction stderr message (proves ordering).
+  Low (stale module docstring) fixed too.
+- Verified: `pytest -q` 712 passed + 1 deselected; ruff + ruff format +
+  pyrefly clean; manual `--dry-run` faction smoke records `"scripted"`;
+  half-specified `--werewolf-model` alone exits 2 with the guidance.
 
 ---
 

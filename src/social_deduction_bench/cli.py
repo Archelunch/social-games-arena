@@ -3,8 +3,9 @@
 Entry point: `poetry run sdb-werewolf` (or `python -m social_deduction_bench`).
 Drives `run_game` with either:
 
-- `ReActDecisionSource` seating one LLM (default `qwen/qwen3.5-9b` via
-  OpenRouter) at every roster slot, OR
+- `ReActDecisionSource` seating LLMs via OpenRouter — either one uniform
+  `--model` at every seat, or a faction split (`--werewolf-model` /
+  `--villager-model`) for cross-play, OR
 - `ScriptedDecisions` in `--dry-run` mode for offline CLI testing.
 
 Writes both `events.jsonl` and `trajectories.jsonl` to
@@ -46,7 +47,7 @@ from social_deduction_bench.games.werewolf.day import DayActions
 from social_deduction_bench.games.werewolf.events import ABSTAIN, GAME_OVER, EventDraft
 from social_deduction_bench.games.werewolf.loop import DecisionSource, run_game
 from social_deduction_bench.games.werewolf.night import NightActions
-from social_deduction_bench.games.werewolf.roles import Role
+from social_deduction_bench.games.werewolf.roles import Faction, Role, faction_of
 from social_deduction_bench.games.werewolf.scripted import ScriptedDecisions
 from social_deduction_bench.printer import GamePrinter, PrinterSettings
 from social_deduction_bench.rating.manifest import RunManifest
@@ -106,6 +107,23 @@ def main(argv: Sequence[str] | None = None) -> int:
     # dry-run keeps the fixed roster its scripted decisions are written against.
     roster = _DEFAULT_ROSTER if args.dry_run else _seeded_roster(seed)
 
+    # Resolve each seat's model up front so a bad faction-flag combo fails loud
+    # before any API-key check or model construction. Dry-run seats no LMs, so its
+    # provenance records the "scripted" sentinel for every seat.
+    if args.dry_run:
+        seat_models: dict[str, str] = {name: "scripted" for name, _ in roster}
+    else:
+        try:
+            seat_models = _resolve_seat_models(
+                roster,
+                model=args.model,
+                werewolf_model=args.werewolf_model,
+                villager_model=args.villager_model,
+            )
+        except ValueError as err:
+            print(f"error: {err}", file=sys.stderr)
+            raise SystemExit(2) from err
+
     # Force line-buffered stdout so each Rich `print` flushes immediately.
     # Without this, a long-running game holds output in the libc buffer and
     # the operator sees nothing for tens of seconds at a time.
@@ -121,7 +139,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     )
     printer = GamePrinter(console, settings=printer_settings)
 
-    printer.print_header(seed=seed, model=args.model, roster=roster)
+    printer.print_header(seed=seed, model=_model_arg_summary(args), roster=roster)
 
     if args.dry_run:
         source: DecisionSource = _build_scripted_source()
@@ -136,7 +154,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             raise SystemExit(2)
         source = _build_react_source(
             roster=roster,
-            model=args.model,
+            seat_models=seat_models,
             api_key=cfg.openrouter_api_key,
             max_iters=args.max_iters,
             max_tokens=args.max_tokens,
@@ -172,7 +190,15 @@ def main(argv: Sequence[str] | None = None) -> int:
     winner = str(winner_payload)
     final_round, final_phase = _final_position(stream)
 
-    manifest = _build_manifest(args=args, roster=roster, seed=seed, game_id=game_id, winner=winner, rounds=final_round)
+    manifest = _build_manifest(
+        args=args,
+        roster=roster,
+        seed=seed,
+        game_id=game_id,
+        winner=winner,
+        rounds=final_round,
+        seat_models=seat_models,
+    )
     events_path, trajectories_path, memories_path, manifest_path = _write_outputs(
         stream, trajectories, memories_dump, manifest, output_dir, game_id
     )
@@ -214,6 +240,22 @@ def _build_parser() -> argparse.ArgumentParser:
         type=str,
         default=_default_model(),
         help=f"Uniform model for all 7 seats (default: {_DEFAULT_MODEL}, override via $SDB_SMOKE_MODEL).",
+    )
+    parser.add_argument(
+        "--werewolf-model",
+        type=str,
+        default=None,
+        help=(
+            "Faction-split: model for the werewolf seats. Requires --villager-model; "
+            "together they override --model. The model follows the seeded role deal "
+            "(it sits on whichever seats are wolves)."
+        ),
+    )
+    parser.add_argument(
+        "--villager-model",
+        type=str,
+        default=None,
+        help="Faction-split: model for the village seats (villager/seer/doctor). Requires --werewolf-model.",
     )
     parser.add_argument(
         "--max-iters",
@@ -335,7 +377,7 @@ def _reasoning_extra_body(*, reasoning: bool) -> dict[str, object] | None:
 def _build_react_source(
     *,
     roster: Sequence[tuple[str, str]],
-    model: str,
+    seat_models: Mapping[str, str],
     api_key: str,
     max_iters: int,
     max_tokens: int,
@@ -346,15 +388,16 @@ def _build_react_source(
     on_step: object,
     on_thought_chunk: object,
 ) -> ReActDecisionSource:
-    """Build a `ReActDecisionSource` with one OpenRouter LM per seat.
+    """Build a `ReActDecisionSource` seating each seat's resolved model.
 
-    `cache=False` mirrors the existing smoke test (T23) so a re-run
-    actually exercises the model rather than replaying a cached response.
-    `max_tokens` and `temperature` are exposed via the CLI so the
-    operator can match the per-decision budget and sampling to the
-    chosen model. `reasoning` is off by default (see `_reasoning_extra_body`):
-    a reasoning-prone small model's hidden thinking is billed as output and
-    drives the repetition spirals, so we disable generation unless asked.
+    `seat_models` maps each seat name to its model (uniform or faction-split).
+    `cache=False` mirrors the existing smoke test (T23) so a re-run actually
+    exercises the model rather than replaying a cached response. `max_tokens` and
+    `temperature` are exposed via the CLI so the operator can match the
+    per-decision budget and sampling to the chosen model. `reasoning` is off by
+    default (see `_reasoning_extra_body`): a reasoning-prone small model's hidden
+    thinking is billed as output and drives the repetition spirals, so we disable
+    generation unless asked.
     """
     import dspy  # imported lazily so dry-run / --help don't pay the import cost
 
@@ -363,7 +406,7 @@ def _build_react_source(
     extra_body = _reasoning_extra_body(reasoning=reasoning)
     lms = {
         name: dspy.LM(
-            f"openrouter/{model}",
+            f"openrouter/{seat_models[name]}",
             api_key=api_key,
             temperature=temperature,
             cache=False,
@@ -508,6 +551,40 @@ def _git_sha() -> str | None:
     return result.stdout.strip() or None
 
 
+def _resolve_seat_models(
+    roster: Sequence[tuple[str, str]],
+    *,
+    model: str,
+    werewolf_model: str | None,
+    villager_model: str | None,
+) -> dict[str, str]:
+    """Map each seat name to the model it plays.
+
+    Uniform (`model` at every seat) unless BOTH faction models are given, in which
+    case the assignment follows each seat's dealt role via `faction_of`: werewolf
+    seats take `werewolf_model`, the village faction (villager/seer/doctor) takes
+    `villager_model`. Because roles are dealt from the seed, the faction models move
+    with the wolves across seeds — fair, replayable cross-play. Exactly one faction
+    model set is a usage error (fail loud).
+    """
+    if (werewolf_model is None) != (villager_model is None):
+        raise ValueError("both --werewolf-model and --villager-model are required for faction-split mode")
+    if werewolf_model is None or villager_model is None:
+        return {name: model for name, _ in roster}
+    return {
+        name: (werewolf_model if faction_of(role) is Faction.WEREWOLVES else villager_model) for name, role in roster
+    }
+
+
+def _model_arg_summary(args: argparse.Namespace) -> str:
+    """Human-readable model summary for the manifest `model_arg` and header display."""
+    if args.dry_run:
+        return "scripted"
+    if args.werewolf_model is not None and args.villager_model is not None:
+        return f"werewolves={args.werewolf_model} villagers={args.villager_model}"
+    return args.model
+
+
 def _build_manifest(
     *,
     args: argparse.Namespace,
@@ -516,19 +593,19 @@ def _build_manifest(
     game_id: str,
     winner: str,
     rounds: int,
+    seat_models: Mapping[str, str],
 ) -> RunManifest:
     """Build the per-run provenance manifest: seat->model, sampling config, outcome.
 
-    `--dry-run` games are driven by `ScriptedDecisions`, so their seats record the
-    sentinel model `"scripted"` rather than a model that never actually played.
+    `seat_models` is the resolved seat->model map (uniform, faction-split, or the
+    `"scripted"` sentinel for `--dry-run`, where `ScriptedDecisions` seats no LMs).
     """
-    model = "scripted" if args.dry_run else args.model
     return RunManifest(
         game_id=game_id,
         seed=seed,
         players=roster,
-        models=tuple((name, model) for name, _ in roster),
-        model_arg=model,
+        models=tuple(seat_models.items()),
+        model_arg=_model_arg_summary(args),
         temperature=args.temperature,
         max_tokens=args.max_tokens,
         max_iters=args.max_iters,
