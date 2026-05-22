@@ -2,22 +2,21 @@
 
 Append-only. Newest entry on top. Read this first when starting a session.
 
-**Current state:** T24 done — M6 metric extraction + a per-run
-provenance manifest are in place. `rating/manifest.py` defines the
-game-agnostic `RunManifest` (seat→model, sampling config, git sha,
-outcome) with fail-loud JSON IO; `games/werewolf/metrics.py` defines
-`extract_game_metrics` / `aggregate_metrics` / `extract_run_dir` over
-the event + trajectory streams (winner/length/per-role win, illegal-move
-rate, tokens, tool usage). The CLI now writes `manifest.json` as a 4th
-artifact per run. The engine event log stays the sole source of truth
-for outcomes (invariant #1); the manifest is consulted only for model
-identity. Plus a follow-on (below): the CLI now supports **faction-split
-cross-play** (`--werewolf-model` / `--villager-model`), so runs are no
-longer forced to be self-play. 712/712 default suite green, ruff +
-pyrefly clean. **Next task:** T25 (deceiver/detector split) or the static
-results site (folds T31 replay + T28 leaderboard) — both consume this
-metric layer. With cross-play seating now available, the 10–20-runs-per-
-pair sweep is unblocked.
+**Current state:** T25 done — the deceiver-vs-detector split metric
+(WEREWOLF_DESIGN §10) is in `games/werewolf/metrics.py`:
+`deceiver_detector_split(games)` pairs werewolf win rate (deceiver) with
+villager exile accuracy (detector), and `GameMetrics` now carries per-game
+`exiles_total` / `exiles_correct` / `exile_accuracy`. Exile accuracy is
+read purely from `EXILE_RESOLVED` + the roster header (invariant #1);
+ties / no-exile are excluded; a zero-exile game has `exile_accuracy=None`
+(not 0.0). Built on T24's metric layer (`extract_game_metrics` /
+`aggregate_metrics` / `extract_run_dir` + `rating/manifest.py`
+`RunManifest`) and the faction-split CLI cross-play
+(`--werewolf-model` / `--villager-model`). 722/722 default suite green,
+ruff + pyrefly clean. **Next task:** T26 (TrueSkill rating — its first
+unblocked M6 dep is now satisfied) and/or the static results site (folds
+T31 replay + T28 leaderboard). With cross-play seating + the split metric
+in place, the 10–20-runs-per-pair sweep is unblocked.
 
 **Note (post-T30, unticked in BACKLOG):** commits `dadfd1e` +
 `163a179` landed an agent-play overhaul (CLI `sdb-werewolf`, rich live
@@ -38,6 +37,44 @@ Cross-game rationale in `BACKLOG.md` Notes and `WEREWOLF_DESIGN.md` §3.
 `games/werewolf/` (no `GameDefinition` bundle); resolution functions pure; the
 private-event guard is one shared `engine` function; T14 ships a production
 `run_game` driver + `DecisionSource` Protocol.
+
+---
+
+## 2026-05-22 — T25: deceiver-vs-detector split metric
+
+- **`games/werewolf/metrics.py`** — the §10 first-class split. Surfaces
+  the recurring upstream finding (LLMs deceive better than they detect):
+  - Per-game: `GameMetrics` gains `exiles_total`, `exiles_correct`,
+    `exile_accuracy: float | None`. `_exile_accuracy(events)` walks
+    `EXILE_RESOLVED` events, counts a resolved exile (skips `exiled=None`
+    ties — indecision is not a detection failure), and marks it correct
+    when the exiled seat's role is a werewolf (`faction_of` over the
+    roster header). Outcome-sourced from the event log only (invariant
+    #1). Zero resolved exiles → `exile_accuracy=None` (a real None, NOT
+    0.0 — no decision to judge vs. "exiled and missed").
+  - Cross-game: `deceiver_detector_split(games) -> DeceiverDetectorReport`
+    with per-model `FactionSplit` rows. Deceiver = game-level wolf win
+    rate attributed to the unique werewolf-faction model; detector =
+    village exile accuracy attributed to the unique village-faction model.
+    `exile_accuracy` POOLS across exile decisions (Σcorrect / Σtotal),
+    deliberately unlike `aggregate_metrics.mean_illegal_move_rate`
+    (mean-of-per-game-rates) — each exile is the unit of detection, so a
+    multi-exile game must outweigh a single-exile one. A pooling-guard
+    test pins 1/3 (not the 0.25 a mean-of-rates would give).
+  - `_unique_faction_model(seats, faction)` returns the lone model
+    staffing a faction, else None (mixed faction → skip per-model
+    attribution but still count the population pool).
+- **Decision (review fix):** an unresolved seat model is the `_UNKNOWN_MODEL`
+  sentinel; a faction staffed entirely by it is treated as unattributable
+  (None), so post-hoc runs without a manifest never emit a bogus "unknown"
+  leaderboard row — they still count toward the population pool. (Consensus
+  Medium from all three reviewers; covered by a new test.)
+- **`/sdb-review`**: python + test + benchmark-integrity reviewers all PASS
+  (0 critical / 0 high). The one consensus Medium ("unknown"-model
+  attribution) was fixed before commit.
+- Verified: `pytest -q` 722 passed + 1 deselected (real-LLM smoke
+  auto-skips); ruff + ruff format + pyrefly all clean. Pure metric only —
+  no TrueSkill (T26), tournament (T27), or UI (T28/T31) surface yet.
 
 ---
 

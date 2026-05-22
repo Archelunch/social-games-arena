@@ -30,12 +30,17 @@ from social_deduction_bench.agents.trajectory import read_jsonl as read_trajecto
 from social_deduction_bench.engine import EventStream
 from social_deduction_bench.engine import read_jsonl as read_events
 from social_deduction_bench.games.werewolf.events import EXILE_RESOLVED, GAME_OVER, KILL_RESOLVED, TOOL_REJECTED
-from social_deduction_bench.games.werewolf.roles import faction_of
+from social_deduction_bench.games.werewolf.roles import Faction, faction_of
 from social_deduction_bench.games.werewolf.tools import WEREWOLF_TOOL_REQUIREMENTS
 from social_deduction_bench.rating.manifest import RunManifest
 from social_deduction_bench.rating.manifest import read_json as read_manifest
 
 _GAME_ACTIONS: frozenset[str] = frozenset(WEREWOLF_TOOL_REQUIREMENTS)
+
+# Sentinel for a seat whose model identity could not be resolved (no manifest and
+# no LM call to infer from). Never a real model name, so per-model rollups must not
+# attribute a faction record to it.
+_UNKNOWN_MODEL = "unknown"
 
 
 @dataclass(frozen=True, slots=True)
@@ -74,6 +79,9 @@ class GameMetrics:
     illegal_move_rate: float
     total_cost_usd: float | None
     tool_usage: tuple[tuple[str, int], ...]
+    exiles_total: int
+    exiles_correct: int
+    exile_accuracy: float | None
 
 
 @dataclass(frozen=True, slots=True)
@@ -111,6 +119,31 @@ class AggregateMetrics:
     models: tuple[ModelStats, ...]
 
 
+@dataclass(frozen=True, slots=True)
+class FactionSplit:
+    """One model's deceiver (wolf) and detector (village exile) record."""
+
+    model: str
+    wolf_games: int
+    wolf_wins: int
+    wolf_win_rate: float
+    village_exiles: int
+    village_correct_exiles: int
+    exile_accuracy: float | None  # None when village_exiles == 0
+
+
+@dataclass(frozen=True, slots=True)
+class DeceiverDetectorReport:
+    """Cross-game deceiver-vs-detector split: wolf win rate vs. village exile accuracy."""
+
+    n_games: int
+    wolf_win_rate: float
+    exile_accuracy: float | None  # pooled across ALL resolved exiles; None when total == 0
+    total_exiles: int
+    total_correct_exiles: int
+    models: tuple[FactionSplit, ...]  # sorted by model name
+
+
 def _dead_seats(events: EventStream) -> set[str]:
     """Return the set of seats that died: night victims plus day exiles (skip None)."""
     dead: set[str] = set()
@@ -124,6 +157,28 @@ def _dead_seats(events: EventStream) -> set[str]:
             if exiled is not None:
                 dead.add(exiled)  # type: ignore[arg-type]
     return dead
+
+
+def _exile_accuracy(events: EventStream) -> tuple[int, int]:
+    """Return (resolved_exiles, correct_exiles) read from `EXILE_RESOLVED` events.
+
+    Detection accuracy is "when the village resolves an exile, is the target a
+    wolf". A resolved exile is an `EXILE_RESOLVED` event whose `exiled` is not None
+    (ties / no-exile are indecision, not a detection failure, so they are not
+    counted). It is correct when the exiled seat's role is a werewolf, per the
+    roster in the stream header (invariant #1: outcomes from the event log).
+    """
+    roles = dict(events.header.players)
+    resolved = 0
+    correct = 0
+    for event in events.log.events:
+        if event.type == EXILE_RESOLVED:
+            exiled = event.payload.get("exiled")
+            if exiled is not None:
+                resolved += 1
+                if faction_of(roles[exiled]) is Faction.WEREWOLVES:  # type: ignore[index]
+                    correct += 1
+    return resolved, correct
 
 
 def _illegal_by_seat(events: EventStream) -> Counter[str]:
@@ -212,9 +267,9 @@ def extract_game_metrics(
         illegal_moves = illegal_by_seat.get(name, 0)
 
         if manifest_models is not None:
-            model = manifest_models.get(name, "unknown")
+            model = manifest_models.get(name, _UNKNOWN_MODEL)
         else:
-            model = inferred_model if inferred_model is not None else "unknown"
+            model = inferred_model if inferred_model is not None else _UNKNOWN_MODEL
 
         seats.append(
             SeatMetrics(
@@ -239,6 +294,7 @@ def extract_game_metrics(
     total_tool_calls = sum(s.tool_calls for s in seats)
     total_illegal_moves = sum(s.illegal_moves for s in seats)
     seat_costs = [s.cost_usd for s in seats if s.cost_usd is not None]
+    exiles_total, exiles_correct = _exile_accuracy(events)
 
     return GameMetrics(
         game_id=events.header.game_id,
@@ -255,6 +311,9 @@ def extract_game_metrics(
         illegal_move_rate=total_illegal_moves / total_tool_calls if total_tool_calls else 0.0,
         total_cost_usd=sum(seat_costs) if seat_costs else None,
         tool_usage=tuple(sorted(tool_usage.items())),
+        exiles_total=exiles_total,
+        exiles_correct=exiles_correct,
+        exile_accuracy=exiles_correct / exiles_total if exiles_total else None,
     )
 
 
@@ -324,6 +383,81 @@ def aggregate_metrics(games: Sequence[GameMetrics]) -> AggregateMetrics:
         mean_game_length=mean_game_length,
         mean_illegal_move_rate=mean_illegal_move_rate,
         models=tuple(models),
+    )
+
+
+def _unique_faction_model(seats: Sequence[SeatMetrics], faction_value: str) -> str | None:
+    """Return the single model staffing a faction, or None when it is mixed/absent.
+
+    Used to attribute a game-level faction outcome to a model: only meaningful when
+    one model holds the whole faction (so a per-model record is unambiguous). The
+    `_UNKNOWN_MODEL` sentinel is not a real model, so a faction staffed by it is
+    treated as unattributable (None) rather than crediting a bogus "unknown" row.
+    """
+    models = {s.model for s in seats if s.faction == faction_value}
+    if len(models) != 1:
+        return None
+    (model,) = models
+    return None if model == _UNKNOWN_MODEL else model
+
+
+def deceiver_detector_split(games: Sequence[GameMetrics]) -> DeceiverDetectorReport:
+    """Split games into the deceiver (wolf win rate) and detector (exile accuracy) axes.
+
+    WEREWOLF_DESIGN.md §10's first-class metric. The deceiver axis is a game-level
+    outcome (did the wolves win) attributed to the unique werewolf-faction model;
+    the detector axis pools village exile decisions attributed to the unique
+    village-faction model. Population `exile_accuracy` POOLS across decisions
+    (Σcorrect / Σtotal), deliberately unlike `aggregate_metrics.mean_illegal_move_rate`
+    (mean of per-game rates): each exile is the unit of detection, so a multi-exile
+    game must outweigh a single-exile game. Output models are sorted by name.
+    """
+    wolf_games: Counter[str] = Counter()
+    wolf_wins: Counter[str] = Counter()
+    village_exiles: Counter[str] = Counter()
+    village_correct: Counter[str] = Counter()
+
+    wolf_value = Faction.WEREWOLVES.value
+    village_value = Faction.VILLAGERS.value
+    population_wolf_wins = 0
+    for game in games:
+        if game.winner == wolf_value:
+            population_wolf_wins += 1
+        wolf_model = _unique_faction_model(game.seats, wolf_value)
+        if wolf_model is not None:
+            wolf_games[wolf_model] += 1
+            if game.winner == wolf_value:
+                wolf_wins[wolf_model] += 1
+        village_model = _unique_faction_model(game.seats, village_value)
+        if village_model is not None:
+            village_exiles[village_model] += game.exiles_total
+            village_correct[village_model] += game.exiles_correct
+
+    n_games = len(games)
+    total_exiles = sum(g.exiles_total for g in games)
+    total_correct_exiles = sum(g.exiles_correct for g in games)
+
+    model_names = sorted(set(wolf_games) | set(village_exiles))
+    models = tuple(
+        FactionSplit(
+            model=model,
+            wolf_games=wolf_games[model],
+            wolf_wins=wolf_wins[model],
+            wolf_win_rate=wolf_wins[model] / wolf_games[model] if wolf_games[model] else 0.0,
+            village_exiles=village_exiles[model],
+            village_correct_exiles=village_correct[model],
+            exile_accuracy=village_correct[model] / village_exiles[model] if village_exiles[model] else None,
+        )
+        for model in model_names
+    )
+
+    return DeceiverDetectorReport(
+        n_games=n_games,
+        wolf_win_rate=population_wolf_wins / n_games if n_games else 0.0,
+        exile_accuracy=total_correct_exiles / total_exiles if total_exiles else None,
+        total_exiles=total_exiles,
+        total_correct_exiles=total_correct_exiles,
+        models=models,
     )
 
 

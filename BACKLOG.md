@@ -58,7 +58,7 @@ Rich data capture so a human can debug *why* an agent acted a given way, and an 
 ## M6 — Rating, metrics & tournament
 
 - [x] **T24** — Metric extraction from the event stream: win/loss, per-role win rate, illegal-move rate, game length, tokens. Adds a per-run `manifest.json` (seat→model provenance) consumed for cross-model rating. _Depends: T04, T14, T29, T30_
-- [ ] **T25** — Deceiver-vs-detector split metric (werewolf win rate vs. villager exile accuracy). _Depends: T24_
+- [x] **T25** — Deceiver-vs-detector split metric (werewolf win rate vs. villager exile accuracy). _Depends: T24_
 - [ ] **T26** — TrueSkill rating: update individual ratings from team outcomes. _Depends: T24_
 - [ ] **T27** — Tournament runner: seeded cross-play over many games, ratings aggregated. _Depends: T23, T26_
 - [ ] **T28** — Leaderboard output + replay tool (event stream → deterministic re-run). _Depends: T08, T27_

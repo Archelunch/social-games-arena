@@ -38,6 +38,7 @@ from social_deduction_bench.games.werewolf.events import (
 from social_deduction_bench.games.werewolf.loop import run_game
 from social_deduction_bench.games.werewolf.metrics import (
     aggregate_metrics,
+    deceiver_detector_split,
     extract_game_metrics,
     extract_run_dir,
 )
@@ -56,11 +57,15 @@ _PLAYERS: tuple[tuple[str, str], ...] = (
 # --- synthetic stream builders -------------------------------------------
 
 
-def _events(rows: list[tuple[int, Phase, str, dict[str, object], tuple[str, ...]]]) -> EventStream:
+def _events(
+    rows: list[tuple[int, Phase, str, dict[str, object], tuple[str, ...]]],
+    *,
+    players: tuple[tuple[str, str], ...] = _PLAYERS,
+) -> EventStream:
     log = EventLog()
     for round_, phase, type_, payload, recipients in rows:
         log.append(round=round_, phase=phase, type=type_, payload=payload, recipients=recipients)
-    return EventStream(header=StreamHeader(seed=7, game_id="g1", players=_PLAYERS), log=log)
+    return EventStream(header=StreamHeader(seed=7, game_id="g1", players=players), log=log)
 
 
 def _trajectories(rows: list[Trajectory], *, players: tuple[tuple[str, str], ...] = _PLAYERS) -> TrajectoryStream:
@@ -562,3 +567,271 @@ def test_extract_from_a_real_scripted_wolves_win_game() -> None:
     usage = dict(metrics.tool_usage)
     assert usage  # at least some committed game actions
     assert not ({"set_belief", "recall", "finish"} & usage.keys())
+
+
+# --- deceiver/detector split (T25) ---------------------------------------
+#
+# WEREWOLF_DESIGN.md §10's first-class metric: werewolf win rate (deceiver) vs.
+# villager exile accuracy (detector). Exile accuracy is "when the village resolves
+# an exile, is the target a wolf"; ties / no-exile are NOT counted (indecision is
+# not a detection failure), and a game with zero resolved exiles has
+# `exile_accuracy is None` (no decision to judge), distinct from 0.0.
+
+
+def _villager_exiled_game() -> EventStream:
+    """4-seat: Carol (a villager) exiled by day → a *wrong* exile; werewolves win."""
+    return _events(
+        [
+            (1, Phase.NIGHT, KILL_RESOLVED, {"victim": "Bob"}, ()),
+            (1, Phase.DAY, EXILE_RESOLVED, {"ballots": {"Alice": "Carol"}, "exiled": "Carol"}, ()),
+            (2, Phase.NIGHT, KILL_RESOLVED, {"victim": "Alice"}, ()),
+            (2, Phase.DAY, GAME_OVER, {"winner": "werewolves"}, ()),
+        ]
+    )
+
+
+def _two_exile_mixed_game() -> EventStream:
+    """7-seat realizable game with two resolved exiles: one villager (wrong), one wolf (right).
+
+    On `_ROSTER` (2 wolves, 5 villagers): Vil2 exiled day 1 (wrong), Wolf1 exiled
+    day 2 (right), wolves reach parity by night 3. exiles_total=2, exiles_correct=1.
+    """
+    return _events(
+        [
+            (1, Phase.NIGHT, KILL_RESOLVED, {"victim": "Vil1"}, ()),
+            (1, Phase.DAY, EXILE_RESOLVED, {"ballots": {}, "exiled": "Vil2"}, ()),
+            (2, Phase.NIGHT, KILL_RESOLVED, {"victim": "Vil3"}, ()),
+            (2, Phase.DAY, EXILE_RESOLVED, {"ballots": {}, "exiled": "Wolf1"}, ()),
+            (3, Phase.NIGHT, KILL_RESOLVED, {"victim": "Seer1"}, ()),
+            (3, Phase.DAY, GAME_OVER, {"winner": "werewolves"}, ()),
+        ],
+        players=_ROSTER,
+    )
+
+
+def _mk_manifest(
+    *,
+    game_id: str,
+    players: tuple[tuple[str, str], ...],
+    models: tuple[tuple[str, str], ...],
+    winner: str,
+    rounds: int,
+) -> RunManifest:
+    return RunManifest(
+        game_id=game_id,
+        seed=7,
+        players=players,
+        models=models,
+        model_arg="faction",
+        temperature=0.7,
+        max_tokens=8000,
+        max_iters=6,
+        reasoning=False,
+        git_sha=None,
+        created_at="2026-05-22T00:00:00+00:00",
+        winner=winner,
+        rounds=rounds,
+    )
+
+
+def _faction_models_4(*, wolf: str, village: str) -> tuple[tuple[str, str], ...]:
+    return (("Alice", village), ("Bob", village), ("Carol", village), ("Dave", wolf))
+
+
+def _faction_models_7(*, wolf: str, village: str) -> tuple[tuple[str, str], ...]:
+    return tuple((name, wolf if role == Role.WEREWOLF.value else village) for name, role in _ROSTER)
+
+
+# --- per-game exile accuracy (read from EXILE_RESOLVED, invariant #1) -----
+
+
+def test_exile_accuracy_counts_a_resolved_wolf_exile_as_correct() -> None:
+    # _villager_win_game exiles Dave, the wolf → 1 resolved exile, 1 correct.
+    metrics = extract_game_metrics(_villager_win_game(), _trajectories([]))
+    assert metrics.exiles_total == 1
+    assert metrics.exiles_correct == 1
+    assert metrics.exile_accuracy == pytest.approx(1.0)
+
+
+def test_exile_accuracy_counts_a_resolved_villager_exile_as_incorrect() -> None:
+    # Exiling Carol (a villager) is a detection miss: resolved but not a wolf.
+    metrics = extract_game_metrics(_villager_exiled_game(), _trajectories([]))
+    assert metrics.exiles_total == 1
+    assert metrics.exiles_correct == 0
+    assert metrics.exile_accuracy == pytest.approx(0.0)
+
+
+def test_exile_accuracy_is_none_when_no_resolved_exile() -> None:
+    # _two_round_werewolf_win_game has only a tie (exiled None). Zero decisions to
+    # judge → exile_accuracy is None, NOT 0.0 (which would read as "exiled, missed").
+    metrics = extract_game_metrics(_two_round_werewolf_win_game(), _trajectories([]))
+    assert metrics.exiles_total == 0
+    assert metrics.exiles_correct == 0
+    assert metrics.exile_accuracy is None
+
+
+def test_exile_accuracy_over_two_resolved_exiles_one_each() -> None:
+    metrics = extract_game_metrics(_two_exile_mixed_game(), _trajectories([], players=_ROSTER))
+    assert metrics.exiles_total == 2
+    assert metrics.exiles_correct == 1
+    assert metrics.exile_accuracy == pytest.approx(0.5)
+
+
+# --- aggregate deceiver/detector split -----------------------------------
+
+
+def test_split_attributes_deceiver_to_wolf_model_and_detector_to_village_model() -> None:
+    # Faction cross-play: model A is the wolves, model B is the village, across two
+    # 4-seat games. g1: villagers win, exile the wolf (B detects right). g2: wolves
+    # win, exile a villager (B detects wrong).
+    g1 = extract_game_metrics(
+        _villager_win_game(),
+        _trajectories([]),
+        manifest=_mk_manifest(
+            game_id="g1",
+            players=_PLAYERS,
+            models=_faction_models_4(wolf="A", village="B"),
+            winner="villagers",
+            rounds=1,
+        ),
+    )
+    g2 = extract_game_metrics(
+        _villager_exiled_game(),
+        _trajectories([]),
+        manifest=_mk_manifest(
+            game_id="g2",
+            players=_PLAYERS,
+            models=_faction_models_4(wolf="A", village="B"),
+            winner="werewolves",
+            rounds=2,
+        ),
+    )
+    report = deceiver_detector_split([g1, g2])
+    by_model = {m.model: m for m in report.models}
+
+    # Deceiver: A is the wolf model in both games; wolves won only g2.
+    assert by_model["A"].wolf_games == 2
+    assert by_model["A"].wolf_wins == 1
+    assert by_model["A"].wolf_win_rate == pytest.approx(0.5)
+    # A never sat as the village → no detector decisions attributed to it.
+    assert by_model["A"].village_exiles == 0
+    assert by_model["A"].exile_accuracy is None
+
+    # Detector: B is the village model in both; 2 resolved exiles, 1 hit a wolf.
+    assert by_model["B"].village_exiles == 2
+    assert by_model["B"].village_correct_exiles == 1
+    assert by_model["B"].exile_accuracy == pytest.approx(0.5)
+    # B never sat as the wolves.
+    assert by_model["B"].wolf_games == 0
+
+    # Population: wolves won 1 of 2 games; pooled exile accuracy 1/2.
+    assert report.n_games == 2
+    assert report.wolf_win_rate == pytest.approx(0.5)
+    assert report.total_exiles == 2
+    assert report.total_correct_exiles == 1
+    assert report.exile_accuracy == pytest.approx(0.5)
+
+
+def test_split_pools_exile_accuracy_across_decisions_not_mean_of_rates() -> None:
+    # g1: 2 exiles, 1 correct (rate 0.5). g2: 1 exile, 0 correct (rate 0.0).
+    # Mean-of-rates would be 0.25; pooling across the 3 decisions gives 1/3. Both
+    # games share village model B so its detector record pools too.
+    g1 = extract_game_metrics(
+        _two_exile_mixed_game(),
+        _trajectories([], players=_ROSTER),
+        manifest=_mk_manifest(
+            game_id="g1",
+            players=_ROSTER,
+            models=_faction_models_7(wolf="A", village="B"),
+            winner="werewolves",
+            rounds=3,
+        ),
+    )
+    g2 = extract_game_metrics(
+        _villager_exiled_game(),
+        _trajectories([]),
+        manifest=_mk_manifest(
+            game_id="g2",
+            players=_PLAYERS,
+            models=_faction_models_4(wolf="A", village="B"),
+            winner="werewolves",
+            rounds=2,
+        ),
+    )
+    report = deceiver_detector_split([g1, g2])
+    assert report.exile_accuracy == pytest.approx(1 / 3)
+    assert report.total_exiles == 3
+    assert report.total_correct_exiles == 1
+    by_model = {m.model: m for m in report.models}
+    assert by_model["B"].village_exiles == 3
+    assert by_model["B"].village_correct_exiles == 1
+    assert by_model["B"].exile_accuracy == pytest.approx(1 / 3)
+
+
+def test_split_skips_per_model_detector_when_village_faction_is_mixed() -> None:
+    # The village faction holds two different models (B1, B2) → no single village
+    # model owns the exile decision, so it is excluded from per-model detector
+    # attribution, but still counts toward the population pool.
+    mixed_village = (("Alice", "B1"), ("Bob", "B2"), ("Carol", "B1"), ("Dave", "A"))
+    game = extract_game_metrics(
+        _villager_win_game(),  # exiles the wolf → 1 resolved exile, 1 correct
+        _trajectories([]),
+        manifest=_mk_manifest(
+            game_id="g1",
+            players=_PLAYERS,
+            models=mixed_village,
+            winner="villagers",
+            rounds=1,
+        ),
+    )
+    report = deceiver_detector_split([game])
+    # Population still sees the exile.
+    assert report.total_exiles == 1
+    assert report.total_correct_exiles == 1
+    assert report.exile_accuracy == pytest.approx(1.0)
+    # But no model is credited with the detection (village was mixed).
+    assert sum(m.village_exiles for m in report.models) == 0
+    # The wolf faction was unambiguous (only A) → A still gets its deceiver record.
+    by_model = {m.model: m for m in report.models}
+    assert by_model["A"].wolf_games == 1
+    assert by_model["A"].wolf_wins == 0  # villagers won
+
+
+def test_split_skips_attribution_for_unidentified_model_faction() -> None:
+    # No manifest and no LM calls → every seat's model resolves to the "unknown"
+    # sentinel. An unidentified faction must NOT produce a per-model row labelled
+    # "unknown" (it isn't a real model); it is skipped for per-model attribution
+    # like a mixed faction, but still counts toward the population pool.
+    game = extract_game_metrics(_villager_win_game(), _trajectories([]), manifest=None)
+    report = deceiver_detector_split([game])
+    assert report.models == ()
+    assert report.total_exiles == 1
+    assert report.total_correct_exiles == 1
+    assert report.exile_accuracy == pytest.approx(1.0)
+
+
+def test_split_models_are_sorted_by_name() -> None:
+    # village="alpha", wolf="zeta" so first-seen order differs from sorted order.
+    game = extract_game_metrics(
+        _villager_win_game(),
+        _trajectories([]),
+        manifest=_mk_manifest(
+            game_id="g1",
+            players=_PLAYERS,
+            models=_faction_models_4(wolf="zeta", village="alpha"),
+            winner="villagers",
+            rounds=1,
+        ),
+    )
+    report = deceiver_detector_split([game])
+    assert tuple(m.model for m in report.models) == ("alpha", "zeta")
+
+
+def test_split_over_no_games_is_safe() -> None:
+    report = deceiver_detector_split([])
+    assert report.n_games == 0
+    assert report.wolf_win_rate == 0.0
+    assert report.exile_accuracy is None
+    assert report.total_exiles == 0
+    assert report.total_correct_exiles == 0
+    assert report.models == ()
