@@ -15,7 +15,9 @@ import pytest
 from social_deduction_bench.engine import assert_recipients_present
 from social_deduction_bench.games.werewolf.config import PRIVATE_EVENT_TYPES
 from social_deduction_bench.games.werewolf.events import (
+    ACCUSATION,
     BID,
+    DEFENSE,
     DISCUSSION_RESOLVED,
     DOCTOR_PROTECT,
     EXILE_RESOLVED,
@@ -88,6 +90,30 @@ def test_kill_resolved_is_a_public_type() -> None:
 def test_exile_resolved_is_a_public_type() -> None:
     """`EXILE_RESOLVED` is not a declared-private type — the exile is public."""
     assert EXILE_RESOLVED not in PRIVATE_EVENT_TYPES
+
+
+def test_accusation_and_defense_are_public_types() -> None:
+    """`ACCUSATION` and `DEFENSE` are broadcast — the whole table sees who
+    accuses or defends whom.
+
+    The day reaction round is public deliberation: an accusation only works as a
+    social-deduction signal if everyone hears it, and a defense only counts if
+    the accuser and the table see it. If either landed in `PRIVATE_EVENT_TYPES`
+    the guard would wrongly demand recipients on a broadcast — and, worse, the
+    structured suspicion signal the metrics consume would be hidden.
+    """
+    assert ACCUSATION not in PRIVATE_EVENT_TYPES
+    assert DEFENSE not in PRIVATE_EVENT_TYPES
+
+
+def test_accusation_and_defense_are_distinct_constants() -> None:
+    """`ACCUSATION` and `DEFENSE` are distinct strings, and distinct from the
+    existing public dialogue types.
+
+    A copy-paste collision (`DEFENSE = "accusation"`) would conflate the two in
+    the transcript and corrupt every who-accused/defended-whom metric.
+    """
+    assert len({ACCUSATION, DEFENSE, SPEECH, DISCUSSION_RESOLVED}) == 4
 
 
 def test_event_draft_defaults_to_a_public_empty_event() -> None:

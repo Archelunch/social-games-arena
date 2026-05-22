@@ -1,13 +1,14 @@
 """Werewolf event-type constants and the `EventDraft` resolution spec.
 
-These constants name every event the Werewolf rules emit. `KILL_RESOLVED`,
-`EXILE_RESOLVED`, and `GAME_OVER` are public — the night's death, the day's
-exile announcement, and the final winning-faction declaration are common
-knowledge. The three private
-constants (`SEER_INSPECT`, `DOCTOR_PROTECT`, `WEREWOLF_CHAT`) are bound to
-`config.PRIVATE_EVENT_TYPES`, the frozenset the engine's private-event guard
-enforces; keeping the constants and that set in lockstep is what stops a private
-channel from silently shipping unguarded (invariant #2).
+These constants name every event the Werewolf rules emit. The public ones
+(`KILL_RESOLVED`, `EXILE_RESOLVED`, `GAME_OVER`, `DISCUSSION_RESOLVED`, `SPEECH`,
+`ACCUSATION`, `DEFENSE`) are common knowledge — deaths, the exile, the winner,
+the resolved speaking order, and the public day dialogue. The six private
+constants (`SEER_INSPECT`, `DOCTOR_PROTECT`, `WEREWOLF_CHAT`, `BID`,
+`TOOL_REJECTED`, `KILL_BALLOTS`) are bound to `config.PRIVATE_EVENT_TYPES`, the
+frozenset the engine's private-event guard enforces; keeping the constants and
+that set in lockstep is what stops a private channel from silently shipping
+unguarded (invariant #2).
 
 `EventDraft` is the transient event spec a resolver returns; the game loop turns
 each draft into a logged `Event` on the append-only stream.
@@ -29,6 +30,13 @@ DISCUSSION_RESOLVED = "discussion_resolved"
 
 # Public: one chosen speaker's day statement, broadcast to every player.
 SPEECH = "speech"
+
+# Public: a day-reaction accusation (`{accuser, target, reason}`) and defense
+# (`{defender, defended, reason}`). Every living player reacts once per day after
+# the statements; both are common knowledge — the whole table sees who accuses or
+# defends whom — so they are broadcast, not added to `PRIVATE_EVENT_TYPES`.
+ACCUSATION = "accusation"
+DEFENSE = "defense"
 
 # The literal an exile vote uses to mean "no choice"; excluded from the tally.
 ABSTAIN = "abstain"

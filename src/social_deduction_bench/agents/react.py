@@ -1,23 +1,28 @@
 """Per-decision-point ReAct loop primitive.
 
-Drives `dspy.ReAct.react` (the per-iteration predictor) directly, not
-`ReAct.forward` — `forward` would append an extra `extract` LM call that the
-caller does not need, since the commitment is captured side-band when a
-terminal tool reports a valid `ToolResult`.
+Builds its own finish-free ReAct predictor (mirroring `dspy.ReAct`'s signature
+construction but without the auto-injected `finish` tool) and drives it one
+iteration at a time. The commitment is captured side-band the instant a terminal
+tool reports a valid `ToolResult`, so the loop stops on commit — there is no
+separate `finish` round-trip (which DSPy's `ReAct` advertises and which costs a
+dead second LM call) and no `extract` call.
 """
 
 from __future__ import annotations
 
+import asyncio
 import functools
 import inspect
 import logging
 import time
-from collections.abc import Callable, Mapping, Sequence
+from collections.abc import Awaitable, Callable, Mapping, Sequence
 from dataclasses import dataclass
 from types import MappingProxyType
+from typing import Any, Literal
 
 import dspy
 from dspy.clients.base_lm import BaseLM
+from dspy.streaming import StreamListener, StreamResponse
 
 from social_deduction_bench.agents.trajectory import LMCallRecord, ReActStep
 from social_deduction_bench.games.werewolf.tools import ToolResult
@@ -31,6 +36,21 @@ TraceSink = Callable[[tuple[ReActStep, ...], tuple[LMCallRecord, ...]], None]
 """Signature for `react_decide`'s `trace_sink`: receives the per-iteration steps
 and the per-LM-call telemetry of a completed loop. Fires once after a
 successful commit; not called when the loop raises `RuntimeError`."""
+
+StepSink = Callable[[ReActStep, tuple[LMCallRecord, ...]], None]
+"""Signature for `react_decide`'s `step_sink`: fires once per iteration as soon
+as the LM call returns and the iteration's `ReActStep` is built. Used by the
+CLI to stream agent progress in real time — without it the user sees nothing
+between the phase banner and the eventual commit (potentially 30+ seconds for
+a small model). Fires for every iteration including `finish`."""
+
+ThoughtChunkCallback = Callable[[int, str], None]
+"""Signature for `react_decide_async`'s `on_thought_chunk` hook: receives
+`(iter_idx, text_chunk)` for each streamed chunk of the `next_thought`
+signature field. Fires zero or more times per iteration; the concatenated
+chunks for one iter equal that iter's `ReActStep.thought`. When set, the
+per-iter call is routed through `dspy.streamify`; when `None`, the loop
+uses plain `acall` and no chunks are emitted."""
 
 _EMPTY_INTERMEDIATES: Mapping[str, Callable[..., ToolResult]] = MappingProxyType({})
 
@@ -129,12 +149,60 @@ def _wrap_intermediate(
 
 def _build_signature() -> type[dspy.Signature]:
     class DecisionSignature(dspy.Signature):
-        """Decide and commit one game action by calling the appropriate tool."""
+        """You are playing Werewolf. Decide and commit one game action by calling the appropriate tool."""
 
         decision_brief: str = dspy.InputField()
         committed_action: str = dspy.OutputField()
 
     return DecisionSignature
+
+
+def _build_react_predict(
+    signature: type[dspy.Signature], tools: Sequence[Callable[..., Any]]
+) -> tuple[dspy.Predict, dict[str, dspy.Tool]]:
+    """Build a finish-free ReAct predictor and its tool table.
+
+    Mirrors `dspy.ReAct.__init__`'s signature construction but omits the
+    auto-injected `finish` tool. A committing game-action tool ends the turn
+    (the loop breaks on the captured commit), so there is nothing for a separate
+    `finish` step to do — and advertising it (in the `next_tool_name` Literal and
+    the instructions) is exactly what makes a model plan a wasted second
+    round-trip. Cognitive tools are non-committing, so the loop simply continues
+    after them.
+    """
+    tool_objs = [t if isinstance(t, dspy.Tool) else dspy.Tool(t) for t in tools]
+    # `Tool.name` is typed `str | None`; our tools always carry a name, so coerce
+    # to keep the table keyed by `str` (and the Literal below well-formed).
+    tools_by_name: dict[str, dspy.Tool] = {str(t.name): t for t in tool_objs}
+
+    inputs = ", ".join(f"`{k}`" for k in signature.input_fields)
+    instr = [f"{signature.instructions}\n"] if signature.instructions else []
+    instr.extend(
+        [
+            f"You are an agent taking a single turn. You are given {inputs} and your past trajectory so far.",
+            "Use one or more of the supplied tools to decide and commit your move.",
+            "Each turn, produce next_thought (your reasoning), next_tool_name, and next_tool_args; "
+            "after each tool call you receive an observation appended to your trajectory.",
+            "Your turn ends the moment you call the tool that commits your game action — "
+            "there is no separate finish step.",
+            "When selecting next_tool_name and next_tool_args, the tool must be one of:\n",
+        ]
+    )
+    for idx, tool in enumerate(tools_by_name.values()):
+        instr.append(f"({idx + 1}) {tool}")
+    instr.append("When providing `next_tool_args`, the value inside the field must be in JSON format")
+
+    # Mirrors `dspy.ReAct.__init__`'s runtime construction. The static checker
+    # can't model `Signature(fields, instructions)`'s positional call or a Literal
+    # built from a runtime tuple; both are the documented DSPy idiom.
+    react_signature = (
+        dspy.Signature({**signature.input_fields}, "\n".join(instr))  # type: ignore[bad-argument-count]
+        .append("trajectory", dspy.InputField(), type_=str)
+        .append("next_thought", dspy.OutputField(), type_=str)
+        .append("next_tool_name", dspy.OutputField(), type_=Literal[tuple(tools_by_name.keys())])  # type: ignore[invalid-literal]
+        .append("next_tool_args", dspy.OutputField(), type_=dict[str, Any])
+    )
+    return dspy.Predict(react_signature), tools_by_name
 
 
 def _format_trajectory(trajectory: dict[str, object]) -> str:
@@ -206,23 +274,64 @@ def react_decide(
     max_iters: int = 10,
     on_reject: RejectCallback | None = None,
     trace_sink: TraceSink | None = None,
+    step_sink: StepSink | None = None,
 ) -> Commit:
     """Run one ReAct decision under a scoped LM and return the committed action.
 
-    Each iteration is one LM call. Terminal-tool wrappers write into a private
-    slot on a valid call; the LLM then emits `finish` to close the loop. An
-    empty slot at loop exit raises `RuntimeError`.
+    Sync entry point. Drives the same loop as `react_decide_async` (no token
+    streaming) by spinning up a private event loop with `asyncio.run`. The
+    output is byte-identical to the async path for the same scripted LM —
+    determinism (invariant #4) is preserved across both entry points.
 
-    `intermediate_tools` are game-action tools that emit a side-effect but do
-    not terminate the loop — used for `werewolf_chat` so the werewolves can
-    speak (and emit `WEREWOLF_CHAT` events) before committing a kill vote.
-    `on_reject(tool, args, reason)` fires once per `ToolResult(valid=False)`
-    from either category; the adapter uses it to emit `TOOL_REJECTED` events.
+    Existing sync callers (tests, the engine driver before async fan-out)
+    keep their return-only contract; new callers that need concurrency or
+    token streaming should call `react_decide_async` directly inside an
+    existing event loop.
+    """
+    return asyncio.run(
+        react_decide_async(
+            caller=caller,
+            cognitive_tools=cognitive_tools,
+            terminal_tools=terminal_tools,
+            decision_brief=decision_brief,
+            lm=lm,
+            intermediate_tools=intermediate_tools,
+            max_iters=max_iters,
+            on_reject=on_reject,
+            trace_sink=trace_sink,
+            step_sink=step_sink,
+        )
+    )
 
-    `trace_sink(steps, lm_calls)` fires once after a successful commit (T30
-    sidecar). On `RuntimeError` (no commit) it is not called — a failed loop
-    produces no `Trajectory`. Defaults to `None` so legacy callers keep their
-    return-only contract.
+
+async def react_decide_async(
+    *,
+    caller: str,
+    cognitive_tools: Sequence[Callable[..., str]],
+    terminal_tools: Mapping[str, Callable[..., ToolResult]],
+    decision_brief: str,
+    lm: BaseLM,
+    intermediate_tools: Mapping[str, Callable[..., ToolResult]] = _EMPTY_INTERMEDIATES,
+    max_iters: int = 10,
+    on_reject: RejectCallback | None = None,
+    trace_sink: TraceSink | None = None,
+    step_sink: StepSink | None = None,
+    on_thought_chunk: ThoughtChunkCallback | None = None,
+) -> Commit:
+    """Run one ReAct decision under a scoped LM and return the committed action.
+
+    Async sibling of `react_decide`. Each iteration calls our finish-free
+    `predict.acall(...)` so multiple decisions can share an event loop
+    under `asyncio.gather` — the engine driver fans out independent
+    within-phase decisions this way. `dspy.context(lm=lm)` is contextvar-based,
+    so per-task LM scoping is preserved across the gathered tasks.
+
+    `on_thought_chunk(iter_idx, text)` opts the iteration into token-level
+    streaming via `dspy.streamify`. When set, the wrapper subscribes to the
+    `next_thought` signature field and forwards each chunk to the callback as
+    it arrives from the LM; the concatenated chunks for an iter equal that
+    iter's `ReActStep.thought`. When `None`, the iteration uses plain
+    `acall` and emits no chunks — the path the sync wrapper takes.
     """
     slot = _Slot()
     renamed_cognitive = [_rename_cognitive(fn) for fn in cognitive_tools]
@@ -231,7 +340,9 @@ def react_decide(
     tools = [*renamed_cognitive, *wrapped_intermediate, *wrapped_terminals]
 
     signature = _build_signature()
-    react = dspy.ReAct(signature, tools=tools, max_iters=max_iters)
+    predict, tools_by_name = _build_react_predict(signature, tools)
+
+    streamed_caller = _build_streamed_caller(predict, on_thought_chunk) if on_thought_chunk is not None else None
 
     trajectory: dict[str, object] = {}
     react_steps: list[ReActStep] = []
@@ -248,7 +359,10 @@ def react_decide(
             prev_uuids: set[object] = {entry.get("uuid") for entry in lm.history if isinstance(entry, Mapping)}
             t0 = time.monotonic()
             try:
-                pred = react.react(decision_brief=decision_brief, trajectory=_format_trajectory(trajectory))
+                if streamed_caller is not None:
+                    pred = await streamed_caller(idx, decision_brief, _format_trajectory(trajectory))
+                else:
+                    pred = await predict.acall(decision_brief=decision_brief, trajectory=_format_trajectory(trajectory))
             except ValueError as err:
                 react_error = err
                 break
@@ -259,27 +373,33 @@ def react_decide(
             trajectory[f"tool_args_{idx}"] = pred.next_tool_args
 
             try:
-                observation = react.tools[pred.next_tool_name](**pred.next_tool_args)
+                observation = tools_by_name[pred.next_tool_name](**pred.next_tool_args)
             except Exception as err:
-                observation = f"Execution error in {pred.next_tool_name}: {err!r}"
+                observation = f"error: execution error in {pred.next_tool_name}: {err!r}"
             trajectory[f"observation_{idx}"] = observation
 
             tool_args_for_step = pred.next_tool_args if isinstance(pred.next_tool_args, Mapping) else {}
-            react_steps.append(
-                ReActStep(
-                    iter=idx,
-                    thought=str(pred.next_thought),
-                    tool=str(pred.next_tool_name),
-                    args=tool_args_for_step,
-                    observation=str(observation),
-                )
+            step = ReActStep(
+                iter=idx,
+                thought=str(pred.next_thought),
+                tool=str(pred.next_tool_name),
+                args=tool_args_for_step,
+                observation=str(observation),
             )
+            react_steps.append(step)
             new_entries = [
                 entry for entry in lm.history if isinstance(entry, Mapping) and entry.get("uuid") not in prev_uuids
             ]
-            lm_calls.extend(_lm_calls_for_iteration(new_entries, elapsed_ms))
+            iter_lm_calls = tuple(_lm_calls_for_iteration(new_entries, elapsed_ms))
+            lm_calls.extend(iter_lm_calls)
 
-            if pred.next_tool_name == "finish":
+            if step_sink is not None:
+                step_sink(step, iter_lm_calls)
+
+            # A valid terminal commit ends the turn — there is no finish tool.
+            # Cognitive / intermediate tools leave the slot uncommitted, so the
+            # loop continues until a commit or `max_iters`.
+            if slot.committed:
                 break
 
     if not slot.committed:
@@ -292,3 +412,43 @@ def react_decide(
 
     assert slot.tool_name is not None
     return Commit(tool=slot.tool_name, value=slot.value)
+
+
+def _build_streamed_caller(
+    predict: dspy.Predict,
+    on_thought_chunk: ThoughtChunkCallback,
+) -> Callable[[int, str, str], Awaitable[Any]]:
+    """Build a per-iter async caller that streams `next_thought` chunks.
+
+    `dspy.streamify` returns an async-generator function; we iterate it once
+    per ReAct iteration, forwarding every `StreamResponse` chunk to
+    `on_thought_chunk(idx, text)` and returning the final `Prediction`. The
+    listener uses `allow_reuse=True` because the predictor is invoked many
+    times within one decision loop.
+    """
+    # `dspy.streamify` is typed as returning `Callable[[Any, Any], Awaitable[Any]]`,
+    # but with `async_streaming=True` the returned object is actually a function
+    # whose call yields an async iterator. Type-erase to `Any` so pyrefly does
+    # not complain about kwargs / iteration shape; the runtime contract is
+    # what we test against.
+    streamed: object = dspy.streamify(
+        predict,
+        stream_listeners=[StreamListener(signature_field_name="next_thought", allow_reuse=True)],
+        is_async_program=True,
+        async_streaming=True,
+    )
+
+    async def call(idx: int, decision_brief: str, trajectory: str) -> Any:
+        prediction: Any = None
+        gen = streamed(decision_brief=decision_brief, trajectory=trajectory)  # type: ignore[operator]
+        async for chunk in gen:  # type: ignore[union-attr]
+            if isinstance(chunk, StreamResponse):
+                if chunk.signature_field_name == "next_thought":
+                    on_thought_chunk(idx, chunk.chunk)
+            elif isinstance(chunk, dspy.Prediction):
+                prediction = chunk
+        if prediction is None:
+            raise RuntimeError("streamify completed without yielding a Prediction")
+        return prediction
+
+    return call

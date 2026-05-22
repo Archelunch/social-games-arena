@@ -219,3 +219,57 @@ def test_resolve_discussion_rejects_a_bid_from_an_unknown_player() -> None:
 
     with pytest.raises(ValueError, match="not alive"):
         resolve_discussion(state, actions, GameRNG(0))
+
+
+def test_winners_pay_their_bid_and_losers_keep_their_budget() -> None:
+    """First-price auction: each chosen speaker pays its bid out of `bid_budget`;
+    non-winners are untouched, and the input state is never mutated (invariant #1).
+
+    This is the cost that makes the bid a real signal — winning a slot now
+    depletes the pool for later rounds.
+    """
+    state = GameState.initial(ROSTER, bid_budget=100).with_phase(Phase.DAY)
+    # Top-3 (K_DISCUSSION_SLOTS) by bid win and pay: Wolf1(40), Wolf2(30), Seer(20).
+    bids = {"Wolf1": 40, "Wolf2": 30, "Seer": 20, "Doc": 10, "Vil1": 5}
+    result = resolve_discussion(state, BiddingActions(bids=bids), GameRNG(1))
+
+    assert result.speakers == ("Wolf1", "Wolf2", "Seer")
+    assert result.state.player("Wolf1").bid_budget == 60
+    assert result.state.player("Wolf2").bid_budget == 70
+    assert result.state.player("Seer").bid_budget == 80
+    # Losers and non-bidders keep their full budget.
+    assert result.state.player("Doc").bid_budget == 100
+    assert result.state.player("Vil1").bid_budget == 100
+    assert result.state.player("Vil2").bid_budget == 100
+    # Purity: the input snapshot is unchanged.
+    assert state.player("Wolf1").bid_budget == 100
+
+
+def test_budget_depletes_across_consecutive_discussions() -> None:
+    """Spending threads forward: a player who wins on day 1 has less to bid on
+    day 2, until the pool is exhausted.
+
+    Demonstrates the cross-round depletion that the loop relies on by feeding
+    one discussion's resulting state into the next.
+    """
+    state = GameState.initial(ROSTER, bid_budget=100).with_phase(Phase.DAY)
+    day1 = resolve_discussion(state, BiddingActions(bids={"Wolf1": 60, "Wolf2": 10, "Seer": 5}), GameRNG(1))
+    assert day1.state.player("Wolf1").bid_budget == 40
+
+    day2 = resolve_discussion(day1.state, BiddingActions(bids={"Wolf1": 40, "Wolf2": 10, "Seer": 5}), GameRNG(1))
+    assert day2.state.player("Wolf1").bid_budget == 0
+
+
+def test_zero_budget_player_still_wins_a_slot_bidding_zero() -> None:
+    """A depleted player is not silenced: slot-winning is governed by bid rank /
+    the seeded tie-break, not by having budget left.
+
+    With every player at 0 budget bidding 0, the top-K are chosen by the seeded
+    shuffle among the 0-bidders; the winners pay 0, so no budget goes negative
+    and no error is raised — the depletion endgame degrades gracefully.
+    """
+    state = GameState.initial(ROSTER, bid_budget=0).with_phase(Phase.DAY)
+    result = resolve_discussion(state, BiddingActions(bids={name: 0 for name, _ in ROSTER}), GameRNG(7))
+
+    assert len(result.speakers) == 3  # K_DISCUSSION_SLOTS — slots still fill
+    assert all(p.bid_budget == 0 for p in result.state.players)  # paid 0, clamped, no error

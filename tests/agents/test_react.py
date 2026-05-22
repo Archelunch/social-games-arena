@@ -125,10 +125,6 @@ def _step(tool: str, args: dict[str, Any], thought: str = "step") -> dict[str, A
     return {"next_thought": thought, "next_tool_name": tool, "next_tool_args": args}
 
 
-def _finish(thought: str = "done") -> dict[str, Any]:
-    return {"next_thought": thought, "next_tool_name": "finish", "next_tool_args": {}}
-
-
 def _run(
     *,
     caller: str,
@@ -156,11 +152,39 @@ def test_trivial_terminal_then_finish_commits_value() -> None:
 
     answers = [
         _step("submit_kill_vote", {"target": "Vil1"}, "kill Vil1"),
-        _finish(),
     ]
     commit = _run(caller="Wolf1", cognitive_tools=cognitive, terminal_tools=terminals, answers=answers)
 
     assert commit == Commit(tool="submit_kill_vote", value="Vil1")
+
+
+def test_react_predict_omits_the_finish_tool() -> None:
+    """Our finish-free predictor must not carry DSPy's auto-injected `finish`.
+
+    `dspy.ReAct` injects a `finish` tool into both the `next_tool_name` choices
+    and the instructions; re-introducing it would re-add the dead second
+    round-trip P2 removed. This guards the tool table and the choice set.
+    """
+    from typing import get_args
+
+    from social_deduction_bench.agents.react import _build_react_predict, _build_signature
+
+    def submit_kill_vote(target: str) -> str:
+        """Cast your kill vote."""
+        return "ok"
+
+    def recall() -> str:
+        """Recall recent events."""
+        return "ok"
+
+    predict, tools_by_name = _build_react_predict(_build_signature(), [submit_kill_vote, recall])
+
+    assert set(tools_by_name) == {"submit_kill_vote", "recall"}
+    assert "finish" not in tools_by_name
+    signature = predict.signature
+    assert signature is not None
+    next_tool_choices = set(get_args(signature.output_fields["next_tool_name"].annotation))
+    assert next_tool_choices == {"submit_kill_vote", "recall"}
 
 
 def test_cognitive_calls_before_terminal_show_up_in_trajectory() -> None:
@@ -173,7 +197,6 @@ def test_cognitive_calls_before_terminal_show_up_in_trajectory() -> None:
         _step("get_public_state", {}),
         _step("recall", {}),
         _step("submit_kill_vote", {"target": "Vil2"}),
-        _finish(),
     ]
     lm = DummyLM(answers)
     commit = react_decide(
@@ -186,7 +209,9 @@ def test_cognitive_calls_before_terminal_show_up_in_trajectory() -> None:
     )
 
     assert commit == Commit(tool="submit_kill_vote", value="Vil2")
-    assert len(lm.history) == 4
+    # Two cognitive reads then the terminal commit = 3 LM calls; the commit
+    # ends the turn (no separate finish round-trip).
+    assert len(lm.history) == 3
 
 
 def test_invalid_terminal_returns_observation_loop_retries() -> None:
@@ -198,42 +223,28 @@ def test_invalid_terminal_returns_observation_loop_retries() -> None:
     answers = [
         _step("submit_kill_vote", {"target": "Wolf1"}),
         _step("submit_kill_vote", {"target": "Vil1"}),
-        _finish(),
     ]
     commit = _run(caller="Wolf1", cognitive_tools=cognitive, terminal_tools=terminals, answers=answers)
 
     assert commit == Commit(tool="submit_kill_vote", value="Vil1")
 
 
-def test_finish_without_committing_any_terminal_raises() -> None:
+def test_loop_that_never_commits_a_terminal_raises() -> None:
+    """A loop that only ever calls non-committing tools fails loud.
+
+    There is no `finish` tool to end the turn early — only a terminal commit
+    does. So a model that spends every iteration on cognitive reads exhausts
+    `max_iters` without a `Commit`, which must raise rather than silently
+    returning nothing (CLAUDE.md rule 11: fail loud).
+    """
     state = _state()
     memory = GameMemory()
     cognitive = _cognitive_closures(state, memory, "Wolf1")
     terminals = {"submit_kill_vote": _kill_vote_terminal(state, "Wolf1")}
 
-    answers = [_finish()]
+    answers = [_step("recall", {})] * 3
     with pytest.raises(RuntimeError, match=r"Wolf1.*finished without a committed"):
-        _run(caller="Wolf1", cognitive_tools=cognitive, terminal_tools=terminals, answers=answers)
-
-
-def test_max_iters_exceeded_without_finish_raises() -> None:
-    state = _state()
-    memory = GameMemory()
-    cognitive = _cognitive_closures(state, memory, "Wolf1")
-    terminals = {"submit_kill_vote": _kill_vote_terminal(state, "Wolf1")}
-
-    answers = [
-        _step("get_public_state", {}),
-        _step("recall", {}),
-    ]
-    with pytest.raises(RuntimeError, match=r"Wolf1.*finished without a committed"):
-        _run(
-            caller="Wolf1",
-            cognitive_tools=cognitive,
-            terminal_tools=terminals,
-            answers=answers,
-            max_iters=2,
-        )
+        _run(caller="Wolf1", cognitive_tools=cognitive, terminal_tools=terminals, answers=answers, max_iters=3)
 
 
 def test_remember_mutates_memory_notes() -> None:
@@ -245,7 +256,6 @@ def test_remember_mutates_memory_notes() -> None:
     answers = [
         _step("remember", {"note": "Vil1 looked suspicious"}),
         _step("submit_kill_vote", {"target": "Vil1"}),
-        _finish(),
     ]
     _run(caller="Wolf1", cognitive_tools=cognitive, terminal_tools=terminals, answers=answers)
 
@@ -266,7 +276,6 @@ def test_set_belief_mutates_memory_beliefs() -> None:
             {"player": "Vil1", "guess": "villager", "confidence": "low", "evidence": "quiet"},
         ),
         _step("submit_kill_vote", {"target": "Vil1"}),
-        _finish(),
     ]
     _run(caller="Wolf1", cognitive_tools=cognitive, terminal_tools=terminals, answers=answers)
 
@@ -285,7 +294,6 @@ def test_cognitive_observation_starting_with_ok_does_not_terminate() -> None:
     answers = [
         _step("set_plan", {"text": "find the seer"}),
         _step("submit_kill_vote", {"target": "Vil1"}),
-        _finish(),
     ]
     commit = _run(caller="Wolf1", cognitive_tools=cognitive, terminal_tools=terminals, answers=answers)
 
@@ -298,7 +306,6 @@ def test_two_identical_runs_produce_identical_commits() -> None:
     answers = [
         _step("get_public_state", {}),
         _step("submit_kill_vote", {"target": "Vil1"}),
-        _finish(),
     ]
 
     m1 = GameMemory()
@@ -328,7 +335,6 @@ def test_lm_context_is_restored_after_react_decide() -> None:
 
     answers = [
         _step("submit_kill_vote", {"target": "Vil1"}),
-        _finish(),
     ]
     sentinel = DummyLM([{"sentinel": "untouched"}])
     previous_lm = dspy.settings.lm
@@ -350,7 +356,6 @@ def test_exile_vote_terminal_with_abstain_value_is_passed_through() -> None:
 
     answers = [
         _step("submit_exile_vote", {"target": "abstain"}),
-        _finish(),
     ]
     commit = _run(caller="Vil1", cognitive_tools=cognitive, terminal_tools=terminals, answers=answers)
 
@@ -386,7 +391,6 @@ def test_intermediate_tool_call_does_not_terminate_the_loop() -> None:
     answers = [
         _step("werewolf_chat", {"message": "hunt the seer"}, "talk first"),
         _step("submit_kill_vote", {"target": "Vil1"}, "then vote"),
-        _finish(),
     ]
     commit = react_decide(
         caller="Wolf1",
@@ -422,7 +426,6 @@ def test_intermediate_tool_rejection_fires_on_reject_and_loop_retries() -> None:
         _step("werewolf_chat", {"message": "   "}, "blank chat"),  # rejected: empty message
         _step("werewolf_chat", {"message": "real talk"}, "retry chat"),
         _step("submit_kill_vote", {"target": "Vil1"}, "vote"),
-        _finish(),
     ]
     commit = react_decide(
         caller="Wolf1",
@@ -462,7 +465,6 @@ def test_terminal_tool_rejection_fires_on_reject_callback() -> None:
     answers = [
         _step("submit_kill_vote", {"target": "Wolf1"}),  # self-target, rejected
         _step("submit_kill_vote", {"target": "Vil1"}),  # valid
-        _finish(),
     ]
     react_decide(
         caller="Wolf1",
@@ -494,7 +496,6 @@ def test_on_reject_not_invoked_on_a_clean_run() -> None:
 
     answers = [
         _step("submit_kill_vote", {"target": "Vil1"}),
-        _finish(),
     ]
     react_decide(
         caller="Wolf1",
@@ -524,7 +525,6 @@ def test_default_on_reject_is_a_no_op() -> None:
     answers = [
         _step("submit_kill_vote", {"target": "Wolf1"}),
         _step("submit_kill_vote", {"target": "Vil1"}),
-        _finish(),
     ]
     commit = _run(caller="Wolf1", cognitive_tools=cognitive, terminal_tools=terminals, answers=answers)
     assert commit.value == "Vil1"
@@ -547,7 +547,6 @@ def test_default_trace_sink_is_a_no_op() -> None:
 
     answers = [
         _step("submit_kill_vote", {"target": "Vil1"}),
-        _finish(),
     ]
     commit = react_decide(
         caller="Wolf1",
@@ -585,7 +584,6 @@ def test_trace_sink_fires_once_with_structured_steps_and_lm_calls() -> None:
     answers = [
         _step("get_public_state", {}, thought="orient"),
         _step("submit_kill_vote", {"target": "Vil2"}, thought="kill Vil2"),
-        _finish(thought="done"),
     ]
     lm = DummyLM(answers)
     commit = react_decide(
@@ -640,7 +638,7 @@ def test_trace_sink_does_not_fire_when_loop_fails_to_commit() -> None:
     def sink(steps: tuple[ReActStep, ...], calls: tuple[LMCallRecord, ...]) -> None:
         captured.append((steps, calls))
 
-    answers = [_finish()]  # no terminal committed
+    answers = [_step("recall", {})] * 3  # cognitive-only: never commits a terminal
     with pytest.raises(RuntimeError, match=r"Wolf1.*finished without a committed"):
         react_decide(
             caller="Wolf1",
@@ -648,7 +646,7 @@ def test_trace_sink_does_not_fire_when_loop_fails_to_commit() -> None:
             terminal_tools=terminals,
             decision_brief="kill",
             lm=DummyLM(answers),
-            max_iters=10,
+            max_iters=3,
             trace_sink=sink,
         )
 
@@ -677,7 +675,6 @@ def test_trace_sink_captures_rejection_observation_in_step() -> None:
     answers = [
         _step("submit_kill_vote", {"target": "Wolf1"}),  # self-target -> rejected
         _step("submit_kill_vote", {"target": "Vil1"}),  # valid
-        _finish(),
     ]
     react_decide(
         caller="Wolf1",
@@ -795,7 +792,6 @@ def test_trace_sink_survives_bounded_lm_history_rotation() -> None:
     answers = [
         _step("get_public_state", {}, thought="orient"),
         _step("submit_kill_vote", {"target": "Vil1"}, thought="kill"),
-        _finish(),
     ]
     lm = _RotatingLM(answers)
     react_decide(
@@ -809,12 +805,13 @@ def test_trace_sink_survives_bounded_lm_history_rotation() -> None:
     )
 
     steps, calls = captured[0]
-    # All three iterations recorded; the rotation does NOT lose records.
-    assert len(steps) == 3
+    # Both iterations recorded (orient + the committing kill); the rotation
+    # does NOT lose records.
+    assert len(steps) == 2
     # Even though history was constantly rotated down to 1 entry, each
     # iteration's call was captured (the uuid-marker scheme decoupled
     # iteration capture from history length).
-    assert len(calls) == 3
+    assert len(calls) == 2
 
 
 def test_react_step_args_is_immutable_after_construction() -> None:

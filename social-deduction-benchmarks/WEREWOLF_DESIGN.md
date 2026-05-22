@@ -86,7 +86,10 @@ round = 0
 while not terminal:
     round += 1
     # --- NIGHT ---
-    werewolves   -> private chat sub-loop -> joint kill vote
+    # Two sub-phases so wolves coordinate before they vote:
+    werewolves   -> chat sub-phase: each wolf sends one `werewolf_chat`
+                 -> drain + observe the chat into every wolf's memory
+                 -> vote sub-phase: each wolf commits `submit_kill_vote`
     seer         -> inspect 1 player  (private result)
     doctor       -> protect 1 player
     resolve kill (suppressed if protected)
@@ -94,15 +97,57 @@ while not terminal:
     # --- DAY ---
     announce death(s)
     discussion: K speaking slots, order decided by bidding
+                each speaker speaks in turn; the engine drains + observes
+                each speech before the next speaker, so later speakers see
+                and can react to earlier ones
+    reaction round: every alive player reacts once, in a seeded order
+                    -> accuse / defend / pass; the engine drains + observes
+                       each reaction before the next, so a later reactor
+                       sees earlier accusations and can answer them
     voting: every alive player casts an exile vote
     resolve exile (plurality; tie -> no exile)   # see §12
     check terminal
 ```
 
-**Speaking order — bidding.** Each discussion round, every alive agent submits a
-bid (how much it wants to speak); the top `K` bidders get speaking slots, in bid
-order. This models *when* to speak, not just what — adopted from Werewolf Arena
-(Google, 2024), which also gives a published reference to validate against.
+**Two-phase night.** Werewolf chat and the kill vote are separate sub-phases.
+All wolves chat first; the engine drains those `WEREWOLF_CHAT` events and routes
+them into every living wolf's memory; only then does each wolf commit its kill
+vote. Without this split a wolf cannot see its packmate's message before voting,
+so "coordination" would be an illusion. When only one werewolf remains alive the
+chat sub-phase is skipped entirely — a lone wolf has no packmate to coordinate
+with, so the chat would be a wasted decision (and LM call).
+
+**Speaking order — bidding with a budget.** Each discussion round, every alive
+agent submits a bid (how much it wants to speak); the top `K` bidders win
+speaking slots, in bid order, and **pay their bid** out of a per-game
+`BID_BUDGET` pool (first-price, winners-pay; losers pay nothing). The pool
+depletes across rounds, so a bid is a real strategic signal — spending to speak
+now costs voice later — instead of the degenerate always-max it was without a
+cost. A player at 0 budget can still bid 0 and win a slot via the seeded
+tie-break. This models *when* to speak, not just what — adopted from Werewolf
+Arena (Google, 2024). Speeches are delivered one at a time and observed between
+deliveries, so a later speaker reads the earlier speeches and can rebut them
+within the same day. Every bid is public at resolution (`DISCUSSION_RESOLVED`
+broadcasts the full bid map), so each player's remaining budget is common
+knowledge and is surfaced in every agent's day brief (day only — at night no one
+bids).
+
+**Reaction round.** Bidding rations the *primary* statements (only K speak), so
+without more the rest of the table is mute — accusations land into silence and no
+one can defend the accused. After the statements, every living player therefore
+reacts exactly once: a structured `accuse(target, reason)`, `defend(target,
+reason)` (self-defense allowed), or `pass_turn`. Accusations and defenses are
+public (`ACCUSATION` / `DEFENSE`, broadcast), so the whole table — and the
+post-hoc suspicion-accuracy metric — can read who accuses or defends whom and
+why; a wolf defending a wolf is a tell. The round is **sequential in a seeded
+order** (a `rng.shuffle` of the living players, drawn from the same engine seed
+as the discussion tie-break, *after* it), with drain + observe between reactors,
+so a player reacting later sees the earlier accusations and can answer the same
+day. A seeded order — not roster order — keeps a fixed seat from gaining a
+systematic last-mover information edge that would confound cross-play ratings.
+Each reaction runs under a short token cap (`REACTION_MAX_TOKENS`) so the extra
+per-player call stays terse. (A *guaranteed* rebuttal turn for anyone accused
+late in the order is deliberately deferred — see §12.)
 
 ---
 
@@ -113,12 +158,49 @@ freely, then **terminates** the loop with exactly one game-action tool.
 
 | # | Phase | Acting role | Terminal game action |
 |---|---|---|---|
-| 1 | Night | Werewolves | `werewolf_chat` xN, then `submit_kill_vote` |
-| 2 | Night | Seer | `seer_inspect` |
-| 3 | Night | Doctor | `doctor_protect` |
-| 4 | Day | All alive | `submit_bid` (0..N — desire to speak) |
-| 5 | Day | Bid winners | `speak` (public statement) |
-| 6 | Day | All alive | `submit_exile_vote` |
+| 1 | Night (chat) | Werewolves | `werewolf_chat` (one message; the chat sub-phase) |
+| 2 | Night (vote) | Werewolves | `submit_kill_vote` |
+| 3 | Night | Seer | `seer_inspect` |
+| 4 | Night | Doctor | `doctor_protect` |
+| 5 | Day | All alive | `submit_bid` (0..remaining budget — desire to speak) |
+| 6 | Day | Bid winners | `speak` (public statement) |
+| 7 | Day (reaction) | All alive | `accuse` / `defend` / `pass_turn` (one short reaction) |
+| 8 | Day | All alive | `submit_exile_vote` |
+
+There is **no `finish` step**: a valid game-action commit ends the decision
+point. (The agent loop builds its own ReAct predictor without DSPy's
+auto-injected `finish` tool, so a model cannot plan a wasted second round-trip.)
+
+**Brief grounding.** Each decision point's first message (the ReAct "brief")
+is grounded with what the agent is entitled to know: its role, the living
+roster, and — for a werewolf — its living pack; the public rules (each faction's
+win condition; which channels are public — `speak` and votes are seen by all,
+`werewolf_chat` is pack-private; and how the night resolves — the doctor's guard
+saves only if it matches the wolves' target, so guarding an un-targeted player
+has no visible effect, which stops the "impossible protection" false-tell that
+once mis-exiled a doctor); every living player's remaining speaking budget
+(public, derivable from the broadcast bids); and a rendered, *legible* summary of
+its own memory — its plan, suspicions, and recent events translated to plain
+language (a night-kill reads differently from a day-exile) rather than raw event
+JSON. The win-condition / channel lines are **rules, not strategy**: the brief
+states facts and never coaches deception. This grounding removes the iterations
+agents otherwise wasted calling read-only tools just to learn who they are or
+what happened. Consequently the cognitive toolbelt is the **structured-write**
+tools (`set_belief`, `set_plan`) plus `recall` for full-history dives; the
+free-text `remember` is gone (a one-line rationale is now attached to the
+committing action via an optional `note` argument — record-and-act in one call,
+not a separate iteration); and the read-only tools (`get_private_info`,
+`get_beliefs`, `get_plan`, `get_public_state`) are not offered because their
+content is already in the brief.
+
+**Cognitive tools are named in the brief.** The kept cognitive tools are listed
+in every brief with the explicit rule that they do **not** end the turn (only the
+game action does) — without this a small model could not tell they existed or
+whether calling one terminated the loop, and burned whole iterations on the
+ambiguity. The exile-vote brief additionally prompts the player to record a
+suspicion via `set_belief` before voting: the vote is the one point the player
+has heard the full statements + reactions, and populating the belief table is
+what feeds the suspicion-accuracy metric (process prompting, never the answer).
 
 ---
 
@@ -135,22 +217,35 @@ how it *commits*.** One game action ends each decision point.
 | `submit_kill_vote(target)` | player | Werewolves (night) |
 | `seer_inspect(target)` | player | Seer (night) |
 | `doctor_protect(target)` | player | Doctor (night) |
-| `submit_bid(amount)` | int 0..N | All alive (day) |
+| `submit_bid(amount)` | int 0..min(`MAX_BID`, remaining budget) | All alive (day) |
 | `speak(message)` | str | Bid winners (day) |
+| `accuse(target, reason)` | player (not self) + str | All alive (day reaction) |
+| `defend(target, reason)` | player (self allowed) + str | All alive (day reaction) |
+| `pass_turn()` | — | All alive (day reaction) |
 | `submit_exile_vote(target)` | player \| `"abstain"` | All alive (day) |
+
+Every game-action tool also accepts an optional `note: str` — a short private
+rationale recorded to the caller's memory on a *valid* commit (nothing is
+recorded on a rejected call or a blank note). This folds "record my reasoning +
+act" into one call, replacing the old standalone `remember` tool. `submit_bid` is
+capped by both the per-bid ceiling `MAX_BID` and the player's remaining per-game
+`BID_BUDGET`; winners pay their bid, so the budget depletes (§4, §6.1 economy).
 
 ### 6.2 Cognitive tools (read-only / private scratchpad, intermediate)
 
-| Tool | Purpose |
-|---|---|
-| `get_public_state()` | Alive players, round, death log, full vote history, transcript |
-| `get_private_info()` | Your role, faction, werewolf partners, all your seer results |
-| `recall(query, last_n_rounds)` | Retrieve from this agent's memory (see §7) |
-| `remember(note)` | Write a free-text note to memory |
-| `get_beliefs()` | Read the structured suspicion table |
-| `set_belief(player, guess, confidence, evidence)` | Update one row of the table |
-| `get_plan()` | Read the persistent strategic plan |
-| `set_plan(text)` | Overwrite the strategic plan |
+| Tool | Purpose | Exposed to loops? |
+|---|---|---|
+| `recall(query, last_n_rounds)` | Retrieve from this agent's memory (see §7) | Yes — deep history beyond the brief window |
+| `set_belief(player, guess, confidence, evidence)` | Update one row of the table | Yes |
+| `set_plan(text)` | Overwrite the strategic plan | Yes |
+| `get_public_state()` | Alive players, round, death log, full vote history, transcript | No — rendered into the brief |
+| `get_private_info()` | Your role, faction, werewolf partners, all your seer results | No — rendered into the brief |
+| `get_beliefs()` | Read the structured suspicion table | No — rendered into the brief |
+| `get_plan()` | Read the persistent strategic plan | No — rendered into the brief |
+
+The read-only tools still exist (they back the brief's grounding render) but are
+not offered to the ReAct loop: their content is in the first message, so
+offering them only bloats the per-iteration prompt and invites wrong-arg calls.
 
 ---
 
@@ -181,7 +276,7 @@ class GameMemory:
         items = self.events + self.notes
         if last_n_rounds is not None:
             cutoff = max((i["round"] for i in items), default=0) - last_n_rounds
-            items = [i for i in items if i["round"] >= cutoff]
+            items = [i for i in items if i["round"] > cutoff]
         if query:  # cheap keyword filter — Tier 1
             terms = query.lower().split()
             items = [i for i in items
@@ -278,6 +373,13 @@ games; ratings aggregate across the population.
   `submit_kill_vote`, `seer_inspect`, and `doctor_protect` reject a call whose
   target is the caller. The doc was silent; no doctor self-protect, no seer
   self-inspect, no werewolf self-kill-vote.
+- Packmate-targeting on `submit_kill_vote` — **RESOLVED (2026-05-21): forbidden.**
+  A werewolf voting to kill a fellow werewolf is rejected with a reason naming
+  the target's pack membership. Standard Werewolf rules: wolves know each
+  other (see `get_private_info`) and cannot kill their pack. Without this
+  guard, a model that misreads its own role can wipe out its team via two
+  valid kill votes; the resolution extends the T15 "self-target forbidden"
+  pattern to the packmate case.
 - `submit_bid` amount range — **RESOLVED (T15+T18, 2026-05-20): `[0, 100]`.**
   T15 set the lower bound to 0 (reject negative); T18 set the upper bound to
   `MAX_BID = 100` (reject above). Bounded so an agent cannot grief a rated
@@ -286,5 +388,29 @@ games; ratings aggregate across the population.
   (`K_DISCUSSION_SLOTS = 3`, seeded tie-break via `rng.shuffle` over a sorted
   per-amount tie group, so the §4 "majority by bidding" ordering is
   deterministic and replayable, invariant #4).
+- Bid economy — **RESOLVED (2026-05-22): per-game depleting budget.** The
+  zero-cost bid was degenerate (rational play is always-max → speaker order
+  collapsed to the seeded tie-break). Each player now has a per-game
+  `BID_BUDGET = 100` pool; the top-K bidders win and **pay their bid** out of it
+  (first-price, winners-pay), so the pool depletes across rounds and a bid
+  carries real signal. `submit_bid` is capped by `min(MAX_BID, remaining
+  budget)`. The budget is engine state (`PlayerState.bid_budget`, deducted in
+  the seeded `resolve_discussion` ⇒ replayable); remaining budgets are public
+  (bids are broadcast) and shown in every brief so agents can read who is eager
+  vs. quiet. Budget size / pay-rule are `config.py` knobs.
+- Day reaction round — **RESOLVED (2026-05-22): everyone reacts, structured,
+  seeded order.** Bidding rations the K statements, so the rest of the table was
+  mute and accusations went unanswered. After the statements every living player
+  now reacts once with a structured `accuse` / `defend` / `pass_turn`; accusations
+  and defenses are public events (`ACCUSATION` / `DEFENSE`) so the table reads who
+  accuses/defends whom (and the suspicion metric can score it). The round is
+  sequential in a **seeded order** — `rng.shuffle(sorted(alive_names))` drawn from
+  the engine seed *after* the discussion tie-break — so it is replayable
+  (invariant #4) and avoids a fixed seat-position advantage that would confound
+  cross-play ratings; drain + observe between reactors lets a later reactor answer
+  an earlier accusation the same day. Each reaction runs under
+  `REACTION_MAX_TOKENS` to stay cheap. **Open:** a *guaranteed* rebuttal turn for a
+  player accused late in the seeded order (currently they answer next day);
+  deferred to bound the per-day LM-call count.
 - Whether werewolves see each other's identity at game start (default: yes).
 - Cross-game memory persistence (would push Tier 2 retrieval).

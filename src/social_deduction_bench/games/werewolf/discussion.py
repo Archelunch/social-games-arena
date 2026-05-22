@@ -52,9 +52,13 @@ class DiscussionResult:
     `speakers` is the chosen speaking order: the top `K_DISCUSSION_SLOTS`
     bidders, in descending bid order, with seeded tie-breaks within each
     tied-amount group. Length is `min(K_DISCUSSION_SLOTS, len(bids))`.
+    `state` is the post-discussion snapshot: a first-price auction, so each
+    chosen speaker has paid its bid out of `bid_budget` (mirrors
+    `NightResult.state` / `DayResult.state`).
     """
 
     speakers: tuple[str, ...]
+    state: GameState
 
 
 def resolve_discussion(state: GameState, actions: BiddingActions, rng: GameRNG) -> DiscussionResult:
@@ -88,4 +92,13 @@ def resolve_discussion(state: GameState, actions: BiddingActions, rng: GameRNG) 
         group = sorted(by_amount[amount])
         ordered.extend(rng.shuffle(group))
 
-    return DiscussionResult(speakers=tuple(ordered[:K_DISCUSSION_SLOTS]))
+    speakers = tuple(ordered[:K_DISCUSSION_SLOTS])
+
+    # First-price auction: each chosen speaker pays its bid out of `bid_budget`.
+    # Deduct in sorted-speaker order so the derivation is byte-identical on replay
+    # (invariant #4). `with_bid_spent` clamps at 0; the loser's budget is untouched.
+    new_state = state
+    for speaker in sorted(speakers):
+        new_state = new_state.with_bid_spent(speaker, actions.bids[speaker])
+
+    return DiscussionResult(speakers=speakers, state=new_state)

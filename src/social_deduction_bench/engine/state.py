@@ -24,16 +24,30 @@ class PlayerState:
     """An immutable snapshot of one player.
 
     `name` is the stable identity and lookup key; `role` is an opaque string so
-    the engine stays game-agnostic (Werewolf roles arrive in a later task).
+    the engine stays game-agnostic. `bid_budget` is an opaque per-player integer
+    resource the engine does not interpret — the Werewolf layer uses it as the
+    depleting speaking-bid pool, seeded at game start and spent by the discussion
+    resolver. It defaults to `0` so the engine carries no game-specific number;
+    games that use it pass a budget to `GameState.initial`.
     """
 
     name: str
     role: str
     alive: bool = True
+    bid_budget: int = 0
 
     def killed(self) -> "PlayerState":
         """Return a copy with `alive=False`; idempotent on an already-dead player."""
         return replace(self, alive=False)
+
+    def spend(self, amount: int) -> "PlayerState":
+        """Return a copy with `amount` deducted from `bid_budget`, clamped at 0.
+
+        Clamping means a deduction can never produce a negative budget even if a
+        caller bypasses the tool-layer validation that normally guards
+        `amount <= bid_budget`.
+        """
+        return replace(self, bid_budget=max(0, self.bid_budget - amount))
 
 
 @dataclass(frozen=True, slots=True)
@@ -45,17 +59,19 @@ class GameState:
     phase: Phase
 
     @classmethod
-    def initial(cls, players: Sequence[tuple[str, str]]) -> "GameState":
+    def initial(cls, players: Sequence[tuple[str, str]], *, bid_budget: int = 0) -> "GameState":
         """Build the canonical start position: all players alive, round 1, NIGHT.
 
         `players` is an ordered sequence of `(name, role)` pairs. Duplicate
         names are rejected because `name` is the lookup and observation-routing
-        key — a duplicate would misroute private events.
+        key — a duplicate would misroute private events. `bid_budget` seeds every
+        player's opaque resource pool (the Werewolf layer passes its configured
+        speaking budget); it defaults to `0` so the engine holds no game number.
         """
         names = [name for name, _ in players]
         if len(names) != len(set(names)):
             raise ValueError("player names must be unique; duplicate name(s) given")
-        built = tuple(PlayerState(name=name, role=role) for name, role in players)
+        built = tuple(PlayerState(name=name, role=role, bid_budget=bid_budget) for name, role in players)
         return cls(players=built, round=1, phase=Phase.NIGHT)
 
     def player(self, name: str) -> PlayerState:
@@ -84,6 +100,16 @@ class GameState:
         """
         self.player(name)  # fail loud on an unknown target before deriving
         players = tuple(p.killed() if p.name == name else p for p in self.players)
+        return replace(self, players=players)
+
+    def with_bid_spent(self, name: str, amount: int) -> "GameState":
+        """Return a new state with only the named player's `bid_budget` reduced.
+
+        Raise `KeyError` if `name` is unknown; every other player is untouched.
+        The deduction is clamped at 0 by `PlayerState.spend`.
+        """
+        self.player(name)  # fail loud on an unknown name before deriving
+        players = tuple(p.spend(amount) if p.name == name else p for p in self.players)
         return replace(self, players=players)
 
     def with_phase(self, phase: Phase) -> "GameState":

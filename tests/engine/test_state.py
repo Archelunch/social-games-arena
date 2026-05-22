@@ -116,6 +116,47 @@ def test_killed_is_idempotent() -> None:
     assert twice == state
 
 
+def test_initial_seeds_bid_budget_on_every_player() -> None:
+    """`initial(bid_budget=N)` seeds the opaque per-player resource pool.
+
+    The Werewolf layer uses this as the speaking-bid budget; the engine stores
+    it as an uninterpreted int. It defaults to 0 so the engine holds no
+    game-specific number.
+    """
+    assert all(p.bid_budget == 0 for p in GameState.initial(PLAYERS).players)
+    seeded = GameState.initial(PLAYERS, bid_budget=100)
+    assert all(p.bid_budget == 100 for p in seeded.players)
+
+
+def test_player_spend_clamps_at_zero() -> None:
+    """`PlayerState.spend` deducts and never goes negative.
+
+    Clamping protects the invariant even if a caller bypasses the tool-layer
+    `amount <= budget` validation — a negative budget has no meaning.
+    """
+    player = GameState.initial(PLAYERS, bid_budget=30).player("Bob")
+    assert player.spend(10).bid_budget == 20
+    assert player.spend(50).bid_budget == 0
+
+
+def test_with_bid_spent_only_reduces_the_named_player() -> None:
+    """Spending derives a new state; only the named player's budget drops, and
+    the original snapshot is untouched (immutability, invariant #1)."""
+    before = GameState.initial(PLAYERS, bid_budget=100)
+    after = before.with_bid_spent("Bob", 40)
+
+    assert after is not before
+    assert after.player("Bob").bid_budget == 60
+    assert before.player("Bob").bid_budget == 100
+    assert all(p.bid_budget == 100 for p in after.players if p.name != "Bob")
+
+
+def test_with_bid_spent_unknown_player_raises() -> None:
+    """An unknown name fails loud rather than silently deriving a no-op state."""
+    with pytest.raises(KeyError):
+        GameState.initial(PLAYERS, bid_budget=100).with_bid_spent("Nobody", 5)
+
+
 def test_with_phase_and_advanced_round_do_not_mutate_original() -> None:
     """Phase and round derivation are pure — originals feeding T06 stay intact."""
     before = GameState.initial(PLAYERS)

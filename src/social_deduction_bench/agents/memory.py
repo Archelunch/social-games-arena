@@ -197,6 +197,27 @@ class GameMemory:
 
     # --- Tier 0 retrieval ----------------------------------------------
 
+    def to_json_dict(self) -> dict[str, object]:
+        """Return the agent-private slice of memory (plan + beliefs + notes) as JSON.
+
+        Events are excluded — they are already in `events.jsonl` and would
+        duplicate the engine log. What's interesting here is what the agent
+        wrote about its own situation: the plan, the structured suspicion
+        table, and the free-text notes.
+        """
+        return {
+            "plan": self._plan,
+            "beliefs": {
+                player: {
+                    "guess": belief.guess,
+                    "confidence": belief.confidence,
+                    "evidence": belief.evidence,
+                }
+                for player, belief in self._beliefs.items()
+            },
+            "notes": [{"round": note.round, "text": note.text} for note in self._notes],
+        }
+
     def recall(self, last_n_rounds: int | None = None) -> str:
         """Return the LLM-facing render of events + notes, optionally
         filtered to the last `N` rounds.

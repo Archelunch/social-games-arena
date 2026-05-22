@@ -489,3 +489,50 @@ def test_recall_does_not_mutate_internal_state() -> None:
     m.record_event(_event(3, "c"))
     _ = m.recall(last_n_rounds=1)
     assert len(m.recall().splitlines()) == 3
+
+
+# --- to_json_dict --------------------------------------------------------------
+
+
+def test_to_json_dict_emits_plan_beliefs_and_notes_excluding_events() -> None:
+    """`to_json_dict` is the post-game memory dump shape.
+
+    Events are intentionally excluded — they already live in `events.jsonl`.
+    The interesting agent-private state is plan + beliefs + notes; the
+    CLI's `memories.json` sidecar reads exactly this shape.
+    """
+    m = GameMemory()
+    m.record_event(_event(1, "kill_resolved", {"victim": "Alice"}))
+    m.remember("trust Cara", round_=2)
+    m.set_belief("Bob", "werewolf", "high", "voted with the pack")
+    m.set_plan("frame the seer")
+
+    dump = m.to_json_dict()
+
+    assert dump == {
+        "plan": "frame the seer",
+        "beliefs": {
+            "Bob": {"guess": "werewolf", "confidence": "high", "evidence": "voted with the pack"},
+        },
+        "notes": [{"round": 2, "text": "trust Cara"}],
+    }
+    assert "events" not in dump
+
+
+def test_to_json_dict_round_trips_through_json() -> None:
+    """The dump is pure JSON primitives so the sidecar can serialize it.
+
+    A nested non-primitive would crash the writer mid-game-over.
+    """
+    import json
+
+    m = GameMemory()
+    m.remember("watch Wolf1", round_=1)
+    m.set_belief("Wolf1", "werewolf", "medium", "")
+    m.set_plan("inspect tonight")
+
+    serialized = json.dumps(m.to_json_dict(), sort_keys=True)
+    restored = json.loads(serialized)
+    assert restored["plan"] == "inspect tonight"
+    assert restored["beliefs"]["Wolf1"]["confidence"] == "medium"
+    assert restored["notes"][0] == {"round": 1, "text": "watch Wolf1"}

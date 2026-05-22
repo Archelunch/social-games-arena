@@ -19,10 +19,13 @@ forbidden; `submit_bid` clamps to `[0, MAX_BID]` (T18 added the upper bound).
 import pytest
 
 from social_deduction_bench.engine import GameState, Phase, available_tools
-from social_deduction_bench.games.werewolf.config import MAX_BID
+from social_deduction_bench.games.werewolf.config import BID_BUDGET, MAX_BID
 from social_deduction_bench.games.werewolf.events import ABSTAIN
 from social_deduction_bench.games.werewolf.tools import (
+    ACCUSE,
+    DEFEND,
     DOCTOR_PROTECT,
+    PASS_TURN,
     SEER_INSPECT,
     SPEAK,
     SUBMIT_BID,
@@ -30,8 +33,12 @@ from social_deduction_bench.games.werewolf.tools import (
     SUBMIT_KILL_VOTE,
     WEREWOLF_CHAT,
     WEREWOLF_TOOL_REQUIREMENTS,
+    Reaction,
     ToolResult,
+    accuse,
+    defend,
     doctor_protect,
+    pass_turn,
     seer_inspect,
     speak,
     submit_bid,
@@ -51,7 +58,18 @@ ROSTER = (
 )
 
 ALL_TOOL_NAMES = frozenset(
-    {WEREWOLF_CHAT, SUBMIT_KILL_VOTE, SEER_INSPECT, DOCTOR_PROTECT, SUBMIT_BID, SPEAK, SUBMIT_EXILE_VOTE}
+    {
+        WEREWOLF_CHAT,
+        SUBMIT_KILL_VOTE,
+        SEER_INSPECT,
+        DOCTOR_PROTECT,
+        SUBMIT_BID,
+        SPEAK,
+        SUBMIT_EXILE_VOTE,
+        ACCUSE,
+        DEFEND,
+        PASS_TURN,
+    }
 )
 
 
@@ -61,18 +79,19 @@ def _night() -> GameState:
 
 
 def _day() -> GameState:
-    """A fresh day-phase game."""
-    return GameState.initial(ROSTER).with_phase(Phase.DAY)
+    """A fresh day-phase game, seeded with the full speaking budget so `submit_bid`
+    happy-path tests bid against a real budget (the engine default is 0)."""
+    return GameState.initial(ROSTER, bid_budget=BID_BUDGET).with_phase(Phase.DAY)
 
 
 # --- registry / catalog -----------------------------------------------------
 
 
-def test_registry_covers_exactly_the_seven_tools() -> None:
+def test_registry_covers_exactly_all_tools() -> None:
     """The requirement registry has a gate for every tool and no extras.
 
     Invariant #3: a tool with no declared `ToolRequirement` would be ungated.
-    The registry must name exactly the seven tools — no omission, no stray key.
+    The registry must name exactly the full tool set — no omission, no stray key.
     """
     assert set(WEREWOLF_TOOL_REQUIREMENTS) == ALL_TOOL_NAMES
 
@@ -99,16 +118,31 @@ def test_night_tools_gate_the_night_phase_and_their_role() -> None:
 
 
 def test_day_tools_gate_the_day_phase_and_no_role() -> None:
-    """The three day tools are gated to DAY with no role restriction (§5/§6.1).
+    """The targetless day tools are gated to DAY with no role restriction (§5/§6.1).
 
-    `submit_exile_vote` declares `requires_target=False` so the `ABSTAIN` literal
-    is not rejected as an unknown player — its function does the target branch.
+    `submit_exile_vote` and `pass_turn` declare `requires_target=False` so the
+    `ABSTAIN` literal / no-target reaction is not rejected as an unknown player —
+    their functions do the target branch.
     """
-    for tool in (SUBMIT_BID, SPEAK, SUBMIT_EXILE_VOTE):
+    for tool in (SUBMIT_BID, SPEAK, SUBMIT_EXILE_VOTE, PASS_TURN):
         req = WEREWOLF_TOOL_REQUIREMENTS[tool]
         assert req.phase is Phase.DAY
         assert req.role is None
         assert req.requires_target is False
+
+
+def test_reaction_target_tools_gate_the_day_phase_with_a_target() -> None:
+    """`accuse` and `defend` are gated to DAY, any role, and require a target (§6).
+
+    Both name a player (whom you accuse / defend), so the engine gate must demand
+    a living-player target; neither carries a role restriction (every living
+    player reacts).
+    """
+    for tool in (ACCUSE, DEFEND):
+        req = WEREWOLF_TOOL_REQUIREMENTS[tool]
+        assert req.phase is Phase.DAY
+        assert req.role is None
+        assert req.requires_target is True
 
 
 # --- happy paths ------------------------------------------------------------
@@ -159,6 +193,40 @@ def test_submit_bid_at_max_bid_boundary_accepted() -> None:
     declared `[0, MAX_BID]` range would be off by one and exclude its top.
     """
     assert submit_bid(_day(), "Vil1", MAX_BID) == ToolResult(valid=True, value=MAX_BID)
+
+
+def test_submit_bid_exceeding_remaining_budget_rejected() -> None:
+    """A bid above the caller's remaining speaking budget is rejected.
+
+    This is the bid economy's enforcement point: once a player has spent down
+    their pool, they cannot keep bidding high. A depleted state (budget 10) must
+    reject a bid of 11 even though 11 is well under `MAX_BID`.
+    """
+    depleted = GameState.initial(ROSTER, bid_budget=10).with_phase(Phase.DAY)
+    result = submit_bid(depleted, "Vil1", 11)
+    assert result.valid is False
+    assert "budget" in result.reason
+    assert "10" in result.reason
+    assert "11" in result.reason
+
+
+def test_submit_bid_at_exactly_remaining_budget_accepted() -> None:
+    """Spending the entire remaining budget is allowed (inclusive bound)."""
+    depleted = GameState.initial(ROSTER, bid_budget=10).with_phase(Phase.DAY)
+    assert submit_bid(depleted, "Vil1", 10) == ToolResult(valid=True, value=10)
+
+
+def test_submit_bid_max_bid_cap_applies_even_when_budget_is_larger() -> None:
+    """`MAX_BID` is an independent per-bid ceiling, not subsumed by the budget.
+
+    With a budget above `MAX_BID`, a bid over `MAX_BID` must still be rejected —
+    the two caps are distinct (`min(MAX_BID, remaining)`), so this guards that the
+    per-bid ceiling keeps biting when the constants diverge.
+    """
+    rich = GameState.initial(ROSTER, bid_budget=MAX_BID + 50).with_phase(Phase.DAY)
+    result = submit_bid(rich, "Vil1", MAX_BID + 1)
+    assert result.valid is False
+    assert str(MAX_BID) in result.reason
 
 
 def test_speak_nonempty_message_accepted() -> None:
@@ -215,6 +283,42 @@ def test_submit_kill_vote_unknown_target_rejected() -> None:
     result = submit_kill_vote(_night(), "Wolf1", "Nobody")
     assert result.valid is False
     assert "unknown target" in result.reason
+
+
+def test_submit_kill_vote_packmate_target_rejected() -> None:
+    """A werewolf voting to kill a fellow werewolf is rejected (no friendly fire).
+
+    Standard Werewolf rules: wolves know each other and cannot target their
+    pack. Without this guard a model that misreads its own role can wipe
+    out its team via two valid kill votes; the design doc resolved
+    self-target as forbidden (T15), and this continues the same pattern
+    for the packmate case. The reason must name the target as a fellow
+    werewolf so the agent can self-correct on the next iteration.
+    """
+    result = submit_kill_vote(_night(), "Wolf1", "Wolf2")
+    assert result.valid is False
+    assert "fellow werewolf" in result.reason
+    assert "Wolf2" in result.reason
+
+
+def test_submit_kill_vote_villager_target_still_accepted() -> None:
+    """Regression: the packmate guard must not block a legitimate villager target.
+
+    A wolf voting a living villager is the canonical kill — that path
+    must remain accepted after the new guard lands.
+    """
+    result = submit_kill_vote(_night(), "Wolf1", "Vil1")
+    assert result == ToolResult(valid=True, value="Vil1")
+
+
+def test_submit_kill_vote_seer_target_still_accepted() -> None:
+    """Regression: the seer is a villager-faction non-wolf — wolves CAN target them.
+
+    The guard checks `role`, not faction; the seer's role is `seer` not
+    `werewolf`, so the kill vote stands.
+    """
+    result = submit_kill_vote(_night(), "Wolf1", "Seer")
+    assert result == ToolResult(valid=True, value="Seer")
 
 
 def test_tool_call_by_a_dead_caller_rejected() -> None:
@@ -452,14 +556,15 @@ def test_available_tools_plain_villager_at_night_is_empty() -> None:
 
 @pytest.mark.parametrize("caller", ["Wolf1", "Seer", "Doc", "Vil1"])
 def test_available_tools_any_role_at_day(caller: str) -> None:
-    """Every alive role gets the same day menu — bidding, speaking, exile vote.
+    """Every alive role gets the same day menu — react, bid, speak, exile vote.
 
-    §5 rows 4-6 are role-agnostic by design: every alive player bids, may
-    speak (refinement to bid-winners is T18), and casts an exile vote. A
-    role-specific day menu would change the social game.
+    §5 day rows are role-agnostic by design: every alive player bids, may speak
+    (refinement to bid-winners is T18), reacts (accuse/defend/pass), and casts an
+    exile vote. A role-specific day menu would change the social game. The menu
+    is alphabetically sorted by `available_tools`.
     """
     menu = available_tools(_day(), caller, WEREWOLF_TOOL_REQUIREMENTS)
-    assert menu == (SPEAK, SUBMIT_BID, SUBMIT_EXILE_VOTE)
+    assert menu == (ACCUSE, DEFEND, PASS_TURN, SPEAK, SUBMIT_BID, SUBMIT_EXILE_VOTE)
 
 
 def test_available_tools_dead_werewolf_is_empty() -> None:
@@ -484,7 +589,7 @@ def test_available_tools_changes_when_phase_flips() -> None:
     seer_day = available_tools(_day(), "Seer", WEREWOLF_TOOL_REQUIREMENTS)
     assert seer_night != seer_day
     assert seer_night == (SEER_INSPECT,)
-    assert seer_day == (SPEAK, SUBMIT_BID, SUBMIT_EXILE_VOTE)
+    assert seer_day == (ACCUSE, DEFEND, PASS_TURN, SPEAK, SUBMIT_BID, SUBMIT_EXILE_VOTE)
 
 
 def test_registry_coverage_parity() -> None:
@@ -500,3 +605,100 @@ def test_registry_coverage_parity() -> None:
         for caller in callers:
             seen.update(available_tools(state, caller, WEREWOLF_TOOL_REQUIREMENTS))
     assert seen == ALL_TOOL_NAMES
+
+
+# --- reaction round: accuse / defend / pass_turn ----------------------------
+
+
+def test_accuse_living_target_with_reason_accepted() -> None:
+    """Accusing a living non-self player with a reason yields a `Reaction` value.
+
+    The committed value carries both target and reason as a typed `Reaction`, so
+    the adapter can build the public `ACCUSATION` event without re-parsing the
+    LLM kwargs.
+    """
+    result = accuse(_day(), "Vil1", "Wolf2", "deflected every question")
+    assert result == ToolResult(valid=True, value=Reaction(target="Wolf2", reason="deflected every question"))
+
+
+def test_accuse_self_target_rejected() -> None:
+    """A player cannot accuse itself — self-accusation is a no-op the referee rejects.
+
+    Mirrors the `submit_kill_vote` self-target rule: a tool that names a victim
+    must name someone other than the caller.
+    """
+    result = accuse(_day(), "Vil1", "Vil1", "framing myself?")
+    assert result.valid is False
+    assert "caller" in result.reason
+
+
+def test_accuse_blank_reason_rejected() -> None:
+    """An accusation with no reason is rejected — the reason is the public signal.
+
+    A bare accusation carries no deduction content; requiring a non-empty reason
+    keeps the `ACCUSATION` event meaningful (and the metric that reads it honest).
+    """
+    result = accuse(_day(), "Vil1", "Wolf2", "   ")
+    assert result.valid is False
+    assert "reason" in result.reason
+
+
+def test_accuse_dead_target_rejected() -> None:
+    """Accusing a dead player fails loud — the engine gate rejects the target."""
+    state = _day().with_player_killed("Wolf2")
+    result = accuse(state, "Vil1", "Wolf2", "still suspicious")
+    assert result.valid is False
+
+
+def test_accuse_in_night_phase_rejected() -> None:
+    """`accuse` is a day-only action; calling it at night is rejected by the gate."""
+    result = accuse(_night(), "Vil1", "Wolf2", "too early")
+    assert result.valid is False
+    assert "phase" in result.reason
+
+
+def test_defend_living_target_with_reason_accepted() -> None:
+    """Defending another living player with a reason yields a `Reaction` value."""
+    result = defend(_day(), "Vil1", "Seer", "claimed seer and it checks out")
+    assert result == ToolResult(valid=True, value=Reaction(target="Seer", reason="claimed seer and it checks out"))
+
+
+def test_defend_self_target_accepted() -> None:
+    """Self-defense is allowed — an accused player may defend itself.
+
+    Unlike `accuse`, `defend` permits a self-target: the whole point of the
+    reaction round is that an accused player can rebut, and the most direct rebut
+    is defending yourself.
+    """
+    result = defend(_day(), "Vil1", "Vil1", "I was protecting, not killing")
+    assert result == ToolResult(valid=True, value=Reaction(target="Vil1", reason="I was protecting, not killing"))
+
+
+def test_defend_blank_reason_rejected() -> None:
+    """A defense with no reason is rejected — the reason is the public signal."""
+    result = defend(_day(), "Vil1", "Seer", "")
+    assert result.valid is False
+    assert "reason" in result.reason
+
+
+def test_defend_dead_target_rejected() -> None:
+    """Defending a dead player fails loud — the engine gate rejects the target."""
+    state = _day().with_player_killed("Seer")
+    result = defend(state, "Vil1", "Seer", "they were cleared")
+    assert result.valid is False
+
+
+def test_pass_turn_in_day_accepted() -> None:
+    """Passing the reaction is valid in the day phase and carries no value.
+
+    A reaction loop must be able to commit "nothing to add"; `pass_turn` is that
+    terminal, and it stages no public event.
+    """
+    assert pass_turn(_day(), "Vil1") == ToolResult(valid=True, value=None)
+
+
+def test_pass_turn_in_night_phase_rejected() -> None:
+    """`pass_turn` is a day-only reaction; at night the gate rejects it."""
+    result = pass_turn(_night(), "Vil1")
+    assert result.valid is False
+    assert "phase" in result.reason

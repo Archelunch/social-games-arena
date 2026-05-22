@@ -7,7 +7,11 @@ dependencies = [
     "dspy (>=3.2.1,<4.0.0)",
     "litellm (>=1.84.0,<2.0.0)",
     "trueskill (>=0.4.5,<0.5.0)",
+    "rich (>=13,<16)",
 ]
+
+[project.scripts]
+sdb-werewolf = "social_deduction_bench.cli:main"
 
 [tool.poetry]
 packages = [{ include = "social_deduction_bench", from = "src" }]

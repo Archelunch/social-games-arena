@@ -27,7 +27,7 @@ from social_deduction_bench.engine import (
     advance_phase,
     assert_recipients_present,
 )
-from social_deduction_bench.games.werewolf.config import PRIVATE_EVENT_TYPES
+from social_deduction_bench.games.werewolf.config import BID_BUDGET, PRIVATE_EVENT_TYPES
 from social_deduction_bench.games.werewolf.day import DayActions, resolve_day
 from social_deduction_bench.games.werewolf.discussion import BiddingActions, resolve_discussion
 from social_deduction_bench.games.werewolf.events import (
@@ -60,13 +60,17 @@ class DecisionSource(Protocol):
     drafts.
     """
 
+    def night_chat(self, state: GameState, /) -> None: ...
+
     def night_actions(self, state: GameState, /) -> NightActions: ...
 
     def day_actions(self, state: GameState, /) -> DayActions: ...
 
     def bids(self, state: GameState, /) -> dict[str, int]: ...
 
-    def speeches(self, state: GameState, speakers: tuple[str, ...], /) -> tuple[tuple[str, str], ...]: ...
+    def next_speech(self, state: GameState, speaker: str, /) -> str: ...
+
+    def next_reaction(self, state: GameState, reactor: str, /) -> None: ...
 
     def drain_drafts(self) -> tuple[EventDraft, ...]: ...
 
@@ -100,35 +104,52 @@ def _drain_into_log(log: EventLog, state: GameState, decisions: DecisionSource) 
 def _run_night(state: GameState, log: EventLog, decisions: DecisionSource, rng: GameRNG) -> GameState:
     """Resolve one night phase end-to-end and return the post-night state.
 
-    Order: collect actions (which may stage `WEREWOLF_CHAT` / `TOOL_REJECTED`
-    drafts via the adapter), drain those drafts, resolve the night, log the
-    resolver's drafts, then route the appended events back through `observe`.
+    Two sub-phases so werewolves coordinate before they vote:
+
+    1. **Chat** — `night_chat` stages each wolf's `WEREWOLF_CHAT`; the drafts
+       are drained and `observe`d back into the wolves' memory so a wolf reads
+       its packmate's message before choosing a target.
+    2. **Actions** — `night_actions` collects the kill votes / inspect /
+       protect (which may stage `TOOL_REJECTED`), drain, resolve, log, observe.
+
+    Each sub-phase observes only the events it appended (its own
+    high-water mark), so the chat is not double-observed.
     """
-    before = len(log.events)
+    chat_before = len(log.events)
+    decisions.night_chat(state)
+    _drain_into_log(log, state, decisions)
+    decisions.observe(state, log.events[chat_before:])
+
+    actions_before = len(log.events)
     night_actions = decisions.night_actions(state)
     _drain_into_log(log, state, decisions)
     night = resolve_night(state, night_actions, rng)
     _log_drafts(log, state, night.drafts)
-    decisions.observe(state, log.events[before:])
+    decisions.observe(state, log.events[actions_before:])
     return night.state
 
 
 def _run_day(state: GameState, log: EventLog, decisions: DecisionSource, rng: GameRNG) -> GameState:
     """Resolve one day phase end-to-end and return the post-day state.
 
-    Sub-phases in order: bidding → discussion resolution → speeches → exile
-    vote. After each agent-facing step the adapter's staged drafts are
-    drained through the private-event guard. The chosen speakers (returned by
-    `speeches`) are cross-checked against the resolver's order — divergence
-    is a caller bug, fail loud rather than silently log a contradictory
-    transcript.
+    Sub-phases in order: bidding → discussion resolution → speeches → reaction
+    round → exile vote. Speeches and reactions both run one actor at a time:
+    after each `next_speech` / `next_reaction`, the staged draft is drained and
+    `observe`d before the next actor, so a later actor reads the earlier
+    statements and reactions and can respond to them the same day. Observation
+    tracks a moving high-water mark so each event is observed exactly once. Bids,
+    reactions, and exile votes drain through the same private-event guard.
     """
-    before = len(log.events)
+    observed = len(log.events)
 
     bid_map = decisions.bids(state)
     _drain_into_log(log, state, decisions)
 
     discussion = resolve_discussion(state, BiddingActions(bids=bid_map), rng)
+    # First-price bids were paid out of `bid_budget`; thread the deducted state
+    # forward so speeches, the exile vote, and the next round see the new budgets
+    # (mirrors how `_run_night` threads `night.state`).
+    state = discussion.state
     _log_drafts(
         log,
         state,
@@ -141,20 +162,29 @@ def _run_day(state: GameState, log: EventLog, decisions: DecisionSource, rng: Ga
         ),
     )
 
-    given_speakers = decisions.speeches(state, discussion.speakers)
-    given_order = tuple(speaker for speaker, _ in given_speakers)
-    expected_prefix = discussion.speakers[: len(given_order)]
-    if given_order and given_order != expected_prefix:
-        raise RuntimeError(
-            f"decisions.speeches returned {given_order!r} but resolver chose {discussion.speakers!r}",
-        )
-    _drain_into_log(log, state, decisions)
+    for speaker in discussion.speakers:
+        decisions.next_speech(state, speaker)
+        _drain_into_log(log, state, decisions)
+        decisions.observe(state, log.events[observed:])
+        observed = len(log.events)
+
+    # Reaction round: every living player reacts once, after the statements, in a
+    # seeded order. The order is drawn from the same `rng` as the discussion
+    # tie-break (sorted first for a byte-identical input) so it is deterministic
+    # and replayable (invariant #4) and never a fixed seat advantage. Sequential
+    # with observe-between, so a later reactor sees earlier accusations/defenses
+    # and can answer them the same day.
+    for reactor in rng.shuffle(sorted(state.alive_names())):
+        decisions.next_reaction(state, reactor)
+        _drain_into_log(log, state, decisions)
+        decisions.observe(state, log.events[observed:])
+        observed = len(log.events)
 
     day_actions = decisions.day_actions(state)
     _drain_into_log(log, state, decisions)
     day = resolve_day(state, day_actions)
     _log_drafts(log, state, day.drafts)
-    decisions.observe(state, log.events[before:])
+    decisions.observe(state, log.events[observed:])
     return day.state
 
 
@@ -175,7 +205,7 @@ def run_game(
     `RuntimeError` if the game does not terminate within `max_rounds` — a
     non-terminating script fails loud instead of hanging.
     """
-    state = GameState.initial(roster)
+    state = GameState.initial(roster, bid_budget=BID_BUDGET)
     rng = GameRNG(seed)
     log = EventLog()
 

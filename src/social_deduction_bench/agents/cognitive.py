@@ -57,9 +57,8 @@ def set_belief(
 ) -> str:
     """Record or update your suspicion about one player; overwrites any prior row for the same player.
 
-    `player` is the player you are suspecting. `guess` is what you think they are
-    (e.g. "werewolf", "villager"). `confidence` is one of "low", "medium", "high".
-    `evidence` is a short free-text justification.
+    `player` is the player you are suspecting. `guess` is what you think they are.
+    `evidence` is a short free-text justification you can re-read later.
     """
     _validate_caller(state, caller)
     memory.set_belief(player, guess, confidence, evidence)

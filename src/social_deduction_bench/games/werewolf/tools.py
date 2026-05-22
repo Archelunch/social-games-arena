@@ -27,6 +27,9 @@ DOCTOR_PROTECT = "doctor_protect"
 SUBMIT_BID = "submit_bid"
 SPEAK = "speak"
 SUBMIT_EXILE_VOTE = "submit_exile_vote"
+ACCUSE = "accuse"
+DEFEND = "defend"
+PASS_TURN = "pass_turn"
 
 
 @dataclass(frozen=True, slots=True)
@@ -43,6 +46,20 @@ class ToolResult:
     value: object | None = None
 
 
+@dataclass(frozen=True, slots=True)
+class Reaction:
+    """A structured day-reaction commit: who it targets and the stated reason.
+
+    Carried as the `ToolResult.value` of a valid `accuse` / `defend` call so the
+    decision adapter can build the public `ACCUSATION` / `DEFENSE` event draft
+    from a typed value rather than re-parsing the LLM kwargs (no raw dict at the
+    tool→adapter boundary). `pass_turn` carries no `Reaction` (value is `None`).
+    """
+
+    target: str
+    reason: str
+
+
 # Role, phase, and target gates per tool, keyed by tool name. Read-only.
 WEREWOLF_TOOL_REQUIREMENTS: MappingProxyType[str, ToolRequirement] = MappingProxyType(
     {
@@ -53,6 +70,9 @@ WEREWOLF_TOOL_REQUIREMENTS: MappingProxyType[str, ToolRequirement] = MappingProx
         SUBMIT_BID: ToolRequirement(phase=Phase.DAY),
         SPEAK: ToolRequirement(phase=Phase.DAY),
         SUBMIT_EXILE_VOTE: ToolRequirement(phase=Phase.DAY),
+        ACCUSE: ToolRequirement(phase=Phase.DAY, requires_target=True),
+        DEFEND: ToolRequirement(phase=Phase.DAY, requires_target=True),
+        PASS_TURN: ToolRequirement(phase=Phase.DAY),
     }
 )
 
@@ -95,9 +115,21 @@ def werewolf_chat(state: GameState, caller: str, message: str) -> ToolResult:
 def submit_kill_vote(state: GameState, caller: str, target: str) -> ToolResult:
     """Vote for the player the werewolves will kill tonight.
 
-    `target` is the name of a living player other than yourself.
+    `target` is the name of a living player other than yourself or a fellow werewolf.
+    Your pack is listed in your decision brief, and you cannot target a packmate.
     """
-    return _target_tool(state, caller, SUBMIT_KILL_VOTE, target)
+    result = _target_tool(state, caller, SUBMIT_KILL_VOTE, target)
+    if not result.valid:
+        return result
+    # By the time we get here `_target_tool` has confirmed `target` exists and
+    # is alive. The role check forbids friendly fire on the pack — continues
+    # the T15 "self-target forbidden" precedent for the packmate case.
+    if state.player(target).role == Role.WEREWOLF.value:
+        return ToolResult(
+            valid=False,
+            reason=(f"tool {SUBMIT_KILL_VOTE!r} cannot target a fellow werewolf ({target!r})"),
+        )
+    return result
 
 
 def seer_inspect(state: GameState, caller: str, target: str) -> ToolResult:
@@ -119,7 +151,9 @@ def doctor_protect(state: GameState, caller: str, target: str) -> ToolResult:
 def submit_bid(state: GameState, caller: str, amount: int) -> ToolResult:
     """Bid for a speaking slot in today's discussion; the top bidders get to speak.
 
-    `amount` is an integer from 0 to 100; bid higher when you most want to speak.
+    `amount` is an integer from 0 to {max_bid}, and also no more than your
+    remaining speaking budget (shown in your brief) — winners pay their bid, so
+    the budget depletes across the game. Bid higher when you most want to speak.
     """
     reason = _gate(state, caller, SUBMIT_BID, None)
     if reason is not None:
@@ -131,7 +165,21 @@ def submit_bid(state: GameState, caller: str, amount: int) -> ToolResult:
             valid=False,
             reason=f"tool {SUBMIT_BID!r} requires an amount at most {MAX_BID}, got {amount}",
         )
+    remaining = state.player(caller).bid_budget
+    if amount > remaining:
+        return ToolResult(
+            valid=False,
+            reason=f"tool {SUBMIT_BID!r} amount {amount} exceeds your remaining speaking budget {remaining}",
+        )
     return ToolResult(valid=True, value=amount)
+
+
+# Bind the live `MAX_BID` into `submit_bid`'s docstring so the LLM-facing tool
+# schema cannot drift from the engine's actual cap. Guard the `None` case rather
+# than `assert` so import under `-O` (asserts stripped, docstrings set to `None`)
+# does not raise `AttributeError`.
+if submit_bid.__doc__ is not None:
+    submit_bid.__doc__ = submit_bid.__doc__.format(max_bid=MAX_BID)
 
 
 def speak(state: GameState, caller: str, message: str) -> ToolResult:
@@ -159,3 +207,44 @@ def submit_exile_vote(state: GameState, caller: str, target: str) -> ToolResult:
     if not result.valid:
         return ToolResult(valid=False, reason=result.reason)
     return ToolResult(valid=True, value=target)
+
+
+def accuse(state: GameState, caller: str, target: str, reason: str) -> ToolResult:
+    """Publicly accuse a living player of being a werewolf, stating a brief reason.
+
+    `target` is the name of a living player other than yourself; `reason` is a
+    short, non-empty justification that every player will see.
+    """
+    gate = _gate(state, caller, ACCUSE, target)
+    if gate is not None:
+        return ToolResult(valid=False, reason=gate)
+    if target == caller:
+        return ToolResult(valid=False, reason=f"tool {ACCUSE!r} cannot target the caller {caller!r}")
+    if not reason.strip():
+        return ToolResult(valid=False, reason=f"tool {ACCUSE!r} requires a non-empty reason")
+    return ToolResult(valid=True, value=Reaction(target=target, reason=reason))
+
+
+def defend(state: GameState, caller: str, target: str, reason: str) -> ToolResult:
+    """Publicly defend a living player against suspicion, stating a brief reason.
+
+    `target` is any living player, including yourself; `reason` is a short,
+    non-empty justification that every player will see.
+    """
+    gate = _gate(state, caller, DEFEND, target)
+    if gate is not None:
+        return ToolResult(valid=False, reason=gate)
+    if not reason.strip():
+        return ToolResult(valid=False, reason=f"tool {DEFEND!r} requires a non-empty reason")
+    return ToolResult(valid=True, value=Reaction(target=target, reason=reason))
+
+
+def pass_turn(state: GameState, caller: str) -> ToolResult:
+    """Stay silent this reaction — make no accusation or defense.
+
+    Use this when you have nothing to add to the discussion right now.
+    """
+    gate = _gate(state, caller, PASS_TURN, None)
+    if gate is not None:
+        return ToolResult(valid=False, reason=gate)
+    return ToolResult(valid=True, value=None)

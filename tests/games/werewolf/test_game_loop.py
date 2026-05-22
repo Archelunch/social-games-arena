@@ -23,7 +23,9 @@ from social_deduction_bench.engine import Event, EventStream, GameState, assert_
 from social_deduction_bench.games.werewolf.config import PRIVATE_EVENT_TYPES
 from social_deduction_bench.games.werewolf.day import DayActions
 from social_deduction_bench.games.werewolf.events import (
+    ACCUSATION,
     BID,
+    DEFENSE,
     DISCUSSION_RESOLVED,
     EXILE_RESOLVED,
     GAME_OVER,
@@ -140,6 +142,9 @@ class _StallingDecisions:
     `run_game`'s `max_rounds` safety stop fires.
     """
 
+    def night_chat(self, state: GameState, /) -> None:
+        """No-op: the stalling source stages no chat."""
+
     def night_actions(self, state: GameState, /) -> NightActions:
         return NightActions(kill_votes={"Wolf1": "Vil1", "Wolf2": "Vil1"}, doctor_protect="Vil1")
 
@@ -149,8 +154,11 @@ class _StallingDecisions:
     def bids(self, state: GameState, /) -> dict[str, int]:
         return {}
 
-    def speeches(self, state: GameState, speakers: tuple[str, ...], /) -> tuple[tuple[str, str], ...]:
-        return ()
+    def next_speech(self, state: GameState, speaker: str, /) -> str:
+        return ""
+
+    def next_reaction(self, state: GameState, reactor: str, /) -> None:
+        """No-op: the stalling source stages no reaction."""
 
     def drain_drafts(self) -> tuple[EventDraft, ...]:
         return ()
@@ -307,6 +315,14 @@ def _dialogue_werewolf_win_script() -> ScriptedDecisions:
         day_speeches=[
             (("Wolf1", "I am the seer; Vil2 is a werewolf"), ("Seer", "no I am, exile Wolf1")),
         ],
+        day_reactions=[
+            # Day 1: Vil2 (the accused) accuses back, Doc defends the real Seer;
+            # the other living players (Wolf1, Wolf2, Seer, Vil3) pass.
+            (
+                ("Vil2", "accuse", "Wolf1", "Wolf1's seer claim is a lie"),
+                ("Doc", "defend", "Seer", "the real seer is Seer, not Wolf1"),
+            ),
+        ],
     )
 
 
@@ -360,6 +376,122 @@ def test_dialogue_script_emits_all_new_event_types_with_correct_recipients() -> 
     assert len(speeches) == 2
     assert all(e.recipients == () for e in speeches)
     assert [e.payload["speaker"] for e in speeches] == ["Wolf1", "Seer"]
+
+
+def _all_accuse_day1_script() -> ScriptedDecisions:
+    """The dialogue win script, but day 1 has ALL six living players accuse.
+
+    Each living seat accuses (a non-self living target) with a caller-unique
+    reason, so the `ACCUSATION` events land in exactly the order the loop drove
+    the reaction round — i.e. the seeded reaction order. Lets a test read that
+    order off the transcript and assert it is seed-derived, not fixed.
+    """
+    reactors = ["Wolf1", "Wolf2", "Seer", "Doc", "Vil2", "Vil3"]
+    script = _dialogue_werewolf_win_script()
+    script.day_reactions = [
+        tuple((n, "accuse", ("Wolf2" if n == "Wolf1" else "Wolf1"), f"{n} reason") for n in reactors)
+    ]
+    return script
+
+
+def _day1_accuser_order(seed: int) -> list[str]:
+    stream = run_game(ROSTER, seed=seed, decisions=_all_accuse_day1_script())
+    return [str(e.payload["accuser"]) for e in stream.log.events if e.type == ACCUSATION and e.round == 1]
+
+
+def test_reaction_order_is_seed_derived_not_fixed() -> None:
+    """The reaction round's order comes from the engine seed, not roster/alphabetical.
+
+    Invariant #4 with a fairness twist: the per-day reaction order is a seeded
+    `rng.shuffle`, so (a) a different seed yields a different order and (b) the
+    order is not the trivial sorted/seat order — otherwise a fixed seat would get
+    a permanent last-mover information edge that confounds cross-play ratings.
+    Both assertions FAIL if the seeding is dropped (e.g. plain `sorted(...)`),
+    which the prior same-seed-twice determinism tests could not catch. The seeds
+    42 and 1 were hand-verified to diverge (6 reactors → 720 orders, collision
+    negligible and pinned here).
+    """
+    order_42 = _day1_accuser_order(42)
+    order_1 = _day1_accuser_order(1)
+
+    assert sorted(order_42) == sorted(order_1)  # same set of reactors both runs
+    assert order_42 != order_1  # the seed actually changes the order (kills de-seeding)
+    assert order_42 != sorted(order_42)  # not the trivial alphabetical/seat order
+
+
+def test_reaction_order_replays_identically_for_the_same_seed() -> None:
+    """Same seed -> identical reaction order, every time (invariant #4).
+
+    The reaction-order shuffle is a recorded stochastic point; two runs over the
+    same seed must produce the same accuser sequence or recorded games diverge on
+    replay.
+    """
+    assert _day1_accuser_order(42) == _day1_accuser_order(42)
+
+
+def test_dialogue_script_emits_public_reaction_events() -> None:
+    """The day reaction round logs public `ACCUSATION` / `DEFENSE` events.
+
+    Every living player reacts once after the statements; here Vil2 accuses and
+    Doc defends (the rest pass, emitting nothing). Both events are broadcast
+    (empty recipients) so the whole table — and the suspicion metric — can read
+    who accused or defended whom and why.
+    """
+    stream = run_game(ROSTER, seed=42, decisions=_dialogue_werewolf_win_script())
+    events = stream.log.events
+
+    accusations = [e for e in events if e.type == ACCUSATION]
+    defenses = [e for e in events if e.type == DEFENSE]
+
+    assert len(accusations) == 1
+    assert accusations[0].recipients == ()  # public
+    assert accusations[0].payload == {"accuser": "Vil2", "target": "Wolf1", "reason": "Wolf1's seer claim is a lie"}
+
+    assert len(defenses) == 1
+    assert defenses[0].recipients == ()  # public
+    assert defenses[0].payload == {"defender": "Doc", "defended": "Seer", "reason": "the real seer is Seer, not Wolf1"}
+
+
+def test_reaction_events_fall_between_speeches_and_the_exile_within_a_round() -> None:
+    """Reactions are logged after the statements and before the exile vote resolves.
+
+    Pins the day sub-phase order (bid -> statements -> reaction -> vote): the
+    reaction round must run after speeches (so reactors can answer the
+    statements) and before `EXILE_RESOLVED` (so the vote is cast with the full
+    exchange in memory).
+    """
+    stream = run_game(ROSTER, seed=42, decisions=_dialogue_werewolf_win_script())
+    day1 = [e for e in stream.log.events if e.round == 1 and e.phase.value == "day"]
+
+    speech_seqs = [e.seq for e in day1 if e.type == SPEECH]
+    reaction_seqs = [e.seq for e in day1 if e.type in {ACCUSATION, DEFENSE}]
+    exile_seqs = [e.seq for e in day1 if e.type == EXILE_RESOLVED]
+
+    assert speech_seqs
+    assert reaction_seqs
+    assert exile_seqs
+    assert max(speech_seqs) < min(reaction_seqs), "reactions must follow the statements"
+    assert max(reaction_seqs) < min(exile_seqs), "reactions must precede the exile resolution"
+
+
+def test_night_chat_events_precede_kill_events_within_a_round() -> None:
+    """The two-phase night logs every `WEREWOLF_CHAT` before that round's kill.
+
+    `_run_night` runs the chat sub-phase, drains+observes it, then runs the
+    kill vote. So within a round the chat must appear before `KILL_RESOLVED`
+    in the append-only log — proving the chat is available to the wolves
+    before they vote, not merely logged alongside the kill.
+    """
+    stream = run_game(ROSTER, seed=42, decisions=_dialogue_werewolf_win_script())
+    events = stream.log.events
+
+    for round_ in (1, 2):
+        round_events = [e for e in events if e.round == round_]
+        chat_seqs = [e.seq for e in round_events if e.type == WEREWOLF_CHAT]
+        kill_seqs = [e.seq for e in round_events if e.type == KILL_RESOLVED]
+        assert chat_seqs, f"round {round_} had no chat events"
+        assert kill_seqs, f"round {round_} had no kill_resolved event"
+        assert max(chat_seqs) < min(kill_seqs), f"round {round_}: chat must precede the kill"
 
 
 def test_discussion_resolved_payload_pins_speakers_and_bid_map() -> None:

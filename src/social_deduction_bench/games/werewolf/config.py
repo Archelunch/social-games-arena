@@ -40,10 +40,22 @@ PRIVATE_EVENT_TYPES: frozenset[str] = frozenset(
 # guards so Pyrefly flags any reassignment.
 K_DISCUSSION_SLOTS: Final[int] = 3
 
-# Upper inclusive bound on a `submit_bid` amount (WEREWOLF_DESIGN.md §6.1's `0..N`).
-# Bounded so an agent cannot grief a rated game with an unbounded bid (RNG cost,
-# prompt-token bloat, integer-overflow surface); the lower bound 0 stays from T15.
+# Upper inclusive bound on a *single* `submit_bid` amount (the per-bid griefing
+# ceiling — RNG cost, prompt-token bloat, integer-overflow surface); the lower
+# bound 0 stays from T15.
 MAX_BID: Final[int] = 100
+
+# Per-player speaking-bid pool for the whole game (WEREWOLF_DESIGN.md §6.1). Each
+# day the top-K bidders win speaking slots and pay their bid; the pool depletes
+# across rounds, so a bid is a real strategic signal instead of always-max. The
+# engine stores this as an opaque `PlayerState.bid_budget`; `run_game` seeds it.
+BID_BUDGET: Final[int] = 100
+
+# Output-token cap for the day reaction round (WEREWOLF_DESIGN.md §4). Every
+# living player reacts once per day with a short structured accuse/defend/pass;
+# capping the reaction loop's `max_tokens` keeps that extra per-player call cheap
+# and terse. Tunable; smaller than a full decision's budget on purpose.
+REACTION_MAX_TOKENS: Final[int] = 256
 
 
 def default_role_multiset() -> tuple[str, ...]:

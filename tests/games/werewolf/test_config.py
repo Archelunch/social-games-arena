@@ -11,11 +11,13 @@ from collections import Counter
 
 from social_deduction_bench.engine import GameState
 from social_deduction_bench.games.werewolf.config import (
+    BID_BUDGET,
     DEFAULT_PLAYER_COUNT,
     DEFAULT_ROLE_COUNTS,
     K_DISCUSSION_SLOTS,
     MAX_BID,
     PRIVATE_EVENT_TYPES,
+    REACTION_MAX_TOKENS,
     default_role_multiset,
 )
 from social_deduction_bench.games.werewolf.roles import Role
@@ -119,6 +121,27 @@ def test_max_bid_is_one_hundred() -> None:
     config — `submit_bid` reads it — so changing it is one edit.
     """
     assert MAX_BID == 100
+
+
+def test_bid_budget_is_one_hundred() -> None:
+    """`BID_BUDGET` is pinned at 100 — the per-player speaking-bid pool for the
+    whole game (§6.1). It is the balance knob for the bid economy; changing it
+    alters how often players can outbid across rounds, so it is a single shared
+    constant `run_game` seeds into every player's `bid_budget`.
+    """
+    assert BID_BUDGET == 100
+
+
+def test_reaction_max_tokens_is_two_fifty_six() -> None:
+    """`REACTION_MAX_TOKENS` is pinned at 256 — the output cap for the day
+    reaction round (§4).
+
+    Every living player reacts once per day; capping the reaction loop's output
+    keeps that extra per-player call cheap and terse. It is a shared knob the
+    adapter reads to clone a shorter LM for the reaction loop, so a drift between
+    code and `WEREWOLF_DESIGN.md` §4 is caught here.
+    """
+    assert REACTION_MAX_TOKENS == 256
 
 
 def test_default_multiset_builds_a_valid_game_state() -> None:
