@@ -286,6 +286,7 @@ class GamePrinter:
         events_path: str,
         trajectories_path: str,
         memories_path: str | None = None,
+        manifest_path: str | None = None,
         elapsed_seconds: float,
     ) -> None:
         """Render the closing summary panel with the structured stats."""
@@ -308,6 +309,8 @@ class GamePrinter:
         table.add_row("trajectories.jsonl", trajectories_path)
         if memories_path is not None:
             table.add_row("memories.json", memories_path)
+        if manifest_path is not None:
+            table.add_row("manifest.json", manifest_path)
 
         self.console.print()
         self.console.print(Panel(table, title="GAME OVER", border_style="bold", padding=(1, 2)))

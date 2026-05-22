@@ -2,20 +2,25 @@
 
 Append-only. Newest entry on top. Read this first when starting a session.
 
-**Current state:** T30 done — the per-decision trajectory + LM
-telemetry sidecar is in place. New module `agents/trajectory.py` defines
-the four sidecar value types (`ReActStep`, `LMCallRecord`, `Trajectory`,
-`TrajectoryStream`) and the shared `sanitize_arg` helper. `react_decide`
-gains an optional `trace_sink` callback that fires once per successful
-commit with the structured per-iteration trajectory and per-LM-call
-telemetry (model, tokens, latency, cost). `ReActDecisionSource`
-accumulates `Trajectory` records via the sink and exposes them as a
-read-only snapshot through a new `trajectories` property. The engine
-event log is untouched: invariants #1 (engine as source of truth) and
-#5 (append-only event stream) hold, the sidecar is agent-side
-observability only. All checks green (498/498 default suite, +1 smoke
-deselected). **Next task:** T31 — replay UI consuming `events.jsonl`
-+ `trajectories.jsonl`, joined by `(round, phase, caller, decision_seq)`.
+**Current state:** T24 done — M6 metric extraction + a per-run
+provenance manifest are in place. `rating/manifest.py` defines the
+game-agnostic `RunManifest` (seat→model, sampling config, git sha,
+outcome) with fail-loud JSON IO; `games/werewolf/metrics.py` defines
+`extract_game_metrics` / `aggregate_metrics` / `extract_run_dir` over
+the event + trajectory streams (winner/length/per-role win, illegal-move
+rate, tokens, tool usage). The CLI now writes `manifest.json` as a 4th
+artifact per run. The engine event log stays the sole source of truth
+for outcomes (invariant #1); the manifest is consulted only for model
+identity. 702/702 default suite green, ruff + pyrefly clean. **Next
+task:** T25 (deceiver/detector split) or the static results site
+(folds T31 replay + T28 leaderboard) — both consume this metric layer.
+
+**Note (post-T30, unticked in BACKLOG):** commits `dadfd1e` +
+`163a179` landed an agent-play overhaul (CLI `sdb-werewolf`, rich live
+printer, finish-free ReAct, bid-budget economy, day reaction round with
+`ACCUSATION`/`DEFENSE` events, seeded role assignment). These were
+bundled ad-hoc, not as a numbered task; the run data they produced lives
+untracked in `games/` (15 uniform-qwen self-play runs, wolves 12/15).
 
 **Tracked design decision (T09 + T11):** the private-event guard — each game
 declares its private event types, the engine rejects a declared-private type
@@ -29,6 +34,81 @@ Cross-game rationale in `BACKLOG.md` Notes and `WEREWOLF_DESIGN.md` §3.
 `games/werewolf/` (no `GameDefinition` bundle); resolution functions pure; the
 private-event guard is one shared `engine` function; T14 ships a production
 `run_game` driver + `DecisionSource` Protocol.
+
+---
+
+## 2026-05-22 — T24: metric extraction + run manifest (M6 begins)
+
+- **New `rating/manifest.py`** — `RunManifest` (frozen, slots): the
+  game-agnostic per-run provenance record the leaderboard/TrueSkill
+  (T26+) needs. Fields: `game_id, seed, players, models` (seat→model,
+  stored sorted), `model_arg, temperature, max_tokens, max_iters,
+  reasoning, git_sha, created_at, winner, rounds`. `to_json_dict` /
+  `from_json_dict` (fail-loud: missing key → `KeyError`, malformed pair
+  → `ValueError`), `write_json` / `read_json` (sorted keys; malformed
+  file wrapped to a stable `"malformed manifest JSON"` `ValueError`,
+  mirroring the engine/trajectory readers). Solves the seat→model gap:
+  model identity previously lived only inside `trajectories.jsonl >
+  lm_calls[].model`, and a seat that never calls an LM had none.
+- **New `games/werewolf/metrics.py`** — werewolf-aware extraction
+  (placed here, not `rating/`, because it depends on roles/factions and
+  the game-action tool set; `rating/` stays for game-agnostic TrueSkill).
+  - `SeatMetrics` / `GameMetrics` / `RoleStats` / `ModelStats` /
+    `AggregateMetrics` frozen value types (computed rates stored as
+    fields, no `@property`, so `dataclasses.asdict` + equality work).
+  - `extract_game_metrics(events, trajectories, manifest=None)`:
+    winner/rounds/deaths from the **event log only** (invariant #1);
+    per-seat `won` via `faction_of(role).value == winner`, `survived`
+    from `KILL_RESOLVED`/`EXILE_RESOLVED` (null-safe); tokens/tool-calls
+    from trajectories grouped by `caller`; model from the manifest when
+    present else inferred from the seat's first `lm_call` else
+    `"unknown"`. Game-action tool set = `set(WEREWOLF_TOOL_REQUIREMENTS)`
+    (reused, not redefined); `tool_usage` = successful (`"ok:"`)
+    game-action steps, sorted.
+  - `aggregate_metrics` rolls up over **seat-games** bucketed by model
+    then role (per-model/per-role win rate, token totals); sorted output.
+  - `extract_run_dir(path)` reads the `events`/`trajectories`/(optional
+    `manifest`) triplet — the backfill path for the existing
+    manifest-less `games/` runs.
+- **CLI** (`cli.py`): builds a `RunManifest` after each run and writes
+  `manifest.json` as the 4th artifact (`_build_manifest`, `_git_sha`
+  via `git rev-parse HEAD` → `None` outside a checkout, `created_at` =
+  UTC now). `--dry-run` records the sentinel model `"scripted"`.
+  `printer.print_summary` gained an optional `manifest.json` row. The
+  manifest's `git_sha`/`created_at` are run bookkeeping, NOT game logic
+  (consistent with the existing UTC `game_id`); the event/trajectory
+  determinism contracts are untouched.
+- **Decisions (user, this session):** static pre-aggregated JSON +
+  zero-build vanilla front-end for the eventual results site (no DB,
+  no CRUD); add `manifest.json` going forward and infer-backfill the
+  existing runs; start with the metric layer before any UI.
+- **`/sdb-review`** (`.reviews/20260522-1511-163a179-worktree/`):
+  python + test reviewers PASS; integrity reviewer NEEDS FIXES (0
+  critical / 1 high). All addressed before commit:
+  - **HIGH** — illegal-move count must equal the engine's
+    `TOOL_REJECTED` events, but a tool that *raises* during execution
+    yields an `"error:"` observation with no rejection event (a tool
+    fault, not an illegal move). Switched `total_illegal_moves` to be
+    sourced from `TOOL_REJECTED` events (per-seat via recipients), not
+    trajectory `"error:"` prefixes. Regression test adds an
+    execution-error step and pins that it does NOT inflate the count.
+  - **Mediums** — tightened `dict[str, list[Trajectory]]`; documented
+    `mean_illegal_move_rate` as a mean-of-per-game-rates (pooled rate
+    derivable from `ModelStats`); added a fail-capable invariant-#1 test
+    (a manifest that lies about winner/rounds is ignored); made the
+    `tool_usage` + aggregate-model `sorted(...)` load-bearing under test
+    (keys fed out of order, exact ordered-tuple assertions).
+  - **Lows** — `_git_sha` docstring (full sha); aligned the winner
+    convention (metrics uses first/`next` `GAME_OVER`, like the CLI).
+- Verified: `pytest -q` 702 passed + 1 deselected; `ruff check`, `ruff
+  format --check`, `pyrefly check` (0 errors); `sdb-werewolf --dry-run`
+  writes `manifest.json`; `extract_run_dir` on a real manifest-less run
+  yields real numbers (backfill path).
+
+**M6 (Rating, metrics & tournament) progress:** T24 done. T25, T26,
+T27, T28 remain. T31 (replay UI, M5) also still open.
+
+**Next:** T25 (deceiver-vs-detector split) or the static results site.
 
 ---
 

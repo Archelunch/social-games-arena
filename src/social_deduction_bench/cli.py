@@ -22,6 +22,7 @@ from __future__ import annotations
 import argparse
 import json
 import secrets
+import subprocess
 import sys
 import time
 from collections.abc import Mapping, Sequence
@@ -48,6 +49,8 @@ from social_deduction_bench.games.werewolf.night import NightActions
 from social_deduction_bench.games.werewolf.roles import Role
 from social_deduction_bench.games.werewolf.scripted import ScriptedDecisions
 from social_deduction_bench.printer import GamePrinter, PrinterSettings
+from social_deduction_bench.rating.manifest import RunManifest
+from social_deduction_bench.rating.manifest import write_json as write_manifest_json
 
 # Player names must NOT encode role information — that would leak hidden
 # state to every agent (invariant #2). The smoke / unit tests use names
@@ -163,14 +166,16 @@ def main(argv: Sequence[str] | None = None) -> int:
 
     trajectories = _trajectories_from(source)
     memories_dump = _memories_from(source)
-    events_path, trajectories_path, memories_path = _write_outputs(
-        stream, trajectories, memories_dump, output_dir, game_id
-    )
 
     winner_event = next((e for e in stream.log.events if e.type == GAME_OVER), None)
     winner_payload = winner_event.payload.get("winner") if winner_event is not None else "?"
     winner = str(winner_payload)
     final_round, final_phase = _final_position(stream)
+
+    manifest = _build_manifest(args=args, roster=roster, seed=seed, game_id=game_id, winner=winner, rounds=final_round)
+    events_path, trajectories_path, memories_path, manifest_path = _write_outputs(
+        stream, trajectories, memories_dump, manifest, output_dir, game_id
+    )
 
     printer.print_summary(
         winner=winner,
@@ -180,6 +185,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         events_path=str(events_path),
         trajectories_path=str(trajectories_path),
         memories_path=str(memories_path),
+        manifest_path=str(manifest_path),
         elapsed_seconds=elapsed,
     )
     printer.print_memories(memories=memories_dump, roster=roster)
@@ -483,16 +489,68 @@ def _memories_from(source: DecisionSource) -> dict[str, dict[str, object]]:
     return out
 
 
+def _git_sha() -> str | None:
+    """Return the current full `git HEAD` sha, or `None` outside a checkout.
+
+    Provenance only — never game logic. A run without git available (or outside a
+    repo) records `None` rather than failing the game.
+    """
+    try:
+        result = subprocess.run(
+            ["git", "rev-parse", "HEAD"],
+            capture_output=True,
+            text=True,
+            check=True,
+            cwd=Path(__file__).resolve().parent,
+        )
+    except (subprocess.SubprocessError, FileNotFoundError, OSError):
+        return None
+    return result.stdout.strip() or None
+
+
+def _build_manifest(
+    *,
+    args: argparse.Namespace,
+    roster: tuple[tuple[str, str], ...],
+    seed: int,
+    game_id: str,
+    winner: str,
+    rounds: int,
+) -> RunManifest:
+    """Build the per-run provenance manifest: seat->model, sampling config, outcome.
+
+    `--dry-run` games are driven by `ScriptedDecisions`, so their seats record the
+    sentinel model `"scripted"` rather than a model that never actually played.
+    """
+    model = "scripted" if args.dry_run else args.model
+    return RunManifest(
+        game_id=game_id,
+        seed=seed,
+        players=roster,
+        models=tuple((name, model) for name, _ in roster),
+        model_arg=model,
+        temperature=args.temperature,
+        max_tokens=args.max_tokens,
+        max_iters=args.max_iters,
+        reasoning=args.reasoning,
+        git_sha=_git_sha(),
+        created_at=datetime.now(UTC).isoformat(),
+        winner=winner,
+        rounds=rounds,
+    )
+
+
 def _write_outputs(
     stream: EventStream,
     trajectories: tuple[Trajectory, ...],
     memories: Mapping[str, Mapping[str, object]],
+    manifest: RunManifest,
     output_dir: Path,
     game_id: str,
-) -> tuple[Path, Path, Path]:
-    """Write `events.jsonl`, `trajectories.jsonl`, and `memories.json` to `output_dir`.
+) -> tuple[Path, Path, Path, Path]:
+    """Write `events.jsonl`, `trajectories.jsonl`, `memories.json`, and `manifest.json`.
 
-    `output_dir` is created (with parents) if missing. All three files
+    `output_dir` is created (with parents) if missing. All four files
     share the same game identity (`stream.header.game_id`) so a downstream
     reader can confirm the pairing.
     """
@@ -500,6 +558,7 @@ def _write_outputs(
     events_path = output_dir / "events.jsonl"
     trajectories_path = output_dir / "trajectories.jsonl"
     memories_path = output_dir / "memories.json"
+    manifest_path = output_dir / "manifest.json"
     write_jsonl(stream, events_path)
     write_trajectories_jsonl(
         TrajectoryStream(header=stream.header, trajectories=trajectories),
@@ -513,7 +572,8 @@ def _write_outputs(
         ),
         encoding="utf-8",
     )
-    return events_path, trajectories_path, memories_path
+    write_manifest_json(manifest, manifest_path)
+    return events_path, trajectories_path, memories_path, manifest_path
 
 
 def _handle_run_failure(
