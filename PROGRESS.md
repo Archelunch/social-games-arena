@@ -2,22 +2,29 @@
 
 Append-only. Newest entry on top. Read this first when starting a session.
 
-**Current state:** T26 done — TrueSkill rating. New game-agnostic core
-`rating/trueskill.py`: `rate_games(results, *, env=None) -> Leaderboard`
-turns a sequence of `GameResult` (model-name teams + winning team index)
-into per-model `ModelRating`s (mu, sigma, games/wins/losses, conservative
-`skill = mu - 3*sigma`). It collapses each team to distinct models, skips
-self-play / cross-team-overlap games (`n_skipped`), processes games in
-caller order (sequential/online — no re-sort), and sorts the board by
-`(-skill, model)`. Werewolf bridges in via `to_game_results(games)` in
-`games/werewolf/metrics.py` (factions → wolves/villagers model teams,
-winner index 0/1; drops `_UNKNOWN_MODEL` games; fails loud on a
-non-faction winner). Module imports only `trueskill` — engine/game-free,
-so ONUW / Secret Hitler reuse it. 739/739 default suite green, ruff +
-pyrefly clean. **Next task:** T27 (tournament runner — now unblocked: deps
-T23 + T26 both `[x]`) and/or the static results site (folds T31 replay +
-T28 leaderboard). With cross-play seating, the split metric, and per-model
-ratings in place, the 10–20-runs-per-pair sweep is unblocked.
+**Current state:** T27 done — tournament runner. `sdb-tournament` CLI
+(`tournament_cli.py`) + game library `games/werewolf/tournament.py`:
+`schedule_tournament(models, *, games_per_pair=10, seed, names)` builds a
+deterministic pairwise cross-play schedule via
+`combinations_with_replacement` (INCLUDES self-pairs A-vs-A as a self-play
+diagnostic), side-swapped so each model plays wolves in half a distinct
+pair's games (bias control); every per-game seed + roster derives from one
+master `GameRNG(seed)` (new `GameRNG.randrange`). `run_tournament(matchups,
+runner, *, max_concurrency)` runs each game via an injected `GameRunner`
+(thread pool — each game owns its `asyncio.run` loop), reassembles results
+in schedule order (so parallel == sequential), then `to_game_results` →
+`rate_games` + `aggregate_metrics` + `deceiver_detector_split`. Self-play
+games are rate-skipped (`n_skipped`) but kept in the metric rollups.
+`run_sweep`/`main` persist each game's artifacts under
+`<out>/<game_id>/` plus a deterministic `<out>/summary.json` (no
+wall-clock). `--dry-run` runs roster-aware scripted wolves-win games (no
+key); real mode fails loud (exit 2, no spend) without `OPENROUTER_API_KEY`.
+758/758 default suite green (+19), ruff + pyrefly clean; `/sdb-review` PASS
+(0 critical/high). **Next task:** the static results site (T28 leaderboard
+output + T31 replay UI). NOTE for unattended paid sweeps: the runner
+persists each game immediately but a single game's exception still aborts
+the whole `run_tournament` (no skip-and-continue, no resume-from-disk yet)
+— harden before a large paid run (see T27 review M1/M2).
 
 **Note (post-T30, unticked in BACKLOG):** commits `dadfd1e` +
 `163a179` landed an agent-play overhaul (CLI `sdb-werewolf`, rich live
@@ -38,6 +45,57 @@ Cross-game rationale in `BACKLOG.md` Notes and `WEREWOLF_DESIGN.md` §3.
 `games/werewolf/` (no `GameDefinition` bundle); resolution functions pure; the
 private-event guard is one shared `engine` function; T14 ships a production
 `run_game` driver + `DecisionSource` Protocol.
+
+---
+
+## 2026-05-22 — T27: tournament runner
+
+- **`games/werewolf/tournament.py`** (NEW, game library — no CLI import):
+  - `Matchup` / `TournamentResult` (frozen), `GameRunner` Protocol.
+  - `schedule_tournament(models, *, games_per_pair=10, seed, names)` —
+    `combinations_with_replacement(sorted(set(models)), 2)` so **self-pairs
+    (A-vs-A) are included on purpose** (self-play diagnostic). Distinct
+    pairs **side-swap** which model is wolves each game (controls the
+    wolf-win bias); self-pairs keep one model both sides. Every per-game
+    seed is drawn from one master `GameRNG(seed)` in schedule order; the
+    roster is the seeded deal from that game seed (so a recorded game
+    replays from its own seed, invariant #4). Fail loud on no models /
+    `games_per_pair < 1`.
+  - `run_tournament(matchups, runner, *, max_concurrency=1)` — injected
+    `GameRunner`; `max_concurrency>1` uses a `ThreadPoolExecutor` (each game
+    owns its own `asyncio.run` loop — the ReAct source is async internally)
+    and `executor.map` **preserves schedule order**, so a parallel run is
+    byte-identical to a sequential one. Aggregates via `to_game_results` →
+    `rate_games` + `aggregate_metrics` + `deceiver_detector_split`.
+  - `tournament_summary_dict` / `write_tournament_summary` — deterministic
+    JSON (sorted keys, **no wall-clock**) of leaderboard + aggregate + split
+    + per-game index.
+- **`tournament_cli.py`** (NEW) + `sdb-tournament` script entry:
+  `run_one_real_game` (real ReAct runner, reuses `cli._build_react_source`
+  / `_write_outputs`; LABEL is the rated identity, `model_resolver` maps it
+  to the bare LM id), `run_one_scripted_game` + roster-aware
+  `_wolves_win_script` for `--dry-run`, `run_sweep`, `main`. Persists each
+  game under `<out>/<game_id>/` + `<out>/summary.json`. Real mode fails
+  loud (exit 2, **no output, no spend**) without `OPENROUTER_API_KEY`.
+- **`engine/rng.py`** — added `GameRNG.randrange(stop)` (seed-derived int
+  draw; the scheduler uses it for every per-game seed). Golden-pinned in
+  `tests/engine/test_rng.py`.
+- **Self-play & rating:** an A-vs-A game is the same model both sides →
+  `rate_games` skips it (`Leaderboard.n_skipped`), but it stays in the
+  metric rollups (so a model's self-play wolf-win-rate / exile-accuracy is
+  visible). Verified end-to-end: 3 models × 4/pair → 24 games, 12 rated /
+  12 skipped, each model W4-L4 (side-swap balance).
+- **Review:** `/sdb-review` PASS (0 critical/high; 4 medium, 3 low).
+  Fixed the cheap ones: golden-literal pin for `randrange` (M3),
+  scripted-winner assertion in the dry-run CLI test (L1). **Deferred
+  (flagged for the next Python task):** M1 — a single game's exception
+  still aborts the whole sweep (no skip-and-continue / resume-from-disk),
+  and M2 — validate the real runner at concurrency≥2 against a live key
+  before a large paid sweep. Per-game artifacts ARE persisted immediately,
+  so a crash loses only the in-memory summary, not completed games.
+- **Verify:** 758 passed, 2 deselected (smoke); ruff + pyrefly clean.
+- **Next:** the static results site (T28 leaderboard output + T31 replay
+  UI) — and harden the runner (M1/M2) before an unattended paid sweep.
 
 ---
 

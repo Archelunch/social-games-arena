@@ -1,0 +1,301 @@
+"""`sdb-tournament` — run a seeded pairwise cross-play sweep from the terminal.
+
+Entry point: `poetry run sdb-tournament`. Schedules every model pair (including
+self-pairs) into `games_per_pair` seeded games, runs them (optionally concurrently),
+writes each game's artifacts and a tournament-level `summary.json`, and prints a
+short leaderboard.
+
+Two run modes:
+
+- `--dry-run`: scripted werewolves-win games (no API key, no API calls) for CLI
+  plumbing tests.
+- real: each seat plays its label's model through the production ReAct runner.
+
+Per CLAUDE.md "Safety & Permissions": a paid sweep must never start by accident, so
+real mode fails loud (exit 2) with no output written when `OPENROUTER_API_KEY` is
+unset, before any game runs.
+"""
+
+from __future__ import annotations
+
+import argparse
+import secrets
+import sys
+from collections.abc import Callable, Sequence
+from datetime import UTC, datetime
+from pathlib import Path
+
+from social_deduction_bench import settings
+from social_deduction_bench.agents.trajectory import TrajectoryStream
+from social_deduction_bench.cli import (
+    _DEFAULT_NAMES,
+    _build_react_source,
+    _final_position,
+    _git_sha,
+    _memories_from,
+    _trajectories_from,
+    _write_outputs,
+)
+from social_deduction_bench.engine import EventStream
+from social_deduction_bench.games.werewolf.day import DayActions
+from social_deduction_bench.games.werewolf.events import GAME_OVER
+from social_deduction_bench.games.werewolf.loop import run_game
+from social_deduction_bench.games.werewolf.metrics import GameMetrics, extract_game_metrics
+from social_deduction_bench.games.werewolf.night import NightActions
+from social_deduction_bench.games.werewolf.roles import Role
+from social_deduction_bench.games.werewolf.scripted import ScriptedDecisions
+from social_deduction_bench.games.werewolf.tournament import (
+    Matchup,
+    TournamentResult,
+    run_tournament,
+    schedule_tournament,
+    write_tournament_summary,
+)
+from social_deduction_bench.rating.manifest import RunManifest
+
+
+def _wolves_win_script(roster: Sequence[tuple[str, str]]) -> ScriptedDecisions:
+    """Build a deterministic werewolves-win script for ANY roster.
+
+    The dry-run driver: unlike `cli._build_scripted_source` (which hardcodes
+    Alice/Bob as wolves), this reads the actual wolf seats from `roster` — roles are
+    dealt from each game's seed, so a fixed-name script would target the wrong seats.
+    Wolves kill living villagers one per night (no seer/doctor staged, so kills land)
+    until they reach parity; days between nights are all-abstain. The terminal night
+    ends the game.
+    """
+    wolves = [n for n, r in roster if r == Role.WEREWOLF.value]
+    living = [n for n, r in roster if r != Role.WEREWOLF.value]
+    nights: list[NightActions] = []
+    while len(wolves) < len(living):
+        victim = living.pop(0)
+        nights.append(NightActions(kill_votes={w: victim for w in wolves}))
+    days = [DayActions(exile_votes={}) for _ in range(len(nights) - 1)]
+    return ScriptedDecisions(nights=nights, days=days)
+
+
+def _winner_and_rounds(stream: EventStream) -> tuple[str, int]:
+    """Read the winning faction (from GAME_OVER) and final round from the event stream."""
+    winner: str = next(e for e in stream.log.events if e.type == GAME_OVER).payload["winner"]  # type: ignore[assignment]
+    rounds = _final_position(stream)[0]
+    return winner, rounds
+
+
+def run_one_scripted_game(matchup: Matchup, *, output_dir: Path) -> GameMetrics:
+    """Run one scripted werewolves-win game for `matchup` and persist its artifacts.
+
+    Used by `--dry-run`: no LMs are seated. The manifest carries `matchup.seat_models`
+    so `extract_game_metrics` resolves each seat's real model label (not the `unknown`
+    sentinel), giving the leaderboard genuine cross-model identities.
+    """
+    source = _wolves_win_script(matchup.roster)
+    stream = run_game(matchup.roster, matchup.seed, source, game_id=matchup.game_id)
+    winner, rounds = _winner_and_rounds(stream)
+
+    manifest = RunManifest(
+        game_id=matchup.game_id,
+        seed=matchup.seed,
+        players=matchup.roster,
+        models=matchup.seat_models,
+        model_arg="scripted",
+        temperature=0.0,
+        max_tokens=0,
+        max_iters=0,
+        reasoning=False,
+        git_sha=_git_sha(),
+        created_at=datetime.now(UTC).isoformat(),
+        winner=winner,
+        rounds=rounds,
+    )
+    _write_outputs(stream, (), {}, manifest, output_dir / matchup.game_id, matchup.game_id)
+    return extract_game_metrics(stream, TrajectoryStream(header=stream.header, trajectories=()), manifest)
+
+
+def run_one_real_game(
+    matchup: Matchup,
+    *,
+    output_dir: Path,
+    api_key: str,
+    model_resolver: Callable[[str], str],
+    max_iters: int,
+    max_tokens: int,
+    temperature: float,
+    reasoning: bool,
+) -> GameMetrics:
+    """Run one real-LLM game for `matchup` through the production ReAct runner.
+
+    Each seat's LABEL is its rated identity; `model_resolver` maps that label to the
+    bare model id the LM actually calls (`_build_react_source` prefixes `openrouter/`
+    itself). The manifest records the LABELS so the leaderboard rates by identity.
+    """
+    resolved = {name: model_resolver(label) for name, label in matchup.seat_models}
+    source = _build_react_source(
+        roster=matchup.roster,
+        seat_models=resolved,
+        api_key=api_key,
+        max_iters=max_iters,
+        max_tokens=max_tokens,
+        temperature=temperature,
+        reasoning=reasoning,
+        on_trajectory=None,
+        on_decision_start=None,
+        on_step=None,
+        on_thought_chunk=None,
+    )
+    stream = run_game(matchup.roster, matchup.seed, source, game_id=matchup.game_id)
+    winner, rounds = _winner_and_rounds(stream)
+    trajectories = _trajectories_from(source)
+    memories = _memories_from(source)
+
+    manifest = RunManifest(
+        game_id=matchup.game_id,
+        seed=matchup.seed,
+        players=matchup.roster,
+        models=matchup.seat_models,
+        model_arg="tournament",
+        temperature=temperature,
+        max_tokens=max_tokens,
+        max_iters=max_iters,
+        reasoning=reasoning,
+        git_sha=_git_sha(),
+        created_at=datetime.now(UTC).isoformat(),
+        winner=winner,
+        rounds=rounds,
+    )
+    _write_outputs(stream, trajectories, memories, manifest, output_dir / matchup.game_id, matchup.game_id)
+    return extract_game_metrics(stream, TrajectoryStream(header=stream.header, trajectories=trajectories), manifest)
+
+
+def run_sweep(
+    *,
+    models: Sequence[str],
+    games_per_pair: int,
+    seed: int,
+    names: Sequence[str],
+    output_dir: Path,
+    api_key: str | None,
+    concurrency: int = 1,
+    max_iters: int = 6,
+    max_tokens: int = 8000,
+    temperature: float = 0.7,
+    reasoning: bool = False,
+    dry_run: bool = False,
+    model_resolver: Callable[[str], str] = lambda label: label,
+) -> TournamentResult:
+    """Schedule, run, and persist a full cross-play sweep, returning the result.
+
+    `dry_run` uses scripted werewolves-win games (no `api_key` needed); otherwise
+    each seat plays its label's resolved model through the real runner. Writes each
+    game's artifacts under `output_dir/<game_id>/` plus `output_dir/summary.json`.
+    """
+    matchups = schedule_tournament(models, games_per_pair=games_per_pair, seed=seed, names=names)
+    output_dir = Path(output_dir)
+    output_dir.mkdir(parents=True, exist_ok=True)
+
+    if dry_run:
+
+        def runner(m: Matchup) -> GameMetrics:
+            return run_one_scripted_game(m, output_dir=output_dir)
+    else:
+        if api_key is None:
+            raise ValueError("run_sweep requires api_key in real mode (pass dry_run=True for scripted games)")
+        key = api_key
+
+        def runner(m: Matchup) -> GameMetrics:
+            return run_one_real_game(
+                m,
+                output_dir=output_dir,
+                api_key=key,
+                model_resolver=model_resolver,
+                max_iters=max_iters,
+                max_tokens=max_tokens,
+                temperature=temperature,
+                reasoning=reasoning,
+            )
+
+    result = run_tournament(matchups, runner, max_concurrency=concurrency)
+    write_tournament_summary(result, output_dir / "summary.json")
+    return result
+
+
+def _default_output_dir() -> str:
+    return f"games/{datetime.now(UTC).strftime('%Y%m%d-%H%M%S')}-tournament"
+
+
+def _build_parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(
+        prog="sdb-tournament",
+        description="Run a seeded pairwise cross-play Werewolf sweep and write a TrueSkill summary.",
+    )
+    parser.add_argument("--models", type=str, required=True, help="Comma-separated model labels to sweep.")
+    parser.add_argument("--games-per-pair", type=int, default=10, help="Games per model pair (default: 10).")
+    parser.add_argument(
+        "--seed",
+        type=int,
+        default=secrets.randbelow(2**31),
+        help="Master seed for the schedule. Default: random in [0, 2**31).",
+    )
+    parser.add_argument("--concurrency", type=int, default=10, help="Max games run in parallel (default: 10).")
+    parser.add_argument(
+        "--output-dir",
+        type=str,
+        default=_default_output_dir(),
+        help="Output directory. Default: ./games/<UTC-timestamp>-tournament/.",
+    )
+    parser.add_argument("--max-iters", type=int, default=6, help="Max ReAct iterations per decision (default: 6).")
+    parser.add_argument(
+        "--max-tokens", type=int, default=8000, help="Max completion tokens per LM call (default: 8000)."
+    )
+    parser.add_argument("--temperature", type=float, default=0.7, help="Sampling temperature (default: 0.7).")
+    parser.add_argument("--reasoning", action="store_true", help="Enable the model's reasoning/thinking tokens.")
+    parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="Use scripted werewolves-win games (no API key, no API calls) for plumbing tests.",
+    )
+    return parser
+
+
+def main(argv: Sequence[str] | None = None) -> int:
+    """CLI entry point. Returns 0 on success, 2 when a real run lacks an API key."""
+    args = _build_parser().parse_args(argv)
+    models = [m.strip() for m in args.models.split(",") if m.strip()]
+
+    # Fail loud BEFORE scheduling or creating any output, so a keyless real run
+    # spends nothing and leaves no artifacts (CLAUDE.md "Safety & Permissions").
+    api_key: str | None = None
+    if not args.dry_run:
+        cfg = settings.load()
+        if cfg.openrouter_api_key is None:
+            print(
+                "error: OPENROUTER_API_KEY environment variable is not set.\n"
+                "  Set it (e.g. `export OPENROUTER_API_KEY=sk-...`) or pass `--dry-run` to skip API calls.",
+                file=sys.stderr,
+            )
+            return 2
+        api_key = cfg.openrouter_api_key
+
+    result = run_sweep(
+        models=models,
+        games_per_pair=args.games_per_pair,
+        seed=args.seed,
+        names=_DEFAULT_NAMES,
+        output_dir=Path(args.output_dir),
+        api_key=api_key,
+        concurrency=args.concurrency,
+        max_iters=args.max_iters,
+        max_tokens=args.max_tokens,
+        temperature=args.temperature,
+        reasoning=args.reasoning,
+        dry_run=args.dry_run,
+    )
+
+    print(f"tournament: {result.leaderboard.n_games} rated, {result.leaderboard.n_skipped} skipped")
+    for rating in result.leaderboard.ratings:
+        print(f"  {rating.model}: skill={rating.skill:.2f} mu={rating.mu:.2f} W{rating.wins}-L{rating.losses}")
+    print(f"summary: {Path(args.output_dir) / 'summary.json'}")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

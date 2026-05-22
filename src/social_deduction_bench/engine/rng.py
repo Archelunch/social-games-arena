@@ -38,3 +38,7 @@ class GameRNG:
     def sample[T](self, items: list[T], k: int) -> list[T]:
         """Return `k` elements drawn without replacement from `items`."""
         return self._random.sample(items, k)
+
+    def randrange(self, stop: int) -> int:
+        """Return a seed-derived int in [0, stop); upholds invariant #4 (no global random)."""
+        return self._random.randrange(stop)

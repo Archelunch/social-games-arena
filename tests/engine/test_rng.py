@@ -90,6 +90,41 @@ def test_game_rng_instances_are_independent() -> None:
     assert reference.shuffle(deck) == second
 
 
+def test_game_rng_randrange_same_seed_produces_identical_sequence() -> None:
+    """Same seed -> identical int draws; independent instances stay independent.
+
+    `randrange` is the int-draw the tournament scheduler uses to derive every
+    per-game seed from the master seed, so its replay guarantee (invariant #4)
+    is what makes a whole sweep schedule reproducible. Two same-seed instances
+    must agree, and a draw on one must not consume another's stream.
+    """
+    rng_a = GameRNG(seed=42)
+    rng_b = GameRNG(seed=42)
+
+    first = [rng_a.randrange(2**31) for _ in range(10)]
+    assert first == [rng_b.randrange(2**31) for _ in range(10)]
+
+    # A draw on a third instance must not shift rng_a's continuing sequence.
+    rng_c = GameRNG(seed=99)
+    rng_c.randrange(2**31)
+    reference = GameRNG(seed=42)
+    for _ in range(10):
+        reference.randrange(2**31)
+    assert rng_a.randrange(2**31) == reference.randrange(2**31)
+
+
+def test_game_rng_randrange_pins_golden_values() -> None:
+    """Pin the exact draw stream so a refactor cannot silently shift it.
+
+    Same-seed agreement alone would still pass if the implementation swapped to a
+    different (but internally consistent) draw — and that would change every
+    recorded sweep's per-game seeds. Golden literals lock the actual values, so a
+    drift in how `randrange` derives ints fails loud (invariant #4).
+    """
+    rng = GameRNG(seed=0)
+    assert [rng.randrange(2**31) for _ in range(3)] == [1654615998, 1806341205, 173879092]
+
+
 def test_game_rng_exposes_seed() -> None:
     """The seed is recoverable for the event log and replay tooling."""
     assert GameRNG(seed=2026).seed == 2026
