@@ -34,6 +34,7 @@ from social_deduction_bench.games.werewolf.roles import Faction, faction_of
 from social_deduction_bench.games.werewolf.tools import WEREWOLF_TOOL_REQUIREMENTS
 from social_deduction_bench.rating.manifest import RunManifest
 from social_deduction_bench.rating.manifest import read_json as read_manifest
+from social_deduction_bench.rating.trueskill import GameResult
 
 _GAME_ACTIONS: frozenset[str] = frozenset(WEREWOLF_TOOL_REQUIREMENTS)
 
@@ -459,6 +460,30 @@ def deceiver_detector_split(games: Sequence[GameMetrics]) -> DeceiverDetectorRep
         total_correct_exiles=total_correct_exiles,
         models=models,
     )
+
+
+def to_game_results(games: Sequence[GameMetrics]) -> list[GameResult]:
+    """Adapt Werewolf games to the game-agnostic rating core's `GameResult`.
+
+    Each game becomes a 2-team result (werewolf models vs. villager models) with the
+    winner index from the faction `winner`. A game with an unresolved seat model (the
+    `_UNKNOWN_MODEL` sentinel) carries no trustworthy cross-model identity and is
+    dropped (consistent with `_unique_faction_model`).
+    """
+    results: list[GameResult] = []
+    for game in games:
+        wolves = tuple(sorted({s.model for s in game.seats if s.faction == Faction.WEREWOLVES.value}))
+        villagers = tuple(sorted({s.model for s in game.seats if s.faction == Faction.VILLAGERS.value}))
+        if _UNKNOWN_MODEL in wolves or _UNKNOWN_MODEL in villagers:
+            continue
+        if game.winner == Faction.WEREWOLVES.value:
+            winner_index = 0
+        elif game.winner == Faction.VILLAGERS.value:
+            winner_index = 1
+        else:
+            raise ValueError(f"game winner {game.winner!r} is not a known faction")
+        results.append(GameResult(teams=(wolves, villagers), winner=winner_index))
+    return results
 
 
 def extract_run_dir(path: Path) -> GameMetrics:

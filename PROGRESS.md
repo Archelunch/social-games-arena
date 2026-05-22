@@ -2,21 +2,22 @@
 
 Append-only. Newest entry on top. Read this first when starting a session.
 
-**Current state:** T25 done — the deceiver-vs-detector split metric
-(WEREWOLF_DESIGN §10) is in `games/werewolf/metrics.py`:
-`deceiver_detector_split(games)` pairs werewolf win rate (deceiver) with
-villager exile accuracy (detector), and `GameMetrics` now carries per-game
-`exiles_total` / `exiles_correct` / `exile_accuracy`. Exile accuracy is
-read purely from `EXILE_RESOLVED` + the roster header (invariant #1);
-ties / no-exile are excluded; a zero-exile game has `exile_accuracy=None`
-(not 0.0). Built on T24's metric layer (`extract_game_metrics` /
-`aggregate_metrics` / `extract_run_dir` + `rating/manifest.py`
-`RunManifest`) and the faction-split CLI cross-play
-(`--werewolf-model` / `--villager-model`). 722/722 default suite green,
-ruff + pyrefly clean. **Next task:** T26 (TrueSkill rating — its first
-unblocked M6 dep is now satisfied) and/or the static results site (folds
-T31 replay + T28 leaderboard). With cross-play seating + the split metric
-in place, the 10–20-runs-per-pair sweep is unblocked.
+**Current state:** T26 done — TrueSkill rating. New game-agnostic core
+`rating/trueskill.py`: `rate_games(results, *, env=None) -> Leaderboard`
+turns a sequence of `GameResult` (model-name teams + winning team index)
+into per-model `ModelRating`s (mu, sigma, games/wins/losses, conservative
+`skill = mu - 3*sigma`). It collapses each team to distinct models, skips
+self-play / cross-team-overlap games (`n_skipped`), processes games in
+caller order (sequential/online — no re-sort), and sorts the board by
+`(-skill, model)`. Werewolf bridges in via `to_game_results(games)` in
+`games/werewolf/metrics.py` (factions → wolves/villagers model teams,
+winner index 0/1; drops `_UNKNOWN_MODEL` games; fails loud on a
+non-faction winner). Module imports only `trueskill` — engine/game-free,
+so ONUW / Secret Hitler reuse it. 739/739 default suite green, ruff +
+pyrefly clean. **Next task:** T27 (tournament runner — now unblocked: deps
+T23 + T26 both `[x]`) and/or the static results site (folds T31 replay +
+T28 leaderboard). With cross-play seating, the split metric, and per-model
+ratings in place, the 10–20-runs-per-pair sweep is unblocked.
 
 **Note (post-T30, unticked in BACKLOG):** commits `dadfd1e` +
 `163a179` landed an agent-play overhaul (CLI `sdb-werewolf`, rich live
@@ -37,6 +38,52 @@ Cross-game rationale in `BACKLOG.md` Notes and `WEREWOLF_DESIGN.md` §3.
 `games/werewolf/` (no `GameDefinition` bundle); resolution functions pure; the
 private-event guard is one shared `engine` function; T14 ships a production
 `run_game` driver + `DecisionSource` Protocol.
+
+---
+
+## 2026-05-22 — T26: TrueSkill rating
+
+- **`rating/trueskill.py`** (NEW, game-agnostic — imports only `trueskill`
+  + stdlib, zero engine/game imports so ONUW / Secret Hitler reuse it):
+  - `GameResult` (frozen) — `teams: tuple[tuple[str, ...], ...]` (model
+    names per team) + `winner: int`. Fail-loud `__post_init__`: ≥2 teams,
+    every team non-empty, winner in range (caller bug, not a skip).
+  - `ModelRating` / `Leaderboard` (frozen) — per-model `mu`, `sigma`,
+    `games`/`wins`/`losses`, and `skill = env.expose(r) = mu - 3*sigma`
+    (the conservative leaderboard score); board carries `n_games` (rated)
+    and `n_skipped`.
+  - `rate_games(results, *, env=None) -> Leaderboard`. Default
+    `env = TrueSkill(draw_probability=0.0)` — Werewolf is always decisive
+    (a faction always wins; no ties), so 0.0 is the faithful model; the
+    `env` param overrides. Collapses each team to **distinct** models (a
+    model is one rated entity). A model on >1 team in the same game
+    (self-play / overlap) carries no cross-model signal → **skip**
+    (`n_skipped += 1`). Builds rating groups over `sorted(team)` for
+    deterministic order, ranks `[0 if i==winner else 1]`, writes back, and
+    sorts the board `(-skill, model)`. Processes games **in caller order**
+    (TrueSkill is sequential/online — never re-sorts).
+- **`games/werewolf/metrics.py`** — `to_game_results(games)` adapter:
+  factions → `(wolves, villagers)` distinct-model teams, winner index 0
+  (wolves) / 1 (villagers). Drops games with a `_UNKNOWN_MODEL` seat (no
+  trustworthy cross-model identity — consistent with the T25
+  `_unique_faction_model` review fix); fails loud on a non-faction winner.
+- **API note:** Context7 has no entry for the pinned `trueskill` (Heungsub
+  Lee) 0.4.5; its API (`rate` takes a list of dicts; `expose = mu - 3σ`;
+  winner rank 0) was confirmed from source + a live probe before coding.
+- **Determinism (invariant #4):** `trueskill.rate` is pure analytic math,
+  no RNG / wall-clock / uuid; same input order → identical `Leaderboard`
+  (tested). A reordered-batch test pins "caller owns order" (rate_games
+  does not re-sort).
+- **Review:** `/sdb-review` → python + test + integrity reviewers all PASS
+  (0 critical/high). Resolved the one Medium (>2-team generality untested)
+  with a 3-team test, plus Low coverage gaps: non-faction-winner fail-loud,
+  `env=` override, and the reordered-batch order test. Cosmetic Lows left
+  as-is (`rating/__init__` re-exports nothing; `n_games` documented as the
+  rated count).
+- **Verify:** 739 passed, 1 deselected; ruff check + format clean; pyrefly
+  0 errors.
+- **Next:** T27 (tournament runner — deps T23 + T26 now both `[x]`) and/or
+  the static results site (T28 leaderboard + T31 replay).
 
 ---
 

@@ -41,9 +41,11 @@ from social_deduction_bench.games.werewolf.metrics import (
     deceiver_detector_split,
     extract_game_metrics,
     extract_run_dir,
+    to_game_results,
 )
 from social_deduction_bench.games.werewolf.roles import Role
 from social_deduction_bench.rating.manifest import RunManifest
+from social_deduction_bench.rating.trueskill import GameResult, rate_games
 
 # A small 4-seat roster for the synthetic cases: one of each role.
 _PLAYERS: tuple[tuple[str, str], ...] = (
@@ -835,3 +837,125 @@ def test_split_over_no_games_is_safe() -> None:
     assert report.total_exiles == 0
     assert report.total_correct_exiles == 0
     assert report.models == ()
+
+
+# --- TrueSkill adapter: GameMetrics -> game-agnostic GameResult (T26) -----
+#
+# `to_game_results` is the Werewolf-side bridge to the game-agnostic rating core
+# (`rating/trueskill.py`): each game becomes a 2-team result (werewolf models vs
+# villager models) with the winner index taken from the faction `winner`. Games
+# with an unresolved seat model (the "unknown" sentinel) carry no trustworthy
+# cross-model identity and are dropped (consistent with the T25 review fix).
+
+
+def test_to_game_results_maps_factions_to_teams_and_winner_index() -> None:
+    g_villagers_win = extract_game_metrics(
+        _villager_win_game(),  # villagers win, exiling wolf Dave
+        _trajectories([]),
+        manifest=_mk_manifest(
+            game_id="g1",
+            players=_PLAYERS,
+            models=_faction_models_4(wolf="A", village="B"),
+            winner="villagers",
+            rounds=1,
+        ),
+    )
+    g_wolves_win = extract_game_metrics(
+        _villager_exiled_game(),  # werewolves win
+        _trajectories([]),
+        manifest=_mk_manifest(
+            game_id="g2",
+            players=_PLAYERS,
+            models=_faction_models_4(wolf="A", village="B"),
+            winner="werewolves",
+            rounds=2,
+        ),
+    )
+    results = to_game_results([g_villagers_win, g_wolves_win])
+    assert len(results) == 2
+    # teams = (werewolf models, villager models); distinct models per faction.
+    assert results[0].teams == (("A",), ("B",))
+    assert results[0].winner == 1  # villagers are team index 1
+    assert results[1].teams == (("A",), ("B",))
+    assert results[1].winner == 0  # werewolves are team index 0
+
+
+def test_to_game_results_drops_games_with_unresolved_model() -> None:
+    # No manifest and no LM calls → every seat resolves to the "unknown" sentinel,
+    # which is not a real model → no cross-model rating signal → the game is dropped.
+    game = extract_game_metrics(_villager_win_game(), _trajectories([]), manifest=None)
+    assert to_game_results([game]) == []
+
+
+def test_to_game_results_fails_loud_on_non_faction_winner() -> None:
+    # A winner that is neither faction (a corrupt/foreign outcome) must fail loud, not
+    # silently map to a team index. Real models via manifest so the game is not first
+    # dropped as unresolved before the winner is checked.
+    stream = _events(
+        [
+            (1, Phase.DAY, EXILE_RESOLVED, {"ballots": {}, "exiled": None}, ()),
+            (1, Phase.DAY, GAME_OVER, {"winner": "draw"}, ()),
+        ]
+    )
+    game = extract_game_metrics(
+        stream,
+        _trajectories([]),
+        manifest=_mk_manifest(
+            game_id="g1",
+            players=_PLAYERS,
+            models=_faction_models_4(wolf="A", village="B"),
+            winner="draw",
+            rounds=1,
+        ),
+    )
+    with pytest.raises(ValueError, match="not a known faction"):
+        to_game_results([game])
+
+
+def test_rate_games_over_werewolf_results_ranks_winning_faction_ahead() -> None:
+    # End-to-end wiring: wolf model A loses two games to village model B → after
+    # rating, B outranks A and the win/loss tallies follow the engine outcomes.
+    games = [
+        extract_game_metrics(
+            _villager_win_game(),
+            _trajectories([]),
+            manifest=_mk_manifest(
+                game_id=f"g{i}",
+                players=_PLAYERS,
+                models=_faction_models_4(wolf="A", village="B"),
+                winner="villagers",
+                rounds=1,
+            ),
+        )
+        for i in range(2)
+    ]
+    board = rate_games(to_game_results(games))
+    by_model = {m.model: m for m in board.ratings}
+    assert by_model["B"].skill > by_model["A"].skill
+    assert by_model["B"].wins == 2
+    assert by_model["A"].wins == 0
+    assert board.n_games == 2
+    assert board.n_skipped == 0
+
+
+def test_to_game_results_uniform_self_play_is_rated_then_skipped_as_overlap() -> None:
+    # A uniform self-play game WITH a manifest resolves to a real model on both
+    # sides → it IS emitted as a (valid) GameResult, but `rate_games` then skips it
+    # as a self-match (model on both teams). Distinct from the unresolved-model drop.
+    game = extract_game_metrics(
+        _villager_win_game(),
+        _trajectories([]),
+        manifest=_mk_manifest(
+            game_id="g1",
+            players=_PLAYERS,
+            models=(("Alice", "m"), ("Bob", "m"), ("Carol", "m"), ("Dave", "m")),
+            winner="villagers",
+            rounds=1,
+        ),
+    )
+    results = to_game_results([game])
+    assert results == [GameResult(teams=(("m",), ("m",)), winner=1)]
+    board = rate_games(results)
+    assert board.n_skipped == 1
+    assert board.n_games == 0
+    assert board.ratings == ()
