@@ -114,24 +114,28 @@ function renderLeaderboard(board) {
     bar.append(s("line", { class: "skillbar__whisker", x1: fillW, y1: 6, x2: muX, y2: 6 }));
     bar.append(s("line", { class: "skillbar__whisker", x1: muX, y1: 3, x2: muX, y2: 9 }));
     const skillCell = h("div", { class: "skillcell" }, bar, h("span", { class: "skillcell__val", text: fixed(r.skill, 1) }));
+    const wolfRec = r.wolf_wins + dash + (r.wolf_games - r.wolf_wins);
+    const villageRec = r.village_wins + dash + (r.village_games - r.village_wins);
 
     tbody.append(
       h("tr", null,
         h("td", { class: "lb__rank", text: String(i + 1) }),
         h("td", null, modelEl(r.model)),
         h("td", { class: "lb__skill" }, skillCell),
-        h("td", { class: "num", text: r.wins + dash + r.losses }),
+        h("td", { class: "num lb__wolf", title: r.wolf_wins + " wins of " + r.wolf_games + " as werewolves", text: wolfRec }),
+        h("td", { class: "num lb__village", title: r.village_wins + " wins of " + r.village_games + " as villagers", text: villageRec }),
         h("td", { class: "num", text: int(r.games) }),
       ),
     );
   });
   const table = h("table", { class: "lb" },
-    h("caption", { text: "Conservative skill, record, and games rated per model." }),
+    h("caption", { text: "Conservative skill, record split by the side played (wins–losses), and games rated." }),
     h("thead", null, h("tr", null,
       h("th", { scope: "col", text: "#" }),
       h("th", { scope: "col", text: "Model" }),
       h("th", { scope: "col", text: "Skill" }),
-      h("th", { scope: "col", class: "num", text: "W/L" }),
+      h("th", { scope: "col", class: "num lb__wolf", text: "As wolf" }),
+      h("th", { scope: "col", class: "num lb__village", text: "As village" }),
       h("th", { scope: "col", class: "num", text: "Games" }),
     )),
     tbody,

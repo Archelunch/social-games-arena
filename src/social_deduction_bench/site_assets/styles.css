@@ -204,6 +204,10 @@ thead th {
 .skillcell__val { flex: none; width: 2.8rem; text-align: right; font-family: var(--font-mono); font-variant-numeric: tabular-nums; color: var(--ink); }
 .lb tbody tr:first-child .skillcell__val { color: var(--gilt); }
 
+.lb__wolf { color: var(--wolf); }
+.lb__village { color: var(--village); }
+thead th.lb__wolf, thead th.lb__village { font-weight: 600; }
+
 .skillbar { display: block; width: 100%; height: 14px; overflow: visible; }
 .skillbar__track { fill: var(--surface-2); }
 .skillbar__fill { fill: var(--ink-soft); }

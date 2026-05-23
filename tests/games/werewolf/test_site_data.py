@@ -26,10 +26,12 @@ import pytest
 from social_deduction_bench.games.werewolf.metrics import GameMetrics, SeatMetrics
 from social_deduction_bench.games.werewolf.roles import Role, faction_of
 from social_deduction_bench.games.werewolf.site_data import (
+    FactionRecord,
     HeadToHeadCell,
     HeadToHeadMatrix,
     SelfPlayStat,
     build_site_data,
+    faction_records,
     head_to_head,
     self_play_stats,
 )
@@ -172,6 +174,35 @@ def test_self_play_stats_zero_exiles_yields_none_not_zero() -> None:
     games = [_cross_game("g1", "A", "A", _WOLVES, exiles_total=0, exiles_correct=0)]
     (stat,) = self_play_stats(games)
     assert stat.exile_accuracy is None
+
+
+# --- faction_records -----------------------------------------------------
+
+
+def test_faction_records_splits_wins_by_side_excludes_self_play() -> None:
+    """Per-model game-level record split into wolf vs village; self-play is excluded.
+
+    Excluding self-play keeps the split consistent with the rated leaderboard, so a
+    model's wolf wins + village wins equals its total rated wins.
+    """
+    games = [
+        _cross_game("g1", "A", "B", _WOLVES),  # A wins as wolf; B loses as village
+        _cross_game("g2", "B", "A", _WOLVES),  # B wins as wolf; A loses as village
+        _cross_game("g3", "A", "B", _VILLAGERS),  # B wins as village; A loses as wolf
+        _cross_game("g4", "A", "A", _WOLVES),  # self-play -> excluded
+    ]
+    recs = faction_records(games)
+    assert recs["A"] == FactionRecord(model="A", wolf_games=2, wolf_wins=1, village_games=1, village_wins=0)
+    assert recs["B"] == FactionRecord(model="B", wolf_games=1, wolf_wins=1, village_games=2, village_wins=1)
+
+
+def test_leaderboard_rows_carry_faction_split_summing_to_total(two_game_run: Path) -> None:
+    """Each leaderboard row exposes wolf/village wins, and they sum to the rated wins."""
+    data = build_site_data([two_game_run])
+    for row in data["leaderboard"]:
+        assert {"wolf_wins", "wolf_games", "village_wins", "village_games"} <= set(row)
+        assert row["wolf_wins"] + row["village_wins"] == row["wins"]
+        assert row["wolf_games"] + row["village_games"] == row["games"]
 
 
 # --- build_site_data: on-disk read path + determinism --------------------

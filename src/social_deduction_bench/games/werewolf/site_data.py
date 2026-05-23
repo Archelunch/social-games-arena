@@ -40,7 +40,7 @@ from social_deduction_bench.games.werewolf.metrics import (
     to_game_results,
 )
 from social_deduction_bench.games.werewolf.roles import Faction
-from social_deduction_bench.rating.trueskill import rate_games
+from social_deduction_bench.rating.trueskill import ModelRating, rate_games
 
 logger = logging.getLogger(__name__)
 
@@ -65,6 +65,17 @@ class HeadToHeadMatrix:
 
     models: tuple[str, ...]
     cells: tuple[HeadToHeadCell, ...]
+
+
+@dataclass(frozen=True, slots=True)
+class FactionRecord:
+    """One model's game-level record split by the side it played (wolf vs village)."""
+
+    model: str
+    wolf_games: int
+    wolf_wins: int
+    village_games: int
+    village_wins: int
 
 
 @dataclass(frozen=True, slots=True)
@@ -151,6 +162,43 @@ def self_play_stats(games: Sequence[GameMetrics]) -> tuple[SelfPlayStat, ...]:
     )
 
 
+def faction_records(games: Sequence[GameMetrics]) -> dict[str, FactionRecord]:
+    """Per-model game-level win record split into the wolf side and the village side.
+
+    Each game is attributed to the unique model staffing each faction
+    (`_unique_faction_model`). Self-pairs and mixed/unknown factions are excluded, so a
+    rated model's wolf wins + village wins equals its total rated wins (the leaderboard
+    skips those same games). Keyed by model.
+    """
+    wolf_games: Counter[str] = Counter()
+    wolf_wins: Counter[str] = Counter()
+    village_games: Counter[str] = Counter()
+    village_wins: Counter[str] = Counter()
+
+    for game in games:
+        wolf = _unique_faction_model(game.seats, _WOLF)
+        village = _unique_faction_model(game.seats, _VILLAGE)
+        if wolf is None or village is None or wolf == village:
+            continue
+        wolf_games[wolf] += 1
+        if game.winner == _WOLF:
+            wolf_wins[wolf] += 1
+        village_games[village] += 1
+        if game.winner == _VILLAGE:
+            village_wins[village] += 1
+
+    return {
+        model: FactionRecord(
+            model=model,
+            wolf_games=wolf_games[model],
+            wolf_wins=wolf_wins[model],
+            village_games=village_games[model],
+            village_wins=village_wins[model],
+        )
+        for model in sorted(set(wolf_games) | set(village_games))
+    }
+
+
 def _cost_efficiency(games: Sequence[GameMetrics], aggregate: AggregateMetrics) -> dict[str, object]:
     seat_costs = [g.total_cost_usd for g in games if g.total_cost_usd is not None]
     totals = {
@@ -215,7 +263,24 @@ def build_site_data(run_dirs: Sequence[Path]) -> dict[str, Any]:
     split = deceiver_detector_split(games)
     h2h = head_to_head(games)
     selfplay = self_play_stats(games)
+    records = faction_records(games)
     seat_models = sorted({s.model for g in games for s in g.seats if s.model != _UNKNOWN_MODEL})
+
+    def _row(r: ModelRating) -> dict[str, Any]:
+        rec = records.get(r.model)
+        return {
+            "model": r.model,
+            "skill": r.skill,
+            "mu": r.mu,
+            "sigma": r.sigma,
+            "games": r.games,
+            "wins": r.wins,
+            "losses": r.losses,
+            "wolf_games": rec.wolf_games if rec else 0,
+            "wolf_wins": rec.wolf_wins if rec else 0,
+            "village_games": rec.village_games if rec else 0,
+            "village_wins": rec.village_wins if rec else 0,
+        }
 
     return {
         "meta": {
@@ -225,18 +290,7 @@ def build_site_data(run_dirs: Sequence[Path]) -> dict[str, Any]:
             "models": seat_models,
             "run_dirs": sorted({run_dir.name for run_dir in run_dirs}),
         },
-        "leaderboard": [
-            {
-                "model": r.model,
-                "skill": r.skill,
-                "mu": r.mu,
-                "sigma": r.sigma,
-                "games": r.games,
-                "wins": r.wins,
-                "losses": r.losses,
-            }
-            for r in leaderboard.ratings
-        ],
+        "leaderboard": [_row(r) for r in leaderboard.ratings],
         "deceiver_detector": {
             "wolf_win_rate": split.wolf_win_rate,
             "exile_accuracy": split.exile_accuracy,
