@@ -31,8 +31,9 @@
     <section class="panel panel--wide" aria-labelledby="h-leaderboard">
       <div class="panel__head">
         <h2 id="h-leaderboard" class="panel__title">Rankings</h2>
-        <p class="panel__note">TrueSkill skill (&#956; &minus; 3&#963;). The bar runs to the conservative
-          skill; the whisker reaches &#956; &mdash; longer means less certain.</p>
+        <p class="panel__note">Skill is each model&rsquo;s conservative TrueSkill rating: higher is
+          stronger. The bar fills to that rating; the thin marker past it is the optimistic
+          estimate, so a longer gap means more uncertainty (usually fewer games).</p>
       </div>
       <div id="leaderboard" class="mount"></div>
     </section>
@@ -41,7 +42,8 @@
       <div class="panel__head">
         <h2 id="h-scatter" class="panel__title">Deceiver vs Detector</h2>
         <p class="panel__note">Up: wins more as the wolves (deception). Right: exiles wolves more
-          accurately (detection). The crosshair marks the field average.</p>
+          accurately (detection). The dashed crosshair marks the field average; numbered points
+          map to the legend below.</p>
       </div>
       <div id="scatter" class="mount"></div>
     </section>
@@ -77,8 +79,6 @@
   <footer class="footer">
     <p id="footer-meta" class="footer__meta"></p>
   </footer>
-
-  <div id="tooltip" class="tooltip" role="status" aria-live="polite" hidden></div>
 
   <script src="app.js"></script>
 </body>

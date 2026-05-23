@@ -98,36 +98,40 @@ function renderLeaderboard(board) {
   const tbody = h("tbody");
   board.forEach((r, i) => {
     const fillW = Math.max(0, (r.skill / maxDomain) * 100);
-    const muX = Math.max(0, (r.mu / maxDomain) * 100);
-    const bar = s("svg", { class: "skillbar", viewBox: "0 0 100 16", role: "img",
-      "aria-label": shortName(r.model) + " skill " + r.skill.toFixed(1) });
-    bar.append(s("rect", { class: "skillbar__track", x: 0, y: 6, width: 100, height: 4, rx: 2 }));
-    const fill = s("rect", { class: "skillbar__fill bar-anim", x: 0, y: 5, width: fillW, height: 6, rx: 2 });
+    const muX = Math.max(fillW, (r.mu / maxDomain) * 100);
+    const bar = s("svg", {
+      class: "skillbar",
+      viewBox: "0 0 100 12",
+      preserveAspectRatio: "none",
+      role: "img",
+      "aria-label": shortName(r.model) + " skill " + r.skill.toFixed(1),
+    });
+    bar.append(s("rect", { class: "skillbar__track", x: 0, y: 4, width: 100, height: 4, rx: 2 }));
+    const fill = s("rect", { class: "skillbar__fill bar-anim", x: 0, y: 3, width: fillW, height: 6, rx: 2 });
     animDelay(fill, i);
     bar.append(fill);
-    // uncertainty whisker: conservative skill -> mu
-    bar.append(s("line", { class: "skillbar__whisker", x1: fillW, y1: 8, x2: muX, y2: 8 }));
-    bar.append(s("line", { class: "skillbar__whisker", x1: muX, y1: 5, x2: muX, y2: 11 }));
+    // uncertainty whisker: conservative skill -> optimistic mu
+    bar.append(s("line", { class: "skillbar__whisker", x1: fillW, y1: 6, x2: muX, y2: 6 }));
+    bar.append(s("line", { class: "skillbar__whisker", x1: muX, y1: 3, x2: muX, y2: 9 }));
+    const skillCell = h("div", { class: "skillcell" }, bar, h("span", { class: "skillcell__val", text: fixed(r.skill, 1) }));
 
     tbody.append(
       h("tr", null,
         h("td", { class: "lb__rank", text: String(i + 1) }),
         h("td", null, modelEl(r.model)),
-        h("td", { class: "lb__bar" }, bar),
-        h("td", { class: "num", text: fixed(r.skill, 1) }),
+        h("td", { class: "lb__skill" }, skillCell),
         h("td", { class: "num", text: r.wins + dash + r.losses }),
         h("td", { class: "num", text: int(r.games) }),
       ),
     );
   });
   const table = h("table", { class: "lb" },
-    h("caption", { text: "Conservative skill, win–loss, and games rated per model." }),
+    h("caption", { text: "Conservative skill, record, and games rated per model." }),
     h("thead", null, h("tr", null,
       h("th", { scope: "col", text: "#" }),
       h("th", { scope: "col", text: "Model" }),
       h("th", { scope: "col", text: "Skill" }),
-      h("th", { scope: "col", class: "num", text: "μ−3σ" }),
-      h("th", { scope: "col", class: "num", text: "W–L" }),
+      h("th", { scope: "col", class: "num", text: "W/L" }),
       h("th", { scope: "col", class: "num", text: "Games" }),
     )),
     tbody,
@@ -137,19 +141,18 @@ function renderLeaderboard(board) {
 
 function renderScatter(split) {
   const pts = split.models.filter((m) => m.exile_accuracy != null);
-  const wrap = h("div", { class: "scatter-wrap" });
   if (!pts.length) {
     mount("scatter", h("p", { class: "panel__note", text: "Not enough resolved exiles to plot yet." }));
     return;
   }
 
-  const ML = 13, MR = 6, MT = 6, MB = 13, W = 100, H = 100;
+  const ML = 12, MR = 8, MT = 8, MB = 12, W = 100, H = 100;
   const pw = W - ML - MR, ph = H - MT - MB;
   const px = (v) => ML + v * pw;
   const py = (v) => MT + (1 - v) * ph;
 
   const svg = s("svg", { class: "scatter", viewBox: "0 0 100 100", role: "img",
-    "aria-label": "Scatter of wolf win rate against exile accuracy, one point per model." });
+    "aria-label": "Wolf win rate against exile accuracy, one numbered point per model; identities in the legend." });
 
   // plot frame + 0.5 quadrant dividers + balance diagonal
   svg.append(s("rect", { class: "sc-axis", x: ML, y: MT, width: pw, height: ph, fill: "none" }));
@@ -157,7 +160,7 @@ function renderScatter(split) {
   svg.append(s("line", { class: "sc-mid", x1: ML, y1: py(0.5), x2: ML + pw, y2: py(0.5) }));
   svg.append(s("line", { class: "sc-diag", x1: px(0), y1: py(0), x2: px(1), y2: py(1) }));
 
-  // population mean crosshair
+  // population mean crosshair (field average)
   if (split.exile_accuracy != null) {
     svg.append(s("line", { class: "sc-mean", x1: px(split.exile_accuracy), y1: MT, x2: px(split.exile_accuracy), y2: MT + ph }));
   }
@@ -165,42 +168,68 @@ function renderScatter(split) {
 
   // ticks
   for (const t of [0, 0.5, 1]) {
-    svg.append(s("text", { class: "sc-tick", x: px(t), y: MT + ph + 3.2, "text-anchor": "middle", text: t }));
-    svg.append(s("text", { class: "sc-tick", x: ML - 1.5, y: py(t) + 0.9, "text-anchor": "end", text: t }));
+    svg.append(s("text", { class: "sc-tick", x: px(t), y: MT + ph + 3.4, "text-anchor": "middle", text: t }));
+    svg.append(s("text", { class: "sc-tick", x: ML - 1.6, y: py(t) + 0.9, "text-anchor": "end", text: t }));
   }
   // axis labels
-  svg.append(s("text", { class: "sc-axislabel", x: ML + pw / 2, y: H - 1, "text-anchor": "middle", text: "exile accuracy (detection) →" }));
-  const yl = s("text", { class: "sc-axislabel", x: 3.5, y: MT + ph / 2, "text-anchor": "middle", text: "wolf win rate (deception) →" });
-  yl.setAttribute("transform", "rotate(-90 3.5 " + (MT + ph / 2) + ")");
+  svg.append(s("text", { class: "sc-axislabel", x: ML + pw / 2, y: H - 0.5, "text-anchor": "middle", text: "detection: exile accuracy →" }));
+  const yl = s("text", { class: "sc-axislabel", x: 3, y: MT + ph / 2, "text-anchor": "middle", text: "deception: wolf win rate →" });
+  yl.setAttribute("transform", "rotate(-90 3 " + (MT + ph / 2) + ")");
   svg.append(yl);
   // quadrant hints
-  svg.append(s("text", { class: "sc-quad", x: ML + 1, y: MT + 3, text: "deceives, misses wolves" }));
-  svg.append(s("text", { class: "sc-quad", x: ML + pw - 1, y: MT + 3, "text-anchor": "end", text: "all-rounder" }));
-  svg.append(s("text", { class: "sc-quad", x: ML + 1, y: MT + ph - 1, text: "weak both" }));
-  svg.append(s("text", { class: "sc-quad", x: ML + pw - 1, y: MT + ph - 1, "text-anchor": "end", text: "detects, can't deceive" }));
+  svg.append(s("text", { class: "sc-quad", x: ML + 1.5, y: MT + 3, text: "deceives, misses" }));
+  svg.append(s("text", { class: "sc-quad", x: ML + pw - 1.5, y: MT + 3, "text-anchor": "end", text: "all-rounder" }));
+  svg.append(s("text", { class: "sc-quad", x: ML + 1.5, y: MT + ph - 1.5, text: "weak both" }));
+  svg.append(s("text", { class: "sc-quad", x: ML + pw - 1.5, y: MT + ph - 1.5, "text-anchor": "end", text: "detects only" }));
 
-  pts.forEach((m, i) => {
-    const cx = px(m.exile_accuracy), cy = py(m.wolf_win_rate);
-    const dot = s("circle", { class: "sc-point sc-dot-anim", cx, cy, r: 1.7 });
-    animDelay(dot, i);
-    const hit = s("circle", { class: "sc-hit", cx, cy, r: 4, tabindex: "0", role: "img",
-      "aria-label": shortName(m.model) + ": wolf win " + pct(m.wolf_win_rate) + ", exile accuracy " + pct(m.exile_accuracy) });
-    const tip = () =>
-      shortName(m.model) + " · deception " + pct(m.wolf_win_rate) + " · detection " + pct(m.exile_accuracy);
-    hit.addEventListener("mouseenter", (e) => showTip(tip(), e.clientX, e.clientY));
-    hit.addEventListener("mousemove", (e) => showTip(tip(), e.clientX, e.clientY));
-    hit.addEventListener("mouseleave", hideTip);
-    hit.addEventListener("focus", () => {
-      const r = hit.getBoundingClientRect();
-      showTip(tip(), r.left + r.width / 2, r.top);
-    });
-    hit.addEventListener("blur", hideTip);
-    svg.append(dot, hit);
-    svg.append(s("text", { class: "sc-label", x: cx + 2.4, y: cy - 1.6, text: shortName(m.model) }));
+  // De-clump: nudge coincident points apart so every numbered marker stays legible.
+  const nodes = pts.map((m) => ({ m, tx: px(m.exile_accuracy), ty: py(m.wolf_win_rate), x: px(m.exile_accuracy), y: py(m.wolf_win_rate) }));
+  const MIND = 6.2;
+  for (let it = 0; it < 80; it++) {
+    for (let a = 0; a < nodes.length; a++) {
+      for (let b = a + 1; b < nodes.length; b++) {
+        let dx = nodes[b].x - nodes[a].x, dy = nodes[b].y - nodes[a].y, d = Math.hypot(dx, dy);
+        if (d === 0) { dx = 1; dy = 1; d = Math.SQRT2; }
+        if (d < MIND) {
+          const k = (MIND - d) / 2 / d;
+          nodes[a].x -= dx * k; nodes[a].y -= dy * k;
+          nodes[b].x += dx * k; nodes[b].y += dy * k;
+        }
+      }
+    }
+    for (const n of nodes) {
+      n.x = Math.max(ML + 3.2, Math.min(ML + pw - 3.2, n.x));
+      n.y = Math.max(MT + 3.2, Math.min(MT + ph - 3.2, n.y));
+    }
+  }
+  // leader line from the true position to the nudged marker (honest about the offset)
+  for (const n of nodes) {
+    if (Math.hypot(n.x - n.tx, n.y - n.ty) > 0.8) {
+      svg.append(s("line", { class: "sc-leader", x1: n.tx, y1: n.ty, x2: n.x, y2: n.y }));
+      svg.append(s("circle", { class: "sc-anchor", cx: n.tx, cy: n.ty, r: 0.7 }));
+    }
+  }
+  nodes.forEach((n, i) => {
+    const g = s("g", { class: "sc-node sc-dot-anim", role: "img",
+      "aria-label": shortName(n.m.model) + ": deception " + pct(n.m.wolf_win_rate) + ", detection " + pct(n.m.exile_accuracy) });
+    animDelay(g, i);
+    g.append(s("circle", { class: "sc-point", cx: n.x, cy: n.y, r: 3.1 }));
+    g.append(s("text", { class: "sc-num", x: n.x, y: n.y + 1.15, "text-anchor": "middle", text: String(i + 1) }));
+    svg.append(g);
   });
 
-  wrap.append(svg, scatterFallback(pts));
-  mount("scatter", wrap);
+  const legend = h("ol", { class: "sc-legend" });
+  nodes.forEach((n, i) => {
+    legend.append(h("li", { class: "sc-legend__item" },
+      h("span", { class: "sc-legend__num", text: String(i + 1) }),
+      h("span", { class: "sc-legend__name" }, modelEl(n.m.model)),
+      h("span", { class: "sc-legend__stat" },
+        "deception ", h("b", { text: pct(n.m.wolf_win_rate) }),
+        " · detection ", h("b", { text: pct(n.m.exile_accuracy) })),
+    ));
+  });
+
+  mount("scatter", h("div", { class: "scatter-wrap" }, svg, legend, scatterFallback(pts)));
 }
 
 function scatterFallback(pts) {
@@ -267,9 +296,8 @@ function renderCost(cost) {
   const totalTokens = (t.prompt || 0) + (t.completion || 0);
   const totals = h("dl", { class: "cost-totals" },
     statBox("Total tokens", int(totalTokens)),
-    statBox("Tool calls", int(t.tool_calls)),
+    statBox("Avg game length", fixed(cost.mean_game_length, 1) + " rounds"),
     statBox("Illegal-move rate", pct(cost.mean_illegal_move_rate)),
-    statBox("Avg game length", fixed(cost.mean_game_length, 1)),
     statBox("Spend", t.cost_usd == null ? "—" : "$" + fixed(t.cost_usd, 2)),
   );
 
@@ -277,34 +305,27 @@ function renderCost(cost) {
   for (const m of cost.models) {
     const tokensPerGame = m.games ? (m.prompt + m.completion) / m.games : 0;
     const illegalRate = m.tool_calls ? m.illegal_moves / m.tool_calls : 0;
-    const promptShare = (m.prompt + m.completion) ? (m.prompt / (m.prompt + m.completion)) * 100 : 50;
-    const split = h("span", { class: "split-bar", title: "prompt vs completion tokens", "aria-hidden": "true" },
-      h("i", { class: "prompt", style: "width:" + promptShare + "%" }),
-      h("i", { class: "completion", style: "width:" + (100 - promptShare) + "%" }));
     tbody.append(h("tr", null,
       h("td", null, modelEl(m.model)),
-      h("td", { class: "num", text: int(m.games) }),
       h("td", { class: "num", text: pct(m.win_rate) }),
       h("td", { class: "num", text: int(tokensPerGame) }),
       h("td", { class: "num" + (illegalRate > 0 ? " illegal-hot" : ""), text: pct(illegalRate) }),
-      h("td", null, split),
     ));
   }
   const table = h("table", { class: "cost" },
+    h("caption", { text: "Per-model spend and rule discipline. Win rate is across all games." }),
     h("thead", null, h("tr", null,
       h("th", { scope: "col", text: "Model" }),
-      h("th", { scope: "col", class: "num", text: "Games" }),
       h("th", { scope: "col", class: "num", text: "Win rate" }),
       h("th", { scope: "col", class: "num", text: "Tokens / game" }),
-      h("th", { scope: "col", class: "num", text: "Illegal rate" }),
-      h("th", { scope: "col", text: "Prompt : completion" }),
+      h("th", { scope: "col", class: "num", text: "Illegal" }),
     )),
     tbody);
   mount("cost", h("div", null, totals, table));
 }
 
 function statBox(label, value) {
-  return h("div", null, h("dt", { text: label }), h("dd", { text: value }));
+  return h("div", { class: "stat" }, h("dt", { text: label }), h("dd", { text: value }));
 }
 
 function renderSelfPlay(rows) {
@@ -314,29 +335,31 @@ function renderSelfPlay(rows) {
   }
   const grid = h("div", { class: "selfplay" });
   rows.forEach((r, i) => {
-    grid.append(h("div", { class: "sp-row" },
-      modelEl(r.model),
-      h("div", { class: "sp-bars" },
-        spBar("deception", r.wolf_win_rate, "wolf", i),
-        spBar("detection", r.exile_accuracy, "village", i),
+    grid.append(h("div", { class: "sp-card" },
+      h("div", { class: "sp-card__head" },
+        modelEl(r.model),
+        h("span", { class: "sp-card__rounds", text: fixed(r.mean_rounds, 1) + " avg rounds" }),
       ),
-      h("div", { class: "sp-rounds" }, fixed(r.mean_rounds, 1), h("span", { text: "avg rounds" })),
+      h("div", { class: "sp-metrics" },
+        spMetric("Deception", "wolf", r.wolf_win_rate, i),
+        spMetric("Detection", "village", r.exile_accuracy, i),
+      ),
     ));
   });
   mount("selfplay", grid);
 }
 
-function spBar(label, value, pole, i) {
+function spMetric(label, pole, value, i) {
   const track = h("div", { class: "sp-track" });
   if (value != null) {
     const fill = h("div", { class: "sp-fill sp-fill--" + pole + " bar-anim", style: "width:" + value * 100 + "%" });
     animDelay(fill, i);
     track.append(fill);
   }
-  return h("div", { class: "sp-bar" },
-    h("span", { class: "label", text: label }),
+  return h("div", { class: "sp-metric" },
+    h("span", { class: "sp-metric__label", text: label }),
     track,
-    h("span", { class: "num", text: pct(value) }));
+    h("span", { class: "sp-metric__val", text: pct(value) }));
 }
 
 function renderFooter(meta) {
@@ -345,24 +368,6 @@ function renderFooter(meta) {
     "models: " + meta.models.map(shortName).join(", ") +
     "  ·  runs: " + meta.run_dirs.join(", ") +
     "  ·  " + meta.n_games + " games, " + meta.n_rated + " rated, " + meta.n_skipped + " self-play";
-}
-
-// --- tooltip -------------------------------------------------------------
-
-let tipEl = null;
-function showTip(text, x, y) {
-  if (!tipEl) tipEl = document.getElementById("tooltip");
-  tipEl.textContent = text;
-  tipEl.hidden = false;
-  const pad = 12;
-  const w = tipEl.offsetWidth;
-  let left = x + pad;
-  if (left + w > window.innerWidth) left = x - w - pad;
-  tipEl.style.left = Math.max(pad, left) + "px";
-  tipEl.style.top = Math.max(pad, y + pad) + "px";
-}
-function hideTip() {
-  if (tipEl) tipEl.hidden = true;
 }
 
 // --- boot ----------------------------------------------------------------
