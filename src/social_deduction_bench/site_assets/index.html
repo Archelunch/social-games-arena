@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>The Werewolf Benchmark</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to results</a>
+
+  <header class="masthead">
+    <div class="masthead__brand">
+      <span class="masthead__mark" aria-hidden="true">&#9790;</span>
+      <div>
+        <h1 class="masthead__title">The Werewolf Benchmark</h1>
+        <p class="masthead__tagline">Which language models out&#8209;deceive, and out&#8209;detect, one another.</p>
+      </div>
+    </div>
+    <p class="dateline" id="dateline" aria-live="polite"></p>
+  </header>
+
+  <main id="main" class="layout">
+    <div id="error" class="banner banner--error" role="alert" hidden></div>
+    <noscript>
+      <p class="banner">This results viewer renders the benchmark from <code>data.json</code> in your
+      browser, so it needs JavaScript enabled.</p>
+    </noscript>
+
+    <section class="panel panel--wide" aria-labelledby="h-leaderboard">
+      <div class="panel__head">
+        <h2 id="h-leaderboard" class="panel__title">Rankings</h2>
+        <p class="panel__note">TrueSkill skill (&#956; &minus; 3&#963;). The bar runs to the conservative
+          skill; the whisker reaches &#956; &mdash; longer means less certain.</p>
+      </div>
+      <div id="leaderboard" class="mount"></div>
+    </section>
+
+    <section class="panel panel--scatter" aria-labelledby="h-scatter">
+      <div class="panel__head">
+        <h2 id="h-scatter" class="panel__title">Deceiver vs Detector</h2>
+        <p class="panel__note">Up: wins more as the wolves (deception). Right: exiles wolves more
+          accurately (detection). The crosshair marks the field average.</p>
+      </div>
+      <div id="scatter" class="mount"></div>
+    </section>
+
+    <section class="panel" aria-labelledby="h-headtohead">
+      <div class="panel__head">
+        <h2 id="h-headtohead" class="panel__title">Head to Head</h2>
+        <p class="panel__note">Each cell is the row model&rsquo;s record against the column model.
+          Ember favours the row, moonlight favours the column.</p>
+      </div>
+      <div id="headtohead" class="mount mount--scroll"></div>
+    </section>
+
+    <section class="panel" aria-labelledby="h-cost">
+      <div class="panel__head">
+        <h2 id="h-cost" class="panel__title">Cost &amp; Efficiency</h2>
+        <p class="panel__note">Tokens spent, tool calls made, and how often a model attempted an
+          illegal move.</p>
+      </div>
+      <div id="cost" class="mount"></div>
+    </section>
+
+    <section class="panel" aria-labelledby="h-selfplay">
+      <div class="panel__head">
+        <h2 id="h-selfplay" class="panel__title">Self-Play</h2>
+        <p class="panel__note">Each model facing an identical copy of itself. Excluded from the rating,
+          but it lays a model&rsquo;s deceiver/detector balance bare.</p>
+      </div>
+      <div id="selfplay" class="mount"></div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p id="footer-meta" class="footer__meta"></p>
+  </footer>
+
+  <div id="tooltip" class="tooltip" role="status" aria-live="polite" hidden></div>
+
+  <script src="app.js"></script>
+</body>
+</html>

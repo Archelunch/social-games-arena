@@ -13,6 +13,7 @@ dependencies = [
 [project.scripts]
 sdb-werewolf = "social_deduction_bench.cli:main"
 sdb-tournament = "social_deduction_bench.tournament_cli:main"
+sdb-site = "social_deduction_bench.site_cli:main"
 
 [tool.poetry]
 packages = [{ include = "social_deduction_bench", from = "src" }]

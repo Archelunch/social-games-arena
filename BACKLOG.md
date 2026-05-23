@@ -61,7 +61,7 @@ Rich data capture so a human can debug *why* an agent acted a given way, and an 
 - [x] **T25** — Deceiver-vs-detector split metric (werewolf win rate vs. villager exile accuracy). _Depends: T24_
 - [x] **T26** — TrueSkill rating: update individual ratings from team outcomes. _Depends: T24_
 - [x] **T27** — Tournament runner: seeded cross-play over many games, ratings aggregated. _Depends: T23, T26_
-- [ ] **T28** — Leaderboard output + replay tool (event stream → deterministic re-run). _Depends: T08, T27_
+- [~] **T28** — Leaderboard output + replay tool (event stream → deterministic re-run). _Depends: T08, T27_
 
 ---
 

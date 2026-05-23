@@ -1,6 +1,9 @@
 # Review outputs
 .reviews/
 
+# Generated static results site (sdb-site output)
+site/
+
 # DSPy / LLM caches
 .dspy_cache/
 
