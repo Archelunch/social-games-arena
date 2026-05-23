@@ -125,7 +125,7 @@ function renderLeaderboard(board) {
     );
   });
   const table = h("table", { class: "lb" },
-    h("caption", { text: "Conservative skill, record split by the side played (wins–losses), and games rated." }),
+    h("caption", { class: "visually-hidden", text: "Model skill, record split by side, and games rated." }),
     h("thead", null, h("tr", null,
       h("th", { scope: "col", text: "#" }),
       h("th", { scope: "col", text: "Model" }),
