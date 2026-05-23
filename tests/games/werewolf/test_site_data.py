@@ -179,10 +179,30 @@ def test_self_play_stats_zero_exiles_yields_none_not_zero() -> None:
 
 
 def test_build_site_data_deterministic_byte_identical(two_game_run: Path) -> None:
-    """Same set of game dirs -> byte-identical serialized payload (invariant #4)."""
-    first = json.dumps(build_site_data([two_game_run]), sort_keys=True)
-    second = json.dumps(build_site_data([two_game_run]), sort_keys=True)
+    """Same set of game dirs -> identical payload, including list element order (invariant #4).
+
+    Serialized WITHOUT `sort_keys`: dict-key order (fixed build order) AND list-element
+    order (every list is `sorted()`) must both be stable, so this catches a list whose
+    order leaks from set iteration, not just a key-order difference.
+    """
+    first = json.dumps(build_site_data([two_game_run]))
+    second = json.dumps(build_site_data([two_game_run]))
     assert first == second
+
+
+def test_build_site_data_independent_of_run_dir_order(tmp_path: Path, write_game_dir: GameDirWriter) -> None:
+    """The payload is the same regardless of --run argument order (canonical game_id sort).
+
+    Online TrueSkill is order-sensitive, so without a canonical ordering a multi-dir build
+    could rank differently per CLI invocation. Two run dirs are built in both orders.
+    """
+    run_a = tmp_path / "runA"
+    run_b = tmp_path / "runB"
+    write_game_dir(run_a, "g0000-A-vs-B", wolf_model="A", village_model="B", winner=_WOLVES)
+    write_game_dir(run_b, "g0001-B-vs-A", wolf_model="B", village_model="A", winner=_VILLAGERS)
+    forward = json.dumps(build_site_data([run_a, run_b]))
+    reversed_ = json.dumps(build_site_data([run_b, run_a]))
+    assert forward == reversed_
 
 
 def test_data_json_omits_created_at_and_git_sha(two_game_run: Path) -> None:

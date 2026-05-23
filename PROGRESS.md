@@ -2,7 +2,34 @@
 
 Append-only. Newest entry on top. Read this first when starting a session.
 
-**Current state:** T27 done — tournament runner. `sdb-tournament` CLI
+**Current state:** T28 done — static results site. `sdb-site` CLI
+(`site_cli.py`) + `site.py` (`write_site`) + game library
+`games/werewolf/site_data.py` (`build_site_data`). `build_site_data(run_dirs)`
+globs `g*/` dirs, loads each via `extract_run_dir` (torn / in-progress dir →
+warn + skip; zero usable → fail loud), sorts by `game_id` (canonical, so the
+payload is independent of `--run` order), then reuses `rate_games` /
+`aggregate_metrics` / `deceiver_detector_split` plus two NEW pure helpers —
+`head_to_head` (who-beat-whom across distinct models, attributed via the reused
+`_unique_faction_model`) and `self_play_stats` (a model vs an identical copy of
+itself) — into a **deterministic** `data.json` (sorted lists, no wall-clock /
+git_sha / abspath; same completed games → byte-identical). `write_site` emits
+`data.json` (`sort_keys`) + copies the `site_assets/` front-end. The front-end
+is a zero-dependency "Dusk dashboard" (vanilla HTML/CSS/JS, OKLCH dark theme,
+inline SVG): leaderboard with μ±3σ uncertainty whiskers, deceiver-vs-detector
+quadrant scatter (the thesis chart), head-to-head heatmap, cost/efficiency,
+self-play; responsive (verified 390px + 1280px via CDP), offline, a11y
+(semantic tables + role=img chart fallbacks), reduced-motion-aware. Delivery is
+HTML shell + separate `data.json` (serve with `python -m http.server`; `site/`
+is gitignored). Verified on the live `games/run2` (deepseek-v4-flash leads).
+801/801 default suite green, ruff + pyrefly clean; `/sdb-review` PASS (0
+critical/high in source; 2 test-quality Highs fixed). **Deferred:** the
+deterministic re-run *verifier* half of T28's wording, and the visual match
+replay (T31) — `data.json`'s `games` index is shaped to link to replays.
+**Next:** T31 (replay UI) or the M1/M2 paid-sweep hardening.
+
+---
+
+**Prior state (T27):** tournament runner. `sdb-tournament` CLI
 (`tournament_cli.py`) + game library `games/werewolf/tournament.py`:
 `schedule_tournament(models, *, games_per_pair=10, seed, names)` builds a
 deterministic pairwise cross-play schedule via
@@ -47,6 +74,65 @@ Cross-game rationale in `BACKLOG.md` Notes and `WEREWOLF_DESIGN.md` §3.
 `games/werewolf/` (no `GameDefinition` bundle); resolution functions pure; the
 private-event guard is one shared `engine` function; T14 ships a production
 `run_game` driver + `DecisionSource` Protocol.
+
+---
+
+## 2026-05-23 — T28: static results site (leaderboard + insights)
+
+- **`games/werewolf/site_data.py`** (NEW, werewolf-specific):
+  - `build_site_data(run_dirs) -> dict[str, Any]` — the JSON payload builder.
+    Globs `g*/`, loads via `extract_run_dir` wrapped in
+    `try/except (OSError, ValueError, KeyError)` (a torn / half-written /
+    no-`GAME_OVER` dir is logged + skipped, because `games/run2` is written
+    **live** by a running sweep); fail loud (`ValueError`) on zero usable dirs.
+    Sorts games by `game_id` so the payload + the order-sensitive online
+    TrueSkill are independent of `--run` arg order.
+  - NEW pure helpers (frozen value types `HeadToHeadCell` / `HeadToHeadMatrix`
+    / `SelfPlayStat`): `head_to_head(games)` — winning faction's model "beat"
+    the other, accumulated per unordered model pair; self-pairs + mixed/unknown
+    factions excluded via the reused `metrics._unique_faction_model`.
+    `self_play_stats(games)` — per-model record in A-vs-A games (pooled exile
+    accuracy, mean rounds).
+  - Schema: `meta` (n_games / n_rated / n_skipped / models / run_dirs as
+    **basenames**), `leaderboard`, `deceiver_detector`, `head_to_head`,
+    `cost_efficiency`, `self_play`, `games`. `null` preserved for unknown
+    accuracy/cost (never coerced to 0). The `_UNKNOWN_MODEL` sentinel is
+    filtered everywhere so no ghost row.
+- **`site.py`** (NEW, game-agnostic IO): `write_site(data, out_dir)` writes
+  `data.json` (`json.dump(sort_keys=True, indent=2)` + trailing newline) and
+  copies the three `site_assets/` files. Assets read via
+  `Path(__file__).parent / "site_assets"` (no packaging change, no new dep).
+- **`site_cli.py`** (NEW) + `sdb-site` `[project.scripts]`: `--run`
+  (repeatable, default `games/run2`) `--out` (default `site/`); exit 2 + nothing
+  written on zero usable dirs; prints the `python -m http.server` hint.
+- **`site_assets/{index.html,styles.css,app.js}`** (NEW) — "Dusk dashboard":
+  deep ink-blue OKLCH theme (no pure black/white), serif display + mono tabular
+  data + system UI; six panels — masthead dateline, leaderboard with **μ±3σ
+  uncertainty whiskers**, **deceiver-vs-detector quadrant scatter** (hero), head-
+  to-head heatmap (ember=row leads / moonlight=col leads), cost/efficiency,
+  self-play strip. Inline SVG (no chart lib / CDN), `transform`/`opacity`-only
+  motion with `prefers-reduced-motion` guard, mobile-first responsive, semantic
+  tables + `role=img` chart fallbacks, model names via `data-model` + `textContent`.
+- **Decisions (user):** target `games/run2` (canonical going forward, no
+  `summary.json` → re-aggregate from per-game dirs); delivery = HTML shell +
+  separate `data.json` (file:// fetch is blocked, so serve locally); panels =
+  deceiver/detector + head-to-head + cost + self-play (per-role data is in
+  `data.json` but not a headline panel); aesthetic = dark "Dusk dashboard";
+  full custom SVG viz.
+- **Verify:** 801 passed + 2 deselected; ruff + ruff format + pyrefly clean;
+  generated from live `games/run2`, built twice → byte-identical `data.json`;
+  rendered headless via CDP at **390px** (fits exactly, no h-scroll after fixing
+  a `visually-hidden` `<table>` that escaped its scroll container) and **1280px**.
+- **`/sdb-review`** (`.reviews/20260523-1605-1dc29f6/`): python + integrity +
+  test reviewers all **PASS** (0 critical/high in source). Fixed the 2
+  test-quality Highs: determinism test now serializes WITHOUT `sort_keys` (pins
+  list-element order, not just key order) + a run-dir-order-independence test;
+  `write_site` raw-bytes stability test added. Plus the order-determinism source
+  hardening (`games.sort`) and stronger asset-contract checks (oklch black/white,
+  selector-from-model). Mediums/lows on multi-run dedupe + `--run` default left
+  as noted (single-run is the live use).
+- **Deferred:** the deterministic event-stream *re-run verifier* (T28 wording's
+  second half — a standalone tool, follow-up) and the visual *match replay* (T31).
 
 ---
 

@@ -206,6 +206,9 @@ def build_site_data(run_dirs: Sequence[Path]) -> dict[str, Any]:
     games = _load_games(run_dirs)
     if not games:
         raise ValueError(f"no valid game directories found under {[str(d) for d in run_dirs]}")
+    # Canonical game_id order so the payload (and the order-sensitive online TrueSkill
+    # rating) is independent of run-dir argument order — same games -> same data.json.
+    games.sort(key=lambda g: g.game_id)
 
     leaderboard = rate_games(to_game_results(games))
     aggregate = aggregate_metrics(games)
