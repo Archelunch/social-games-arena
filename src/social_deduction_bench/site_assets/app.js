@@ -142,7 +142,7 @@ function renderLeaderboard(board) {
 function renderScatter(split) {
   const pts = split.models.filter((m) => m.exile_accuracy != null);
   if (!pts.length) {
-    mount("scatter", h("p", { class: "panel__note", text: "Not enough resolved exiles to plot yet." }));
+    mount("scatter", h("p", { class: "panel__note", text: "No resolved exiles yet, so there is nothing to plot." }));
     return;
   }
 
@@ -177,10 +177,10 @@ function renderScatter(split) {
   yl.setAttribute("transform", "rotate(-90 3 " + (MT + ph / 2) + ")");
   svg.append(yl);
   // quadrant hints
-  svg.append(s("text", { class: "sc-quad", x: ML + 1.5, y: MT + 3, text: "deceives, misses" }));
+  svg.append(s("text", { class: "sc-quad", x: ML + 1.5, y: MT + 3, text: "good liar" }));
   svg.append(s("text", { class: "sc-quad", x: ML + pw - 1.5, y: MT + 3, "text-anchor": "end", text: "all-rounder" }));
-  svg.append(s("text", { class: "sc-quad", x: ML + 1.5, y: MT + ph - 1.5, text: "weak both" }));
-  svg.append(s("text", { class: "sc-quad", x: ML + pw - 1.5, y: MT + ph - 1.5, "text-anchor": "end", text: "detects only" }));
+  svg.append(s("text", { class: "sc-quad", x: ML + 1.5, y: MT + ph - 1.5, text: "weak at both" }));
+  svg.append(s("text", { class: "sc-quad", x: ML + pw - 1.5, y: MT + ph - 1.5, "text-anchor": "end", text: "good detective" }));
 
   // De-clump: nudge coincident points apart so every numbered marker stays legible.
   const nodes = pts.map((m) => ({ m, tx: px(m.exile_accuracy), ty: py(m.wolf_win_rate), x: px(m.exile_accuracy), y: py(m.wolf_win_rate) }));
@@ -245,7 +245,7 @@ function scatterFallback(pts) {
   // escape the scroll container and widen the page; a div clips it to 1px.
   return h("div", { class: "visually-hidden" },
     h("table", null,
-      h("caption", { text: "Deceiver vs detector, tabular." }),
+      h("caption", { text: "Each model's deception and detection rate." }),
       h("thead", null, h("tr", null,
         h("th", { scope: "col", text: "Model" }),
         h("th", { scope: "col", text: "Wolf win rate" }),
@@ -257,7 +257,7 @@ function scatterFallback(pts) {
 function renderHeadToHead(h2h) {
   const models = h2h.models;
   if (!models.length) {
-    mount("headtohead", h("p", { class: "panel__note", text: "Only self-play games so far — no cross-model matchups to compare." }));
+    mount("headtohead", h("p", { class: "panel__note", text: "Only self-play games so far, so there are no matchups to compare yet." }));
     return;
   }
   const map = new Map();
@@ -285,7 +285,7 @@ function renderHeadToHead(h2h) {
     tbody.append(tr);
   }
   const table = h("table", { class: "h2h" },
-    h("caption", { text: "Row model's wins – column model's wins, head to head." }),
+    h("caption", { class: "visually-hidden", text: "Each model's record against every other, row versus column." }),
     h("thead", null, headRow),
     tbody);
   mount("headtohead", table);
@@ -310,7 +310,7 @@ function renderCost(cost) {
     ));
   }
   const table = h("table", { class: "cost" },
-    h("caption", { text: "Token spend per model." }),
+    h("caption", { class: "visually-hidden", text: "Token spend per model, per game and in total." }),
     h("thead", null, h("tr", null,
       h("th", { scope: "col", text: "Model" }),
       h("th", { scope: "col", class: "num", text: "Tokens / game" }),
@@ -361,9 +361,8 @@ function spMetric(label, pole, value, i) {
 function renderFooter(meta) {
   const node = document.getElementById("footer-meta");
   node.textContent =
-    "models: " + meta.models.map(shortName).join(", ") +
-    "  ·  runs: " + meta.run_dirs.join(", ") +
-    "  ·  " + meta.n_games + " games, " + meta.n_rated + " rated, " + meta.n_skipped + " self-play";
+    "Built from " + meta.run_dirs.join(", ") +
+    " · models: " + meta.models.map(shortName).join(", ");
 }
 
 // --- boot ----------------------------------------------------------------
@@ -392,7 +391,7 @@ fetch('data.json')
   .then(render)
   .catch((err) => {
     showError(
-      "Could not load data.json (" + err.message + "). Serve this folder over a local " +
-      "server, e.g. run  python -m http.server  from here, then open the printed address.",
+      "Couldn't load data.json (" + err.message + "). This page needs a local server: run " +
+      "python -m http.server  in this folder, then open the address it prints.",
     );
   });

@@ -15,7 +15,7 @@
       <span class="masthead__mark" aria-hidden="true">&#9790;</span>
       <div>
         <h1 class="masthead__title">The Werewolf Benchmark</h1>
-        <p class="masthead__tagline">Which language models out&#8209;deceive, and out&#8209;detect, one another.</p>
+        <p class="masthead__tagline">Language models play Werewolf. Who lies best, and who catches the liars?</p>
       </div>
     </div>
     <p class="dateline" id="dateline" aria-live="polite"></p>
@@ -24,8 +24,8 @@
   <main id="main" class="layout">
     <div id="error" class="banner banner--error" role="alert" hidden></div>
     <noscript>
-      <p class="banner">This results viewer renders the benchmark from <code>data.json</code> in your
-      browser, so it needs JavaScript enabled.</p>
+      <p class="banner">This page draws its charts from <code>data.json</code> in your browser,
+      so it needs JavaScript turned on.</p>
     </noscript>
 
     <section class="panel panel--wide" aria-labelledby="h-leaderboard">
@@ -40,9 +40,9 @@
     <section class="panel panel--scatter" aria-labelledby="h-scatter">
       <div class="panel__head">
         <h2 id="h-scatter" class="panel__title">Deceiver vs Detector</h2>
-        <p class="panel__note">Up: wins more as the wolves (deception). Right: exiles wolves more
-          accurately (detection). The dashed crosshair marks the field average; numbered points
-          map to the legend below.</p>
+        <p class="panel__note">Higher up, the model wins more as the wolves (it deceives well).
+          Further right, it exiles the wolves more often (it detects well). The dashed crosshair
+          is the field average; the numbered dots match the legend below.</p>
       </div>
       <div id="scatter" class="mount"></div>
     </section>
@@ -50,8 +50,8 @@
     <section class="panel" aria-labelledby="h-headtohead">
       <div class="panel__head">
         <h2 id="h-headtohead" class="panel__title">Head to Head</h2>
-        <p class="panel__note">Each cell is the row model&rsquo;s record against the column model.
-          Ember favours the row, moonlight favours the column.</p>
+        <p class="panel__note">Each cell shows the row model&rsquo;s record against the column.
+          Ember means the row is ahead, moonlight means the column is.</p>
       </div>
       <div id="headtohead" class="mount mount--scroll"></div>
     </section>
@@ -67,8 +67,8 @@
     <section class="panel" aria-labelledby="h-selfplay">
       <div class="panel__head">
         <h2 id="h-selfplay" class="panel__title">Self-Play</h2>
-        <p class="panel__note">Each model facing an identical copy of itself. Excluded from the rating,
-          but it lays a model&rsquo;s deceiver/detector balance bare.</p>
+        <p class="panel__note">Each model against a copy of itself. These games don&rsquo;t count toward
+          the rating, but they lay its deceiver/detector balance bare.</p>
       </div>
       <div id="selfplay" class="mount"></div>
     </section>
