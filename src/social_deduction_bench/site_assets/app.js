@@ -94,26 +94,22 @@ function renderLeaderboard(board) {
     mount("leaderboard", h("p", { class: "panel__note", text: "No rated games yet." }));
     return;
   }
-  const maxDomain = Math.max(...board.map((r) => r.mu)) * 1.05 || 1;
+  // Shared scale anchored to the data range (not 0) so rank gaps are visible and you
+  // can see which models' ratings overlap. Dot = conservative skill; line reaches mu.
+  const lo = Math.min(...board.map((r) => r.skill));
+  const hi = Math.max(...board.map((r) => r.mu));
+  const pad = (hi - lo) * 0.12 || 1;
+  const d0 = lo - pad, d1 = hi + pad;
+  const X = (v) => ((v - d0) / (d1 - d0)) * 100;
   const tbody = h("tbody");
   board.forEach((r, i) => {
-    const fillW = Math.max(0, (r.skill / maxDomain) * 100);
-    const muX = Math.max(fillW, (r.mu / maxDomain) * 100);
-    const bar = s("svg", {
-      class: "skillbar",
-      viewBox: "0 0 100 12",
-      preserveAspectRatio: "none",
-      role: "img",
-      "aria-label": shortName(r.model) + " skill " + r.skill.toFixed(1),
-    });
-    bar.append(s("rect", { class: "skillbar__track", x: 0, y: 4, width: 100, height: 4, rx: 2 }));
-    const fill = s("rect", { class: "skillbar__fill bar-anim", x: 0, y: 3, width: fillW, height: 6, rx: 2 });
-    animDelay(fill, i);
-    bar.append(fill);
-    // uncertainty whisker: conservative skill -> optimistic mu
-    bar.append(s("line", { class: "skillbar__whisker", x1: fillW, y1: 6, x2: muX, y2: 6 }));
-    bar.append(s("line", { class: "skillbar__whisker", x1: muX, y1: 3, x2: muX, y2: 9 }));
-    const skillCell = h("div", { class: "skillcell" }, bar, h("span", { class: "skillcell__val", text: fixed(r.skill, 1) }));
+    const sx = X(r.skill), mx = X(r.mu);
+    const plot = h("div", { class: "skillplot" + (i === 0 ? " skillplot--top" : ""), "aria-hidden": "true" },
+      h("span", { class: "skillplot__track" }),
+      h("span", { class: "skillplot__range", style: "left:" + sx + "%;width:" + Math.max(0, mx - sx) + "%" }),
+      h("span", { class: "skillplot__dot", style: "left:" + sx + "%" }),
+    );
+    const skillCell = h("div", { class: "skillcell" }, plot, h("span", { class: "skillcell__val", text: fixed(r.skill, 1) }));
     const wolfRec = r.wolf_wins + dash + (r.wolf_games - r.wolf_wins);
     const villageRec = r.village_wins + dash + (r.village_games - r.village_wins);
 
@@ -301,28 +297,24 @@ function renderCost(cost) {
   const totals = h("dl", { class: "cost-totals" },
     statBox("Total tokens", int(totalTokens)),
     statBox("Avg game length", fixed(cost.mean_game_length, 1) + " rounds"),
-    statBox("Illegal-move rate", pct(cost.mean_illegal_move_rate)),
     statBox("Spend", t.cost_usd == null ? "—" : "$" + fixed(t.cost_usd, 2)),
   );
 
   const tbody = h("tbody");
   for (const m of cost.models) {
     const tokensPerGame = m.games ? (m.prompt + m.completion) / m.games : 0;
-    const illegalRate = m.tool_calls ? m.illegal_moves / m.tool_calls : 0;
     tbody.append(h("tr", null,
       h("td", null, modelEl(m.model)),
-      h("td", { class: "num", text: pct(m.win_rate) }),
       h("td", { class: "num", text: int(tokensPerGame) }),
-      h("td", { class: "num" + (illegalRate > 0 ? " illegal-hot" : ""), text: pct(illegalRate) }),
+      h("td", { class: "num", text: int(m.prompt + m.completion) }),
     ));
   }
   const table = h("table", { class: "cost" },
-    h("caption", { text: "Per-model spend and rule discipline. Win rate is across all games." }),
+    h("caption", { text: "Token spend per model." }),
     h("thead", null, h("tr", null,
       h("th", { scope: "col", text: "Model" }),
-      h("th", { scope: "col", class: "num", text: "Win rate" }),
       h("th", { scope: "col", class: "num", text: "Tokens / game" }),
-      h("th", { scope: "col", class: "num", text: "Illegal" }),
+      h("th", { scope: "col", class: "num", text: "Total tokens" }),
     )),
     tbody);
   mount("cost", h("div", null, totals, table));

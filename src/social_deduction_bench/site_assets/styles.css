@@ -208,11 +208,12 @@ thead th {
 .lb__village { color: var(--village); }
 thead th.lb__wolf, thead th.lb__village { font-weight: 600; }
 
-.skillbar { display: block; width: 100%; height: 14px; overflow: visible; }
-.skillbar__track { fill: var(--surface-2); }
-.skillbar__fill { fill: var(--ink-soft); }
-.lb tbody tr:first-child .skillbar__fill { fill: var(--gilt); }
-.skillbar__whisker { stroke: var(--village); stroke-width: 1.5; vector-effect: non-scaling-stroke; }
+/* Shared-scale skill dot plot: dot = conservative skill, line reaches optimistic mu */
+.skillplot { position: relative; flex: 1; min-width: 4rem; height: 16px; }
+.skillplot__track { position: absolute; inset: 50% 0 auto 0; height: 3px; transform: translateY(-50%); background: var(--surface-2); border-radius: 2px; }
+.skillplot__range { position: absolute; top: 50%; height: 3px; transform: translateY(-50%); background: var(--village); opacity: 0.5; border-radius: 2px; }
+.skillplot__dot { position: absolute; top: 50%; width: 9px; height: 9px; margin-left: -4.5px; transform: translateY(-50%); border-radius: 50%; background: var(--ink-soft); box-shadow: 0 0 0 2px var(--surface); }
+.skillplot--top .skillplot__dot { background: var(--gilt); }
 .bar-anim { transform-box: fill-box; transform-origin: left center; animation: grow 560ms cubic-bezier(0.22, 1, 0.36, 1) both; }
 
 /* Head-to-head matrix */
@@ -238,7 +239,6 @@ thead th.lb__wolf, thead th.lb__village { font-weight: 600; }
 .stat { display: flex; flex-direction: column; gap: 0.15rem; min-width: 0; }
 .stat dt { font-size: var(--step-0); text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-mute); }
 .stat dd { margin: 0; font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-size: var(--step-3); color: var(--ink); white-space: nowrap; }
-.illegal-hot { color: var(--wolf); }
 
 /* Self-play — two aligned metric rows per model, no nested card chrome */
 .selfplay { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: var(--space-4); }
@@ -317,8 +317,8 @@ thead th.lb__wolf, thead th.lb__village { font-weight: 600; }
   .masthead { padding: var(--space-4) var(--space-3) var(--space-3); }
   .layout { padding: var(--space-3); gap: var(--space-3); }
   .panel { padding: var(--space-3); }
-  /* Drop the inline skill bar on narrow screens; the numeric skill stays. */
-  .skillcell svg { display: none; }
+  /* Drop the inline skill plot on narrow screens; the numeric skill stays. */
+  .skillcell .skillplot { display: none; }
   .skillcell__val { width: auto; }
 }
 

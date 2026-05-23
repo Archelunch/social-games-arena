@@ -32,9 +32,9 @@
       <div class="panel__head">
         <h2 id="h-leaderboard" class="panel__title">Rankings</h2>
         <p class="panel__note">Skill is each model&rsquo;s conservative TrueSkill rating: higher is
-          stronger. The bar fills to that rating; the thin marker past it is the optimistic
-          estimate, so a longer gap means more uncertainty (usually fewer games). The record
-          is split by the side played, so you can see who wins as the wolves versus the village.</p>
+          stronger. The dot marks that rating on a shared scale; the line reaches the optimistic
+          estimate, so a longer line means more uncertainty (usually fewer games). The record is
+          split by the side played, so you can see who wins as the wolves versus the village.</p>
       </div>
       <div id="leaderboard" class="mount"></div>
     </section>
@@ -61,8 +61,7 @@
     <section class="panel" aria-labelledby="h-cost">
       <div class="panel__head">
         <h2 id="h-cost" class="panel__title">Cost &amp; Efficiency</h2>
-        <p class="panel__note">Tokens spent, tool calls made, and how often a model attempted an
-          illegal move.</p>
+        <p class="panel__note">How many tokens each model spends, per game and in total.</p>
       </div>
       <div id="cost" class="mount"></div>
     </section>
