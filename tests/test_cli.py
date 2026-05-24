@@ -441,7 +441,9 @@ def test_help_documents_reasoning_flag(capsys: pytest.CaptureFixture[str]) -> No
     assert "--reasoning" in capsys.readouterr().out
 
 
-def test_silence_litellm_logging_worker_closes_enqueued_coroutine_without_scheduling() -> None:
+def test_silence_litellm_logging_worker_closes_enqueued_coroutine_without_scheduling(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
     """The silencer must close an enqueued telemetry coroutine, not schedule it.
 
     After every async completion litellm enqueues a fire-and-forget
@@ -460,6 +462,16 @@ def test_silence_litellm_logging_worker_closes_enqueued_coroutine_without_schedu
     import inspect
 
     from litellm.litellm_core_utils.logging_worker import GLOBAL_LOGGING_WORKER
+
+    # The module flag and the litellm singleton are process-global; snapshot both
+    # through monkeypatch so this test restores them on teardown and never leaks
+    # its patched enqueue (or the "silenced" flag) into the rest of the suite.
+    monkeypatch.setattr("social_deduction_bench.cli._litellm_logging_silenced", False)
+    monkeypatch.setattr(
+        GLOBAL_LOGGING_WORKER,
+        "ensure_initialized_and_enqueue",
+        GLOBAL_LOGGING_WORKER.ensure_initialized_and_enqueue,
+    )
 
     silence_litellm_logging_worker()
 

@@ -394,7 +394,14 @@ def silence_litellm_logging_worker() -> None:
     global _litellm_logging_silenced
     if _litellm_logging_silenced:
         return
-    from litellm.litellm_core_utils.logging_worker import GLOBAL_LOGGING_WORKER
+    try:
+        from litellm.litellm_core_utils.logging_worker import GLOBAL_LOGGING_WORKER
+    except ImportError:
+        # A litellm upgrade may move or rename this private singleton. Degrade to
+        # noisy logs rather than aborting every game, and mark silenced so we do
+        # not retry the failing import on every call.
+        _litellm_logging_silenced = True
+        return
 
     def _close_without_scheduling(async_coroutine: Coroutine[object, object, object]) -> None:
         async_coroutine.close()
