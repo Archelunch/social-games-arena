@@ -82,7 +82,7 @@ function animDelay(node, i) {
 function renderDateline(meta) {
   const node = document.getElementById("dateline");
   node.replaceChildren(
-    h("b", { text: int(meta.n_games) }), " games · ",
+    h("a", { class: "dateline__link", href: "#h-games" }, h("b", { text: int(meta.n_games) })), " games · ",
     h("b", { text: int(meta.models.length) }), " models · ",
     h("b", { text: int(meta.n_rated) }), " rated · ",
     h("b", { text: int(meta.n_skipped) }), " self-play",
@@ -358,13 +358,6 @@ function spMetric(label, pole, value, i) {
     h("span", { class: "sp-metric__val", text: pct(value) }));
 }
 
-function renderFooter(meta) {
-  const node = document.getElementById("footer-meta");
-  node.textContent =
-    "Built from " + meta.run_dirs.join(", ") +
-    " · models: " + meta.models.map(shortName).join(", ");
-}
-
 // --- replays: the game library ------------------------------------------
 
 function factionOf(role) {
@@ -375,11 +368,23 @@ function side(model, pole) {
   return h("span", { class: "side side--" + pole }, h("span", { class: "side__pip", "aria-hidden": "true" }), modelEl(model));
 }
 
-function renderGames(games) {
-  if (!games || !games.length) {
-    mount("games", h("p", { class: "panel__note", text: "No games to replay yet." }));
-    return;
+// The masthead "Watch a game" shortcut opens the most dramatic match: the longest
+// cross-model (non-self-play) game, tie-broken by lowest game_id so the pick is stable
+// across reloads. Falls back to the longest game overall, then to null (no games).
+function featuredGameId(games) {
+  if (!games || !games.length) return null;
+  const cross = games.filter((g) => g.wolf_model && g.village_model && g.wolf_model !== g.village_model);
+  const pool = cross.length ? cross : games;
+  let best = null;
+  for (const g of pool) {
+    if (!best || g.rounds > best.rounds || (g.rounds === best.rounds && g.game_id < best.game_id)) best = g;
   }
+  return best ? best.game_id : null;
+}
+
+// Builds the filterable game list. Shared by the dashboard's Replays panel and the
+// in-replay "Browse games" panel; `currentId` marks the game being watched (if any).
+function gamesBrowser(games, currentId) {
   const models = [...new Set(games.flatMap((g) => [g.wolf_model, g.village_model]).filter((m) => m && m !== "mixed"))].sort();
   const modelSel = h("select", { class: "games__select", "aria-label": "Filter by model" },
     h("option", { value: "", text: "All models" }),
@@ -403,13 +408,20 @@ function renderGames(games) {
       if (outcome && gm.winner !== outcome) continue;
       shown += 1;
       const wolfWon = gm.winner === "werewolves";
+      const current = gm.game_id === currentId;
       list.append(
-        h("a", { class: "game-row", href: "#/game/" + encodeURIComponent(gm.game_id) },
+        h("a", { class: "game-row" + (current ? " game-row--current" : ""),
+          href: "#/game/" + encodeURIComponent(gm.game_id), "aria-current": current ? "true" : null },
           h("span", { class: "game-row__matchup" },
             side(wolf, "wolf"), h("span", { class: "game-row__vs", text: "vs" }), side(vil, "village")),
           h("span", { class: "badge badge--" + (wolfWon ? "wolf" : "village"), text: wolfWon ? "Wolves win" : "Village wins" }),
           h("span", { class: "game-row__rounds", text: gm.rounds + (gm.rounds === 1 ? " round" : " rounds") }),
-          h("span", { class: "game-row__go", "aria-hidden": "true", text: "›" }),
+          current
+            ? h("span", { class: "game-row__watch game-row__watch--current" },
+                h("span", { class: "game-row__watchlbl", text: "Watching" }))
+            : h("span", { class: "game-row__watch" },
+                h("span", { class: "game-row__play", "aria-hidden": "true", text: "▶" }),
+                h("span", { class: "game-row__watchlbl", text: "Watch" })),
         ),
       );
     }
@@ -420,12 +432,20 @@ function renderGames(games) {
   modelSel.addEventListener("change", draw);
   sideSel.addEventListener("change", draw);
 
-  mount("games", h("div", { class: "games" },
+  return h("div", { class: "games" },
     h("div", { class: "games__filters" },
       h("label", { class: "games__field" }, h("span", { class: "games__label", text: "Model" }), modelSel),
       h("label", { class: "games__field" }, h("span", { class: "games__label", text: "Outcome" }), sideSel),
       count),
-    list));
+    list);
+}
+
+function renderGames(games) {
+  if (!games || !games.length) {
+    mount("games", h("p", { class: "panel__note", text: "No games to replay yet." }));
+    return;
+  }
+  mount("games", gamesBrowser(games, null));
 }
 
 // --- replay: the game screen --------------------------------------------
@@ -545,7 +565,16 @@ function mountReplay(g) {
 
   const drawer = h("aside", { class: "rp-drawer", "aria-label": "Player detail", "aria-hidden": "true" });
 
-  root.replaceChildren(topbar, stage, transport, drawer);
+  // Same search/filter as the dashboard, so you can switch games without going back.
+  const browse = h("details", { class: "rp-browse" },
+    h("summary", { class: "rp-browse__summary" },
+      h("span", { class: "rp-browse__label", text: "Browse games" }),
+      h("span", { class: "rp-browse__hint", "aria-hidden": "true", text: "▾" })),
+    DATA && DATA.games
+      ? gamesBrowser(DATA.games, g.game_id)
+      : h("p", { class: "panel__note", text: "Game list unavailable." }));
+
+  root.replaceChildren(topbar, browse, stage, transport, drawer);
 
   // ---- transport behavior ----
   // Dwell scales with how much there is to read, so a long speech lingers and a
@@ -935,7 +964,6 @@ function render(data) {
   renderHeadToHead(data.head_to_head);
   renderCost(data.cost_efficiency);
   renderSelfPlay(data.self_play);
-  renderFooter(data.meta);
 }
 
 let DATA = null;
@@ -983,7 +1011,13 @@ fetch('data.json')
     if (!r.ok) throw new Error("HTTP " + r.status);
     return r.json();
   })
-  .then((data) => { DATA = data; route(); })
+  .then((data) => {
+    DATA = data;
+    const fid = featuredGameId(data.games);
+    const cta = document.getElementById("watch-cta");
+    if (cta && fid) cta.href = "#/game/" + encodeURIComponent(fid);
+    route();
+  })
   .catch((err) => {
     showError(
       "Couldn't load data.json (" + err.message + "). This page needs a local server: run " +

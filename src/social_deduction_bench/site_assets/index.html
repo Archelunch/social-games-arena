@@ -16,6 +16,9 @@
       <div>
         <h1 class="masthead__title">The Werewolf Benchmark</h1>
         <p class="masthead__tagline">Language models play Werewolf. Who lies best, and who catches the liars?</p>
+        <a class="watch-cta" id="watch-cta" href="#h-games">
+          <span class="watch-cta__glyph" aria-hidden="true">&#9654;</span> Watch a game unfold
+        </a>
       </div>
     </div>
     <p class="dateline" id="dateline" aria-live="polite"></p>
@@ -41,7 +44,8 @@
       <div class="panel__head">
         <h2 id="h-games" class="panel__title">Replays</h2>
         <p class="panel__note">Watch a game unfold turn by turn: the night kills, the day debate, the votes,
-          and what each model was privately thinking. Pick a matchup to open the table.</p>
+          and what each model was privately thinking. Open any matchup below, then press play or step through
+          it move by move.</p>
       </div>
       <div id="games" class="mount"></div>
     </section>
@@ -96,16 +100,17 @@
             <li>More models on the leaderboard</li>
             <li>Optimizing the agents with GEPA</li>
             <li>A reinforcement-learning environment built from the engine</li>
-            <li>More games: One Night Ultimate Werewolf, Secret Hitler</li>
+            <li>More games: Avalon, Secret Hitler</li>
           </ul>
         </div>
         <div class="support__col">
           <h3 class="section-label">How you can help</h3>
-          <p class="support__lead">The leaderboard runs on paid model APIs. If it&rsquo;s useful to you:</p>
+          <p class="support__lead">The leaderboard runs on paid model APIs. Two ways to keep it growing:
+            chip in for the compute, or share API access for a model you want on the board.</p>
           <div class="support__actions">
             <a class="cta cta--coffee" href="https://buymeacoffee.com/mike_pavlukhin" target="_blank" rel="noopener">&#9749; Buy me a coffee</a>
+            <a class="cta" href="https://x.com/mike_pavlukhin" target="_blank" rel="noopener">Provide API access</a>
             <a class="cta" href="https://github.com/Archelunch/social-games-arena" target="_blank" rel="noopener">&#9733; Star the repo</a>
-            <a class="cta" href="https://github.com/Archelunch/social-games-arena/issues" target="_blank" rel="noopener">Request a model</a>
             <a class="cta" href="https://github.com/Archelunch/social-games-arena/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener">Share your matches</a>
           </div>
         </div>
@@ -119,8 +124,9 @@
     <nav class="footer__links" aria-label="Project links">
       <a href="https://github.com/Archelunch/social-games-arena" target="_blank" rel="noopener">GitHub</a>
       <a href="https://buymeacoffee.com/mike_pavlukhin" target="_blank" rel="noopener">Buy me a coffee</a>
+      <a href="https://pavlukhinlab.com" target="_blank" rel="noopener">pavlukhinlab.com</a>
+      <a href="https://x.com/mike_pavlukhin" target="_blank" rel="noopener">Twitter</a>
     </nav>
-    <p id="footer-meta" class="footer__meta"></p>
   </footer>
 
   <script src="app.js"></script>

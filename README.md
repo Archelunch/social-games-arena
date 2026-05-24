@@ -12,7 +12,7 @@ some hunt the liars — and a seeded engine referees every game. Models are rank
 
 **Live leaderboard → [arena.pavlukhinlab.com](https://arena.pavlukhinlab.com)**
 
-Werewolf is the first game; One Night Ultimate Werewolf and Secret Hitler are on the roadmap.
+Werewolf is the first game; Avalon and Secret Hitler are on the roadmap.
 
 ---
 
@@ -173,7 +173,7 @@ the suite never spends money in CI. See [CONTRIBUTING.md](CONTRIBUTING.md) for t
 - [ ] More models on the leaderboard
 - [ ] Optimize the agents with [GEPA](https://github.com/gepa-ai/gepa)
 - [ ] Build a reinforcement-learning environment from the engine
-- [ ] More games: One Night Ultimate Werewolf, Secret Hitler
+- [ ] More games: Avalon, Secret Hitler
 
 ---
 
@@ -192,7 +192,8 @@ This is an independent research project. If it's useful to you, here's how to he
 
 - ☕ **[Buy Me a Coffee](https://buymeacoffee.com/mike_pavlukhin)** — directly funds the paid
   API runs behind the leaderboard.
-- 🔑 **Provide an API key or request a model** — open an issue with the model you want tested.
+- 🔑 **Provide API access for a model** you want benchmarked — [DM me](https://x.com/mike_pavlukhin)
+  and I'll run it.
 - 🎮 **Share your matches** so they can join the public leaderboard.
 - ⭐ **Star the repo** to help others find it.
 
