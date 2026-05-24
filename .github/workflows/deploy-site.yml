@@ -1,0 +1,63 @@
+name: Deploy site
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "games/run2/**"
+      - "src/social_deduction_bench/site_assets/**"
+      - "src/social_deduction_bench/site.py"
+      - "src/social_deduction_bench/site_cli.py"
+      - "src/social_deduction_bench/games/werewolf/site_data.py"
+      - "src/social_deduction_bench/games/werewolf/replay_data.py"
+      - ".github/workflows/deploy-site.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Let an in-progress deploy finish; only the newest queued run survives.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Poetry
+        run: pipx install poetry
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: poetry
+
+      - name: Install dependencies
+        run: poetry install --no-interaction
+
+      - name: Build site
+        run: poetry run sdb-site --run games/run2 --out site
+
+      - name: Set custom domain
+        run: echo 'arena.pavlukhinlab.com' > site/CNAME
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
