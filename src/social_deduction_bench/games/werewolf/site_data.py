@@ -230,16 +230,28 @@ def _cost_efficiency(games: Sequence[GameMetrics], aggregate: AggregateMetrics) 
     }
 
 
+def iter_game_dirs(run_dirs: Sequence[Path]) -> list[Path]:
+    """Every `g*/` game directory under `run_dirs`, sorted by path.
+
+    The single source of truth for the on-disk game-artifact layout, shared by the
+    aggregate loader (`_load_games`) and the per-game replay writer so both walk a
+    run dir identically.
+    """
+    dirs: list[Path] = []
+    for run_dir in run_dirs:
+        dirs.extend(sorted(p for p in run_dir.glob("g*") if p.is_dir()))
+    return dirs
+
+
 def _load_games(run_dirs: Sequence[Path]) -> list[GameMetrics]:
     games: list[GameMetrics] = []
-    for run_dir in run_dirs:
-        for game_dir in sorted(p for p in run_dir.glob("g*") if p.is_dir()):
-            try:
-                games.append(extract_run_dir(game_dir))
-            except (OSError, ValueError, KeyError) as e:
-                # A torn / in-progress dir (no GAME_OVER, half-written file) is expected
-                # while a sweep writes live: skip it, don't abort the whole site.
-                logger.warning("site: skipping unreadable game dir %s: %s", game_dir, e)
+    for game_dir in iter_game_dirs(run_dirs):
+        try:
+            games.append(extract_run_dir(game_dir))
+        except (OSError, ValueError, KeyError) as e:
+            # A torn / in-progress dir (no GAME_OVER, half-written file) is expected
+            # while a sweep writes live: skip it, don't abort the whole site.
+            logger.warning("site: skipping unreadable game dir %s: %s", game_dir, e)
     return games
 
 

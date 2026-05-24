@@ -150,7 +150,7 @@ def _wrap_intermediate(
 
 def _build_signature() -> type[dspy.Signature]:
     class DecisionSignature(dspy.Signature):
-        """You are playing Werewolf. Decide and commit one game action by calling the appropriate tool."""
+        """You are a player in a game of Werewolf. Take your turn by choosing and committing one action."""
 
         decision_brief: str = dspy.InputField()
         committed_action: str = dspy.OutputField()
@@ -180,18 +180,18 @@ def _build_react_predict(
     instr = [f"{signature.instructions}\n"] if signature.instructions else []
     instr.extend(
         [
-            f"You are an agent taking a single turn. You are given {inputs} and your past trajectory so far.",
-            "Use one or more of the supplied tools to decide and commit your move.",
-            "Each turn, produce next_thought (your reasoning), next_tool_name, and next_tool_args; "
-            "after each tool call you receive an observation appended to your trajectory.",
-            "Your turn ends the moment you call the tool that commits your game action — "
-            "there is no separate finish step.",
-            "When selecting next_tool_name and next_tool_args, the tool must be one of:\n",
+            f"It is your turn. You can see {inputs} and everything that has happened so far.",
+            "Make your move by taking one of the actions available to you.",
+            "Each turn, give next_thought (your private reasoning, which no other player can see), then "
+            "next_tool_name and next_tool_args for the action you take; after each action you receive "
+            "back what happened, added to the record of your turn so far.",
+            "Your turn ends the moment you take the action that commits your move — there is no separate finish step.",
+            "The action you name in next_tool_name must be one of:\n",
         ]
     )
     for idx, tool in enumerate(tools_by_name.values()):
         instr.append(f"({idx + 1}) {tool}")
-    instr.append("When providing `next_tool_args`, the value inside the field must be in JSON format")
+    instr.append("Provide the value of next_tool_args in JSON format.")
 
     # Mirrors `dspy.ReAct.__init__`'s runtime construction. The static checker
     # can't model `Signature(fields, instructions)`'s positional call or a Literal

@@ -27,3 +27,6 @@ def test_cli_builds_site_from_run_dir(tmp_path: Path, two_game_run: Path) -> Non
     assert (out / "index.html").exists()
     assert (out / "styles.css").exists()
     assert (out / "app.js").exists()
+    # Per-game replay files are written alongside, one per completed game.
+    replays = sorted(p.name for p in (out / "games").glob("*.json"))
+    assert replays == ["g0000-A-vs-B.json", "g0001-B-vs-A.json"]

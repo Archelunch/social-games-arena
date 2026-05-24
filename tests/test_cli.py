@@ -26,6 +26,7 @@ from social_deduction_bench.cli import (
     _resolve_seat_models,
     _seeded_roster,
     main,
+    silence_litellm_logging_worker,
 )
 from social_deduction_bench.engine import EventStream
 from social_deduction_bench.games.werewolf.config import DEFAULT_ROLE_COUNTS
@@ -374,19 +375,20 @@ def test_default_output_dir_is_under_games(tmp_path: Path, monkeypatch: pytest.M
     assert (out_dir / "trajectories.jsonl").exists()
 
 
-def test_max_iters_default_is_lowered_to_six() -> None:
-    """`--max-iters` defaults to 6, not the legacy 20.
+def test_max_iters_default_is_nine() -> None:
+    """`--max-iters` defaults to 9.
 
-    Looking at recorded trajectories, almost every real commit lands by
-    iter 4. The 20-cap is dead weight that inflates the worst-case
-    latency (a stuck loop burns 20 LM calls instead of 6 before failing
-    loud). Lowering the default to 6 ships ~3x faster worst-case
-    behavior with no measured regression in successful-commit rate.
+    Most real commits land by iter 4, but weak benchmark models need headroom
+    to reach a valid commit before the loop degrades to the phase default.
+    9 buys that headroom without the dead weight of the legacy 20-cap (a stuck
+    loop still bounds its LM calls). It is not 6: 6 was tuned for a fail-loud
+    world; now a no-commit degrades instead of aborting, so a slightly higher
+    cap trades a little worst-case latency for fewer degraded turns.
     """
     from social_deduction_bench.cli import _build_parser
 
     args = _build_parser().parse_args([])
-    assert args.max_iters == 6
+    assert args.max_iters == 9
 
 
 def test_max_tokens_default_is_lowered_to_8000() -> None:
@@ -437,6 +439,37 @@ def test_help_documents_reasoning_flag(capsys: pytest.CaptureFixture[str]) -> No
     with pytest.raises(SystemExit):
         main(["--help"])
     assert "--reasoning" in capsys.readouterr().out
+
+
+def test_silence_litellm_logging_worker_closes_enqueued_coroutine_without_scheduling() -> None:
+    """The silencer must close an enqueued telemetry coroutine, not schedule it.
+
+    After every async completion litellm enqueues a fire-and-forget
+    `async_success_handler` coroutine into ONE process-global LoggingWorker. We
+    run a fresh event loop per agent phase across many game threads, so that
+    singleton is shared across loops/threads it was never built for and floods
+    stderr ("Task was destroyed but it is pending", "cannot reuse already awaited
+    coroutine", "task_done() called too many times"), burying real errors during a
+    paid sweep. We register no litellm callbacks, so the worker is dead weight.
+    After silencing, an enqueued coroutine must be CLOSED (no leaked "never
+    awaited" coroutine, no background task) — that is what keeps a concurrent
+    sweep's logs readable and the worker's state uncorrupted. Were the shim
+    absent, the real enqueue would instead call `asyncio.create_task` (here:
+    RuntimeError, no running loop) and leave the coroutine un-awaited.
+    """
+    import inspect
+
+    from litellm.litellm_core_utils.logging_worker import GLOBAL_LOGGING_WORKER
+
+    silence_litellm_logging_worker()
+
+    async def _sample() -> None:
+        return None
+
+    coro = _sample()
+    assert inspect.getcoroutinestate(coro) == inspect.CORO_CREATED  # fresh, unstarted
+    GLOBAL_LOGGING_WORKER.ensure_initialized_and_enqueue(async_coroutine=coro)
+    assert inspect.getcoroutinestate(coro) == inspect.CORO_CLOSED  # shim closed it, no task
 
 
 def test_no_stream_thoughts_flag_round_trips(capsys: pytest.CaptureFixture[str]) -> None:

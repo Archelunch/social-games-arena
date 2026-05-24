@@ -21,7 +21,13 @@ import pytest
 from social_deduction_bench.cli import _DEFAULT_NAMES
 from social_deduction_bench.games.werewolf.tournament import run_tournament, schedule_tournament
 from social_deduction_bench.rating.manifest import read_json as read_manifest
-from social_deduction_bench.tournament_cli import _exit_code, main, run_sweep
+from social_deduction_bench.tournament_cli import (
+    _exit_code,
+    _GameJob,
+    main,
+    run_one_game_isolated,
+    run_sweep,
+)
 
 
 def _invoke(argv: list[str], monkeypatch: pytest.MonkeyPatch) -> int:
@@ -200,3 +206,64 @@ def test_exit_code_is_zero_when_some_games_completed(tmp_path: Path) -> None:
 def test_exit_code_is_zero_for_an_empty_schedule() -> None:
     result = run_tournament((), lambda _m: None)  # type: ignore[arg-type,return-value]
     assert _exit_code(result, 0) == 0
+
+
+# --- per-game process isolation (the fd-leak containment) ----------------
+
+
+def _dry_job(matchup: object, output_dir: Path) -> _GameJob:
+    return _GameJob(
+        matchup=matchup,  # type: ignore[arg-type]
+        output_dir=str(output_dir),
+        dry_run=True,
+        api_key=None,
+        resolved_models=(),
+        max_iters=0,
+        max_tokens=0,
+        temperature=0.0,
+        reasoning=False,
+    )
+
+
+def test_game_job_round_trips_through_pickle() -> None:
+    # The job crosses a process boundary, so it (and the Matchup it carries) must
+    # pickle cleanly — a lambda resolver or callback sneaking in would break here.
+    import pickle
+
+    matchup = schedule_tournament(["A", "B"], games_per_pair=1, seed=1, names=_DEFAULT_NAMES)[0]
+    job = _dry_job(matchup, Path("games/x"))
+    assert pickle.loads(pickle.dumps(job)) == job
+
+
+def test_run_one_game_isolated_runs_in_a_child_and_reads_back_metrics(tmp_path: Path) -> None:
+    # The real-game path runs each game in a spawned child so its fds are reclaimed
+    # on exit. Exercise that machinery offline with a scripted (dry-run) job: the
+    # child must write the artifacts and the parent must read them back as metrics.
+    matchup = schedule_tournament(["A", "B"], games_per_pair=1, seed=1, names=_DEFAULT_NAMES)[0]
+
+    metrics = run_one_game_isolated(_dry_job(matchup, tmp_path))
+
+    assert (tmp_path / matchup.game_id / "manifest.json").exists()  # child persisted artifacts
+    assert metrics.game_id == matchup.game_id  # parent read them back from disk
+
+
+def test_run_one_game_isolated_raises_when_the_child_fails(tmp_path: Path) -> None:
+    # A child that exits non-zero (here: a real job with no api_key) must surface as a
+    # failure the tournament can skip — and, having written no manifest, --resume
+    # re-runs it. We assert the parent raises rather than silently returning.
+    matchup = schedule_tournament(["A", "B"], games_per_pair=1, seed=1, names=_DEFAULT_NAMES)[0]
+    bad_job = _GameJob(
+        matchup=matchup,
+        output_dir=str(tmp_path),
+        dry_run=False,
+        api_key=None,  # the child raises: "a real game job requires api_key"
+        resolved_models=(),
+        max_iters=1,
+        max_tokens=1,
+        temperature=0.0,
+        reasoning=False,
+    )
+
+    with pytest.raises(RuntimeError, match="worker process"):
+        run_one_game_isolated(bad_job)
+    assert not (tmp_path / matchup.game_id / "manifest.json").exists()

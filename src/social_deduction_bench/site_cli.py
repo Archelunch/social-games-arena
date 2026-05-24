@@ -13,6 +13,7 @@ import sys
 from collections.abc import Sequence
 from pathlib import Path
 
+from social_deduction_bench.games.werewolf.replay_data import write_replays
 from social_deduction_bench.games.werewolf.site_data import build_site_data
 from social_deduction_bench.site import write_site
 
@@ -54,8 +55,10 @@ def main(argv: Sequence[str] | None = None) -> int:
         return 2
 
     write_site(data, out_dir)
+    n_replays = write_replays(run_dirs, out_dir)
     meta = data["meta"]
     print(f"site: {meta['n_games']} games ({meta['n_rated']} rated) -> {out_dir}")
+    print(f"  replays: {n_replays} game files -> {out_dir}/games")
     print(f"  serve it:  (cd {out_dir} && python -m http.server)")
     return 0
 

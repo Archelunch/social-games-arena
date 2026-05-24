@@ -342,15 +342,39 @@ def test_kill_ballots_payload_is_a_fresh_dict_not_the_input() -> None:
     assert draft.payload["ballots"] == {"Wolf1": "Vil1", "Wolf2": "Vil1"}
 
 
-def test_empty_kill_votes_is_rejected() -> None:
-    """A night with no werewolf kill votes fails loud.
+def test_empty_kill_votes_yields_a_no_kill_night() -> None:
+    """No werewolf kill votes degrades to a no-kill night, not an abort.
 
-    Living werewolves always cast a joint kill (the game is terminal before a
-    night with zero werewolves); an empty `kill_votes` is a caller bug, not a
-    silent no-kill night.
+    A living werewolf can fail to commit a valid kill within its ReAct budget;
+    the agent layer omits that vote rather than fabricating one. When *every*
+    living wolf forfeits, `kill_votes` is empty — and the engine must resolve
+    that as a night where nobody dies (so the benchmark game continues) rather
+    than raising. `victim=None` is already the protected-target signal, so the
+    public `KILL_RESOLVED` carries it; no ballots existed, so no `KILL_BALLOTS`.
     """
     state = GameState.initial(ROSTER)
     actions = NightActions(kill_votes={})
 
-    with pytest.raises(ValueError, match="kill"):
-        resolve_night(state, actions, GameRNG(0))
+    result = resolve_night(state, actions, GameRNG(0))
+
+    assert result.killed is None
+    assert result.state is state  # no death -> input snapshot is reused unchanged
+    assert _draft(result.drafts, KILL_RESOLVED).payload["victim"] is None
+    assert not [d for d in result.drafts if d.type == KILL_BALLOTS]
+
+
+def test_no_kill_night_still_resolves_the_seer_inspect() -> None:
+    """A forfeited kill must not suppress the seer's private inspection.
+
+    The wolves failing to act is independent of the seer acting; a degraded
+    night still emits the seer's private result (invariant #2) even with no kill.
+    """
+    state = GameState.initial(ROSTER)
+    actions = NightActions(kill_votes={}, seer_inspect="Wolf1")
+
+    result = resolve_night(state, actions, GameRNG(0))
+
+    assert result.killed is None
+    inspect = _draft(result.drafts, SEER_INSPECT)
+    assert inspect.payload["target"] == "Wolf1"
+    assert inspect.recipients == ("Seer",)  # private to the seer

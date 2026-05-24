@@ -365,17 +365,572 @@ function renderFooter(meta) {
     " · models: " + meta.models.map(shortName).join(", ");
 }
 
-// --- boot ----------------------------------------------------------------
+// --- replays: the game library ------------------------------------------
+
+function factionOf(role) {
+  return role === "werewolf" ? "wolf" : "village";
+}
+
+function side(model, pole) {
+  return h("span", { class: "side side--" + pole }, h("span", { class: "side__pip", "aria-hidden": "true" }), modelEl(model));
+}
+
+function renderGames(games) {
+  if (!games || !games.length) {
+    mount("games", h("p", { class: "panel__note", text: "No games to replay yet." }));
+    return;
+  }
+  const models = [...new Set(games.flatMap((g) => [g.wolf_model, g.village_model]).filter((m) => m && m !== "mixed"))].sort();
+  const modelSel = h("select", { class: "games__select", "aria-label": "Filter by model" },
+    h("option", { value: "", text: "All models" }),
+    ...models.map((m) => h("option", { value: m, text: shortName(m) })));
+  const sideSel = h("select", { class: "games__select", "aria-label": "Filter by winning side" },
+    h("option", { value: "", text: "Any outcome" }),
+    h("option", { value: "werewolves", text: "Wolves win" }),
+    h("option", { value: "villagers", text: "Village win" }));
+  const count = h("span", { class: "games__count" });
+  const list = h("div", { class: "games__list" });
+
+  const draw = () => {
+    const model = modelSel.value;
+    const outcome = sideSel.value;
+    list.replaceChildren();
+    let shown = 0;
+    for (const gm of games) {
+      const wolf = gm.wolf_model || "mixed";
+      const vil = gm.village_model || "mixed";
+      if (model && wolf !== model && vil !== model) continue;
+      if (outcome && gm.winner !== outcome) continue;
+      shown += 1;
+      const wolfWon = gm.winner === "werewolves";
+      list.append(
+        h("a", { class: "game-row", href: "#/game/" + encodeURIComponent(gm.game_id) },
+          h("span", { class: "game-row__matchup" },
+            side(wolf, "wolf"), h("span", { class: "game-row__vs", text: "vs" }), side(vil, "village")),
+          h("span", { class: "badge badge--" + (wolfWon ? "wolf" : "village"), text: wolfWon ? "Wolves win" : "Village wins" }),
+          h("span", { class: "game-row__rounds", text: gm.rounds + (gm.rounds === 1 ? " round" : " rounds") }),
+          h("span", { class: "game-row__go", "aria-hidden": "true", text: "›" }),
+        ),
+      );
+    }
+    count.textContent = shown + (shown === 1 ? " game" : " games");
+    if (!shown) list.append(h("p", { class: "panel__note", text: "No games match these filters." }));
+  };
+  draw();
+  modelSel.addEventListener("change", draw);
+  sideSel.addEventListener("change", draw);
+
+  mount("games", h("div", { class: "games" },
+    h("div", { class: "games__filters" },
+      h("label", { class: "games__field" }, h("span", { class: "games__label", text: "Model" }), modelSel),
+      h("label", { class: "games__field" }, h("span", { class: "games__label", text: "Outcome" }), sideSel),
+      count),
+    list));
+}
+
+// --- replay: the game screen --------------------------------------------
+
+const PHASE_GLYPH = { night: "☾", day: "☀" }; // waning moon, sun
+const ARROW_KINDS = ["seer", "doctor", "accuse", "defend", "kill", "vote"];
+
+function seatXY(i, n) {
+  const a = -Math.PI / 2 + (i * 2 * Math.PI) / n;
+  return { x: 50 + 39 * Math.cos(a), y: 50 + 41 * Math.sin(a) };
+}
+
+function deadThrough(events, idx) {
+  const dead = new Set();
+  for (let i = 0; i <= idx; i++) {
+    const e = events[i];
+    if (e.type === "kill_resolved" && e.payload.victim) dead.add(e.payload.victim);
+    if (e.type === "exile_resolved" && e.payload.exiled) dead.add(e.payload.exiled);
+  }
+  return dead;
+}
+
+function ballotArrows(ballots, kind) {
+  const out = [];
+  for (const [voter, target] of Object.entries(ballots || {})) {
+    if (!target || target === "abstain" || target === voter) continue;
+    out.push({ from: voter, to: target, kind });
+  }
+  return out;
+}
+
+function arrowsFor(e, players, deadBefore) {
+  const p = e.payload;
+  if (e.type === "seer_inspect") return [{ from: e.actor, to: p.target, kind: "seer" }];
+  if (e.type === "doctor_protect") return [{ from: e.actor, to: p.target, kind: "doctor" }];
+  if (e.type === "accusation") return [{ from: e.actor, to: p.target, kind: "accuse" }];
+  if (e.type === "defense") return [{ from: e.actor, to: p.defended, kind: "defend" }];
+  if (e.type === "kill_ballots") return ballotArrows(p.ballots, "kill");
+  if (e.type === "exile_resolved") return ballotArrows(p.ballots, "vote");
+  if (e.type === "kill_resolved" && p.victim) {
+    return players
+      .filter((pl) => pl.role === "werewolf" && !deadBefore.has(pl.name) && pl.name !== p.victim)
+      .map((pl) => ({ from: pl.name, to: p.victim, kind: "kill" }));
+  }
+  return [];
+}
+
+function mountReplay(g) {
+  const root = document.getElementById("replay");
+  const events = g.events;
+  const players = g.players;
+  const idxByName = {};
+  const roleByName = {};
+  players.forEach((p, i) => { idxByName[p.name] = i; roleByName[p.name] = p.role; });
+  const pos = players.map((_, i) => seatXY(i, players.length));
+  const st = { cursor: 0, playing: false, sel: null, timer: null, speed: 1 };
+
+  // ---- top bar ----
+  const phase = h("span", { class: "rp-phase" });
+  const winnerWolf = g.winner === "werewolves";
+  const topbar = h("div", { class: "rp-topbar" },
+    h("a", { class: "rp-back", href: "#/", text: "← Replays" }),
+    h("div", { class: "rp-matchup" }, side(g.wolf_model || "mixed", "wolf"),
+      h("span", { class: "rp-matchup__vs", text: "vs" }), side(g.village_model || "mixed", "village")),
+    h("div", { class: "rp-topbar__right" }, phase,
+      h("span", { class: "badge badge--" + (winnerWolf ? "wolf" : "village"), text: winnerWolf ? "Wolves win" : "Village win" })),
+  );
+
+  // ---- round table ----
+  const arrows = s("svg", { class: "rp-arrows", viewBox: "0 0 100 100", "aria-hidden": "true" });
+  const defs = s("defs", null);
+  for (const k of ARROW_KINDS) {
+    defs.append(s("marker", { id: "arw-" + k, class: "rp-head rp-head--" + k, markerUnits: "userSpaceOnUse",
+      markerWidth: "4.5", markerHeight: "4.5", refX: "2.4", refY: "2", orient: "auto", viewBox: "0 0 4 4" },
+      s("path", { d: "M0,0 L4,2 L0,4 z" })));
+  }
+  arrows.append(defs);
+  const seatLayer = h("div", { class: "rp-seats" });
+  const seatEls = players.map((p, i) => {
+    const el = h("button", { class: "seat", type: "button", style: "left:" + pos[i].x + "%;top:" + pos[i].y + "%" },
+      h("span", { class: "seat__role role role--" + factionOf(p.role), text: p.role }),
+      h("span", { class: "seat__name", text: p.name }),
+    );
+    el.addEventListener("click", () => { st.sel = st.sel === p.name ? null : p.name; paintDrawer(); paintTable(); });
+    seatLayer.append(el);
+    return el;
+  });
+  const table = h("div", { class: "rp-table" }, h("div", { class: "rp-hearth", "aria-hidden": "true" }, h("span", { class: "rp-hearth__glyph" })), arrows, seatLayer);
+
+  // ---- feed (with a reasoning ticker that surfaces the acting agent's thought) ----
+  const now = h("button", { class: "rp-now", type: "button" });
+  now.addEventListener("click", () => { const a = events[st.cursor].actor; if (a) { st.sel = a; paintDrawer(); paintTable(); } });
+  const feed = h("div", { class: "rp-feed" });
+  const stage = h("div", { class: "rp-stage" }, h("div", { class: "rp-tablewrap" }, table), h("div", { class: "rp-feedcol" }, now, feed));
+
+  // ---- transport ----
+  const btnPrev = h("button", { class: "rp-btn", type: "button", "aria-label": "Step back", text: "◀" });
+  const btnPlay = h("button", { class: "rp-btn rp-btn--play", type: "button", "aria-label": "Play" });
+  const btnNext = h("button", { class: "rp-btn", type: "button", "aria-label": "Step forward", text: "▶" });
+  const btnSpeed = h("button", { class: "rp-btn rp-btn--speed", type: "button", "aria-label": "Playback speed", text: "1×" });
+  const progress = h("div", { class: "rp-progress", "aria-hidden": "true" }, h("div", { class: "rp-progress__bar" }));
+  const counter = h("span", { class: "rp-counter" });
+  const range = h("input", { class: "rp-range", type: "range", min: "0", max: String(events.length - 1), value: "0", "aria-label": "Timeline position" });
+  const segs = h("div", { class: "rp-segs" });
+  g.phases.forEach((ph) => {
+    const span = ph.last_seq - ph.first_seq + 1;
+    const seg = h("button", { class: "rp-seg", type: "button", style: "flex:" + span + " 1 0", title: ph.label },
+      h("span", { class: "rp-seg__glyph", "aria-hidden": "true", text: PHASE_GLYPH[ph.phase] }),
+      h("span", { class: "rp-seg__label", text: ph.label }));
+    seg.addEventListener("click", () => { pause(); setCursor(ph.first_seq); });
+    segs.append(seg);
+  });
+  const transport = h("div", { class: "rp-transport" },
+    h("div", { class: "rp-controls" }, btnPrev, btnPlay, btnNext, btnSpeed, counter),
+    progress,
+    h("div", { class: "rp-scrub" }, segs, range));
+
+  const drawer = h("aside", { class: "rp-drawer", "aria-label": "Player detail", "aria-hidden": "true" });
+
+  root.replaceChildren(topbar, stage, transport, drawer);
+
+  // ---- transport behavior ----
+  // Dwell scales with how much there is to read, so a long speech lingers and a
+  // one-line resolution does not overstay; speed divides it. The progress bar
+  // shows the wait is intentional, not a stall.
+  const SPEEDS = [1, 1.5, 2, 0.5];
+  const bar = progress.firstChild;
+  function dwellFor(e) {
+    const n = (str) => (typeof str === "string" ? str.length : 0);
+    let ms;
+    switch (e.type) {
+      case "speech": ms = 1300 + n(e.payload.message) * 15; break;
+      case "werewolf_chat": ms = 1200 + n(e.payload.message) * 15; break;
+      case "accusation": case "defense": ms = 1700 + n(e.payload.reason) * 11; break;
+      case "seer_inspect": case "doctor_protect": ms = 1700; break;
+      case "kill_ballots": ms = 2100; break;
+      case "discussion_resolved": ms = 2600; break;
+      case "kill_resolved": case "exile_resolved": ms = 2900; break;
+      case "game_over": ms = 3200; break;
+      default: ms = 1400;
+    }
+    return Math.max(1400, Math.min(7000, ms)) / st.speed;
+  }
+  function clearTimer() { if (st.timer) { clearTimeout(st.timer); st.timer = null; } }
+  function resetProgress() { bar.style.transition = "none"; bar.style.width = "0%"; progress.classList.remove("is-running"); }
+  function runProgress(ms) {
+    progress.classList.add("is-running");
+    bar.style.transition = "none"; bar.style.width = "0%";
+    void bar.offsetWidth; // reflow so 0% lands before animating to 100%
+    bar.style.transition = "width " + ms + "ms linear"; bar.style.width = "100%";
+  }
+  function setCursor(c) { st.cursor = Math.max(0, Math.min(events.length - 1, c)); paint(); }
+  function schedule() {
+    clearTimer();
+    if (!st.playing) { resetProgress(); return; }
+    if (st.cursor >= events.length - 1) { pause(); return; }
+    const ms = dwellFor(events[st.cursor]);
+    runProgress(ms);
+    st.timer = setTimeout(() => { st.cursor += 1; paint(); schedule(); }, ms);
+  }
+  function play() { if (st.cursor >= events.length - 1) setCursor(0); st.playing = true; updatePlay(); schedule(); }
+  function pause() { st.playing = false; clearTimer(); resetProgress(); updatePlay(); }
+  function updatePlay() {
+    btnPlay.textContent = st.playing ? "‖" : "▶"; // pause bars / play
+    btnPlay.setAttribute("aria-label", st.playing ? "Pause" : "Play");
+    btnPlay.classList.toggle("is-playing", st.playing);
+  }
+  btnPrev.addEventListener("click", () => { pause(); setCursor(st.cursor - 1); });
+  btnNext.addEventListener("click", () => { pause(); setCursor(st.cursor + 1); });
+  btnPlay.addEventListener("click", () => (st.playing ? pause() : play()));
+  btnSpeed.addEventListener("click", () => {
+    st.speed = SPEEDS[(SPEEDS.indexOf(st.speed) + 1) % SPEEDS.length];
+    btnSpeed.textContent = (st.speed === 1.5 ? "1.5" : String(st.speed)) + "×";
+    if (st.playing) schedule();
+  });
+  range.addEventListener("input", () => { pause(); setCursor(Number(range.value)); });
+
+  // ---- painters ----
+  function curBlock() { return g.phases.find((p) => events[st.cursor].seq >= p.first_seq && events[st.cursor].seq <= p.last_seq); }
+
+  function paint() {
+    const e = events[st.cursor];
+    const block = curBlock();
+    phase.replaceChildren(h("span", { class: "rp-phase__glyph", "aria-hidden": "true", text: PHASE_GLYPH[e.phase] }),
+      h("b", { text: block ? block.label : e.phase }));
+    range.value = String(st.cursor);
+    counter.textContent = (st.cursor + 1) + " / " + events.length;
+    [...segs.children].forEach((seg, i) => {
+      const p = g.phases[i];
+      seg.classList.toggle("rp-seg--active", e.seq >= p.first_seq && e.seq <= p.last_seq);
+    });
+    updatePlay();
+    paintNow();
+    paintTable();
+    paintFeed();
+    paintDrawer();
+  }
+
+  function decisionForEvent(e) {
+    if (!e.actor) return null;
+    let exact = null;
+    let latest = null;
+    for (const t of g.trajectories) {
+      if (t.caller !== e.actor) continue;
+      if (t.anchor_seq === e.seq) exact = t;
+      if (t.anchor_seq <= st.cursor && (!latest || t.anchor_seq > latest.anchor_seq)) latest = t;
+    }
+    return exact || latest;
+  }
+
+  function paintNow() {
+    const e = events[st.cursor];
+    const block = curBlock();
+    const dec = decisionForEvent(e);
+    let thought = "";
+    if (dec) {
+      for (const stp of dec.react_trajectory) if (stp.thought) thought = stp.thought;
+    }
+    now.classList.toggle("rp-now--has", !!e.actor);
+    now.replaceChildren(
+      h("span", { class: "rp-now__phase" }, h("span", { class: "rp-now__glyph", "aria-hidden": "true", text: PHASE_GLYPH[e.phase] }), block ? block.label : e.phase),
+      e.actor
+        ? h("span", { class: "rp-now__who" },
+            h("span", { class: "rp-now__name role--" + factionOf(roleByName[e.actor] || "villager"), text: e.actor }),
+            h("span", { class: "rp-now__thought", text: thought ? "“" + thought + "”" : "is acting…" }))
+        : h("span", { class: "rp-now__who rp-now__who--idle", text: "the table resolves" }),
+    );
+  }
+
+  function paintTable() {
+    const e = events[st.cursor];
+    table.classList.toggle("rp-table--day", e.phase === "day");
+    const hg = table.querySelector(".rp-hearth__glyph");
+    if (hg) hg.textContent = PHASE_GLYPH[e.phase];
+    const dead = deadThrough(events, st.cursor);
+    const deadBefore = deadThrough(events, st.cursor - 1);
+    const target = e.type === "kill_resolved" ? e.payload.victim : e.type === "exile_resolved" ? e.payload.exiled : null;
+    seatEls.forEach((el, i) => {
+      const name = players[i].name;
+      el.classList.toggle("seat--dead", dead.has(name));
+      el.classList.toggle("seat--active", e.actor === name);
+      el.classList.toggle("seat--target", name === target);
+      el.classList.toggle("seat--selected", st.sel === name);
+    });
+    [...arrows.querySelectorAll(".rp-arrow")].forEach((n) => n.remove());
+    for (const ar of arrowsFor(e, players, deadBefore)) {
+      const a = pos[idxByName[ar.from]];
+      const b = pos[idxByName[ar.to]];
+      if (!a || !b) continue;
+      const dx = b.x - a.x, dy = b.y - a.y, len = Math.hypot(dx, dy) || 1;
+      const ux = dx / len, uy = dy / len, pad = 9;
+      arrows.append(s("line", { class: "rp-arrow rp-arrow--" + ar.kind, "marker-end": "url(#arw-" + ar.kind + ")", pathLength: "1",
+        x1: a.x + ux * pad, y1: a.y + uy * pad, x2: b.x - ux * (pad + 1), y2: b.y - uy * (pad + 1) }));
+    }
+  }
+
+  function paintFeed() {
+    feed.replaceChildren();
+    let lastLabel = null;
+    for (let i = 0; i <= st.cursor; i++) {
+      const e = events[i];
+      const block = g.phases.find((ph) => e.seq >= ph.first_seq && e.seq <= ph.last_seq);
+      const label = block ? block.label : e.phase;
+      if (label !== lastLabel) { feed.append(phaseDivider(label, e.phase)); lastLabel = label; }
+      const item = feedItem(e, i === st.cursor);
+      if (item) feed.append(item);
+    }
+    const cur = feed.querySelector(".is-current");
+    if (cur) {
+      const top = cur.offsetTop, bot = top + cur.offsetHeight;
+      if (top < feed.scrollTop) feed.scrollTop = top - 10;
+      else if (bot > feed.scrollTop + feed.clientHeight) feed.scrollTop = bot - feed.clientHeight + 10;
+    }
+  }
+
+  function feedItem(e, current) {
+    const base = "feed-item" + (current ? " is-current" : "");
+    const p = e.payload;
+    switch (e.type) {
+      case "speech": return say(base, e.actor, p.message, null);
+      case "werewolf_chat": return say(base + " feed-item--pack", e.actor, p.message, "pack");
+      case "accusation": return act(base + " feed-item--accuse", e.actor, "accuses", p.target, p.reason);
+      case "defense": return act(base + " feed-item--defend", e.actor, "defends", p.defended, p.reason);
+      case "seer_inspect": return secret(base + " feed-item--seer", e.actor + " inspects " + p.target, p.target + " is " + p.faction);
+      case "doctor_protect": return secret(base + " feed-item--doctor", e.actor + " guards " + p.target, null);
+      case "kill_ballots": return killBallots(base + " feed-item--pack", p, current);
+      case "discussion_resolved": return bidPanel(base + " feed-item--bids", p, current);
+      case "kill_resolved": return stageLine(base + " feed-item--kill", p.victim ? p.victim + " is found dead at dawn." : "The night passes; everyone survives.");
+      case "exile_resolved": return votePanel(base + " feed-item--vote", p, current);
+      case "game_over": return stageLine(base + " feed-item--over", (p.winner === "werewolves" ? "The werewolves" : "The village") + " win.");
+      default: return null; // bid, tool_rejected live in the seat drawer
+    }
+  }
+
+  function say(cls, name, message, tag) {
+    const fac = factionOf(roleByName[name] || "villager");
+    return h("div", { class: cls + " feed-item--say feed-item--" + fac },
+      h("div", { class: "say__head" },
+        h("span", { class: "say__name", text: name }),
+        tag ? h("span", { class: "say__tag", text: tag }) : null),
+      h("p", { class: "say__msg", text: message }));
+  }
+  function act(cls, who, verb, whom, reason) {
+    return h("div", { class: cls + " feed-item--act" },
+      h("p", { class: "act__line" }, h("b", { text: who }), " " + verb + " ", h("b", { text: whom })),
+      reason ? h("p", { class: "act__reason", text: reason }) : null);
+  }
+  function secret(cls, head, detail) {
+    return h("div", { class: cls + " feed-item--secret" },
+      h("span", { class: "secret__head", text: head }),
+      detail ? h("span", { class: "secret__detail", text: detail }) : null);
+  }
+  function stageLine(cls, text) {
+    return h("div", { class: cls + " feed-item--stage" }, h("span", { class: "stage__text", text: text }));
+  }
+
+  function phaseDivider(label, phase) {
+    return h("div", { class: "feed-divider feed-divider--" + phase },
+      h("span", { class: "feed-divider__glyph", "aria-hidden": "true", text: PHASE_GLYPH[phase] }),
+      h("span", { class: "feed-divider__label", text: label }));
+  }
+
+  function tallyBar(frac, win, anim) {
+    return h("span", { class: "vote-row__bar" },
+      h("span", { class: "vote-row__fill" + (win ? " vote-row__fill--win" : "") + (anim ? " bar-anim" : ""), style: "width:" + Math.round(frac * 100) + "%" }));
+  }
+
+  function bidPanel(cls, p, current) {
+    const bids = p.bids || {};
+    const winners = new Set(p.speakers || []);
+    const rows = Object.entries(bids).sort((a, b) => b[1] - a[1]);
+    const max = Math.max(1, ...rows.map((r) => r[1]));
+    const list = h("div", { class: "vote__rows" });
+    for (const [name, amt] of rows) {
+      const win = winners.has(name);
+      list.append(h("div", { class: "vote-row" + (win ? " vote-row--win" : "") },
+        h("span", { class: "vote-row__who", text: name }),
+        tallyBar(amt / max, win, current),
+        h("span", { class: "vote-row__count", text: String(amt) }),
+        win ? h("span", { class: "vote-row__tag", text: "speaks" }) : null));
+    }
+    return h("div", { class: cls + " feed-item--panel" },
+      h("div", { class: "panel-row__head" }, h("span", { class: "panel-row__title", text: "Bidding for the floor" }),
+        h("span", { class: "panel-row__out", text: (p.speakers || []).join(" › ") })),
+      list);
+  }
+
+  function votePanel(cls, p, current) {
+    const ballots = p.ballots || {};
+    const tally = {};
+    for (const [voter, target] of Object.entries(ballots)) {
+      const key = !target || target === "abstain" ? "abstain" : target;
+      (tally[key] = tally[key] || []).push(voter);
+    }
+    const rows = Object.entries(tally).sort((a, b) => b[1].length - a[1].length);
+    const max = Math.max(1, ...rows.map((r) => r[1].length));
+    const list = h("div", { class: "vote__rows" });
+    for (const [target, voters] of rows) {
+      const out = target === p.exiled;
+      list.append(h("div", { class: "vote-row" + (out ? " vote-row--out" : "") + (target === "abstain" ? " vote-row--abstain" : "") },
+        h("span", { class: "vote-row__who", text: target }),
+        tallyBar(voters.length / max, out, current),
+        h("span", { class: "vote-row__count", text: String(voters.length) }),
+        h("span", { class: "vote-row__voters", text: voters.join(", ") })));
+    }
+    return h("div", { class: cls + " feed-item--panel" },
+      h("div", { class: "panel-row__head" }, h("span", { class: "panel-row__title", text: "The village votes" }),
+        h("span", { class: "panel-row__out", text: p.exiled ? p.exiled + " is exiled" : "tie · no exile" })),
+      list);
+  }
+
+  function killBallots(cls, p, current) {
+    const tally = {};
+    for (const [wolf, target] of Object.entries(p.ballots || {})) (tally[target] = tally[target] || []).push(wolf);
+    const rows = Object.entries(tally).sort((a, b) => b[1].length - a[1].length);
+    const max = Math.max(1, ...rows.map((r) => r[1].length));
+    const list = h("div", { class: "vote__rows" });
+    for (const [target, wolves] of rows) {
+      list.append(h("div", { class: "vote-row vote-row--out" },
+        h("span", { class: "vote-row__who", text: target }),
+        tallyBar(wolves.length / max, true, current),
+        h("span", { class: "vote-row__count", text: String(wolves.length) }),
+        h("span", { class: "vote-row__voters", text: wolves.join(", ") })));
+    }
+    return h("div", { class: cls + " feed-item--panel feed-item--secret" },
+      h("span", { class: "secret__head", text: "The pack marks its prey" }), list);
+  }
+
+  function currentDecision(name) {
+    let best = null;
+    for (const t of g.trajectories) {
+      if (t.caller !== name || t.anchor_seq > st.cursor) continue;
+      if (!best || t.anchor_seq > best.anchor_seq || (t.anchor_seq === best.anchor_seq && t.decision_seq > best.decision_seq)) best = t;
+    }
+    return best;
+  }
+  function currentMemory(name) {
+    let best = null;
+    for (const m of g.memory_timeline) {
+      if (m.player !== name || m.at_seq > st.cursor) continue;
+      if (!best || m.at_seq >= best.at_seq) best = m;
+    }
+    return best;
+  }
+
+  function paintDrawer() {
+    if (!st.sel) { drawer.classList.remove("rp-drawer--open"); drawer.setAttribute("aria-hidden", "true"); drawer.replaceChildren(); return; }
+    const name = st.sel;
+    const role = roleByName[name];
+    const player = players[idxByName[name]];
+    const dead = deadThrough(events, st.cursor).has(name);
+    const dec = currentDecision(name);
+    const mem = currentMemory(name);
+    const round = events[st.cursor].round;
+    const fm = (g.final_memories && g.final_memories[name]) || { plan: "", beliefs: {}, notes: [] };
+    const notes = (fm.notes || []).filter((n) => n.round <= round);
+    const beliefs = mem ? mem.beliefs : {};
+    const plan = mem ? mem.plan : "";
+
+    const close = h("button", { class: "drawer__close", type: "button", "aria-label": "Close", text: "×" });
+    close.addEventListener("click", () => { st.sel = null; paintDrawer(); paintTable(); });
+
+    const sections = [];
+    if (dec) {
+      const tok = dec.lm_calls.reduce((s2, c) => s2 + (c.prompt_tokens || 0) + (c.completion_tokens || 0), 0);
+      const cost = dec.lm_calls.reduce((s2, c) => s2 + (c.cost_usd || 0), 0);
+      const steps = h("div", { class: "react" });
+      dec.react_trajectory.forEach((stp) => {
+        steps.append(h("div", { class: "react-step" },
+          stp.thought ? h("p", { class: "react-step__thought", text: stp.thought }) : null,
+          h("p", { class: "react-step__act" },
+            h("span", { class: "react-step__tool", text: stp.tool }),
+            h("span", { class: "react-step__args", text: argLine(stp.args) })),
+          stp.observation ? h("p", { class: "react-step__obs", text: stp.observation }) : null));
+      });
+      sections.push(h("div", { class: "drawer__section" },
+        h("h3", { class: "drawer__h", text: "Reasoning · " + (curBlock() ? curBlock().label : "") }),
+        steps,
+        h("p", { class: "telemetry" }, h("b", { text: int(tok) }), " tokens", cost ? h("span", null, "  ·  $" + cost.toFixed(4)) : null)));
+    } else {
+      sections.push(h("div", { class: "drawer__section" }, h("p", { class: "drawer__empty", text: "No move from " + name + " yet at this point." })));
+    }
+
+    const subjects = Object.keys(beliefs).sort();
+    if (plan || subjects.length) {
+      const body = [];
+      if (plan) body.push(h("p", { class: "plan", text: plan }));
+      if (subjects.length) {
+        const tbl = h("div", { class: "beliefs" });
+        for (const subj of subjects) {
+          const b = beliefs[subj];
+          tbl.append(h("div", { class: "belief" },
+            h("span", { class: "belief__subj", text: subj }),
+            h("span", { class: "belief__guess belief__guess--" + factionOf(b.guess === "werewolf" ? "werewolf" : "village"), text: b.guess }),
+            h("span", { class: "conf conf--" + b.confidence, text: b.confidence }),
+            h("p", { class: "belief__evidence", text: b.evidence })));
+        }
+        body.push(tbl);
+      }
+      sections.push(h("div", { class: "drawer__section" }, h("h3", { class: "drawer__h", text: "What " + name + " believes" }), ...body));
+    }
+
+    if (notes.length) {
+      const nl = h("ul", { class: "notes" });
+      for (const n of notes) nl.append(h("li", { class: "note" }, h("span", { class: "note__round", text: "R" + n.round }), n.text));
+      sections.push(h("div", { class: "drawer__section" }, h("h3", { class: "drawer__h", text: "Notes" }), nl));
+    }
+
+    drawer.replaceChildren(
+      h("div", { class: "drawer__head" },
+        h("div", { class: "drawer__id" },
+          h("span", { class: "role role--" + factionOf(role), text: role }),
+          h("span", { class: "drawer__name", text: name + (dead ? " (dead)" : "") }),
+          h("span", { class: "drawer__model" }, modelEl(player.model || "unknown"))),
+        close),
+      ...sections);
+    drawer.classList.add("rp-drawer--open");
+    drawer.setAttribute("aria-hidden", "false");
+  }
+
+  function argLine(args) {
+    const parts = [];
+    for (const [k, v] of Object.entries(args || {})) {
+      let val = typeof v === "string" ? v : JSON.stringify(v);
+      if (val.length > 80) val = val.slice(0, 79) + "…";
+      parts.push(k + ": " + val);
+    }
+    return parts.length ? "(" + parts.join(", ") + ")" : "";
+  }
+
+  paint();
+  return { pause };
+}
+
+// --- boot & routing ------------------------------------------------------
 
 function showError(message) {
   const banner = document.getElementById("error");
-  banner.textContent = message;
-  banner.hidden = false;
+  if (banner) { banner.textContent = message; banner.hidden = false; }
 }
 
 function render(data) {
   renderDateline(data.meta);
   renderLeaderboard(data.leaderboard);
+  renderGames(data.games);
   renderScatter(data.deceiver_detector);
   renderHeadToHead(data.head_to_head);
   renderCost(data.cost_efficiency);
@@ -383,12 +938,52 @@ function render(data) {
   renderFooter(data.meta);
 }
 
+let DATA = null;
+let dashRendered = false;
+let currentReplay = null;
+
+function showDashboard() {
+  if (currentReplay) { currentReplay.pause(); currentReplay = null; }
+  document.getElementById("replay").hidden = true;
+  document.getElementById("main").hidden = false;
+  document.querySelector(".footer").hidden = false;
+  if (DATA && !dashRendered) { render(DATA); dashRendered = true; }
+  window.scrollTo(0, 0);
+}
+
+function showReplay(id) {
+  if (currentReplay) { currentReplay.pause(); currentReplay = null; }
+  if (!/^g[\w.\-]+$/.test(id)) { location.hash = "#/"; return; }
+  document.getElementById("main").hidden = true;
+  document.querySelector(".footer").hidden = true;
+  const root = document.getElementById("replay");
+  root.hidden = false;
+  root.replaceChildren(h("p", { class: "rp-loading", text: "Loading game…" }));
+  window.scrollTo(0, 0);
+  fetch("games/" + encodeURIComponent(id) + ".json")
+    .then((r) => { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
+    .then((g) => { if (location.hash.indexOf(id) >= 0) currentReplay = mountReplay(g); })
+    .catch((err) => {
+      root.replaceChildren(h("div", { class: "rp-loading" },
+        h("p", { text: "Couldn't load this game (" + err.message + ")." }),
+        h("a", { href: "#/", text: "← Back to replays" })));
+    });
+}
+
+function route() {
+  const m = location.hash.match(/^#\/game\/(.+)$/);
+  if (m) showReplay(decodeURIComponent(m[1]));
+  else showDashboard();
+}
+
+window.addEventListener("hashchange", route);
+
 fetch('data.json')
   .then((r) => {
     if (!r.ok) throw new Error("HTTP " + r.status);
     return r.json();
   })
-  .then(render)
+  .then((data) => { DATA = data; route(); })
   .catch((err) => {
     showError(
       "Couldn't load data.json (" + err.message + "). This page needs a local server: run " +

@@ -19,9 +19,11 @@ unset, before any game runs.
 from __future__ import annotations
 
 import argparse
+import multiprocessing
 import secrets
 import sys
 from collections.abc import Callable, Sequence
+from dataclasses import dataclass
 from datetime import UTC, datetime
 from pathlib import Path
 
@@ -111,59 +113,97 @@ def run_one_scripted_game(matchup: Matchup, *, output_dir: Path) -> GameMetrics:
     return extract_game_metrics(stream, TrajectoryStream(header=stream.header, trajectories=()), manifest)
 
 
-def run_one_real_game(
-    matchup: Matchup,
-    *,
-    output_dir: Path,
-    api_key: str,
-    model_resolver: Callable[[str], str],
-    max_iters: int,
-    max_tokens: int,
-    temperature: float,
-    reasoning: bool,
-) -> GameMetrics:
-    """Run one real-LLM game for `matchup` through the production ReAct runner.
+@dataclass(frozen=True, slots=True)
+class _GameJob:
+    """A picklable description of one game to run in an isolated child process.
 
-    Each seat's LABEL is its rated identity; `model_resolver` maps that label to the
-    bare model id the LM actually calls (`_build_react_source` prefixes `openrouter/`
-    itself). The manifest records the LABELS so the leaderboard rates by identity.
+    `resolved_models` is the seat -> bare-model map (the `model_resolver` is applied
+    in the parent so no closure crosses the process boundary); `matchup.seat_models`
+    keeps the LABELS the manifest records for rating. The job carries everything the
+    child needs so nothing unpicklable (a lambda, a callback) is sent across.
     """
-    resolved = {name: model_resolver(label) for name, label in matchup.seat_models}
+
+    matchup: Matchup
+    output_dir: str
+    dry_run: bool
+    api_key: str | None
+    resolved_models: tuple[tuple[str, str], ...]
+    max_iters: int
+    max_tokens: int
+    temperature: float
+    reasoning: bool
+
+
+def _run_game_job(job: _GameJob) -> None:
+    """Child-process entry point: run one game and persist its artifacts.
+
+    Returns nothing — the parent reads the result from disk via `extract_run_dir`,
+    so no `GameMetrics` is pickled back. Runs in a fresh process so every file
+    descriptor it opens (per-phase event loops, litellm's HTTP sockets) is reclaimed
+    by the OS when the process exits, which is what keeps a long sweep from leaking
+    fds until it hits the per-process cap.
+    """
+    output_dir = Path(job.output_dir)
+    if job.dry_run:
+        run_one_scripted_game(job.matchup, output_dir=output_dir)
+        return
+    if job.api_key is None:
+        raise ValueError("a real game job requires api_key")
+
     source = _build_react_source(
-        roster=matchup.roster,
-        seat_models=resolved,
-        api_key=api_key,
-        max_iters=max_iters,
-        max_tokens=max_tokens,
-        temperature=temperature,
-        reasoning=reasoning,
+        roster=job.matchup.roster,
+        seat_models=dict(job.resolved_models),
+        api_key=job.api_key,
+        max_iters=job.max_iters,
+        max_tokens=job.max_tokens,
+        temperature=job.temperature,
+        reasoning=job.reasoning,
         on_trajectory=None,
         on_decision_start=None,
         on_step=None,
         on_thought_chunk=None,
     )
-    stream = run_game(matchup.roster, matchup.seed, source, game_id=matchup.game_id)
+    stream = run_game(job.matchup.roster, job.matchup.seed, source, game_id=job.matchup.game_id)
     winner, rounds = _winner_and_rounds(stream)
     trajectories = _trajectories_from(source)
     memories = _memories_from(source)
 
     manifest = RunManifest(
-        game_id=matchup.game_id,
-        seed=matchup.seed,
-        players=matchup.roster,
-        models=matchup.seat_models,
+        game_id=job.matchup.game_id,
+        seed=job.matchup.seed,
+        players=job.matchup.roster,
+        models=job.matchup.seat_models,
         model_arg="tournament",
-        temperature=temperature,
-        max_tokens=max_tokens,
-        max_iters=max_iters,
-        reasoning=reasoning,
+        temperature=job.temperature,
+        max_tokens=job.max_tokens,
+        max_iters=job.max_iters,
+        reasoning=job.reasoning,
         git_sha=_git_sha(),
         created_at=datetime.now(UTC).isoformat(),
         winner=winner,
         rounds=rounds,
     )
-    _write_outputs(stream, trajectories, memories, manifest, output_dir / matchup.game_id, matchup.game_id)
-    return extract_game_metrics(stream, TrajectoryStream(header=stream.header, trajectories=trajectories), manifest)
+    _write_outputs(stream, trajectories, memories, manifest, output_dir / job.matchup.game_id, job.matchup.game_id)
+
+
+def run_one_game_isolated(job: _GameJob) -> GameMetrics:
+    """Run one game in its own spawned process, then read its persisted result.
+
+    Process isolation is the fd-leak containment: litellm opens HTTP sockets under
+    each per-phase `asyncio.run` loop that the OS only reclaims on process exit, so
+    an in-process sweep accumulates fds until it hits the per-process cap and every
+    later game dies with `OSError: Too many open files`. A fresh child per game keeps
+    each game's fds bounded and reclaimed on exit; the parent only holds the child's
+    pipe. A non-zero exit code (crash, OOM, kill) surfaces as a failure the tournament
+    skips, and — having written no manifest — `--resume` re-runs it.
+    """
+    ctx = multiprocessing.get_context("spawn")
+    proc = ctx.Process(target=_run_game_job, args=(job,))
+    proc.start()
+    proc.join()
+    if proc.exitcode != 0:
+        raise RuntimeError(f"game {job.matchup.game_id} failed in its worker process (exit code {proc.exitcode})")
+    return extract_run_dir(Path(job.output_dir) / job.matchup.game_id)
 
 
 def run_sweep(
@@ -175,9 +215,9 @@ def run_sweep(
     output_dir: Path,
     api_key: str | None,
     concurrency: int = 1,
-    max_iters: int = 6,
+    max_iters: int = 9,
     max_tokens: int = 8000,
-    temperature: float = 0.7,
+    temperature: float = 1.0,
     reasoning: bool = False,
     dry_run: bool = False,
     resume: bool = False,
@@ -202,16 +242,21 @@ def run_sweep(
             return run_one_scripted_game(m, output_dir=output_dir)
         if api_key is None:
             raise ValueError("run_sweep requires api_key in real mode (pass dry_run=True for scripted games)")
-        return run_one_real_game(
-            m,
-            output_dir=output_dir,
+        # Each real game runs in its own process so its file descriptors are
+        # reclaimed on exit (see run_one_game_isolated) — the parent stays under the
+        # per-process fd cap no matter how long the sweep runs.
+        job = _GameJob(
+            matchup=m,
+            output_dir=str(output_dir),
+            dry_run=False,
             api_key=api_key,
-            model_resolver=model_resolver,
+            resolved_models=tuple((name, model_resolver(label)) for name, label in m.seat_models),
             max_iters=max_iters,
             max_tokens=max_tokens,
             temperature=temperature,
             reasoning=reasoning,
         )
+        return run_one_game_isolated(job)
 
     def runner(m: Matchup) -> GameMetrics:
         game_dir = output_dir / m.game_id
@@ -253,11 +298,11 @@ def _build_parser() -> argparse.ArgumentParser:
         default=_default_output_dir(),
         help="Output directory. Default: ./games/<UTC-timestamp>-tournament/.",
     )
-    parser.add_argument("--max-iters", type=int, default=6, help="Max ReAct iterations per decision (default: 6).")
+    parser.add_argument("--max-iters", type=int, default=9, help="Max ReAct iterations per decision (default: 9).")
     parser.add_argument(
         "--max-tokens", type=int, default=8000, help="Max completion tokens per LM call (default: 8000)."
     )
-    parser.add_argument("--temperature", type=float, default=0.7, help="Sampling temperature (default: 0.7).")
+    parser.add_argument("--temperature", type=float, default=1.0, help="Sampling temperature (default: 1.0).")
     parser.add_argument("--reasoning", action="store_true", help="Enable the model's reasoning/thinking tokens.")
     parser.add_argument(
         "--dry-run",

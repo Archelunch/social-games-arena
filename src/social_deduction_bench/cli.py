@@ -26,7 +26,7 @@ import secrets
 import subprocess
 import sys
 import time
-from collections.abc import Mapping, Sequence
+from collections.abc import Coroutine, Mapping, Sequence
 from datetime import UTC, datetime
 from pathlib import Path
 
@@ -260,11 +260,11 @@ def _build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--max-iters",
         type=int,
-        default=6,
+        default=9,
         help=(
-            "Max ReAct iterations per decision-point loop (default: 6). Most "
-            "successful commits land by iter 4; raise toward 10-20 only if a "
-            "weak model legitimately needs more chain steps."
+            "Max ReAct iterations per decision-point loop (default: 9). Most "
+            "successful commits land by iter 4; weak models need more headroom "
+            "to reach a valid commit before the loop degrades to the phase default."
         ),
     )
     parser.add_argument(
@@ -280,11 +280,11 @@ def _build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--temperature",
         type=float,
-        default=0.7,
+        default=1.0,
         help=(
-            "Sampling temperature for every LM (default: 0.7). Raise toward 1.0 if the "
-            "model gets stuck in repetition loops; lower toward 0.0 for more determinism "
-            "(may worsen small-model loops)."
+            "Sampling temperature for every LM (default: 1.0). 1.0 keeps repetition-prone "
+            "small models out of the truncation/repetition loops that waste tokens and "
+            "force degraded turns; lower toward 0.0 for more determinism (may worsen loops)."
         ),
     )
     parser.add_argument(
@@ -374,6 +374,35 @@ def _reasoning_extra_body(*, reasoning: bool) -> dict[str, object] | None:
     return {"reasoning": {"enabled": False}}
 
 
+_litellm_logging_silenced = False
+
+
+def silence_litellm_logging_worker() -> None:
+    """Neutralize litellm's process-global async ``LoggingWorker``.
+
+    After every async completion litellm enqueues a fire-and-forget
+    ``async_success_handler`` coroutine into one process-wide ``LoggingWorker``
+    (``litellm/utils.py``). We open a fresh event loop per agent phase across many
+    game threads, so that singleton is shared across loops and threads it was
+    never designed for — producing a flood of "Task was destroyed but it is
+    pending", "cannot reuse already awaited coroutine", and "task_done() called
+    too many times", which buries real errors during a paid sweep. We register no
+    litellm callbacks, so the worker does nothing for us: replace its enqueue with
+    one that simply closes the coroutine, so the worker task never starts and no
+    coroutine leaks. Idempotent and safe to call from every game thread.
+    """
+    global _litellm_logging_silenced
+    if _litellm_logging_silenced:
+        return
+    from litellm.litellm_core_utils.logging_worker import GLOBAL_LOGGING_WORKER
+
+    def _close_without_scheduling(async_coroutine: Coroutine[object, object, object]) -> None:
+        async_coroutine.close()
+
+    GLOBAL_LOGGING_WORKER.ensure_initialized_and_enqueue = _close_without_scheduling  # type: ignore[method-assign]
+    _litellm_logging_silenced = True
+
+
 def _build_react_source(
     *,
     roster: Sequence[tuple[str, str]],
@@ -400,6 +429,11 @@ def _build_react_source(
     generation unless asked.
     """
     import dspy  # imported lazily so dry-run / --help don't pay the import cost
+
+    # litellm's per-completion async logging worker is a process-global singleton
+    # that corrupts and floods stderr under our per-phase loops across game threads;
+    # neutralize it here, the single chokepoint for every real LM we build.
+    silence_litellm_logging_worker()
 
     # `extra_body=None` is litellm's default (no override), so passing it
     # unconditionally is equivalent to omitting it when reasoning is enabled.

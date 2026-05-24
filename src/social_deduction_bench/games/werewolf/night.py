@@ -73,25 +73,31 @@ def resolve_night(state: GameState, actions: NightActions, rng: GameRNG) -> Nigh
     Pure: `state` is never mutated (invariant #1). The kill-vote tie-break is the
     only stochastic step and is seeded via `rng` over a sorted leader list, so it
     is replayable (invariant #4). The seer's result draft is private to the seer
-    (invariant #2). Raises `ValueError` outside the night phase, on empty
-    `kill_votes`, or when a kill vote is cast by a non-living player — the
-    engine-as-referee must reject an ineligible ballot rather than tally it.
-    All are caller bugs.
+    (invariant #2). Raises `ValueError` outside the night phase or when a kill
+    vote is cast by a non-living player — the engine-as-referee must reject an
+    ineligible ballot rather than tally it.
+
+    Empty `kill_votes` is *not* an error: when every living werewolf forfeits a
+    valid kill (no commit within the ReAct budget, so the agent layer omits the
+    vote rather than fabricating one), the night degrades to a no-kill night so
+    the benchmark game continues — the seer/doctor still resolve and no one dies.
     """
     if state.phase is not Phase.NIGHT:
         raise ValueError(f"resolve_night requires the night phase, got {state.phase.value}")
-    if not actions.kill_votes:
-        raise ValueError("resolve_night requires at least one werewolf kill vote")
 
-    alive = set(state.alive_names())
-    illegal_voters = sorted(voter for voter in actions.kill_votes if voter not in alive)
-    if illegal_voters:
-        raise ValueError(f"resolve_night received kill votes from players who are not alive: {illegal_voters}")
+    kill_target: str | None
+    if actions.kill_votes:
+        alive = set(state.alive_names())
+        illegal_voters = sorted(voter for voter in actions.kill_votes if voter not in alive)
+        if illegal_voters:
+            raise ValueError(f"resolve_night received kill votes from players who are not alive: {illegal_voters}")
 
-    counts = Counter(actions.kill_votes.values())
-    max_count = max(counts.values())
-    leaders = sorted(name for name, c in counts.items() if c == max_count)
-    kill_target = leaders[0] if len(leaders) == 1 else rng.choice(leaders)
+        counts = Counter(actions.kill_votes.values())
+        max_count = max(counts.values())
+        leaders = sorted(name for name, c in counts.items() if c == max_count)
+        kill_target = leaders[0] if len(leaders) == 1 else rng.choice(leaders)
+    else:
+        kill_target = None
 
     drafts: list[EventDraft] = []
 
@@ -119,14 +125,15 @@ def resolve_night(state: GameState, actions: NightActions, rng: GameRNG) -> Nigh
     killed = None if actions.doctor_protect == kill_target else kill_target
     new_state = state.with_player_killed(killed) if killed is not None else state
 
-    living_pack = tuple(sorted(p.name for p in state.alive_players() if p.role == Role.WEREWOLF.value))
-    drafts.append(
-        EventDraft(
-            type=KILL_BALLOTS,
-            payload={"ballots": dict(actions.kill_votes)},
-            recipients=living_pack,
+    if actions.kill_votes:
+        living_pack = tuple(sorted(p.name for p in state.alive_players() if p.role == Role.WEREWOLF.value))
+        drafts.append(
+            EventDraft(
+                type=KILL_BALLOTS,
+                payload={"ballots": dict(actions.kill_votes)},
+                recipients=living_pack,
+            )
         )
-    )
     drafts.append(EventDraft(type=KILL_RESOLVED, payload={"victim": killed}))
 
     return NightResult(state=new_state, drafts=tuple(drafts), killed=killed)

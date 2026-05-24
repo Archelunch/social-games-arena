@@ -16,7 +16,7 @@ import asyncio
 import functools
 import inspect
 import logging
-from collections.abc import Callable, Mapping, Sequence
+from collections.abc import Awaitable, Callable, Mapping, Sequence
 from dataclasses import dataclass
 from types import MappingProxyType
 
@@ -38,6 +38,7 @@ from social_deduction_bench.agents.trajectory import (
 from social_deduction_bench.engine import Event, GameState, Phase, observations_for
 from social_deduction_bench.games.werewolf.day import DayActions
 from social_deduction_bench.games.werewolf.events import (
+    ABSTAIN,
     ACCUSATION,
     BID,
     DEFENSE,
@@ -613,22 +614,34 @@ class ReActDecisionSource:
             (name, role) for name, role in self._roster if state.is_alive(name) and role == Role.WEREWOLF.value
         ]
         tasks = [
-            self._invoke_react_async(
-                state=state,
+            self._result_or_degrade(
+                self._invoke_react_async(
+                    state=state,
+                    caller=name,
+                    role=role,
+                    decision_brief=_format_brief(
+                        _NIGHT_CHAT_BRIEF,
+                        caller=name,
+                        role=role,
+                        state=state,
+                        memory=self._memories[name],
+                        note_hint=False,
+                    ),
+                    terminal_name="werewolf_chat",
+                    terminal_fn=werewolf_chat,
+                    living_pack=living_pack,
+                    chat_terminal=True,
+                ),
                 caller=name,
                 role=role,
-                decision_brief=_format_brief(
-                    _NIGHT_CHAT_BRIEF, caller=name, role=role, state=state, memory=self._memories[name], note_hint=False
-                ),
-                terminal_name="werewolf_chat",
-                terminal_fn=werewolf_chat,
-                living_pack=living_pack,
-                chat_terminal=True,
+                kind="werewolf chat",
             )
             for name, role in acting
         ]
         results = await asyncio.gather(*tasks)
         for result in results:
+            if result is None:
+                continue  # a wolf that could not chat simply stays silent
             self._record_result(state, result)
 
     def night_actions(self, state: GameState, /) -> NightActions:
@@ -650,16 +663,21 @@ class ReActDecisionSource:
             (name, role) for name, role in self._roster if state.is_alive(name) and role in _NIGHT_TERMINAL_BY_ROLE
         ]
         tasks = [
-            self._invoke_react_async(
-                state=state,
+            self._result_or_degrade(
+                self._invoke_react_async(
+                    state=state,
+                    caller=name,
+                    role=role,
+                    decision_brief=_format_brief(
+                        _NIGHT_BRIEFS[role], caller=name, role=role, state=state, memory=self._memories[name]
+                    ),
+                    terminal_name=_NIGHT_TERMINAL_BY_ROLE[role][0],
+                    terminal_fn=_NIGHT_TERMINAL_BY_ROLE[role][1],
+                    living_pack=living_pack,
+                ),
                 caller=name,
                 role=role,
-                decision_brief=_format_brief(
-                    _NIGHT_BRIEFS[role], caller=name, role=role, state=state, memory=self._memories[name]
-                ),
-                terminal_name=_NIGHT_TERMINAL_BY_ROLE[role][0],
-                terminal_fn=_NIGHT_TERMINAL_BY_ROLE[role][1],
-                living_pack=living_pack,
+                kind="night action",
             )
             for name, role in acting
         ]
@@ -669,6 +687,11 @@ class ReActDecisionSource:
         seer_target: str | None = None
         doctor_target: str | None = None
         for result in results:
+            # A forfeited mandatory action degrades: a wolf casts no kill (omitted
+            # from the tally; all wolves forfeiting -> a no-kill night), the seer or
+            # doctor simply does not act this night. The game continues.
+            if result is None:
+                continue
             self._record_result(state, result)
             value = _require_str_target(result.commit.value, terminal=result.commit.tool, caller=result.caller)
             if result.role == Role.WEREWOLF.value:
@@ -688,22 +711,32 @@ class ReActDecisionSource:
     async def _gather_day_actions(self, state: GameState) -> DayActions:
         acting: list[tuple[str, str]] = [(name, role) for name, role in self._roster if state.is_alive(name)]
         tasks = [
-            self._invoke_react_async(
-                state=state,
+            self._result_or_degrade(
+                self._invoke_react_async(
+                    state=state,
+                    caller=name,
+                    role=role,
+                    decision_brief=_format_brief(
+                        _DAY_BRIEF, caller=name, role=role, state=state, memory=self._memories[name]
+                    ),
+                    terminal_name="submit_exile_vote",
+                    terminal_fn=submit_exile_vote,
+                ),
                 caller=name,
                 role=role,
-                decision_brief=_format_brief(
-                    _DAY_BRIEF, caller=name, role=role, state=state, memory=self._memories[name]
-                ),
-                terminal_name="submit_exile_vote",
-                terminal_fn=submit_exile_vote,
+                kind="exile vote",
             )
             for name, role in acting
         ]
         results = await asyncio.gather(*tasks)
 
         exile_votes: dict[str, str] = {}
-        for result in results:
+        for (name, _role), result in zip(acting, results, strict=True):
+            # A voter who cannot commit degrades to an abstention — already a legal
+            # ballot (resolve_day drops abstains from the tally) — never a crash.
+            if result is None:
+                exile_votes[name] = ABSTAIN
+                continue
             self._record_result(state, result)
             exile_votes[result.caller] = _require_str_target(
                 result.commit.value, terminal=result.commit.tool, caller=result.caller
@@ -719,30 +752,42 @@ class ReActDecisionSource:
     async def _gather_bids(self, state: GameState) -> dict[str, int]:
         acting: list[tuple[str, str]] = [(name, role) for name, role in self._roster if state.is_alive(name)]
         tasks = [
-            self._invoke_react_async(
-                state=state,
+            self._result_or_degrade(
+                self._invoke_react_async(
+                    state=state,
+                    caller=name,
+                    role=role,
+                    decision_brief=_format_brief(
+                        _BID_BRIEF, caller=name, role=role, state=state, memory=self._memories[name]
+                    ),
+                    terminal_name="submit_bid",
+                    terminal_fn=submit_bid,
+                ),
                 caller=name,
                 role=role,
-                decision_brief=_format_brief(
-                    _BID_BRIEF, caller=name, role=role, state=state, memory=self._memories[name]
-                ),
-                terminal_name="submit_bid",
-                terminal_fn=submit_bid,
+                kind="bid",
             )
             for name, role in acting
         ]
         results = await asyncio.gather(*tasks)
 
         bids_map: dict[str, int] = {}
-        for result in results:
-            self._record_result(state, result)
-            amount = _require_int_amount(result.commit.value, terminal=result.commit.tool, caller=result.caller)
-            bids_map[result.caller] = amount
+        for (name, _role), result in zip(acting, results, strict=True):
+            # A bidder who cannot commit degrades to a 0 bid (it pays nothing and
+            # leans on the seeded tie-break for a slot) — recorded like any other.
+            if result is None:
+                amount = 0
+                bidder = name
+            else:
+                self._record_result(state, result)
+                amount = _require_int_amount(result.commit.value, terminal=result.commit.tool, caller=result.caller)
+                bidder = result.caller
+            bids_map[bidder] = amount
             self._pending_drafts.append(
                 EventDraft(
                     type=BID,
-                    payload={"bidder": result.caller, "amount": amount},
-                    recipients=(result.caller,),
+                    payload={"bidder": bidder, "amount": amount},
+                    recipients=(bidder,),
                 )
             )
         return bids_map
@@ -763,16 +808,25 @@ class ReActDecisionSource:
 
     async def _run_next_speech(self, state: GameState, speaker: str) -> str:
         role = self._role_by_name[speaker]
-        result = await self._invoke_react_async(
-            state=state,
+        result = await self._result_or_degrade(
+            self._invoke_react_async(
+                state=state,
+                caller=speaker,
+                role=role,
+                decision_brief=_format_brief(
+                    _SPEECH_BRIEF, caller=speaker, role=role, state=state, memory=self._memories[speaker]
+                ),
+                terminal_name="speak",
+                terminal_fn=speak,
+            ),
             caller=speaker,
             role=role,
-            decision_brief=_format_brief(
-                _SPEECH_BRIEF, caller=speaker, role=role, state=state, memory=self._memories[speaker]
-            ),
-            terminal_name="speak",
-            terminal_fn=speak,
+            kind="speech",
         )
+        if result is None:
+            # A speaker who cannot commit a statement stays silent: no SPEECH draft,
+            # empty message. The day continues to the next speaker.
+            return ""
         self._record_result(state, result)
         message = _require_str_message(result.commit.value, terminal=result.commit.tool, caller=result.caller)
         self._pending_drafts.append(
@@ -849,6 +903,31 @@ class ReActDecisionSource:
                 recipients=(),
             )
         self._pending_drafts.append(draft)
+
+    async def _result_or_degrade(
+        self, coro: Awaitable[_DecisionResult], *, caller: str, role: str, kind: str
+    ) -> _DecisionResult | None:
+        """Await one seat's ReAct loop, degrading a no-commit to `None`.
+
+        A mandatory action (night kill / seer / doctor, exile vote, bid, speech)
+        whose loop ends without a valid commit — a truncated or unparseable
+        response, or `max_iters` exhausted — must never abort the whole benchmark
+        game. Mirrors the reaction round's degrade-to-pass: log it and return
+        `None` so the phase aggregator can apply a phase-appropriate default
+        (no kill, abstain, zero bid, silence). A weak model that cannot act is a
+        rating signal, not a crashed game.
+        """
+        try:
+            return await coro
+        except Exception as err:
+            logger.warning(
+                "%s for %s (%s) failed (%s); degrading to the phase default",
+                kind,
+                caller,
+                role,
+                type(err).__name__,
+            )
+            return None
 
     async def _invoke_react_async(
         self,

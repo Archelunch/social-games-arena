@@ -37,6 +37,15 @@
       <div id="leaderboard" class="mount"></div>
     </section>
 
+    <section class="panel panel--wide" aria-labelledby="h-games">
+      <div class="panel__head">
+        <h2 id="h-games" class="panel__title">Replays</h2>
+        <p class="panel__note">Watch a game unfold turn by turn: the night kills, the day debate, the votes,
+          and what each model was privately thinking. Pick a matchup to open the table.</p>
+      </div>
+      <div id="games" class="mount"></div>
+    </section>
+
     <section class="panel panel--scatter" aria-labelledby="h-scatter">
       <div class="panel__head">
         <h2 id="h-scatter" class="panel__title">Deceiver vs Detector</h2>
@@ -73,6 +82,8 @@
       <div id="selfplay" class="mount"></div>
     </section>
   </main>
+
+  <section id="replay" class="replay" aria-label="Game replay" hidden></section>
 
   <footer class="footer">
     <p id="footer-meta" class="footer__meta"></p>

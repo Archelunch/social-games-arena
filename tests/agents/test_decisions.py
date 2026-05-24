@@ -13,14 +13,16 @@ separate `finish` step — so a single terminal commit is one ReAct iteration.
 
 from __future__ import annotations
 
-from collections.abc import Mapping, Sequence
+from collections.abc import Callable, Mapping, Sequence
 from typing import Any
 
 import pytest
 from dspy.utils.dummies import DummyLM
 
+import social_deduction_bench.agents.decisions as decisions_mod
 from social_deduction_bench.agents import GameMemory
 from social_deduction_bench.agents.decisions import ReActDecisionSource
+from social_deduction_bench.agents.react import Commit
 from social_deduction_bench.engine import (
     EventLog,
     GameState,
@@ -2143,3 +2145,103 @@ def test_night_chat_skipped_when_only_one_wolf_alive() -> None:
 
     assert source.drain_drafts() == ()
     assert lms["Wolf1"].history == []
+
+
+# --- degrade-on-no-commit: a weak agent must never abort the whole game -------
+#
+# A mandatory action whose ReAct loop ends without a valid commit (truncation,
+# unparseable response, or `max_iters` exhausted) used to raise and abort the
+# game — one weak seat voided all seven players' work and tokens. These tests
+# pin the new contract: each phase degrades that seat to a phase-appropriate
+# default and the game continues. We stub `react_decide_async` so a named seat
+# raises exactly as the real loop signals a no-commit, and the rest commit.
+
+
+def _forfeit_react(fail_for: set[str], *, target: str = "Vil3", bid: int = 5) -> Callable[..., Any]:
+    """A fake `react_decide_async`: `fail_for` seats raise, everyone else commits.
+
+    The raise mirrors `react_decide_async`'s real "finished without a committed
+    game action" signal. Committers return a phase-valid value for whichever
+    terminal tool their loop was given, so the aggregator's happy path is
+    exercised alongside the degrade.
+    """
+
+    async def fake(*, caller: str, terminal_tools: Mapping[str, Any], trace_sink: Any = None, **_kw: Any) -> Commit:
+        if caller in fail_for:
+            raise RuntimeError(f"agent {caller!r} finished without a committed game action")
+        if trace_sink is not None:
+            trace_sink((), ())  # the real loop fires the sink once on a commit
+        tool = next(iter(terminal_tools))
+        value: object
+        if tool == "submit_bid":
+            value = bid
+        elif tool in ("speak", "werewolf_chat"):
+            value = "..."
+        else:  # kill / seer / doctor / exile all take a player name
+            value = target
+        return Commit(tool=tool, value=value)
+
+    return fake
+
+
+def test_night_actions_omits_a_forfeiting_wolf_instead_of_aborting(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr(decisions_mod, "react_decide_async", _forfeit_react({"Wolf1"}))
+    source = ReActDecisionSource(roster=ROSTER, lms=_empty_lms())
+
+    actions = source.night_actions(_night_state())
+
+    assert "Wolf1" not in actions.kill_votes  # the forfeiting wolf is omitted, not fatal
+    assert actions.kill_votes["Wolf2"] == "Vil3"  # the other wolf still kills
+    assert actions.seer_inspect == "Vil3"  # unrelated roles are unaffected
+    assert actions.doctor_protect == "Vil3"
+
+
+def test_night_actions_all_wolves_forfeit_degrades_to_no_kill(monkeypatch: pytest.MonkeyPatch) -> None:
+    # If every living wolf forfeits, kill_votes is empty rather than a fabricated
+    # kill — and resolve_night accepts that as a no-kill night (see test_night).
+    monkeypatch.setattr(decisions_mod, "react_decide_async", _forfeit_react({"Wolf1", "Wolf2"}))
+    source = ReActDecisionSource(roster=ROSTER, lms=_empty_lms())
+
+    actions = source.night_actions(_night_state())
+
+    assert actions.kill_votes == {}  # no fabricated kill
+    assert actions.seer_inspect == "Vil3"  # the seer still acted
+
+
+def test_day_actions_degrade_a_forfeiting_voter_to_abstain(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr(decisions_mod, "react_decide_async", _forfeit_react({"Vil1"}))
+    source = ReActDecisionSource(roster=ROSTER, lms=_empty_lms())
+
+    actions = source.day_actions(_day_state())
+
+    assert actions.exile_votes["Vil1"] == ABSTAIN  # forfeit -> a legal abstain, not a crash
+    assert actions.exile_votes["Vil2"] == "Vil3"  # others still vote
+
+
+def test_bids_degrade_a_forfeiting_bidder_to_zero(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr(decisions_mod, "react_decide_async", _forfeit_react({"Vil1"}))
+    source = ReActDecisionSource(roster=ROSTER, lms=_empty_lms())
+
+    bids = source.bids(_day_state())
+
+    assert bids["Vil1"] == 0  # forfeit -> a 0 bid (pays nothing), not a crash
+    assert bids["Vil2"] == 5  # committed bidders are unaffected
+
+
+def test_next_speech_degrades_to_silence_when_speaker_forfeits(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr(decisions_mod, "react_decide_async", _forfeit_react({"Wolf1"}))
+    source = ReActDecisionSource(roster=ROSTER, lms=_empty_lms())
+
+    message = source.next_speech(_day_state(), "Wolf1")
+
+    assert message == ""  # silent, not fatal
+    assert source.drain_drafts() == ()  # no SPEECH draft staged for a silent speaker
+
+
+def test_night_chat_does_not_abort_when_a_wolf_forfeits(monkeypatch: pytest.MonkeyPatch) -> None:
+    # The wolf-chat sub-phase is optional coordination; one wolf failing to chat
+    # must not abort the night. (Intent: no exception escapes.)
+    monkeypatch.setattr(decisions_mod, "react_decide_async", _forfeit_react({"Wolf1"}))
+    source = ReActDecisionSource(roster=ROSTER, lms=_empty_lms())
+
+    source.night_chat(_night_state())  # both wolves alive -> chat runs; Wolf1 forfeits
