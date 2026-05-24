@@ -1,0 +1,201 @@
+{
+  "game_id": "g0005-deepseek_deepseek-v4-flash-vs-deepseek_deepseek-v4-flash",
+  "memories": {
+    "Alice": {
+      "beliefs": {
+        "Bob": {
+          "confidence": "high",
+          "evidence": "Night R1 inspection confirmed Bob is a villager.",
+          "guess": "villager"
+        },
+        "Carol": {
+          "confidence": "low",
+          "evidence": "Carol also accused Bob (confirmed villager) for silence, piling on after Frank and Grace.",
+          "guess": "werewolf"
+        },
+        "Frank": {
+          "confidence": "medium",
+          "evidence": "Frank was first to accuse Bob (a confirmed villager) based on silence, likely trying to mislead village.",
+          "guess": "werewolf"
+        },
+        "Grace": {
+          "confidence": "medium",
+          "evidence": "Grace accused Bob (confirmed villager) for silence, echoing Frank's weak reasoning.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Random first inspection, gathering info."
+        },
+        {
+          "round": 1,
+          "text": "I'll use my speech to suggest Bob may be trustworthy based on my night investigation, without revealing my seer role."
+        },
+        {
+          "round": 1,
+          "text": "Bob is confirmed villager from my night check. Asking him to speak gives him a chance to contribute and helps me observe reactions."
+        },
+        {
+          "round": 1,
+          "text": "Frank first accused Bob (confirmed villager by my seer inspection) based on silence - weak reasoning likely from a wolf trying to mislead the village. Grace and Carol piled on, but Frank started it."
+        },
+        {
+          "round": 2,
+          "text": "Medium suspicion from Day 1; accused Bob who turned out to be villager, so Frank could be a werewolf trying to push an exile on a villager."
+        }
+      ],
+      "plan": ""
+    },
+    "Bob": {
+      "beliefs": {
+        "Frank": {
+          "confidence": "low",
+          "evidence": "Frank was the first to accuse me of being quiet, a weak reason that could be a wolf trying to push an easy exile.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Opening bid for day 1 discussion"
+        },
+        {
+          "round": 1,
+          "text": "Defending myself after being accused by Frank and Grace for silence."
+        },
+        {
+          "round": 1,
+          "text": "Abstaining on day one due to lack of strong evidence. Frank was first to accuse me for silence, but I'm still low-confidence. Better to wait for more information from night actions and later discussion."
+        }
+      ],
+      "plan": ""
+    },
+    "Carol": {
+      "beliefs": {
+        "Bob": {
+          "confidence": "low",
+          "evidence": "Bob was quiet and several players accused him, though he defended himself. Could be a werewolf staying low.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night kill, targeting Eve as a potential threat. No strong reasoning yet, but need to start somewhere."
+        },
+        {
+          "round": 1,
+          "text": "Bidding moderately high to secure speaking time, aiming to steer suspicion away from Frank and myself."
+        },
+        {
+          "round": 1,
+          "text": "Opening statement as villager; staying neutral to avoid early suspicion."
+        },
+        {
+          "round": 1,
+          "text": "Joining the existing suspicion on Bob to blend in; avoids sticking out."
+        },
+        {
+          "round": 1,
+          "text": "Bob has been quiet and several players find him suspicious; voting to go with the early consensus."
+        },
+        {
+          "round": 2,
+          "text": "Targeting Eve as she is unpredictable and could be a seer or strong player. Frank suggested Grace or Alice, but I think Eve is a safer kill for now."
+        }
+      ],
+      "plan": ""
+    },
+    "Dave": {
+      "beliefs": {},
+      "notes": [],
+      "plan": ""
+    },
+    "Eve": {
+      "beliefs": {
+        "Bob": {
+          "confidence": "high",
+          "evidence": "Bob was exiled Day R1 after being accused by multiple players; his silence was suspicious.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night, no info. Randomly picked Alice."
+        },
+        {
+          "round": 1,
+          "text": "Bidding a modest amount to secure a speaking slot early in day 2 to share my thoughts and gather info from others."
+        },
+        {
+          "round": 1,
+          "text": "Defending Bob to avoid groupthink; will watch for who piled on."
+        },
+        {
+          "round": 1,
+          "text": "No strong suspects yet. Accusations against Bob are based on silence, which is weak. Prefer to gather more information."
+        },
+        {
+          "round": 2,
+          "text": "Protected Alice again as she seems like a likely target after being vocal and defending Bob."
+        }
+      ],
+      "plan": ""
+    },
+    "Frank": {
+      "beliefs": {
+        "Bob": {
+          "confidence": "low",
+          "evidence": "Bob was quiet and didn't contribute much; I accused him publicly so I'll follow through.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Voting Dave as first kill - neutral pick, not too aggressive, but eliminates a potential threat early."
+        },
+        {
+          "round": 1,
+          "text": "Moderate bid to get a speaking slot without standing out too much."
+        },
+        {
+          "round": 1,
+          "text": "Accusing quiet Bob to blend in as a villager."
+        },
+        {
+          "round": 1,
+          "text": "Following up on my earlier suspicion; Bob's silence is concerning."
+        },
+        {
+          "round": 2,
+          "text": "Agreed with Carol on Eve\u2014she defended Bob, could be a seer or strong villager."
+        }
+      ],
+      "plan": ""
+    },
+    "Grace": {
+      "beliefs": {
+        "Bob": {
+          "confidence": "low",
+          "evidence": "Bob was silent during statements, which several players (including me) noted as suspicious. However, Alice and Eve defended him, so it's weak evidence.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Following up on Frank's suspicion; Bob's silence stands out as a possible werewolf trying to avoid attention."
+        },
+        {
+          "round": 1,
+          "text": "Voting Bob because he was silent during statements and received multiple accusations; primary lead despite weak evidence."
+        }
+      ],
+      "plan": ""
+    }
+  }
+}

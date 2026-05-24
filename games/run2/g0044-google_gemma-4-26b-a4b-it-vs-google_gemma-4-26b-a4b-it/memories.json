@@ -1,0 +1,296 @@
+{
+  "game_id": "g0044-google_gemma-4-26b-a4b-it-vs-google_gemma-4-26b-a4b-it",
+  "memories": {
+    "Alice": {
+      "beliefs": {
+        "Dave": {
+          "confidence": "low",
+          "evidence": "Accused me (a werewolf) of being defensive on Day 1 without much evidence.",
+          "guess": "Villager/Power Role"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Suggested Bob as a random target to coordinate with Grace after she didn't respond to my chat suggestions."
+        },
+        {
+          "round": 1,
+          "text": "Bidding early to establish presence in the discussion."
+        },
+        {
+          "round": 1,
+          "text": "Deflecting Dave's accusation by asking for evidence to maintain my villager persona."
+        },
+        {
+          "round": 1,
+          "text": "Dave's accusation was baseless and lacked specific evidence. I will wait to see how the others react to his attempt to target me early on."
+        },
+        {
+          "round": 1,
+          "text": "Abstaining to avoid escalation after Dave's early accusation. Observing reactions."
+        }
+      ],
+      "plan": "Act as a regular villager. Try to blend in by being observant and questioning others' logic. Coordinate with Grace only in private chat. Target power roles like Seer or Doctor if possible."
+    },
+    "Bob": {
+      "beliefs": {},
+      "notes": [],
+      "plan": ""
+    },
+    "Carol": {
+      "beliefs": {
+        "Dave": {
+          "confidence": "low",
+          "evidence": "Accusing Alice early on without any specific evidence of her being a werewolf; could be a deflection tactic.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night protection, choosing Alice randomly as no information is available yet."
+        },
+        {
+          "round": 1,
+          "text": "Bidding 20 to participate in the first day discussion."
+        },
+        {
+          "round": 1,
+          "text": "Responding to Dave's accusation of Alice to see the reaction and gather more info."
+        },
+        {
+          "round": 1,
+          "text": "Dave's accusation against Alice lacks substance; I want to see how others react before committing."
+        },
+        {
+          "round": 1,
+          "text": "Dave's accusation against Alice lacks evidence; I'm abstaining to see how the group reacts to his aggression."
+        },
+        {
+          "round": 2,
+          "text": "Protecting Eve as a precaution; Dave is looking suspicious after his aggressive accusation of Alice."
+        },
+        {
+          "round": 2,
+          "text": "Bidding to participate in Day 2 discussion following Dave's death."
+        },
+        {
+          "round": 2,
+          "text": "Asking for leads to gauge player reactions."
+        },
+        {
+          "round": 2,
+          "text": "Early game, no strong leads yet. Observing reactions."
+        },
+        {
+          "round": 2,
+          "text": "No clear leads yet. Grace and Eve are being cautious. Waiting for more info."
+        },
+        {
+          "round": 3,
+          "text": "Protecting Grace to spread coverage and protect active players."
+        }
+      ],
+      "plan": "As the doctor, I will observe the discussions and votes to identify potential werewolves. I will protect players who seem like valuable villagers (like the seer if they reveal themselves) or players who are being targeted by suspicious voting patterns. In the early game, I will try to protect players who appear most innocent or to spread my protection to avoid being predictable."
+    },
+    "Dave": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "high",
+          "evidence": "I inspected her on Night 1 and she was confirmed to be a werewolf.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First inspection of the game."
+        },
+        {
+          "round": 1,
+          "text": "I need to speak to reveal Alice's faction and guide the exile."
+        },
+        {
+          "round": 1,
+          "text": "Starting to push for Alice's exile as per my plan."
+        },
+        {
+          "round": 1,
+          "text": "I know she is a werewolf from my inspection."
+        },
+        {
+          "round": 1,
+          "text": "Alice was confirmed as a werewolf by my Night 1 inspection."
+        },
+        {
+          "round": 2,
+          "text": "Checking Carol to find more werewolves after Alice was exiled."
+        }
+      ],
+      "plan": "Target Alice for exile. Try to lead the discussion toward Alice without immediately revealing I am the seer, to avoid being a werewolf target at night. If the village doesn't listen, I may need to reveal my role to provide credibility."
+    },
+    "Eve": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Bidding to participate in the first day discussion to listen and gather information."
+        },
+        {
+          "round": 1,
+          "text": "Too early to take a side on the Dave-Alice conflict. Observing reactions."
+        },
+        {
+          "round": 1,
+          "text": "Insufficient evidence to vote for anyone on Day 1. Dave's accusation against Alice lacks substance; Grace defended Alice. Waiting to observe voting patterns."
+        },
+        {
+          "round": 2,
+          "text": "Starting Day 2 discussion. Dave was killed, Alice was exiled. Need to assess Carol, Frank, and Grace."
+        },
+        {
+          "round": 2,
+          "text": "Responding to Grace's prompt to keep the discussion moving and solicit info."
+        },
+        {
+          "round": 2,
+          "text": "No concrete evidence or accusations have been made yet; staying quiet to observe others' contributions."
+        },
+        {
+          "round": 2,
+          "text": "No strong leads yet; Alice was exiled and Dave was killed. Abstaining to observe reactions."
+        },
+        {
+          "round": 3,
+          "text": "Starting Day 3 discussion. Need to establish presence as the player count is very low."
+        },
+        {
+          "round": 3,
+          "text": "Addressing the group to push for more active discussion/suspicions from Frank."
+        },
+        {
+          "round": 3,
+          "text": "Three players left. Everyone is playing cautiously. No concrete evidence yet to accuse or defend."
+        },
+        {
+          "round": 3,
+          "text": "No concrete evidence to distinguish between Frank and Grace yet. Avoid making a wrong guess that could result in a werewolf win."
+        }
+      ],
+      "plan": "Observe the first day of discussion carefully. Pay attention to player claims, voting patterns, and any suspicious behavior. Aim to build a profile of each player to identify potential werewolves. Participate in discussions by bidding moderately for speaking slots to ensure my voice is heard without depleting my budget too quickly."
+    },
+    "Frank": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Bidding a small amount to participate in the first day of discussion and gather information."
+        },
+        {
+          "round": 1,
+          "text": "The discussion is still very vague; Dave has signaled suspicion toward Alice but hasn't substantiated it. I'll wait to see if he provides a reason or if others find his behavior suspicious."
+        },
+        {
+          "round": 1,
+          "text": "Dave accused Alice of being defensive/evasive. Too early to tell if Dave is a werewolf trying to lead the vote or if Alice is indeed acting suspicious. Abstaining to see the voting pattern."
+        },
+        {
+          "round": 2,
+          "text": "Bidding to participate in the discussion following Dave's death."
+        },
+        {
+          "round": 2,
+          "text": "No evidence yet; staying quiet to observe the discussion patterns of Carol, Eve, and Grace."
+        },
+        {
+          "round": 2,
+          "text": "No strong leads yet; everyone is playing cautiously. Waiting for more information."
+        },
+        {
+          "round": 3,
+          "text": "Bidding to participate in the discussion after Carol's death."
+        },
+        {
+          "round": 3,
+          "text": "Addressing the village after Carol's death to probe Eve and Grace for information."
+        },
+        {
+          "round": 3,
+          "text": "Down to 3 players. Eve and Grace are both being cautious and deflecting. No clear evidence yet to accuse or defend."
+        },
+        {
+          "round": 3,
+          "text": "I have no information to distinguish between Eve and Grace. Voting now is purely a guess."
+        }
+      ],
+      "plan": "Analyze the behavior of Eve and Grace. Since it's a 3-player game, I need to determine if one or both are werewolves. Look for patterns in their deflection or attempts to force a vote."
+    },
+    "Grace": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "No information yet, picking a target to end turn."
+        },
+        {
+          "round": 1,
+          "text": "Bidding to speak during the first day discussion to blend in and influence the conversation."
+        },
+        {
+          "round": 1,
+          "text": "Defending Alice because Dave accused her."
+        },
+        {
+          "round": 1,
+          "text": "Defended Alice against Dave's accusation. Abstaining to observe the reaction to Dave's suspicion of Alice."
+        },
+        {
+          "round": 2,
+          "text": "Alice is gone, I am alone. Targeting Dave to disrupt his vocal leadership."
+        },
+        {
+          "round": 2,
+          "text": "Last werewolf standing. Need to influence discussion to avoid exile."
+        },
+        {
+          "round": 2,
+          "text": "Maintaining a neutral/observational stance to blend in as a villager."
+        },
+        {
+          "round": 2,
+          "text": "Staying quiet to avoid drawing attention to myself as the sole remaining werewolf."
+        },
+        {
+          "round": 2,
+          "text": "The village is currently being very cautious and non-committal. I will abstain to avoid drawing attention to myself while the others discuss."
+        },
+        {
+          "round": 3,
+          "text": "Need to thin the village numbers to reach parity. Carol is active in discussions."
+        },
+        {
+          "round": 3,
+          "text": "Carol was killed. I need to speak to guide the narrative and stay under the radar."
+        },
+        {
+          "round": 3,
+          "text": "Maintain cautious persona. Redirect question to Frank to keep him talking and avoid being the center of attention."
+        },
+        {
+          "round": 3,
+          "text": "With only three players left, including myself as the lone werewolf, I need to stay quiet and let Frank and Eve debate to avoid becoming a target."
+        },
+        {
+          "round": 3,
+          "text": "The game is at a 1v1 threshold if one more person is exiled. I will abstain to avoid being the primary target of a consensus vote and to see how Eve and Frank interact."
+        },
+        {
+          "round": 4,
+          "text": "Lone werewolf. Killing Frank to reach 1:1 parity with Eve."
+        }
+      ],
+      "plan": "Maintain a cautious and helpful persona. Avoid making strong accusations to blend in with the villagers. Since I am the lone werewolf, my goal is to survive until the village is exhausted or I can successfully frame someone else. Monitor Carol and Eve's behaviors for any inconsistencies."
+    }
+  }
+}

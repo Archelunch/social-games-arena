@@ -1,0 +1,25 @@
+{"game_id": "g0104-google_gemma-4-31b-it-vs-qwen_qwen3.6-35b-a3b", "players": [["Alice", "werewolf"], ["Bob", "villager"], ["Carol", "seer"], ["Dave", "villager"], ["Eve", "werewolf"], ["Frank", "villager"], ["Grace", "doctor"]], "seed": 1657274690}
+{"payload": {"message": "Hey Eve, let's target Bob tonight. Do you agree, or do you have someone else in mind?", "speaker": "Alice"}, "phase": "night", "recipients": ["Alice", "Eve"], "round": 1, "seq": 0, "type": "werewolf_chat"}
+{"payload": {"message": "Hi Alice! Since it's the first night, how about we target Bob?", "speaker": "Eve"}, "phase": "night", "recipients": ["Alice", "Eve"], "round": 1, "seq": 1, "type": "werewolf_chat"}
+{"payload": {"faction": "villagers", "target": "Bob"}, "phase": "night", "recipients": ["Carol"], "round": 1, "seq": 2, "type": "seer_inspect"}
+{"payload": {"target": "Alice"}, "phase": "night", "recipients": ["Grace"], "round": 1, "seq": 3, "type": "doctor_protect"}
+{"payload": {"ballots": {"Alice": "Bob", "Eve": "Bob"}}, "phase": "night", "recipients": ["Alice", "Eve"], "round": 1, "seq": 4, "type": "kill_ballots"}
+{"payload": {"victim": "Bob"}, "phase": "night", "recipients": [], "round": 1, "seq": 5, "type": "kill_resolved"}
+{"payload": {"amount": 15, "bidder": "Alice"}, "phase": "day", "recipients": ["Alice"], "round": 1, "seq": 6, "type": "bid"}
+{"payload": {"amount": 50, "bidder": "Carol"}, "phase": "day", "recipients": ["Carol"], "round": 1, "seq": 7, "type": "bid"}
+{"payload": {"amount": 20, "bidder": "Dave"}, "phase": "day", "recipients": ["Dave"], "round": 1, "seq": 8, "type": "bid"}
+{"payload": {"amount": 15, "bidder": "Eve"}, "phase": "day", "recipients": ["Eve"], "round": 1, "seq": 9, "type": "bid"}
+{"payload": {"amount": 1, "bidder": "Frank"}, "phase": "day", "recipients": ["Frank"], "round": 1, "seq": 10, "type": "bid"}
+{"payload": {"amount": 0, "bidder": "Grace"}, "phase": "day", "recipients": ["Grace"], "round": 1, "seq": 11, "type": "bid"}
+{"payload": {"bids": {"Alice": 15, "Carol": 50, "Dave": 20, "Eve": 15, "Frank": 1, "Grace": 0}, "speakers": ["Carol", "Dave", "Alice"]}, "phase": "day", "recipients": [], "round": 1, "seq": 12, "type": "discussion_resolved"}
+{"payload": {"message": "I am the Seer. Last night, I investigated Bob. My power told me he was a Villager. Sadly, the Wolves still managed to kill him. I know this makes my info seem bad, but please trust the mechanics: my check was accurate, the kill happened simultaneously. I need you to trust me as we hunt the Wolves. I will share more info as I get it. Please do not panic-vote yet.", "speaker": "Carol"}, "phase": "day", "recipients": [], "round": 1, "seq": 13, "type": "speech"}
+{"payload": {"message": "I hear Carol's claim. While it's unfortunate Bob died, we must consider that a Seer checking a dead villager is a tricky situation. If she is the Seer, we need her guidance. If she is a Wolf, this is a strong deflection. I urge the village to not vote yet based solely on this, as we have no other information. Let's hear Alice's perspective next.", "speaker": "Dave"}, "phase": "day", "recipients": [], "round": 1, "seq": 14, "type": "speech"}
+{"payload": {"message": "Carol's claim is bold, and while it's possible she's the Seer, claiming the role so early can also be a way for a wolf to steer the village. I agree with Dave; we shouldn't rush into a vote. Let's see if anyone else has information or if Carol can provide more leads as the game progresses.", "speaker": "Alice"}, "phase": "day", "recipients": [], "round": 1, "seq": 15, "type": "speech"}
+{"payload": {"ballots": {"Alice": "abstain", "Carol": "abstain", "Dave": "abstain", "Eve": "abstain", "Frank": "abstain", "Grace": "Frank"}, "exiled": "Frank"}, "phase": "day", "recipients": [], "round": 1, "seq": 16, "type": "exile_resolved"}
+{"payload": {"message": "Hey Eve, Carol claimed to be the Seer. To prevent her from finding us, I think we should target her tonight. What do you think?", "speaker": "Alice"}, "phase": "night", "recipients": ["Alice", "Eve"], "round": 2, "seq": 17, "type": "werewolf_chat"}
+{"payload": {"message": "Hi Alice! Since Carol claimed to be the Seer, she's the most dangerous player for us right now. I suggest we target Carol tonight. What do you think?", "speaker": "Eve"}, "phase": "night", "recipients": ["Alice", "Eve"], "round": 2, "seq": 18, "type": "werewolf_chat"}
+{"payload": {"faction": "villagers", "target": "Dave"}, "phase": "night", "recipients": ["Carol"], "round": 2, "seq": 19, "type": "seer_inspect"}
+{"payload": {"target": "Alice"}, "phase": "night", "recipients": ["Grace"], "round": 2, "seq": 20, "type": "doctor_protect"}
+{"payload": {"ballots": {"Alice": "Carol", "Eve": "Carol"}}, "phase": "night", "recipients": ["Alice", "Eve"], "round": 2, "seq": 21, "type": "kill_ballots"}
+{"payload": {"victim": "Carol"}, "phase": "night", "recipients": [], "round": 2, "seq": 22, "type": "kill_resolved"}
+{"payload": {"winner": "werewolves"}, "phase": "night", "recipients": [], "round": 2, "seq": 23, "type": "game_over"}

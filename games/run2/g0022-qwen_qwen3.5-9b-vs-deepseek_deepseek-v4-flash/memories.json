@@ -1,0 +1,287 @@
+{
+  "game_id": "g0022-qwen_qwen3.5-9b-vs-deepseek_deepseek-v4-flash",
+  "memories": {
+    "Alice": {
+      "beliefs": {
+        "Bob": {
+          "confidence": "high",
+          "evidence": "Seer inspection Night R1 confirmed Bob is a werewolf. Dave also slipped and admitted he and Bob are werewolves.",
+          "guess": "werewolf"
+        },
+        "Dave": {
+          "confidence": "high",
+          "evidence": "Dave said 'I know Bob and I are werewolves' on Day R1, Bob was exiled and confirmed werewolf; also my seer inspection of Bob confirmed werewolf.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First inspection, no prior info."
+        },
+        {
+          "round": 1,
+          "text": "Seer with evidence Bob is a werewolf; need to speak first to exile him."
+        },
+        {
+          "round": 1,
+          "text": "Revealing my seer result from Night R1: Bob is a werewolf. No death last night suggests doctor protection or wolves held back. Need the village to act on this."
+        },
+        {
+          "round": 1,
+          "text": "Exiling Bob based on seer inspection and Dave's slip."
+        },
+        {
+          "round": 2,
+          "text": "Grace accused me and voted for me alongside Dave (known werewolf); checking her faction."
+        },
+        {
+          "round": 2,
+          "text": "Budget exhausted; cannot speak today."
+        },
+        {
+          "round": 2,
+          "text": "Dave admitted being a werewolf with Bob; Bob confirmed werewolf. Clear wolf."
+        }
+      ],
+      "plan": ""
+    },
+    "Bob": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Forwarding decision after night chat discussion with Dave. Targeting Alice to reduce villager count. Hope Dave will agree or cover for us."
+        },
+        {
+          "round": 1,
+          "text": "I know Alice was targeted and survived, likely due to the Doctor. Want to discuss early game and gather info on who might be the Doctor or Seer to build trust in the village."
+        },
+        {
+          "round": 1,
+          "text": "Alice has strong evidence: she was targeted but survived. Eve correctly connects this to my identity. Dave admitted the truth under pressure. Exile seems imminent; silence is safer than a clumsy denial."
+        },
+        {
+          "round": 1,
+          "text": "Alice claims to be Seer but Dave admitted to being a wolf alongside me. If Dave is a wolf (as admitted), Alice is a Seer (villager) reporting the truth. To reduce the villain count (2 wolves vs 5 villagers), we must exile her now. If she is a wolf, she would be a threat, but the vote still serves to test the claim and reduce numbers if she is a villager."
+        }
+      ],
+      "plan": ""
+    },
+    "Carol": {
+      "beliefs": {
+        "Bob": {
+          "confidence": "medium",
+          "evidence": "Dave slipped and said he and Bob are both werewolves, corroborating Alice's seer claim.",
+          "guess": "werewolf"
+        },
+        "Dave": {
+          "confidence": "high",
+          "evidence": "Dave slipped and said 'I know Bob and I are werewolves' during day 1 discussion.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Starting bid to get a chance to speak on day 1"
+        },
+        {
+          "round": 1,
+          "text": "Public statement: cautious support for claim, call for Bob to speak."
+        },
+        {
+          "round": 1,
+          "text": "Dave's slip is highly suspicious. Alice's seer claim remains to be verified, but this is a strong lead."
+        },
+        {
+          "round": 1,
+          "text": "Dave slipped and admitted being a werewolf with Bob. Exiling him confirms Alice's seer claim if he flips wolf."
+        },
+        {
+          "round": 2,
+          "text": "Bid enough to get a slot to advocate exiling Dave as the exposed werewolf."
+        },
+        {
+          "round": 2,
+          "text": "Dave slipped and admitted being a werewolf with Bob, who was confirmed as a werewolf. Confident in this vote."
+        }
+      ],
+      "plan": "Be cautious of Alice's seer claim; gather info before voting. Listen to Bob's defense and others' reactions. Do not rush to exile."
+    },
+    "Dave": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "high",
+          "evidence": "Alice is orchestrating a false seer game to hunt me out, pretending to be sane while she is lost in a hive of lies.",
+          "guess": "Warlock"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Suggested initial kill target for Alice to reduce villager count. Will discuss backup options with Bob if this vote is rejected."
+        },
+        {
+          "round": 1,
+          "text": "Bid 20 to speak and discuss our strategy after the failed night one kill."
+        },
+        {
+          "round": 1,
+          "text": "Alice is the villager. She claimed to be seer but we killed Alice? No, we targeted Alice. Wait, the log says 'Bob->Alice, Dave->Alice' and 'no one died (the target was protected)'. So Alice is alive. Alice said she inspected Bob. If she is a villager lying, she might have investigated someone else. My move is to defend Bob publicly to avoid confusion, as a villager might suspect Bob next."
+        },
+        {
+          "round": 1,
+          "text": "Alice accused Bob as a werewolf. She is a major threat if she is the real Seer because she targeted our ally, or she is a wolf trying to split our pack. Since my cover is blown, I must act to remove a strong player or a potential wolf. Alice is the focal point of conflict."
+        },
+        {
+          "round": 2,
+          "text": "Alice is the Seer who accused Bob. She has information and might frame us or organize the hunt. Bob is dead, she is our best target to remove an informed villager."
+        },
+        {
+          "round": 2,
+          "text": "Bidding max to speak first so I can reveal I am acting alone to sow confusion, or perhaps continue pretending if that's better. Actually, since I know I am the only wolf, maybe I should just let the village fight themselves? No, they won. I need to vote. Speaking first lets me influence the vote. Let's pretend I am still hoping for allies or just act naturally."
+        },
+        {
+          "round": 2,
+          "text": "Strategy: Create doubt about Alice's Seer identity to break unity. Need to reduce villager count or make them guess who to kill."
+        },
+        {
+          "round": 2,
+          "text": "Need to split the vote. If I stop the vote, we all die. But maybe someone will hesitate."
+        },
+        {
+          "round": 2,
+          "text": "Insisting she is the warlock orchestrating the hunt to deflect from my own slip-up."
+        }
+      ],
+      "plan": ""
+    },
+    "Eve": {
+      "beliefs": {
+        "Bob": {
+          "confidence": "high",
+          "evidence": "Alice (seer) inspected him as werewolf; Dave slipped admitting he and Bob are werewolves",
+          "guess": "werewolf"
+        },
+        "Dave": {
+          "confidence": "high",
+          "evidence": "Openly stated 'I know Bob and I are werewolves' on Day 1; Bob was exiled and confirmed werewolf.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "No info yet; random first-night protection."
+        },
+        {
+          "round": 1,
+          "text": "First day, low bid to conserve budget for later rounds."
+        },
+        {
+          "round": 1,
+          "text": "Alice is likely the real seer since I guarded her and she survived. Dave's slip suggests Bob is a wolf too."
+        },
+        {
+          "round": 1,
+          "text": "Alice the seer inspected Bob as werewolf; Dave's slip confirms they are werewolves together."
+        },
+        {
+          "round": 2,
+          "text": "Alice is confirmed seer; werewolves will likely target her tonight after we exiled Bob."
+        },
+        {
+          "round": 2,
+          "text": "Bidding to speak and point out Dave's slip confirming he and Bob are wolves."
+        },
+        {
+          "round": 2,
+          "text": "Dave's slip on day 1 + Bob's exile confirmation = Dave is werewolf"
+        },
+        {
+          "round": 2,
+          "text": "Dave admitted he and Bob are werewolves on Day 1; Bob was confirmed wolf."
+        }
+      ],
+      "plan": ""
+    },
+    "Frank": {
+      "beliefs": {
+        "Dave": {
+          "confidence": "high",
+          "evidence": "Dave publicly stated 'I know Bob and I are werewolves' \u2014 a clear slip revealing himself as a wolf.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "I'm suspicious but want more info before committing."
+        },
+        {
+          "round": 1,
+          "text": "Waiting to hear Bob's defense before forming a strong opinion on Alice's seer claim."
+        },
+        {
+          "round": 1,
+          "text": "Dave slipped and admitted he and Bob are werewolves. Voting to exile Dave."
+        },
+        {
+          "round": 2,
+          "text": "Bidding 40 to speak Day 2, push to exile Dave based on his slip yesterday."
+        },
+        {
+          "round": 2,
+          "text": "Reinforcing the case against Dave based on his slip."
+        },
+        {
+          "round": 2,
+          "text": "Accusing Dave based on his public slip and Bob's confirmation."
+        },
+        {
+          "round": 2,
+          "text": "Dave slipped admitting he and Bob are werewolves. Bob was exiled and confirmed werewolf. Clear evidence."
+        }
+      ],
+      "plan": ""
+    },
+    "Grace": {
+      "beliefs": {
+        "Bob": {
+          "confidence": "high",
+          "evidence": "Alice (seer claim) inspected Bob as werewolf; Dave slipped admitting both are wolves.",
+          "guess": "werewolf"
+        },
+        "Dave": {
+          "confidence": "high",
+          "evidence": "Dave publicly stated he and Bob are werewolves; clear slip.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Accusing Alice to test her reaction and gather information."
+        },
+        {
+          "round": 1,
+          "text": "Voting Bob based on Alice's seer claim and Dave's slip admitting they are wolves."
+        },
+        {
+          "round": 2,
+          "text": "Bidding to speak and accuse Dave as the remaining werewolf, using evidence from Bob's exile and Dave's slip."
+        },
+        {
+          "round": 2,
+          "text": "Calling out Dave's slip from yesterday and pushing for his exile. Alice's seer claim seems credible based on Bob's exile and no deaths."
+        },
+        {
+          "round": 2,
+          "text": "Dave admitted 'I know Bob and I are werewolves' on Day 1; Bob was confirmed as werewolf. Voting to exile Dave."
+        }
+      ],
+      "plan": ""
+    }
+  }
+}

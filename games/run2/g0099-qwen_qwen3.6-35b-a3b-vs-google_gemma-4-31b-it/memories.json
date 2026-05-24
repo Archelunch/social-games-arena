@@ -1,0 +1,267 @@
+{
+  "game_id": "g0099-qwen_qwen3.6-35b-a3b-vs-google_gemma-4-31b-it",
+  "memories": {
+    "Alice": {
+      "beliefs": {
+        "Bob": {
+          "confidence": "high",
+          "evidence": "Seer inspection returned werewolves.",
+          "guess": "werewolf"
+        },
+        "Dave": {
+          "confidence": "high",
+          "evidence": "Seer inspection confirmed Dave is a werewolf.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night inspection to gather initial data."
+        },
+        {
+          "round": 1,
+          "text": "Ensure I speak early to expose Bob as a werewolf."
+        },
+        {
+          "round": 1,
+          "text": "Revealing Bob as a werewolf based on my seer inspection."
+        },
+        {
+          "round": 1,
+          "text": "Reiterating my seer find to ensure Bob is exiled."
+        },
+        {
+          "round": 1,
+          "text": "Confirmed werewolf via seer inspection."
+        },
+        {
+          "round": 2,
+          "text": "Dave collaborated with Bob (confirmed wolf) to frame me; checking if he is also a wolf."
+        },
+        {
+          "round": 2,
+          "text": "Expose Dave as a werewolf based on Night 2 inspection."
+        },
+        {
+          "round": 2,
+          "text": "Revealing Dave as the second werewolf found via Seer ability."
+        },
+        {
+          "round": 2,
+          "text": "Confirmed werewolf via Seer inspection."
+        }
+      ],
+      "plan": ""
+    },
+    "Bob": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Agreeing with Dave's suggestion to kill Alice to maintain pack cohesion."
+        },
+        {
+          "round": 1,
+          "text": "Want to speak early to suggest the guard might have missed or to shift suspicion."
+        },
+        {
+          "round": 1,
+          "text": "Accusing Alice to counter her Seer claim and align with Dave's earlier defense."
+        },
+        {
+          "round": 1,
+          "text": "Alice is the Seer threat. Dave is framing her. Carol defended her. We must exile Alice to remove the inspection capability and confuse the village further."
+        }
+      ],
+      "plan": "Cooperate with Dave. Defend Alice if questioned to divert suspicion, or shift suspicion to others if Alice seems safe. Maintain low profile in bidding until needed."
+    },
+    "Carol": {
+      "beliefs": {
+        "Bob": {
+          "confidence": "high",
+          "evidence": "Alice (confirmed villager via doctor protection) identified him as a werewolf.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night protection; choosing randomly as no information is available yet."
+        },
+        {
+          "round": 1,
+          "text": "Want to speak to assess the situation since I saved Alice."
+        },
+        {
+          "round": 1,
+          "text": "Alice was targeted by wolves and thus is a villager; her Seer claim identifies Bob as a werewolf."
+        },
+        {
+          "round": 2,
+          "text": "Alice is confirmed villager/Seer because she was targeted by wolves and survived my protection. Protecting the Seer is priority."
+        }
+      ],
+      "plan": ""
+    },
+    "Dave": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "medium",
+          "evidence": "Alice identified me as Wolf. Carol's death supports her Seer claim (Wolves killed potential Doc). But I am the Wolf. If she is Seer, she knows I'm Wolf. If she is Wolf, she is framing me.",
+          "guess": "Werewolf (or Seer lying about me)"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Sticking with my original proposal to target Alice for elimination."
+        },
+        {
+          "round": 1,
+          "text": "Bidding high to secure early speaking slot to deflect suspicion and guide the vote away from Bob."
+        },
+        {
+          "round": 1,
+          "text": "Playing safe villager. Avoiding suspicion. Will protect Bob later."
+        },
+        {
+          "round": 1,
+          "text": "Targeting the Seer to protect Bob and disrupt village intel."
+        },
+        {
+          "round": 2,
+          "text": "Targeting Carol who likely guards Alice or is a key defender. Reducing the village's ability to heal or protect Alice."
+        },
+        {
+          "round": 2,
+          "text": "Securing a speaking slot to pivot suspicion onto Carol."
+        },
+        {
+          "round": 2,
+          "text": "Voting for Alice to disrupt the unified vote against me. She is the primary accuser and potential Seer/Wolf."
+        }
+      ],
+      "plan": "Last wolf alive. Plan: 1. Pivot: Claim my Day 1 accusation of Alice was based on 'village intuition' and her aggressive behavior, but soften it. 2. Attack Carol: Her claim to have guarded Alice is highly suspicious. Either she is the Doctor revealing herself (giving away power) or a Werewolf pretending to be the Doctor. Investigate Carol. 3. Frame Carol as the potential threat."
+    },
+    "Eve": {
+      "beliefs": {
+        "Bob": {
+          "confidence": "medium",
+          "evidence": "Alice claimed to be Seer and identified him as wolf; Carol claimed to have protected Alice.",
+          "guess": "werewolf"
+        },
+        "Dave": {
+          "confidence": "high",
+          "evidence": "Alice (claiming Seer) identified him as a werewolf. Alice's claim is supported by Carol's (deceased) claim to have protected her in R1.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Bidding to get a speaking slot to discuss the R1 no-death event."
+        },
+        {
+          "round": 1,
+          "text": "Waiting to see Bob's reaction to Alice's Seer claim and Dave's skepticism."
+        },
+        {
+          "round": 1,
+          "text": "Voting based on Seer claim from Alice and Doctor support from Carol."
+        },
+        {
+          "round": 2,
+          "text": "Need to investigate Alice's claim and Carol's death."
+        },
+        {
+          "round": 2,
+          "text": "Alice's Seer claim is backed by Carol's protection and subsequent death."
+        }
+      ],
+      "plan": ""
+    },
+    "Frank": {
+      "beliefs": {
+        "Bob": {
+          "confidence": "medium",
+          "evidence": "Alice claims Seer and identified Bob; Carol claims Doctor and protected Alice, suggesting Alice was the target and thus a villager.",
+          "guess": "werewolf"
+        },
+        "Dave": {
+          "confidence": "high",
+          "evidence": "Alice (claimed Seer) identified him as a wolf; Carol (claimed Doctor) protected Alice and was subsequently killed, supporting Alice's legitimacy.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First day, bidding moderately to participate in the initial discussion."
+        },
+        {
+          "round": 1,
+          "text": "Supporting the Seer's claim to identify the werewolf early."
+        },
+        {
+          "round": 1,
+          "text": "Voting Bob based on Alice's Seer claim and Carol's Doctor claim supporting Alice."
+        },
+        {
+          "round": 2,
+          "text": "Secure a speaking slot to analyze Alice's claim and the death of Carol."
+        },
+        {
+          "round": 2,
+          "text": "Supporting Alice's Seer claim based on Carol's death and pushing for Dave's exile."
+        },
+        {
+          "round": 2,
+          "text": "Alice is likely the Seer and identified Dave as a werewolf."
+        }
+      ],
+      "plan": ""
+    },
+    "Grace": {
+      "beliefs": {
+        "Bob": {
+          "confidence": "medium",
+          "evidence": "Alice claims Seer and identified him; Carol claims Doctor and protected Alice, supporting Alice's legitimacy.",
+          "guess": "werewolf"
+        },
+        "Dave": {
+          "confidence": "high",
+          "evidence": "Alice's Seer claim is supported by Carol's death (likely Doctor), and Alice identified Dave as a werewolf.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Bidding to speak early in the first round to observe others."
+        },
+        {
+          "round": 1,
+          "text": "I am prompting Bob to respond to Alice's accusation and asking for the village's sentiment."
+        },
+        {
+          "round": 1,
+          "text": "Observing the conflict between Alice/Carol and Bob/Dave."
+        },
+        {
+          "round": 1,
+          "text": "Trusting Alice's Seer claim supported by Carol's Doctor claim."
+        },
+        {
+          "round": 2,
+          "text": "Analyzing the implications of Carol's death to verify Alice's Seer claim."
+        },
+        {
+          "round": 2,
+          "text": "Alice's Seer claim is strongly supported by the sequence of events regarding Carol's death."
+        }
+      ],
+      "plan": ""
+    }
+  }
+}

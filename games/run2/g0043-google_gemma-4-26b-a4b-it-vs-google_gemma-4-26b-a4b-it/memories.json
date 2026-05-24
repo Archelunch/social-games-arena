@@ -1,0 +1,359 @@
+{
+  "game_id": "g0043-google_gemma-4-26b-a4b-it-vs-google_gemma-4-26b-a4b-it",
+  "memories": {
+    "Alice": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Bidding moderately to participate in the first day's discussion."
+        },
+        {
+          "round": 1,
+          "text": "Initial discussion phase completed; no strong leads or suspicious behavior identified yet."
+        },
+        {
+          "round": 1,
+          "text": "First day, discussions were very generic. Abstaining to observe voting patterns."
+        },
+        {
+          "round": 2,
+          "text": "Bidding 25 to ensure participation in the Day 2 discussion following Bob's death."
+        },
+        {
+          "round": 2,
+          "text": "First speaking slot after Bob's death. Acknowledged Doctor possibility and prompted others to speak."
+        },
+        {
+          "round": 2,
+          "text": "Passing turn after my speaking slot to observe reactions to Bob's death and others' statements."
+        },
+        {
+          "round": 2,
+          "text": "No suspicions yet; waiting for more information from discussions."
+        },
+        {
+          "round": 3,
+          "text": "Bidding to speak on Day 3 following Carol's death."
+        },
+        {
+          "round": 3,
+          "text": "Prompting Frank to speak to see his reaction and engagement level."
+        },
+        {
+          "round": 3,
+          "text": "No clear suspects or useful information has emerged yet. Waiting to see Frank's response and subsequent voting patterns."
+        },
+        {
+          "round": 3,
+          "text": "No suspicions formed yet. Everyone is being very cautious and general in their statements."
+        }
+      ],
+      "plan": "Observe the reactions to Bob's death. Monitor who tries to lead the conversation and identify any inconsistencies in their stories or suspicious voting patterns. Keep track of the speaking budget and bidding amounts."
+    },
+    "Bob": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Bidding to observe others' reactions to the protected night."
+        },
+        {
+          "round": 1,
+          "text": "Early game, everyone is being very cautious and agreeable. No reason to act yet."
+        },
+        {
+          "round": 1,
+          "text": "No information available yet to form a suspicion or a logical vote."
+        }
+      ],
+      "plan": "Observe player discussions and voting patterns. Monitor how players react to the fact that no one died on Night 1. Look for inconsistencies in claims and voting behavior. Avoid spending too much budget early."
+    },
+    "Carol": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Protecting Alice on the first night as a random choice since I have no information."
+        },
+        {
+          "round": 1,
+          "text": "First day bidding. Protecting Alice last night."
+        },
+        {
+          "round": 1,
+          "text": "First speaking slot. Introduced myself generally to build trust after the successful protection of Alice."
+        },
+        {
+          "round": 1,
+          "text": "No information or suspicious behavior to act upon yet. Observing voting patterns."
+        },
+        {
+          "round": 1,
+          "text": "No information available yet to justify an exile vote."
+        },
+        {
+          "round": 2,
+          "text": "Protecting Eve to see if the werewolves target the first speaker."
+        },
+        {
+          "round": 2,
+          "text": "Starting Day 2 after Bob's death. I protected Eve, but Bob was killed. Need to establish presence."
+        },
+        {
+          "round": 2,
+          "text": "Alice asked for my thoughts, but I have no suspicions yet. I'll wait to see how others respond."
+        },
+        {
+          "round": 2,
+          "text": "No clear suspicions yet. Waiting to see responses from Dave and Frank and observing voting patterns."
+        },
+        {
+          "round": 3,
+          "text": "Protecting Alice to keep a vocal player alive, though I lack specific suspicion data yet."
+        }
+      ],
+      "plan": "As the doctor, my goal is to protect key players (like the seer if identified) and survive. I will monitor discussions to identify suspicious players and use my protection to counter potential werewolf targets."
+    },
+    "Dave": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Bidding low to listen first and observe others' claims."
+        },
+        {
+          "round": 1,
+          "text": "Initial statements are very generic and non-committal. Waiting for more information before taking action."
+        },
+        {
+          "round": 1,
+          "text": "Too early to vote. Observing initial statements."
+        },
+        {
+          "round": 2,
+          "text": "Bidding to participate in Day 2 discussion after Bob's death."
+        },
+        {
+          "round": 2,
+          "text": "Alice has prompted Carol, Dave, and Frank for thoughts. Waiting to see their responses before acting."
+        },
+        {
+          "round": 2,
+          "text": "No evidence or suspicious behavior observed in the initial discussion. Everyone is playing very safe/standard."
+        },
+        {
+          "round": 3,
+          "text": "Bidding to participate in Day 3 discussion after Carol's death."
+        },
+        {
+          "round": 3,
+          "text": "First speaking slot as Dave. Keeping it neutral and engaging others."
+        },
+        {
+          "round": 3,
+          "text": "Waiting to hear Frank's input and observe the upcoming discussion/voting patterns before making any claims."
+        },
+        {
+          "round": 3,
+          "text": "No suspicious behavior or patterns identified yet. Everyone is playing cautiously."
+        }
+      ],
+      "plan": "Observe the first day discussion carefully. Look for players who are overly aggressive or players who try to deflect suspicion. Since no one died, the doctor is confirmed to be active. I will try to build a profile of each player based on their claims and voting patterns."
+    },
+    "Eve": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Initial inspection."
+        },
+        {
+          "round": 1,
+          "text": "Starting the discussion to influence the group and observe others."
+        },
+        {
+          "round": 1,
+          "text": "Starting with a neutral opening to observe player reactions without revealing Seer role."
+        },
+        {
+          "round": 1,
+          "text": "First day just started; no significant info or suspicion yet."
+        },
+        {
+          "round": 1,
+          "text": "Too early to vote without evidence or more information."
+        },
+        {
+          "round": 2,
+          "text": "Continuing investigation of players."
+        },
+        {
+          "round": 2,
+          "text": "Bidding to discuss Bob's death and my findings (discreetly)."
+        },
+        {
+          "round": 2,
+          "text": "Bob is confirmed villager via my inspection. Grace correctly noted the doctor's presence."
+        },
+        {
+          "round": 2,
+          "text": "Alice has just prompted Carol, Dave, and Frank to speak. I will wait to see their responses before forming suspicions."
+        },
+        {
+          "round": 2,
+          "text": "Waiting for responses from Carol, Dave, and Frank to Alice's question before making a decision."
+        },
+        {
+          "round": 3,
+          "text": "Continuing systematic inspection of living players."
+        },
+        {
+          "round": 3,
+          "text": "Bidding 15 to participate in the discussion about Carol's death and the lack of a Night 1 kill."
+        },
+        {
+          "round": 3,
+          "text": "Waiting to hear Frank's input as requested by Alice."
+        },
+        {
+          "round": 3,
+          "text": "No clear suspicions yet after Day R3 statements."
+        },
+        {
+          "round": 4,
+          "text": "Continuing investigations after Bob and Carol (both villagers) were killed."
+        }
+      ],
+      "plan": "As the Seer, I will investigate players one by one. I have confirmed Alice is a villager. I will look for inconsistencies in voting and speech to identify werewolves. I will be careful about how/when I reveal my role."
+    },
+    "Frank": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Decided to target Alice as I previously suggested her to Grace and haven't received a counter-suggestion."
+        },
+        {
+          "round": 1,
+          "text": "Targeting Alice failed last night. Need to speak to blend in."
+        },
+        {
+          "round": 1,
+          "text": "Blending in as a cautious villager after the failed night kill."
+        },
+        {
+          "round": 1,
+          "text": "Early game, staying quiet to avoid suspicion."
+        },
+        {
+          "round": 1,
+          "text": "First day, no deaths. Abstaining to observe voting patterns and build rapport."
+        },
+        {
+          "round": 2,
+          "text": "Grace suggested Bob since Alice was protected last night, and I agreed in chat."
+        },
+        {
+          "round": 2,
+          "text": "Bidding to participate in the discussion regarding Bob's death and to blend in."
+        },
+        {
+          "round": 2,
+          "text": "Alice asked for thoughts from Carol, Dave, and me. Passing to see how Carol and Dave respond to the prompt to avoid drawing early suspicion."
+        },
+        {
+          "round": 2,
+          "text": "Alice asked for input. I am staying quiet on voting to see if a target emerges from the discussion. Will speak in the next round if possible."
+        },
+        {
+          "round": 3,
+          "text": "Switching targets to Carol as discussed in pack chat to remain unpredictable and avoid potentially targeting the Doctor (Alice)."
+        },
+        {
+          "round": 3,
+          "text": "Bidding low to maintain budget while staying available for discussion."
+        },
+        {
+          "round": 3,
+          "text": "Alice prompted me for thoughts, but I will pass during this reaction phase to avoid making myself a target before I can make my full statement or until more info is available."
+        },
+        {
+          "round": 3,
+          "text": "Abstaining to observe the voting patterns of the village and avoid drawing attention to myself."
+        },
+        {
+          "round": 4,
+          "text": "Targeting Eve to keep the village guessing and avoid Alice for now."
+        }
+      ],
+      "plan": "Respond to Alice by agreeing that the Doctor is a likely factor and that watching voting patterns is key. Maintain a neutral, observant stance to blend in. Avoid accusing anyone to prevent being targeted."
+    },
+    "Grace": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Frank hasn't responded to my suggestions in the chat, so I am taking the lead to ensure we make a kill. Targeting Alice to get the game moving."
+        },
+        {
+          "round": 1,
+          "text": "Bidding a moderate amount to participate in the initial discussion about the failed kill and protect my position."
+        },
+        {
+          "round": 1,
+          "text": "Following my plan to stay low-key early in the game."
+        },
+        {
+          "round": 1,
+          "text": "It is too early to vote or suspect anyone without more discussion."
+        },
+        {
+          "round": 2,
+          "text": "Alice was protected last night; targeting Bob to be less predictable as discussed with Frank."
+        },
+        {
+          "round": 2,
+          "text": "Bidding to join the discussion about Bob's death and the Night 1 protection."
+        },
+        {
+          "round": 2,
+          "text": "Following plan: stay low-key, acknowledge Bob's death, and mention the likely existence of a Doctor based on Night 1."
+        },
+        {
+          "round": 2,
+          "text": "Observing responses to Alice's question to gauge voting behavior and claims."
+        },
+        {
+          "round": 2,
+          "text": "The discussion is still developing; I'll abstain to observe voting patterns and stay low-key as per my plan."
+        },
+        {
+          "round": 3,
+          "text": "Switching targets to Carol to remain unpredictable and avoid hitting Alice again."
+        },
+        {
+          "round": 3,
+          "text": "Bidding to ensure I can participate in the discussion regarding Carol's death and maintain my established persona."
+        },
+        {
+          "round": 3,
+          "text": "Maintaining low-key approach. Reinforcing the Doctor theory and suggesting observation of patterns as requested by Dave."
+        },
+        {
+          "round": 3,
+          "text": "Alice asked Frank for his thoughts. I will pass to let Frank speak and avoid drawing unnecessary attention to myself."
+        },
+        {
+          "round": 3,
+          "text": "Staying low-key and observing Frank's response and the group's reaction before committing to a vote."
+        },
+        {
+          "round": 4,
+          "text": "Targeting Eve to keep the village guessing and avoid potentially wasting a kill on Alice if she is the Doctor."
+        }
+      ],
+      "plan": "Stay low-key and blend in. Acknowledge Bob's death. Mention that Alice was likely protected last night (Night 1), suggesting a Doctor is active. Avoid being the primary accuser; instead, focus on observing voting patterns and claims."
+    }
+  }
+}

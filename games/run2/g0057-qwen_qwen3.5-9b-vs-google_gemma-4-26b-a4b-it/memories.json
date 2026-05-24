@@ -1,0 +1,174 @@
+{
+  "game_id": "g0057-qwen_qwen3.5-9b-vs-google_gemma-4-26b-a4b-it",
+  "memories": {
+    "Alice": {
+      "beliefs": {
+        "Carol": {
+          "confidence": "high",
+          "evidence": "Carol accused me of being a wolf without providing a concrete Seer read, likely framing an innocent player to deflect suspicion from her own potential role as a wolf. Her aggression and lack of proof are classic wolf behavior.",
+          "guess": "wolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "No Seer claim observed in R1. Suspect Seer role was not claimed, targeting second player in line (Bob) as the probable innocent Seer who failed to speak or is a wolf passing. Wait, if he's a wolf he wouldn't speak as seer either. Actually, if the Seer didn't speak, the player who *was* given the seer clue is the most valuable. In absence of data, target the one most likely to be the seer by default assumption."
+        },
+        {
+          "round": 1,
+          "text": "Night phase complete, waiting for day discussion start. Bidding 0 to minimize budget loss while passing turn."
+        },
+        {
+          "round": 1,
+          "text": "Carol is likely the wolf. She tried to frame me immediately. Dave defending me correctly identified this as a bluff."
+        },
+        {
+          "round": 1,
+          "text": "Voting to exile as she lacks evidence for her Seer claim and acted suspiciously by framing me."
+        },
+        {
+          "round": 2,
+          "text": "Targeting Eve to reach the 2v2 tie win condition. She has been interacting too much with the exiled Carol."
+        }
+      ],
+      "plan": ""
+    },
+    "Bob": {
+      "beliefs": {},
+      "notes": [],
+      "plan": ""
+    },
+    "Carol": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "high",
+          "evidence": "My inspection on Night 1 confirmed Alice is a werewolf.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First inspection of the game."
+        },
+        {
+          "round": 1,
+          "text": "Bidding to reveal Alice as werewolf."
+        },
+        {
+          "round": 1,
+          "text": "Revealing role and calling out Alice as per plan."
+        },
+        {
+          "round": 1,
+          "text": "I am the Seer and my inspection confirmed she is a werewolf. Voting to exile her to protect the village."
+        }
+      ],
+      "plan": "Reveal myself as the Seer and claim Alice is a werewolf to get her exiled."
+    },
+    "Dave": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Random choice due to lack of specific intel; hoping Alice aligns or chance favors us."
+        },
+        {
+          "round": 1,
+          "text": "Bidding max to lead discussion on targeting the next suspicious player."
+        },
+        {
+          "round": 1,
+          "text": "Framing Bob as Seer. Steering suspicion to Carol/Eve to use their night time against them. Positioning Alice as the 'good' wolf leader."
+        },
+        {
+          "round": 1,
+          "text": "Playing the 'protect Alice' card to shatter Carol's credibility and keep village divided."
+        },
+        {
+          "round": 1,
+          "text": "Suspected wolf: Accused wolf ally Alice as wolf without verified Seer proof, likely bluffing role to frame Alice. Alice's defense of not knowing rules supports this."
+        }
+      ],
+      "plan": ""
+    },
+    "Eve": {
+      "beliefs": {
+        "Carol": {
+          "confidence": "low",
+          "evidence": "Claims to be Seer and immediately accuses Alice. High risk of being a wolf bluffing.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Bidding moderately on Day 1 to establish presence and voice initial observations."
+        },
+        {
+          "round": 1,
+          "text": "Carol claimed Seer and accused Alice. Need to see Alice's reaction and watch how the voting plays out."
+        },
+        {
+          "round": 1,
+          "text": "Carol claimed Seer and accused Alice. I am waiting to see Alice's defense and the group's reaction before committing."
+        },
+        {
+          "round": 1,
+          "text": "Too much conflicting information between Carol (Seer claim) and Alice (denial). Abstaining to observe the voting pattern."
+        }
+      ],
+      "plan": "As a villager, I will observe player interactions and voting patterns to identify inconsistencies. I will bid moderately for speaking slots to ensure I can express my observations and defend myself if suspected. I will try to identify the roles of others through their speech and behavior."
+    },
+    "Frank": {
+      "beliefs": {
+        "Carol": {
+          "confidence": "medium",
+          "evidence": "Claimed to be Seer and accused Alice immediately; possible bluff to force an exile.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night protection; no information available yet."
+        },
+        {
+          "round": 1,
+          "text": "Starting the game. I am the Doctor. Bidding low to save budget while securing a slot for initial discussion."
+        },
+        {
+          "round": 1,
+          "text": "Carol and Alice are in a direct conflict regarding the Seer claim. I will wait to see how the village reacts before committing to a side."
+        },
+        {
+          "round": 1,
+          "text": "Too much uncertainty between Carol's claim and Alice's defense; want to see how others vote."
+        },
+        {
+          "round": 2,
+          "text": "Protecting Alice after Carol's failed Seer claim/accusation."
+        }
+      ],
+      "plan": "As the doctor, my goal is to protect potentially vulnerable players and observe the town's voting patterns to identify werewolves. Since it is the first night, I will pick a player to protect and watch for any inconsistencies in the daytime discussions."
+    },
+    "Grace": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Bidding low to listen to others' initial statements."
+        },
+        {
+          "round": 1,
+          "text": "Too early to accuse. Carol claims Seer and accuses Alice; Alice denies and accuses Carol. Watching the dynamics."
+        },
+        {
+          "round": 1,
+          "text": "Observing the Carol-Alice conflict to see who the majority trusts."
+        }
+      ],
+      "plan": "Observe the vote on Alice/Carol. If Carol is voted out, she was likely a wolf. If Alice is voted out, she might be a wolf or Carol is a truthful Seer. Watch for Dave's alignment."
+    }
+  }
+}

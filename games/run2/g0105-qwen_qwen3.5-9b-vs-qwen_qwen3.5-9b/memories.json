@@ -1,0 +1,209 @@
+{
+  "game_id": "g0105-qwen_qwen3.5-9b-vs-qwen_qwen3.5-9b",
+  "memories": {
+    "Alice": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Targeting Carol to thin numbers and coordinate early. Waiting for Dave's reaction next round."
+        },
+        {
+          "round": 1,
+          "text": "Successfully eliminated Bob. No need to speak or spend budget yet, conserving for a potential Information game turn or final push."
+        },
+        {
+          "round": 1,
+          "text": "Dave is my ally. He needs to learn that he is safe with me to avoid being off-voted by villagers who might be spinning."
+        },
+        {
+          "round": 1,
+          "text": "Eve remains silent while others speak, a common villager tactic to hide. Voting her out reduces village cohesion and tests if she hides information. We need to thin their numbers before Frank or Carol acts too aggressively."
+        }
+      ],
+      "plan": ""
+    },
+    "Bob": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Starting inspection on the first listed player to identify a non-wolf early in the game."
+        }
+      ],
+      "plan": ""
+    },
+    "Carol": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night protection without specific intelligence; Frank is a random living player."
+        },
+        {
+          "round": 1,
+          "text": "Bidding max to ensure I speak first on Day 1 to assess the board after Bob's death."
+        },
+        {
+          "round": 1,
+          "text": "No concrete evidence yet. Need more info before voting."
+        },
+        {
+          "round": 2,
+          "text": "Dave aligned with the exiled Alice. His accusation was weak, and he got voted against once. Protecting him seems prudent if wolves targeted him, though Alice's death already removed one threat."
+        },
+        {
+          "round": 2,
+          "text": "Suspect Dave (Alice's ally, Alice dead, Dave survived my guard). Plan to vote for him if he speaks, but I have no budget to bid high."
+        },
+        {
+          "round": 2,
+          "text": "Day 2 start. 4 living (Carol, Dave, Frank, Grace). Protected Dave yesterday, he lives. Frank suspicious of Dave for voting for Eve (who died last night). Dave's defense was vague. Need to balance preserving ally vs. exposing potential wolf. Dave's vote was a major error if he knows, or a sign of wolf trying to isolate others. Will speak to validate Frank's concern while maintaining doctor's integrity."
+        },
+        {
+          "round": 2,
+          "text": "Frank lied about Eve being dead on Day 1. Eve was clearly alive when Dave voted for her, and she was only killed this night. Fabricating details to discredit an ally is classic werewolf behavior."
+        },
+        {
+          "round": 3,
+          "text": "Protecting Dave increases our chances of survival and voting out the remaining wolves tomorrow. Dave is a trusted ally who clarified the confusion about Eve's death."
+        }
+      ],
+      "plan": ""
+    },
+    "Dave": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "high",
+          "evidence": "Alice defended my accusation against her and claimed we have an alliance. A villager would not defend a werewolf I accused, and the public declaration of an 'alliance' is classic wolf behavior to cover tracks.",
+          "guess": "Werewolf"
+        },
+        "Eve": {
+          "confidence": "low",
+          "evidence": "No immediate evidence, but targeting a silent player might cause confusion among villagers.",
+          "guess": "Villager"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Alice suggested coordinating a kill to thin numbers. No specific threats identified yet. Voting for Bob as a strategic random target to start thinning the village."
+        },
+        {
+          "round": 1,
+          "text": "Defended our 'alliance' publicly after being accused, which is a tell for wolves covering tracks."
+        },
+        {
+          "round": 2,
+          "text": "Alice is dead, I am lone wolf. Killing Eve to reduce villager count."
+        },
+        {
+          "round": 2,
+          "text": "Game already won for werewolves. Eve is dead. Only I remain. Victory condition met immediately."
+        },
+        {
+          "round": 2,
+          "text": "Frank is lying about the timeline to frame me. He is leading the village charge against me. If I don't vote him out, the village will surely eliminate me. Even if it doesn't win the game mathematically (1 vs 2), it thins the herd and disrupts their coordination. Alice=Wolf, Eve=Villager (low) already processed. No other specific suspicions recorded for Carol or Grace."
+        },
+        {
+          "round": 3,
+          "text": "Grace is the final remaining villager target. Killing her leaves 1 villager (Carol) vs 1 wolf (Dave), securing a tie which counts as a win condition for werewolves ('equal or outnumber')."
+        }
+      ],
+      "plan": "1. Coordinate with Alice on victim selection every night. 2. If a Seer is suspected, avoid their friends. 3. Use public channels to mislead villagers about pack composition. 4. If no specific target is identified, randomize votes to thin villagers without revealing intent. 5. Maintain silence in werewolf_chat unless coordinating kills."
+    },
+    "Eve": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "high",
+          "evidence": "Dave accused Alice of being a wolf. Instead of distancing herself, Alice defended Dave and stated 'Our alliance is clear', which is highly counter-intuitive for a villager and suggests a coordinated attack by wolves.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Early game; listening first to assess players and avoid wasting budget."
+        },
+        {
+          "round": 1,
+          "text": "Game R1, Bob dead. Carol claims Doc role protecting Frank. Frank alive so Carol might be lying or Werewolves picked Frank but she didn't guard. Dave accused Alice. Too many uncertainties, pass to listen more."
+        },
+        {
+          "round": 1,
+          "text": "Dave accused Alice, and she defended him, claiming an 'alliance is clear'. This behavior is highly indicative of two werewolves working together. Voting for the accuser/defender pair's target removes the immediate threat."
+        }
+      ],
+      "plan": ""
+    },
+    "Frank": {
+      "beliefs": {
+        "Dave": {
+          "confidence": "high",
+          "evidence": "Dave aggressively accused Alice, and Alice immediately formed an alliance with him by defending him, which is suspicious behavior for a villager protecting a true wolf.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Day phase after Bob's death. Need to start discussion to gather info on wolf identity. Bidding 40 to secure an early speaking slot without exhausting budget."
+        },
+        {
+          "round": 1,
+          "text": "Carol saved me (doctor). Werewolves targeted someone else. Need to identify the killer (Bob might be a misnomer or I might have missed the specific killer name in the prompt vs my internal knowledge, but the prompt says 'Bob was killed'. Wait, prompt says Bob was killed. Carol saved Frank. Who died? The prompt says 'Last night Robert deceased' in Grace's speech, but 'Bob was killed' in the summary. This is a discrepancy in the text provided in the prompt description vs game log. Assuming Bob/Bob=Robert died. Regardless, Carol saved me, so she is Villager. I have no one else to vote for yet."
+        },
+        {
+          "round": 1,
+          "text": "Voting to exile Dave due to aggressive, vague accusation against Alice and immediate formation of an alliance with her, which appeared untrustworthy in the early stages. Also noted as a potential wolf in my beliefs."
+        },
+        {
+          "round": 2,
+          "text": "Bidding full budget to speak and vote on Dave's suspicious behavior with Alice."
+        },
+        {
+          "round": 2,
+          "text": "Survivors: Carol, Dave, Grace. Notes: High suspicion on Dave but no concrete evidence to force a vote in this specific turn's strategy, so I speak to rally the remaining players."
+        },
+        {
+          "round": 2,
+          "text": "Dave is the prime suspect. He voted for Eve yesterday (Day R2), but Eve was killed by wolves that same night (Night R2). A villager might be confused, but the werewolf might be testing reactions. Also, he only got forced to vote or made a move without strong defense. I need to push him out."
+        },
+        {
+          "round": 2,
+          "text": "Despite my error counting Eve, Dave's behavior is the most suspicious (voted for Eve, attacked Alice). Voting for him is the best chance if he is the killer."
+        }
+      ],
+      "plan": ""
+    },
+    "Grace": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "medium",
+          "evidence": "Alice defended Dave after he made an unprovoked aggressive accusation, showing potential collusion consistent with werewolf behavior.",
+          "guess": "werewolf"
+        },
+        "Frank": {
+          "confidence": "high",
+          "evidence": "Frank claimed Dave voted for Eve 'yesterday' (Day 1) when she was deceased. On Day 1, Eve was alive. Additionally, Frank fabricated a voting error for Dave to deflect suspicion, which is typical wolf behavior to sow confusion. Grace and Carol both identified this lie, pointing to Frank as the untruthful actor.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Day phase broken, made initial addressing statement. No special info yet. Waiting for other player moves."
+        },
+        {
+          "round": 2,
+          "text": "Critical 3-player stage. Need to assess Carol's doctor claims vs. Frank's confusing statements about voting history."
+        },
+        {
+          "round": 2,
+          "text": "Frank explicitly lied about the timeline of Eve's death to frame Dave. Stating that Dave voted for Eve 'yesterday' implies Eve was already dead, but Eve was killed at Night R2, meaning she was alive during Day R1. This blatant fabrication indicates Frank is a werewolf trying to sow confusion."
+        }
+      ],
+      "plan": ""
+    }
+  }
+}

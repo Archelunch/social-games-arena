@@ -1,0 +1,202 @@
+{
+  "game_id": "g0030-deepseek_deepseek-v4-flash-vs-qwen_qwen3.6-27b",
+  "memories": {
+    "Alice": {
+      "beliefs": {
+        "Dave": {
+          "confidence": "high",
+          "evidence": "Accused Seer (me) on Day 1, claiming my confirmation of Bob was 'too convenient'. This is classic Wolf behavior to discredit the Seer.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night inspection. Random choice to start gathering info."
+        },
+        {
+          "round": 1,
+          "text": "Revealed Bob is good. Saved as evidence for later. Need to check another player next night."
+        },
+        {
+          "round": 1,
+          "text": "First day. Bob is verified villager. Frank dead. Silence from Bob/Carol/Eve noted by Grace. Not enough info to accuse. Pass to observe votes."
+        },
+        {
+          "round": 1,
+          "text": "Dave accuses the Seer immediately, classic wolf behavior to discredit info."
+        }
+      ],
+      "plan": ""
+    },
+    "Bob": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "medium",
+          "evidence": "Claimed Seer, checked me (a villager), which aligns with my known role. Establishing a baseline. Dave's immediate accusation is suspicious but could be good skepticism.",
+          "guess": "Seer"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Day 1, modest bid to speak and build trust as villager."
+        },
+        {
+          "round": 1,
+          "text": "Aligning with Alice to boost Seer credibility and counter Grace's silence bias."
+        },
+        {
+          "round": 1,
+          "text": "Day 1 is too early to lynch without clear evidence. Alice's Seer claim checks me (good), but Dave's accusation is valid skepticism. Grace's comment on silence is noted but I bid 10. Waiting for more info."
+        }
+      ],
+      "plan": "As a villager, listen to others' claims. Look for inconsistencies. If no one claims Seer, be cautious. If someone claims Seer, verify their logic. Do not reveal my role explicitly beyond 'villager' unless necessary to distinguish from wolves. Save budget for later days if needed, but secure speaking slots in early days to build alibi."
+    },
+    "Carol": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "medium",
+          "evidence": "Alice claimed seer and confirmed Bob as villager too quickly; Dave's accusation seems plausible that she's faking to gain trust.",
+          "guess": "werewolf"
+        },
+        "Eve": {
+          "confidence": "medium",
+          "evidence": "Dave suggested targeting Eve as she's quiet but dangerous; Alice claimed seer and confirmed Bob, so Bob is a known villager threat; Eve is unknown and could be seer or doctor.",
+          "guess": "villager? or potential threat"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Proposed Frank as a strong player who could be a seer or smart villager. Dave hasn't objected."
+        },
+        {
+          "round": 1,
+          "text": "First day bid, moderate to observe"
+        },
+        {
+          "round": 1,
+          "text": "Defending Bob to appear cooperative; Alice may be seer, so I'll be wary."
+        },
+        {
+          "round": 1,
+          "text": "Voting for Eve because she was quiet and didn't contribute much to discussion, which is suspicious behavior worth exploring."
+        },
+        {
+          "round": 2,
+          "text": "Quiet player who could be seer or doctor; Dave agreed. Bob is a confirmed villager but we can target him next."
+        }
+      ],
+      "plan": ""
+    },
+    "Dave": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "high",
+          "evidence": "Alice claimed seer and confirmed Bob as villager; if she's truly seer, she's dangerous to us wolves, so I will vote to exile her.",
+          "guess": "seer"
+        },
+        "Eve": {
+          "confidence": "medium",
+          "evidence": "Eve is quiet, didn't speak much day 1, could be a seer or doctor. She was suspicious of me (Dave) in her vote. Targeting her removes potential threat.",
+          "guess": "village (special role suspect)"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Targeting Eve based on Carol's suggestion and my assessment that she is a smart player and potential threat."
+        },
+        {
+          "round": 1,
+          "text": "Initial bid to establish presence without being too aggressive."
+        },
+        {
+          "round": 1,
+          "text": "Alice claims seer-like info; I'm deflecting attention away from myself and Carol."
+        },
+        {
+          "round": 1,
+          "text": "Sowing doubt on the Seer claim to protect the pack."
+        },
+        {
+          "round": 1,
+          "text": "Consistent with my earlier suspicion; eliminating the seer benefits the wolf pack."
+        },
+        {
+          "round": 2,
+          "text": "Targeting Eve as she's quiet and could be a special role (doctor/seer). Carol and I discussed Bob or Eve; I'm pushing for Eve."
+        }
+      ],
+      "plan": ""
+    },
+    "Eve": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "medium",
+          "evidence": "Claimed Seer, checked Bob clean. Supported by Bob and Carol. Challenged by Dave.",
+          "guess": "Seer"
+        },
+        "Dave": {
+          "confidence": "medium",
+          "evidence": "Challenged Alice's Seer claim. Could be good detective work or wolf chaos. No clear proof either way yet.",
+          "guess": "Villager (Suspicious)"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First day, no info yet. Conserving budget but bidding to ensure potential speaking slot."
+        },
+        {
+          "round": 1,
+          "text": "Waiting to see who others accuse. Alice claims Seer/Bob clear. Bob/Carol/Eve silent low-bidders. Grace wary of silence. Not enough to act yet."
+        },
+        {
+          "round": 1,
+          "text": "Waiting to see how the town splits between Alice's Seer claim and Dave's challenge. Too early to commit to exiling either key player without more evidence."
+        }
+      ],
+      "plan": ""
+    },
+    "Frank": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Random guess on night 1 with no prior info."
+        }
+      ],
+      "plan": ""
+    },
+    "Grace": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "medium",
+          "evidence": "Claimed Seer night 1, cleared Bob (potential wolf teammate). 'Convenient' clear as noted by Dave. Bob and Carol immediately defended the Alice-Bob axis, creating a suspicious coalition against Dave's skepticism.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Day 1. No info yet. Bidding moderate to listen first but keep right to speak if needed."
+        },
+        {
+          "round": 1,
+          "text": "Alice claims Seer, cleared Bob. Bob/Carol/Eve silent. Need to see if more info emerges before voting."
+        },
+        {
+          "round": 1,
+          "text": "Already spoke in statement phase. No new information to add. Observing votes."
+        },
+        {
+          "round": 1,
+          "text": "Suspect Alice is a Werewolf faking Seer to clear Bob. Dave's accusation highlights the 'too convenient' nature of the clear. The A-B-C coalition looks suspicious."
+        }
+      ],
+      "plan": "Alice claims Seer -> cleared Bob. Carol backed Bob. Watch Bob's behavior closely. If Bob acts aggressively or inconsistently later, he might be the wolf trying to use Alice's cover. If Alice fakes info later, both are suspicious. For now, assume Alice is Seer to see if it holds. Do not vote yet."
+    }
+  }
+}

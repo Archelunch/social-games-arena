@@ -1,0 +1,421 @@
+{
+  "game_id": "g0033-qwen_qwen3.6-27b-vs-deepseek_deepseek-v4-flash",
+  "memories": {
+    "Alice": {
+      "beliefs": {
+        "Dave": {
+          "confidence": "medium",
+          "evidence": "Dave defended me on D1 (could be wolf gaining trust), then led accusations against Frank on D2\u2014consistent with wolf framing quiet players while appearing engaged.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First day, moderate bid to speak and share observations."
+        },
+        {
+          "round": 1,
+          "text": "Neutral opening to encourage sharing without revealing my villager role"
+        },
+        {
+          "round": 1,
+          "text": "No strong leads yet, staying silent to observe."
+        },
+        {
+          "round": 1,
+          "text": "No strong evidence yet; abstaining to avoid random exile on day 1."
+        },
+        {
+          "round": 2,
+          "text": "Want to speak to share suspicion on Dave and encourage discussion."
+        },
+        {
+          "round": 2,
+          "text": "Dave's behavior fits a wolf trying to appear helpful while pushing suspicion onto quiet players."
+        },
+        {
+          "round": 2,
+          "text": "Dave defended me early (trust-building) then led accusations against quiet Frank\u2014consistent with wolf behavior. Carol and Eve also raised points about Frank/Grace, but Dave's pattern seems most wolf-like."
+        }
+      ],
+      "plan": ""
+    },
+    "Bob": {
+      "beliefs": {
+        "Dave": {
+          "confidence": "medium",
+          "evidence": "Dave defended Alice early (could be wolf building trust), then twice accused Frank, a quiet player. Pattern of manipulation.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First day, no deaths last night; bidding moderately to save budget."
+        },
+        {
+          "round": 1,
+          "text": "First reaction, nothing concrete to accuse or defend yet. Staying silent to observe."
+        },
+        {
+          "round": 1,
+          "text": "Voting for Dave based on his early defense of Alice, which seemed like a possible wolf pairing. Low confidence but better than random."
+        },
+        {
+          "round": 2,
+          "text": "Bid 40 to speak; want to discuss the no-death nights and push for discussion."
+        },
+        {
+          "round": 2,
+          "text": "I'm trying to be constructive and gather information without making a strong accusation. Noting that Dave pointed at Frank could be suspicious if Frank turns out to be a villager."
+        },
+        {
+          "round": 2,
+          "text": "Frank was silent for two days, only defended himself when accused. Grace's defense of him looks like wolf protecting wolf. Dave also suspicious but I'll go with Frank for now."
+        },
+        {
+          "round": 3,
+          "text": "Bidding to speak and advocate against Dave or Grace, given Alice's accusation."
+        },
+        {
+          "round": 3,
+          "text": "Reinforcing my suspicion of Dave with public reasoning based on recent events. Also casting suspicion on Grace for her defense of Frank."
+        },
+        {
+          "round": 3,
+          "text": "Dave is the most likely werewolf based on voting patterns and Alice's death."
+        },
+        {
+          "round": 3,
+          "text": "Dave bussed Frank, killed Alice after she accused him. Strong evidence."
+        }
+      ],
+      "plan": ""
+    },
+    "Carol": {
+      "beliefs": {
+        "Eve": {
+          "confidence": "low",
+          "evidence": "Eve had the highest bid (50) suggesting she wanted to speak first, but gave only a generic opening statement. Could be trying to appear helpful.",
+          "guess": "werewolf"
+        },
+        "Frank": {
+          "confidence": "medium",
+          "evidence": "Silent for two days, then aggressive self-defense when accused. Multiple players found him suspicious.",
+          "guess": "werewolf"
+        },
+        "Grace": {
+          "confidence": "medium",
+          "evidence": "Grace strongly defended Frank (confirmed werewolf) on Day R2, calling his accusers wolves as a 'wolf tactic to divert attention.' This is classic wolf-on-wolf protection.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First day, no deaths. Bidding moderately to share thoughts and start discussion."
+        },
+        {
+          "round": 1,
+          "text": "First day, no info yet. Staying silent to observe."
+        },
+        {
+          "round": 1,
+          "text": "No strong leads yet; abstaining to avoid random exile."
+        },
+        {
+          "round": 2,
+          "text": "Bid to speak early; want to probe Eve and others for inconsistencies."
+        },
+        {
+          "round": 2,
+          "text": "I'm probing for reactions. Eve's opening was bland, Alice and Dave seemed cooperative. Want to see who tries to deflect or push a narrative."
+        },
+        {
+          "round": 2,
+          "text": "Frank is suspicious due to total silence and high unused budget; Dave and Bob also noted this."
+        },
+        {
+          "round": 2,
+          "text": "Voting for Frank based on consistent silence and aggressive self-defense, supported by Dave's suspicion and Frank's own unusual self-defense."
+        },
+        {
+          "round": 3,
+          "text": "Bidding moderately to speak and analyze Frank's flip"
+        },
+        {
+          "round": 3,
+          "text": "I suspect Grace most due to defending Frank, but Dave and Bob also deserve scrutiny."
+        },
+        {
+          "round": 3,
+          "text": "Grace defended Frank aggressively; now that Frank is werewolf, Grace is highly suspicious."
+        },
+        {
+          "round": 3,
+          "text": "Grace defended Frank (confirmed werewolf) with wolf accusations against his accusers - classic wolf-on-wolf protection."
+        }
+      ],
+      "plan": "Gather information by listening carefully. Pay attention to those who try to lead the conversation or avoid suspicion."
+    },
+    "Dave": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "high",
+          "evidence": "Night R1 inspection returned villagers; her accusation of me is a mistake not wolf behavior",
+          "guess": "villager"
+        },
+        "Frank": {
+          "confidence": "high",
+          "evidence": "Night R2 inspection returned werewolves",
+          "guess": "werewolf"
+        },
+        "Grace": {
+          "confidence": "high",
+          "evidence": "Night R3 seer inspection returned werewolves; she defended Frank strongly yesterday, who was confirmed a werewolf.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night, random pick to start gathering info."
+        },
+        {
+          "round": 1,
+          "text": "Bid 30 to speak early and guide discussion without overspending."
+        },
+        {
+          "round": 1,
+          "text": "Night 1 inspected Alice - she's a villager (innocent). Starting slow to avoid drawing wolf attention."
+        },
+        {
+          "round": 1,
+          "text": "Low engagement in bidding - worth pressure."
+        },
+        {
+          "round": 2,
+          "text": "Medium suspicion on Frank from day 1 behavior; want to confirm faction."
+        },
+        {
+          "round": 2,
+          "text": "Bidding 40 to secure a speaking slot to share my findings about Frank and Alice."
+        },
+        {
+          "round": 2,
+          "text": "I'm subtly pointing to Frank without revealing my seer knowledge. Want to see others' reactions."
+        },
+        {
+          "round": 2,
+          "text": "I know Frank is a werewolf from my seer investigation. Building on Carol's accusation to push for exile."
+        },
+        {
+          "round": 2,
+          "text": "Night R2 inspection confirmed Frank is a werewolf. Voting to exile him."
+        },
+        {
+          "round": 3,
+          "text": "Inspecting Grace because she defended Frank (known werewolf) which is suspicious."
+        },
+        {
+          "round": 3,
+          "text": "Must speak to reveal Grace as werewolf based on seer inspection."
+        },
+        {
+          "round": 3,
+          "text": "I am the seer and inspected Grace last night\u2014she is a werewolf. I cannot reveal my role yet without risking being killed tonight, but I must push for her exile now."
+        },
+        {
+          "round": 3,
+          "text": "Confirmed werewolf by seer inspection Night R3; defended Frank who was also a werewolf."
+        }
+      ],
+      "plan": ""
+    },
+    "Eve": {
+      "beliefs": {
+        "Dave": {
+          "confidence": "low",
+          "evidence": "Dave defended Alice early, which could be a wolf trying to appear collaborative and build trust.",
+          "guess": "werewolf"
+        },
+        "Frank": {
+          "confidence": "high",
+          "evidence": "Silent for two full days with minimal bidding, then gave a defensive statement accusing accusers of wolf tactics - classic wolf behavior.",
+          "guess": "werewolf"
+        },
+        "Grace": {
+          "confidence": "low",
+          "evidence": "She defended Frank, who was accused by multiple people; could be wolf protecting wolf",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night, no info. Protecting Alice at random."
+        },
+        {
+          "round": 1,
+          "text": "Want to discuss last night's results and hear from others."
+        },
+        {
+          "round": 1,
+          "text": "First day statement, being neutral and cooperative."
+        },
+        {
+          "round": 1,
+          "text": "No strong leads yet. Want to see others' reactions first."
+        },
+        {
+          "round": 1,
+          "text": "Day 1 with little info. Abstaining to avoid exiling a villager. Dave has a low-confidence suspicion for defending Alice."
+        },
+        {
+          "round": 2,
+          "text": "Continue protecting Alice after Night 1 saw no deaths; keeping her safe for another round of discussion."
+        },
+        {
+          "round": 2,
+          "text": "Bidding 30 to get a speaking slot and share my thoughts about the no-kill nights."
+        },
+        {
+          "round": 2,
+          "text": "Voting Frank due to consistent silence over two rounds, minimal bidding, then defensive 'wolf tactic' accusation when called out\u2014classic werewolf behavior. Grace's defense of Frank also suspicious but Frank is the clearer threat."
+        },
+        {
+          "round": 3,
+          "text": "Protecting Carol as she strongly accused Frank (confirmed werewolf) and is likely a wolf target."
+        },
+        {
+          "round": 3,
+          "text": "Bidding to discuss Alice's death and push for analysis of remaining players."
+        },
+        {
+          "round": 3,
+          "text": "Grace strongly defended Frank who was confirmed as a werewolf - classic wolf-on-wolf protection. Bob, Carol, Dave, and I all noted this."
+        }
+      ],
+      "plan": ""
+    },
+    "Frank": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "high",
+          "evidence": "Our wolf pack targeted Alice last night. She survived, so she is likely the Doctor or simply guarded. She is definitely not a werewolf.",
+          "guess": "Villager"
+        },
+        "Bob": {
+          "confidence": "low",
+          "evidence": "Low bid (20) and silence today. Might be hiding or just conservative. Watching him.",
+          "guess": "Villager/Suspect"
+        },
+        "Dave": {
+          "confidence": "high",
+          "evidence": "Aggressively accusing me (wolf) and Grace. Defended Alice earlier. Active village participant.",
+          "guess": "Villager"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Grace suggested Alice; agreeing to coordinate pack kill on Night 1."
+        },
+        {
+          "round": 1,
+          "text": "Day 1. Alice survived our kill. Staying quiet to observe dynamics and conserve budget. Ally is Grace."
+        },
+        {
+          "round": 1,
+          "text": "No accusations yet. Waiting to see who speaks next (Grace) and how others react. Blending in as a cautious villager."
+        },
+        {
+          "round": 1,
+          "text": "Voting for Bob due to low bid and silence; trying to blend in as a helpful villager while avoiding targeting ally Grace or protected Alice."
+        },
+        {
+          "round": 2,
+          "text": "Aligning with Grace to pressure the suspected Doctor. If Alice dies, we remove a major threat/village leader. If she survives, we gain information about the Doctor's protection."
+        },
+        {
+          "round": 2,
+          "text": "Staying quiet to observe. Alice likely Doctor since survived 2 nights of wolf focus. Let others speak first."
+        },
+        {
+          "round": 2,
+          "text": "Defending self to reinforce Grace's defense and shift blame to accusers Carol and Dave as per plan."
+        },
+        {
+          "round": 2,
+          "text": "Dave has been aggressively targeting me and Grace for two days. His behavior is disruptive and he is likely a villager trying to find wolves, but his focus on my silence makes him a threat to our pack. Exiling him reduces pressure on us."
+        }
+      ],
+      "plan": "Bluff as a cautious villager. Avoid early strong accusations unless forced. Coordinate silently with Grace via voting patterns. Target weak players (Bob, Carol) or those who speak aggressively later. Defend Grace if accused. If accused, deny and shift blame to someone with low social capital or inconsistent behavior."
+    },
+    "Grace": {
+      "beliefs": {
+        "Eve": {
+          "confidence": "high",
+          "evidence": "Identified wolf protection mechanic; accused me of protecting Frank. Dangerous opponent.",
+          "guess": "Villager (Logical/Seer candidate)"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Night 1. Sticking with my initial suggestion to kill Alice as a random target since we have no info yet."
+        },
+        {
+          "round": 1,
+          "text": "Moderate bid to secure a slot early without depleting budget. Will assess situation before speaking."
+        },
+        {
+          "round": 1,
+          "text": "Staying low profile to conserve budget and avoid early suspicion. Waiting for Frank's move."
+        },
+        {
+          "round": 1,
+          "text": "Frank suggested Eve earlier. Voting for her creates a weak lead away from Alice/Frank. Low risk."
+        },
+        {
+          "round": 2,
+          "text": "Re-targeting Alice as she likely is the Doctor. Plan prioritizes eliminating Doctor over social threats like Dave."
+        },
+        {
+          "round": 2,
+          "text": "Bidding 20 to speak mid-late, plan to frame Dave for defending Alice excessively."
+        },
+        {
+          "round": 2,
+          "text": "Protect ally Frank from Carol and Bob's accusations. Deflect my own suspicion by joining the defense of Frank to look like a united villager block."
+        },
+        {
+          "round": 2,
+          "text": "Frank is under heavy fire. Voting for Dave splits the vote and draws attention to a player who defended Alice (likely Doctor) and accused Frank, creating chaos and potentially saving Frank."
+        },
+        {
+          "round": 3,
+          "text": "Alice has survived two nights, strongly indicating she is the Doctor or is being guarded by the Doctor. Eliminating her removes the village's protection mechanic. Frank is out, I am alone. Must kill key roles."
+        },
+        {
+          "round": 3,
+          "text": "Bid 40 to speak early. Narrative: Frame Dave/Carol as wolves who killed Alice and pushed Frank. Deflect Eve."
+        },
+        {
+          "round": 3,
+          "text": "Allying with Bob to push Dave out. Dismissing Carol to reduce immediate threat to self."
+        },
+        {
+          "round": 3,
+          "text": "With row 3 votes against me (Carol, Eve, Dave) vs 1-2 for Dave (Bob, Me), exile is likely inevitable. Committing to the Dave-is-wolf narrative is the only consistent play."
+        },
+        {
+          "round": 3,
+          "text": "Voting for Dave to align with public narrative that he is the wolf, despite low chance of survival."
+        }
+      ],
+      "plan": "1. Bid 40 to speak. 2. Narrative: Defend Frank's exile as a mistake driven by Wolves (Dave/Carol). 3. Frame Dave as the killer of Alice, arguing he shifted focus to Frank to hide his own guilt after Alice died. 4. Frame Carol as an accomplice. 5. Attack Eve's logic as chaotic/wolf-like. 6. Goal: Get Dave or Carol exiled. If not, survive to kill again."
+    }
+  }
+}

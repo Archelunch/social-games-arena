@@ -1,0 +1,300 @@
+{
+  "game_id": "g0064-qwen_qwen3.6-27b-vs-google_gemma-4-26b-a4b-it",
+  "memories": {
+    "Alice": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Starting with a moderate bid to get information on the first day."
+        },
+        {
+          "round": 1,
+          "text": "First speaking slot. Acknowledged Carol and prompted others to speak to build information."
+        },
+        {
+          "round": 1,
+          "text": "No immediate evidence to act on; waiting to hear from the remaining players."
+        },
+        {
+          "round": 1,
+          "text": "Too early to vote without more information or claims from the rest of the group."
+        }
+      ],
+      "plan": "Listen to the statements from Dave, Eve, Frank, and Grace. Observe their speaking bids and the content of their claims. Try to identify any inconsistencies or suspicious behavior. Since no one died, the Doctor is confirmed to be active."
+    },
+    "Bob": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "low",
+          "evidence": "Alice claimed Villager after being the night kill target. My plan states to push for exile if she claims a weak role. Low bid from Frank is also noted but plan prioritizes Alice.",
+          "guess": "Villager (lying) or Seer"
+        },
+        "Grace": {
+          "confidence": "high",
+          "evidence": "Claimed Seer and immediately called out Bob (wolf). This is a direct threat to the pack. Must be eliminated.",
+          "guess": "Seer"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Suggested Alice in pack chat; no objection from Carol. Good opening target."
+        },
+        {
+          "round": 1,
+          "text": "Moderate bid to secure speaking slot early, save budget for later."
+        },
+        {
+          "round": 1,
+          "text": "Established cover as helpful villager. Alice and Carol claimed Villager. Target Alice was saved. Need to hear from others."
+        },
+        {
+          "round": 1,
+          "text": "Alice survived the night, likely protected by Doctor. I will pass to save budget and observe other players' claims before acting."
+        },
+        {
+          "round": 1,
+          "text": "Following plan to pressure Alice who claimed weak role after being saved. She seems suspicious or lying."
+        },
+        {
+          "round": 2,
+          "text": "Following up on previous suggestion. Eve is low-profile; killing her tests for Doctor protection or removes a villager."
+        },
+        {
+          "round": 2,
+          "text": "Bid 20 to maintain consistent presence as a 'concerned villager' without depleting budget too fast. Observe if Dave/Frank/Grace claim special roles."
+        },
+        {
+          "round": 2,
+          "text": "Deny Wolf claim. Accuse Grace of being Fake Seer/Wolf. Try to split vote or frame her. Wait to see if Carol defends me or stays silent."
+        },
+        {
+          "round": 2,
+          "text": "Grace claimed Seer and accused me immediately. This is likely a lucky hit or a fake Seer trying to create chaos. Given her aggression and lack of prior build-up, she is the biggest threat to my cover. Voting to exile her to protect the pack."
+        },
+        {
+          "round": 3,
+          "text": "Grace is the claimed Seer and called out Bob. High priority target to eliminate Seer or expose fake claim. Pack consensus."
+        }
+      ],
+      "plan": "Act as a helpful villager. Observe who claims Seer/Doctor. If Alice claims nothing or a weak role, push for her exile since she was the kill target. If she claims Doctor/Seer, pivot to another suspect or defend her to maintain cover. Save budget for later rounds."
+    },
+    "Carol": {
+      "beliefs": {
+        "Bob": {
+          "confidence": "high",
+          "evidence": "He is my allied werewolf.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Agreed with Bob to kill Alice as a potential threat/Seer bait."
+        },
+        {
+          "round": 1,
+          "text": "Bidding moderately to secure a speaking slot and help coordinate narrative. Alice survived, protecting Doctor is active."
+        },
+        {
+          "round": 1,
+          "text": "Alice survived night 1. Likely protected by Doctor or is Seer (if Seer revealed themselves? No, Seer is hidden. So Alice was guarded. Alice is a threat. Stick with Bob."
+        },
+        {
+          "round": 1,
+          "text": "Early Day 1. No strong evidence yet. Waiting for Seer claim or other role claims. Bob and I targeted Alice who survived, so she might become a focal point. Stay low profile for now."
+        },
+        {
+          "round": 1,
+          "text": "Day 1, no clear scapegoat. Staying neutral to avoid suspicion. Letting others discuss first."
+        },
+        {
+          "round": 2,
+          "text": "Agreeing with Bob's suggestion to target Eve to test the Doctor or remove a quiet player."
+        },
+        {
+          "round": 2,
+          "text": "Staying silent to conserve budget and let potential Seer/Doctor claims appear first."
+        },
+        {
+          "round": 2,
+          "text": "Supporting Bob to discredit Grace. Need to make Grace look like a wolf trying to frame a villager."
+        },
+        {
+          "round": 2,
+          "text": "Defending ally Bob; voting for accuser Grace to align with my defense speech and discredit her Seer claim."
+        },
+        {
+          "round": 3,
+          "text": "Agreed with Bob to kill Grace. She claimed Seer and targeted Bob. Removing her is highest priority."
+        }
+      ],
+      "plan": "Coordinate with Bob (ally). Monitor claims from Dave, Eve, Frank, Grace. If Alice claims Seer, she is a priority target to discredit or kill next night. Stay low profile, avoid pushing for lynch unless Bob agrees or it's safe to frame someone. Vote with the majority or abstain if unsure to appear neutral."
+    },
+    "Dave": {
+      "beliefs": {
+        "Bob": {
+          "confidence": "medium",
+          "evidence": "Grace claimed to be the Seer and identified Bob as a werewolf.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Bidding to participate in the first day discussion and establish presence."
+        },
+        {
+          "round": 1,
+          "text": "Early game, no deaths. Carol, Alice, and Bob have spoken. No strong suspicions yet. Passing to observe others' responses to Alice and Bob's requests for input."
+        },
+        {
+          "round": 1,
+          "text": "First day, no deaths, everyone is playing cautiously. Waiting to see more information from the others."
+        },
+        {
+          "round": 2,
+          "text": "Bidding to get information after Eve's death."
+        },
+        {
+          "round": 2,
+          "text": "Grace claimed Seer and accused Bob. Need to see Bob's reaction before deciding if Grace is trustworthy."
+        },
+        {
+          "round": 2,
+          "text": "Grace claims Seer and Bob is a wolf. Bob and Carol are defending Bob. Need more info before committing to a side."
+        },
+        {
+          "round": 2,
+          "text": "The risk of a mis-lynch leading to an immediate wolf win is too high given the conflicting claims. I want to see how the rest of the village handles Grace's claim before committing."
+        }
+      ],
+      "plan": "Observe player behavior during discussions, track claims, and look for inconsistencies to identify werewolves."
+    },
+    "Eve": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night protection, no information available yet."
+        },
+        {
+          "round": 1,
+          "text": "First day discussion. Trying to listen and gather info without being too aggressive."
+        },
+        {
+          "round": 1,
+          "text": "No concrete suspicions yet; waiting to see how Dave, Frank, and Grace respond to the calls for input."
+        },
+        {
+          "round": 1,
+          "text": "No concrete evidence or suspicious behavior has been presented in the first round of speaking. Avoiding a blind lynch on Day 1."
+        },
+        {
+          "round": 2,
+          "text": "Protecting Carol to keep an active player alive, though I have no specific intel yet."
+        }
+      ],
+      "plan": "As the doctor, I will try to identify key roles (like the seer) to protect and use my survival to provide information or defense for the village. I will avoid being too obvious about my role early on."
+    },
+    "Frank": {
+      "beliefs": {
+        "Bob": {
+          "confidence": "medium",
+          "evidence": "Grace claimed to be Seer and identified him as a werewolf.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Starting with a low bid to observe the initial discussion flow."
+        },
+        {
+          "round": 1,
+          "text": "Early game, no evidence yet. Waiting for others to speak."
+        },
+        {
+          "round": 1,
+          "text": "No information yet to justify a vote. The Doctor was active last night. Waiting for more discussion."
+        },
+        {
+          "round": 2,
+          "text": "Bidding low to listen to the discussion after Eve's death."
+        },
+        {
+          "round": 2,
+          "text": "Grace claims Seer and Bob is wolf. Bob and Carol defend Bob. Need more info before committing to a side."
+        },
+        {
+          "round": 2,
+          "text": "Voting Bob based on Grace's Seer claim."
+        }
+      ],
+      "plan": "Observe the discussion patterns and voting behavior of other players to identify inconsistencies. Try to identify the seer or doctor if they reveal themselves or if their actions become apparent through survival patterns. Avoid making early high bids unless I have critical information to share."
+    },
+    "Grace": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "high",
+          "evidence": "Inspected on Night 1",
+          "guess": "villager"
+        },
+        "Bob": {
+          "confidence": "high",
+          "evidence": "Confirmed by Seer inspection on Night R2.",
+          "guess": "werewolf"
+        },
+        "Carol": {
+          "confidence": "medium",
+          "evidence": "Defended Bob after I provided a Seer claim and a direct hit.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First inspection of the game."
+        },
+        {
+          "round": 1,
+          "text": "Bidding to participate in the Day 1 discussion."
+        },
+        {
+          "round": 1,
+          "text": "Observing the reaction to the discussion and waiting for more information before revealing my role or making an accusation."
+        },
+        {
+          "round": 1,
+          "text": "Too early to lynch. No suspicious behavior yet. Will observe reactions to the Doctor's play."
+        },
+        {
+          "round": 2,
+          "text": "Inspecting Bob after Alice's unfortunate exile."
+        },
+        {
+          "round": 2,
+          "text": "Bob is a werewolf. Need to claim Seer and reveal Bob's role immediately to get him lynched."
+        },
+        {
+          "round": 2,
+          "text": "Revealing my role and Bob's identity to drive his exile."
+        },
+        {
+          "round": 2,
+          "text": "Carol defending Bob makes her a primary suspect for being a wolf co-player."
+        },
+        {
+          "round": 2,
+          "text": "Bob is a confirmed werewolf from my Seer inspection."
+        },
+        {
+          "round": 3,
+          "text": "Inspecting Carol because she defended Bob after my Seer claim."
+        }
+      ],
+      "plan": "As the Seer, I will use my information to guide the village. I have confirmed Alice is a villager. I will attempt to claim my role at an opportune time or use my information to steer discussion away from known villagers and towards suspicious players. I will monitor how others react to the fact that someone was protected last night."
+    }
+  }
+}

@@ -1,0 +1,277 @@
+{
+  "game_id": "g0124-qwen_qwen3.6-35b-a3b-vs-qwen_qwen3.5-9b",
+  "memories": {
+    "Alice": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "high",
+          "evidence": "Alice claims to be a Seer who can identify night targets, which is mechanically impossible. multiple players (Frank, Grace, Carol, Dave) correctly identified this error. Given I found a wolf in Frank, Alice is the most likely second wolf to have fabricated these details to frame Frank and protect herself.",
+          "guess": "werewolf"
+        },
+        "Eve": {
+          "confidence": "medium",
+          "evidence": "Eve explicitly claimed to be the Doctor and stated she protected Alice immediately upon waking, whereas the Doctor typically conceals their role to avoid being targeted. Dave and Frank also flagged this as suspicious behavior.",
+          "guess": "Werewolf"
+        },
+        "Frank": {
+          "confidence": "high",
+          "evidence": "Last night's seer inspection confirmed Frank is a Werewolf.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night as Seer. Inspecting Bob to establish a baseline for night 1 verification."
+        },
+        {
+          "round": 1,
+          "text": "First day as Seer. Confirmed Bob is a villager. Bidding 10 to speak early and state facts."
+        },
+        {
+          "round": 1,
+          "text": "No immediate target to accuse. Waiting for more information."
+        },
+        {
+          "round": 1,
+          "text": "Voting to exile Eve. She explicitly claimed to be the Doctor too early, breaking the typical meta-game norm where Doctors conceal their role. She has also received strong accusations from Dave and Frank."
+        },
+        {
+          "round": 2,
+          "text": "Frank is a werewolf (verified by Seer power on Night R2). Accuse him to the village."
+        },
+        {
+          "round": 2,
+          "text": "Accusing Frank publicly to align votes. He is confirmed wolf from inspection."
+        },
+        {
+          "round": 2,
+          "text": "Confirmed Frank is Wolf. Stuck point: Villagers think Seer sees who dies. Must correct this immediately."
+        },
+        {
+          "round": 2,
+          "text": "Voting out the second werewolf Alice for her mechanical lie about Seer capabilities."
+        }
+      ],
+      "plan": ""
+    },
+    "Bob": {
+      "beliefs": {
+        "Eve": {
+          "confidence": "medium",
+          "evidence": "Eve explicitly claimed she protected Alice last night. Real Doctors typically protect in silence unless a villager died and needs proving. Publicly announcing protection when no one died suggests Eve is trying to establish an authoritative voice or frame people, behaving unlike a genuine Doctor.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Bid maximum to ensure top speaking slot on Day 1 to hear initial villager statements and frame the discussion after the night where no one died."
+        },
+        {
+          "round": 1,
+          "text": "Early statement to appear cooperative and attentive. Budget 0 so I must be efficient."
+        },
+        {
+          "round": 1,
+          "text": "Dave and Frank have already accused Eve; I will remain silent to observe the outcome of their accusation."
+        },
+        {
+          "round": 1,
+          "text": "Exile Eve due to suspicious public claim of protecting Alice (no one died), which real Doctors usually avoid unless necessary for proof."
+        }
+      ],
+      "plan": ""
+    },
+    "Carol": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "high",
+          "evidence": "Alice claimed she saw Frank as the 'primary target' of the werewolves, which is mechanically impossible for a Seer (who checks alignment, not targets). Since Bob was killed last night, her statement was a lie to frame Frank.",
+          "guess": "Werewolf"
+        },
+        "Eve": {
+          "confidence": "high",
+          "evidence": "Eve explicitly claimed to have protected Alice last night. Only the Doctor can protect players, and the Doctor operates in secret. A villager or werewolf cannot know or perform this action, making her statement a blatant lie to frame the Doctor and win the day.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Bidding maximum to ensure a speaking slot on Day 1 to establish early information and identify threats since no one lost."
+        },
+        {
+          "round": 1,
+          "text": "Opening bid. Waiting for volunteers to gauge loyalty and roles."
+        },
+        {
+          "round": 1,
+          "text": "Bob and Eve gave generic statements. Waiting for Alice, Dave, Frank, Grace (who have 100 bids remaining) to speak for insight."
+        },
+        {
+          "round": 1,
+          "text": "Guilty of lying about protecting Alice. A villager or wolf could not have protected anyone last night as protection is secret. Her explicit claim exposes her as an imposter."
+        },
+        {
+          "round": 2,
+          "text": "Budget exhausted. Must bid to pass turn."
+        },
+        {
+          "round": 2,
+          "text": "Recall mechanic definition: Seer sees Wolf/Villager alignment, not target selection. This lie confirms Wolf allegiance."
+        },
+        {
+          "round": 2,
+          "text": "Voted based on her mechanical impossibility claim about Seer powers and the confirmation that Bob died, not Frank."
+        }
+      ],
+      "plan": ""
+    },
+    "Dave": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Agreeing with Frank's suggestion for Alice on Night 1. Targeting a random early player to avoid drawing suspicion to ourselves or obvious power roles immediately."
+        },
+        {
+          "round": 1,
+          "text": "Bid 10 to speak. Plan: Deflect suspicion from Frank and me. Claim uncertainty about the failed kill to look like a villager or confused villager, or claim to have seen a kill sign (if visible). Actually, since no one died, it's hard to lie about a death. Better to claim I saw something suspicious or just listen. Let's aim for a mid-tier bid to ensure speaking slot without spending too much budget."
+        },
+        {
+          "round": 1,
+          "text": "Eve claimed Doctor publicly which is suspicious behavior (hiding is better for Doc). My partner Frank also targeted her. If she is a Doc, getting her out helps us. If she is a Wolf, her play was risky and likely to be scrutinized. Aligning with the village's potential suspicion of her is the best path."
+        },
+        {
+          "round": 2,
+          "text": "Alice is likely protected again; switching to Bob to maximize kill probability."
+        },
+        {
+          "round": 2,
+          "text": "Bid 50 to secure an early speaking slot. Goal: deflect attention from Alice, our intended kill target, and sow discord among remaining villagers."
+        },
+        {
+          "round": 2,
+          "text": "Defending Frank against Alice's Seer claim. Alice's logic was flawed (checking targets vs alignment), but she is targeting Frank. Need to save Frank."
+        },
+        {
+          "round": 2,
+          "text": "Alice claimed to be Seer and identified Frank as 'targeted' wolf, which is mechanically impossible. She is likely a wolf framing Frank to save herself. Frank is my ally. Voting Alice to eliminate the deception."
+        }
+      ],
+      "plan": ""
+    },
+    "Eve": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night of game. No information on kills yet. Protecting Alice as a precaution while villagers gather info for the day."
+        },
+        {
+          "round": 1,
+          "text": "Protected Alice last night; no deaths. No strong suspect yet. Bidding high to speak first and gauge reactions."
+        },
+        {
+          "round": 1,
+          "text": "Established safety but emphasized ongoing threat; observed Bob and Carol bid high for speech slots."
+        },
+        {
+          "round": 1,
+          "text": "Alice is safe. Bob is quiet. Carol looks eager to find the seer but offers no direct accusation. No clear target yet to attribute danger to."
+        },
+        {
+          "round": 1,
+          "text": "Abstaining due to strong accusations against myself (Eve) by Dave and Frank. No clear evidence against others yet. Preserving the count while I investigate further."
+        }
+      ],
+      "plan": "I, as the Doctor, will survive by protecting the most suspicious player each night. I will not reveal my identity blatantly and will investigate the behavior of accusers Davis and Frank before casting any votes to exile. If the Seer identifies a werewolf, I will coordinate our protection strategy to keep the threat at bay."
+    },
+    "Frank": {
+      "beliefs": {
+        "Eve": {
+          "confidence": "medium",
+          "evidence": "Eve claimed Doctor explicitly. Wolves might claim Doctor to deflect suspicion. Dave and I are targeting her.",
+          "guess": "Doctor or Wolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Proposed Alice in previous turn; sticking with her as the first kill target."
+        },
+        {
+          "round": 1,
+          "text": "Bidding 50 to secure a speaking slot early. Will pretend to be a confused villager or claim Seer if advantageous. Need to counter any potential 'Doctor' claims from survivors."
+        },
+        {
+          "round": 1,
+          "text": "Discrediting Eve's Doctor claim to protect our pack strategy."
+        },
+        {
+          "round": 1,
+          "text": "Voting for Eve to exile her as she claims Doctor and was accused by Dave and myself. Removing a potential Doctor helps the werewolf team."
+        },
+        {
+          "round": 2,
+          "text": "Sticking with Alice as agreed in thought process; she was the focus of the previous night's 'protection' claim. If Eve was a wolf, Alice is safe to kill. If Eve was doctor, we risk guard but Bob is also a risk. Need to pressure the center of attention."
+        },
+        {
+          "round": 2,
+          "text": "Targeting Alice as the likely protected threat/Doctor. Goal: Exile Alice to reach 2v2 win condition."
+        },
+        {
+          "round": 2,
+          "text": "Alice publicly accused me and made a mechanic-impossible claim about being a Seer. The village is turning on her. Exiling her leads to a 2v2 split, which is a win condition for us."
+        }
+      ],
+      "plan": ""
+    },
+    "Grace": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "high",
+          "evidence": "Alice claimed to be the Seer and identified Frank as the werewolf 'target', stating 'he was the primary target of the werewolves'. However, Seers check alignment (Wolf/Villager) via the Vanishing Hallucination (or similar mechanic), they do not reveal who the werewolves targeted. Since Bob was killed last night, Frank was not the target. Alice used this mechanical impossibility to frame Frank, proving she is lying about her identity.",
+          "guess": "Werewolf"
+        },
+        "Eve": {
+          "confidence": "medium",
+          "evidence": "Eve explicitly claimed to be the Doctor and stated she protected Alice. Experienced players and others (Dave, Frank) note that real Doctors protect in silence to avoid detection. Claiming to use a key village role so prominently gives the wolves a perfect target.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First day, no dead yet (target protected). Need to speak to gauge other players and discuss the lack of deaths."
+        },
+        {
+          "round": 1,
+          "text": "Early game, no solid evidence to accuse yet. Listening to others before making a move."
+        },
+        {
+          "round": 1,
+          "text": "Voting based on Eve's explicit claim to be the Doctor, which aligns with Dave and Frank's suspicion that real Doctors protect in silence."
+        },
+        {
+          "round": 2,
+          "text": "Emergency discussion needed. Bob died, Eve is gone. Need to form a coalition among remaining 5 villagers to find the lone wolf. Need to verify claims about roles carefully."
+        },
+        {
+          "round": 2,
+          "text": "Alice is a high-probability werewolf due to fundamental misunderstanding of Seer mechanics. Evidence: claimed Seer power (checking target identity) which does not exist."
+        },
+        {
+          "round": 2,
+          "text": "Alice is a wolf presenting a fake Seer narrative to protect Frank, who might also be a wolf or a scapegoat victim."
+        },
+        {
+          "round": 2,
+          "text": "Voting Alice out due to her false claim about Seer mechanics. She claimed to have identified Frank as the 'target' of the werewolves, which is impossible since Seers check alignment, not kill targets. Given that Bob was killed last night, her intent is clearly to frame Frank and herself."
+        }
+      ],
+      "plan": ""
+    }
+  }
+}

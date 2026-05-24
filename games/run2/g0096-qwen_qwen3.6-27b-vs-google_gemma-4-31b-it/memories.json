@@ -1,0 +1,354 @@
+{
+  "game_id": "g0096-qwen_qwen3.6-27b-vs-google_gemma-4-31b-it",
+  "memories": {
+    "Alice": {
+      "beliefs": {
+        "Dave": {
+          "confidence": "high",
+          "evidence": "Claimed to be Seer and identified Alice as Wolf. If true, I am exposed. If false, he is bluffing. Either way, he must go.",
+          "guess": "Seer"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Coordinated with Eve to kill Frank first to avoid random targeting and potentially test the doctor's guard."
+        },
+        {
+          "round": 1,
+          "text": "Flying under the radar on day 1, saving budget for critical defense or misdirection later."
+        },
+        {
+          "round": 1,
+          "text": "Defending against Dave's Seer claim. Need to rally Bob/Carol/Grace against him."
+        },
+        {
+          "round": 1,
+          "text": "Voting out the accuser. Aligning with Eve's read that Dave is a Wolf framing me. If he is a real Seer, it's too late, but we must try to expose his claim as false to the village."
+        }
+      ],
+      "plan": "Night 1: Coordinated with Eve to kill Frank first."
+    },
+    "Bob": {
+      "beliefs": {
+        "Carol": {
+          "confidence": "medium",
+          "evidence": "Carol is aggressively attacking Dave and me despite the fact that my protection of Dave saved him, proving he is not a werewolf.",
+          "guess": "werewolf"
+        },
+        "Dave": {
+          "confidence": "low",
+          "evidence": "Aggressive Seer claim on Day 1; possible frame attempt on Alice.",
+          "guess": "werewolf"
+        },
+        "Eve": {
+          "confidence": "high",
+          "evidence": "Dave (confirmed villager by my doctor protects) identified her as a werewolf via Seer ability.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night, protecting Alice randomly as I have no information yet."
+        },
+        {
+          "round": 1,
+          "text": "Moderate bid for Day 1 to establish presence."
+        },
+        {
+          "round": 1,
+          "text": "Prompting Alice to respond to Dave's seer claim."
+        },
+        {
+          "round": 1,
+          "text": "Waiting to see how the village reacts to Dave's Seer claim and Alice's defense."
+        },
+        {
+          "round": 1,
+          "text": "Uncertain between Dave's claim and Alice's defense; avoiding exiling the Seer if Dave is legitimate."
+        },
+        {
+          "round": 2,
+          "text": "Protecting the claimed Seer to ensure we keep critical information if he is telling the truth."
+        },
+        {
+          "round": 2,
+          "text": "Need to tell the village Dave is safe because I protected him and no one died."
+        },
+        {
+          "round": 2,
+          "text": "Clearing Dave since he was the target of the attack."
+        },
+        {
+          "round": 2,
+          "text": "Carol is attacking the Doctor and the Seer despite the Doctor's successful protection of the Seer, which proves the Seer's innocence."
+        },
+        {
+          "round": 3,
+          "text": "Protecting the confirmed non-wolf/Seer to maintain our information source."
+        },
+        {
+          "round": 3,
+          "text": "Confirming no deaths again and reinforcing Dave's safety."
+        },
+        {
+          "round": 3,
+          "text": "Dave is confirmed safe by my doctor protects; his seer claim that Eve is a werewolf is therefore reliable."
+        }
+      ],
+      "plan": ""
+    },
+    "Carol": {
+      "beliefs": {
+        "Bob": {
+          "confidence": "high",
+          "evidence": "Coordinated clearing with Dave; claiming to be Doctor to protect a fake Seer.",
+          "guess": "werewolf"
+        },
+        "Dave": {
+          "confidence": "low",
+          "evidence": "Very aggressive Seer claim on Day 1; Eve also finds him suspicious.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Initial bid to join the discussion on Day 1."
+        },
+        {
+          "round": 1,
+          "text": "Acknowledging Dave's seer claim and prompting Alice for a response to gather more information."
+        },
+        {
+          "round": 1,
+          "text": "Waiting to see more evidence or reactions before committing to either Dave or Alice."
+        },
+        {
+          "round": 1,
+          "text": "Undecided between Dave's claim and Alice's defense; observing voting patterns."
+        },
+        {
+          "round": 2,
+          "text": "Want to discuss the fact that no one died last night and probe Dave's claim further."
+        },
+        {
+          "round": 2,
+          "text": "Questioning the Bob-Dave alliance to see if they are a wolf pair."
+        },
+        {
+          "round": 2,
+          "text": "Voting to break the Bob-Dave pairing; their mutual clearing is too convenient."
+        }
+      ],
+      "plan": ""
+    },
+    "Dave": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "high",
+          "evidence": "Seer inspection returned werewolves.",
+          "guess": "werewolf"
+        },
+        "Carol": {
+          "confidence": "medium",
+          "evidence": "She is aggressively accusing me and Bob of being a werewolf pair, even though I know Bob is a villager.",
+          "guess": "werewolf"
+        },
+        "Eve": {
+          "confidence": "high",
+          "evidence": "Directly inspected by me as the Seer.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Starting the investigation with Alice."
+        },
+        {
+          "round": 1,
+          "text": "Bidding to expose Alice as a werewolf based on Seer info."
+        },
+        {
+          "round": 1,
+          "text": "Exposing Alice as the werewolf identified by my seer ability."
+        },
+        {
+          "round": 1,
+          "text": "Reiterating my seer result to push for Alice's exile."
+        },
+        {
+          "round": 1,
+          "text": "I am the seer and Alice is confirmed as a werewolf."
+        },
+        {
+          "round": 2,
+          "text": "Inspecting Bob to check for other werewolves after Alice's exile."
+        },
+        {
+          "round": 2,
+          "text": "Confirming Bob is a villager and steering the group."
+        },
+        {
+          "round": 2,
+          "text": "Carol is aggressively framing the Seer and the Doctor, both of whom are villagers."
+        },
+        {
+          "round": 3,
+          "text": "Inspecting Eve to see if she is the remaining werewolf."
+        },
+        {
+          "round": 3,
+          "text": "I know Eve is a werewolf; must speak to expose her."
+        },
+        {
+          "round": 3,
+          "text": "Revealing Eve as a werewolf based on Night R3 inspection."
+        },
+        {
+          "round": 3,
+          "text": "I've already accused Eve as the werewolf; now waiting for her reaction and the subsequent vote."
+        },
+        {
+          "round": 3,
+          "text": "Confirmed werewolf via seer inspection."
+        }
+      ],
+      "plan": ""
+    },
+    "Eve": {
+      "beliefs": {
+        "Carol": {
+          "confidence": "medium",
+          "evidence": "Accusing Seer/Doctor pair, high activity. Potential target to align with Seer/Doctor camp.",
+          "guess": "Villager"
+        },
+        "Dave": {
+          "confidence": "high",
+          "evidence": "Claimed to inspect Alice (my partner) and found her to be a werewolf. Low chance a wolf fake-seers their own partner. Must be true Seer.",
+          "guess": "Seer"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Preferencing Frank over Bob to avoid common first-night target."
+        },
+        {
+          "round": 1,
+          "text": "Conserving budget early game; will listen to villagers' accusations first."
+        },
+        {
+          "round": 1,
+          "text": "Protecting Alice by attacking Dave's credibility. If Dave is real seer, we're in trouble, but we must try."
+        },
+        {
+          "round": 1,
+          "text": "To save my own skin, I must vote with the Seer. Voting against the Seer marks me as a wolf. Voting for the exposed partner helps me blend in as a villager."
+        },
+        {
+          "round": 2,
+          "text": "Alice is dead. I am alone. Dave claimed Seer and got Alice out. He is the biggest threat. Removing him reduces village capabilities. If he is guarded, I'll know next day if he pushes a new claim or if someone else takes the lead. If he dies, village loses Seer."
+        },
+        {
+          "round": 2,
+          "text": "Conserving budget. Observing the village's reaction to Alice's exile and Dave's survival. Need to gauge if Dave is trusted as Seer."
+        },
+        {
+          "round": 2,
+          "text": "Lay low. Dave (Seer) and Bob (Doctor) are currently the trusted authorities. Accusing them is suicide. I will observe the vote."
+        },
+        {
+          "round": 2,
+          "text": "Voting for Carol to align with the Seer/Doctor claim and appear as a supportive villager, avoiding suspicion."
+        },
+        {
+          "round": 3,
+          "text": "Kill the Seer to prevent him from identifying me next night. He is the biggest threat."
+        },
+        {
+          "round": 3,
+          "text": "Lying low as the lone werewolf. Bob and Dave are strongly allied and likely holding true power roles (Doctor/Seer or faking them together). Attacking them now with low credibility (0 prior votes) will likely result in my immediate exile. I will conserve budget and wait for them to turn on each other or eliminate Grace, reducing the field."
+        },
+        {
+          "round": 3,
+          "text": "Aligning with my accusation that Bob and Dave are a werewolf pair. Hoping Grace splits the vote or votes Bob to create a tie and save me."
+        }
+      ],
+      "plan": "As Eve (werewolf with Alice), goal is to survive and eliminate villagers. Coordinate kills with Alice. Misdirect suspicion onto Bob or Carol (random villager). Conserve speaking budget until necessary for defense or manipulation. Avoid being voted out."
+    },
+    "Frank": {
+      "beliefs": {},
+      "notes": [],
+      "plan": ""
+    },
+    "Grace": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "medium",
+          "evidence": "Dave claimed to be the Seer and identified her as a werewolf.",
+          "guess": "werewolf"
+        },
+        "Bob": {
+          "confidence": "medium",
+          "evidence": "Coordinated clearing with Dave; claiming Doctor to validate Dave's Seer claim.",
+          "guess": "werewolf"
+        },
+        "Eve": {
+          "confidence": "medium",
+          "evidence": "Accused by Dave (claimed Seer) and supported by Bob (claimed Doctor).",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Bidding moderately to get a speaking slot in the first round."
+        },
+        {
+          "round": 1,
+          "text": "Observing the conflict between Dave's Seer claim and Alice/Eve's counter-claims before committing."
+        },
+        {
+          "round": 1,
+          "text": "Voting based on Dave's Seer claim."
+        },
+        {
+          "round": 2,
+          "text": "Bidding to participate in the discussion about the successful save in Night 2 and Dave's Seer claim."
+        },
+        {
+          "round": 2,
+          "text": "Questioning the Bob-Dave alliance to see if their stories hold up."
+        },
+        {
+          "round": 2,
+          "text": "Bob and Dave are clearing each other. This could be a werewolf pair or a lucky combination of Doctor/Seer. I'll wait to see more evidence."
+        },
+        {
+          "round": 2,
+          "text": "Voting Bob due to suspicious coordination with Dave; suspecting a fake Doctor/Seer pair."
+        },
+        {
+          "round": 3,
+          "text": "Question the double-save and Bob/Dave's synergy."
+        },
+        {
+          "round": 3,
+          "text": "Testing Eve's reaction while flagging the suspicious Bob-Dave synergy."
+        },
+        {
+          "round": 3,
+          "text": "Waiting to see Eve's reaction to the Seer's accusation before committing; still suspicious of the Bob-Dave duo."
+        },
+        {
+          "round": 3,
+          "text": "Voting for the player accused by the claimed Seer."
+        }
+      ],
+      "plan": ""
+    }
+  }
+}

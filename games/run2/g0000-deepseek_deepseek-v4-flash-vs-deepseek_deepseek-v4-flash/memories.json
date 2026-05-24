@@ -1,0 +1,182 @@
+{
+  "game_id": "g0000-deepseek_deepseek-v4-flash-vs-deepseek_deepseek-v4-flash",
+  "memories": {
+    "Alice": {
+      "beliefs": {
+        "Dave": {
+          "confidence": "high",
+          "evidence": "Dave immediately claimed I'm safe on Day 1 without evidence, then attacked Carol for questioning him\u2014classic wolf trying to secure ally and deflect.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Bidding moderate amount to speak early and share observations."
+        },
+        {
+          "round": 1,
+          "text": "Dave was suspiciously confident I'm safe on Day 1 without evidence, then attacked Carol for questioning him\u2014likely a werewolf trying to misdirect."
+        }
+      ],
+      "plan": ""
+    },
+    "Bob": {
+      "beliefs": {
+        "Dave": {
+          "confidence": "high",
+          "evidence": "Dave claimed certainty about Alice being on our side on Day 1, which is suspicious and typical werewolf behavior. Multiple players (Carol, Grace, Eve) called him out; his defense was weak.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night, no info; protecting Alice as a random choice since I can't self-protect."
+        },
+        {
+          "round": 1,
+          "text": "Initial bid to get a speaking slot Day 2, want to discuss night kill and gather info."
+        },
+        {
+          "round": 1,
+          "text": "Dave's Day 1 certainty about Alice being on our side is suspicious and fits werewolf behavior. Multiple players echoed this concern, and his defense was weak."
+        },
+        {
+          "round": 2,
+          "text": "Carol led the accusation against Dave (werewolf), so she's a likely revenge target."
+        }
+      ],
+      "plan": "Defend the village by protecting likely werewolf targets at night. Listen to discussion during the day, look for inconsistencies, and push to exile suspected werewolves. Use my speaking slot to share observations and pressure suspicious players."
+    },
+    "Carol": {
+      "beliefs": {
+        "Dave": {
+          "confidence": "high",
+          "evidence": "Dave claimed certainty about Alice being on our side on Day 1, which is suspiciously confident for a villager without evidence. He's likely a special role we need to eliminate.",
+          "guess": "seer or dangerous villager"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Eve and I both considered Frank; I'm going with him as the kill target. Could eliminate a potentially strong player."
+        },
+        {
+          "round": 1,
+          "text": "Bidding a moderate amount to secure a speaking slot and contribute to discussion without raising suspicion."
+        },
+        {
+          "round": 1,
+          "text": "Sound pro-village while casting doubt on Dave's claim to protect Eve and myself."
+        },
+        {
+          "round": 1,
+          "text": "Dave's early certainty about Alice on Day 1 is highly suspicious for a villager \u2014 likely a special role like the seer. Village consensus also leans against him, so this vote aligns with the group without drawing attention."
+        },
+        {
+          "round": 2,
+          "text": "Alice is a common target with Eve; Dave was confident about her, so she may be a key villager or seer."
+        }
+      ],
+      "plan": ""
+    },
+    "Dave": {
+      "beliefs": {
+        "Carol": {
+          "confidence": "high",
+          "evidence": "First to attack my Day 1 claim about Alice being a villager, pushed hard without offering her own theories about Frank's death, classic wolf sowing discord.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night, no prior info; inspecting Alice as a starting point."
+        },
+        {
+          "round": 1,
+          "text": "I know Alice is a villager. Need to speak early to share information and build trust."
+        },
+        {
+          "round": 1,
+          "text": "Revealing Alice as village to build trust and give village a known innocent. Still early, gathering reactions."
+        },
+        {
+          "round": 1,
+          "text": "Defending myself against the pile-on. Carol's early accusation feels wolfish \u2014 she jumped on my confidence without proposing any alternative."
+        },
+        {
+          "round": 1,
+          "text": "Voting Carol. She was first to attack my Day 1 claim, pushed hard repeatedly without offering her own theories about the kill. Classic wolf behavior. Alice is confirmed villager by my seer check."
+        }
+      ],
+      "plan": ""
+    },
+    "Eve": {
+      "beliefs": {
+        "Dave": {
+          "confidence": "medium",
+          "evidence": "Too confident about Alice on Day 1, classic wolf tactic",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Carol and I both mentioned Frank as a target; aiming for a strong player who could be dangerous."
+        },
+        {
+          "round": 1,
+          "text": "Bidding 40 to get a speaking slot early enough to steer conversation. I'll claim to be a villager and cast suspicion on others to protect myself and Carol."
+        },
+        {
+          "round": 1,
+          "text": "Open with sympathy and a call for caution. Don't accuse anyone yet"
+        },
+        {
+          "round": 1,
+          "text": "Piling on Dave to look like a villager, since multiple others already suspect him. This will help me blend in."
+        },
+        {
+          "round": 1,
+          "text": "Following the public suspicion; voting Dave aligns with village sentiment while protecting my werewolf identity."
+        },
+        {
+          "round": 2,
+          "text": "Dave was very confident Alice is on our side, likely the seer. Killing Alice removes a key information source for the village."
+        }
+      ],
+      "plan": ""
+    },
+    "Frank": {
+      "beliefs": {},
+      "notes": [],
+      "plan": ""
+    },
+    "Grace": {
+      "beliefs": {
+        "Dave": {
+          "confidence": "medium",
+          "evidence": "Dave claimed certainty that Alice is on our side on Day 1 without explanation - classic wolf tactic to secure an ally. He was called out by Carol, Eve, and I. His defense was weak.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First day, moderate bid to get a chance to speak and gather information."
+        },
+        {
+          "round": 1,
+          "text": "Dave's early confidence about Alice's alignment is suspicious - could be trying to protect a packmate or gain trust."
+        },
+        {
+          "round": 1,
+          "text": "Dave's early and unexplained certainty about Alice on Day 1 is highly suspicious; multiple players noted this. Voting to exile Dave."
+        }
+      ],
+      "plan": ""
+    }
+  }
+}

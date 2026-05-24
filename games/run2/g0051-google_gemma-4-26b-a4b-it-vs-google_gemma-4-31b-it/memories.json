@@ -1,0 +1,268 @@
+{
+  "game_id": "g0051-google_gemma-4-26b-a4b-it-vs-google_gemma-4-31b-it",
+  "memories": {
+    "Alice": {
+      "beliefs": {
+        "Bob": {
+          "confidence": "high",
+          "evidence": "Eve claimed Seer and identified Bob as a werewolf; Bob's defense was weak.",
+          "guess": "werewolf"
+        },
+        "Frank": {
+          "confidence": "low",
+          "evidence": "First to suggest that my survival was suspicious, which is an illogical basis for suspicion.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Secure an early speaking slot to observe and analyze player claims."
+        },
+        {
+          "round": 1,
+          "text": "Defending myself against Frank and Bob's illogical suspicion."
+        },
+        {
+          "round": 1,
+          "text": "Initiated the illogical push to suspect me for surviving the night."
+        },
+        {
+          "round": 2,
+          "text": "Plan to call out Bob's suspicious behavior in R1 and discuss the double-save."
+        },
+        {
+          "round": 2,
+          "text": "Voting for Bob based on Eve's Seer claim."
+        }
+      ],
+      "plan": ""
+    },
+    "Bob": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Frank hasn't responded, so I'm moving forward with Alice as suggested."
+        },
+        {
+          "round": 1,
+          "text": "Targeting Alice failed; she was likely protected. Need to speak to control the narrative."
+        },
+        {
+          "round": 1,
+          "text": "Following Frank's lead to discuss the failed kill and the potential Doctor/Seer presence."
+        },
+        {
+          "round": 1,
+          "text": "Staying quiet to avoid drawing suspicion early in the game."
+        },
+        {
+          "round": 1,
+          "text": "No clear suspect or strong evidence presented in the first round of discussion. Will observe voting and wait for more information."
+        },
+        {
+          "round": 2,
+          "text": "Frank is gone, I am the last werewolf. Targeting Alice to test if she's the Doctor or a power role."
+        },
+        {
+          "round": 2,
+          "text": "I am the last werewolf. Alice is likely the Doctor or being protected. I will wait for others to speak first to gauge the room before committing more budget."
+        },
+        {
+          "round": 2,
+          "text": "Eve is the Seer and has caught me. I am fighting a losing battle."
+        },
+        {
+          "round": 2,
+          "text": "Eve is claiming to be Seer and calling me a werewolf. I suspect she is a werewolf trying to frame me, or a different power role trying to cause chaos. I must vote for her to defend myself."
+        }
+      ],
+      "plan": "Since Frank is gone, I am the sole werewolf. Alice has survived two consecutive nights, suggesting she is either the Doctor or being protected by the Doctor. My goal is to blend in with the villagers, avoid direct suspicion, and try to identify the Doctor or Seer without exposing myself. I will observe the discussion and only speak when it serves to deflect suspicion or gather information."
+    },
+    "Carol": {
+      "beliefs": {
+        "Bob": {
+          "confidence": "medium",
+          "evidence": "Eve claimed to be the Seer and identified him as a werewolf.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night, no information available; protecting Alice randomly."
+        },
+        {
+          "round": 1,
+          "text": "Moderate bid to participate in the first day's discussion without exhausting budget."
+        },
+        {
+          "round": 1,
+          "text": "Frank and Bob are pushing a narrative that Alice's survival is suspicious, despite me (the Doctor) being the reason she survived. This makes them suspect, but I don't have enough evidence to vote yet."
+        },
+        {
+          "round": 2,
+          "text": "Protecting Alice again as she was targeted in R1."
+        },
+        {
+          "round": 2,
+          "text": "Want to defend Alice again and keep an eye on Bob."
+        },
+        {
+          "round": 2,
+          "text": "Supporting Eve's claim for now to see Bob's reaction, while keeping my Doctor identity secret for a bit longer."
+        },
+        {
+          "round": 2,
+          "text": "Voting for Bob based on Eve's Seer claim."
+        }
+      ],
+      "plan": ""
+    },
+    "Dave": {
+      "beliefs": {
+        "Bob": {
+          "confidence": "medium",
+          "evidence": "Eve claimed to be the Seer and identified Bob as a werewolf; Bob's defense was a generic counter-accusation.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Initial bid to participate in the first discussion."
+        },
+        {
+          "round": 1,
+          "text": "No concrete evidence yet; observing the conversation."
+        },
+        {
+          "round": 1,
+          "text": "No strong evidence yet. Frank and Bob's reasoning against Alice was weak, but not enough to justify an exile."
+        },
+        {
+          "round": 2,
+          "text": "Trying to get a slot to ask for role claims after two successful protects."
+        },
+        {
+          "round": 2,
+          "text": "Voting Bob based on Eve's Seer claim."
+        }
+      ],
+      "plan": ""
+    },
+    "Eve": {
+      "beliefs": {
+        "Bob": {
+          "confidence": "high",
+          "evidence": "Seer inspection returned werewolves.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night inspection to start identifying factions."
+        },
+        {
+          "round": 1,
+          "text": "Bidding moderately to get a speaking slot and observe others."
+        },
+        {
+          "round": 1,
+          "text": "No one is suspicious enough yet. Alice is confirmed villager; Frank and Bob are pushing a weak narrative but not enough for an exile."
+        },
+        {
+          "round": 2,
+          "text": "Bob was suspicious of Alice (who I know is a villager). Checking if he is a werewolf."
+        },
+        {
+          "round": 2,
+          "text": "Need to reveal Bob as a werewolf."
+        },
+        {
+          "round": 2,
+          "text": "Exposing Bob as a werewolf based on my seer inspection."
+        },
+        {
+          "round": 2,
+          "text": "I am the Seer and I inspected Bob; he is a werewolf."
+        }
+      ],
+      "plan": ""
+    },
+    "Frank": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "medium",
+          "evidence": "She survived the night after our kill attempt, suggesting she was guarded.",
+          "guess": "protected role (Doctor/Seer)"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Bob is unresponsive, so I'm picking Alice as suggested in chat."
+        },
+        {
+          "round": 1,
+          "text": "Bidding to get an early word in and discuss the failed kill naturally."
+        },
+        {
+          "round": 1,
+          "text": "Acknowledging Alice's survival to appear curious and engaged with the village's situation."
+        },
+        {
+          "round": 1,
+          "text": "Already contributed to the discussion regarding Alice; passing to observe reactions and avoid looking too aggressive."
+        },
+        {
+          "round": 1,
+          "text": "Abstaining to observe the voting patterns and avoid early suspicion after the discussion about Alice's survival."
+        }
+      ],
+      "plan": "1. Blend in with the villagers by appearing curious but not overly aggressive. 2. Monitor how people react to the fact that Alice survived the night. 3. Work with Bob to subtly redirect suspicion away from ourselves. 4. Avoid being the first to accuse someone unless it serves our purpose."
+    },
+    "Grace": {
+      "beliefs": {
+        "Bob": {
+          "confidence": "medium",
+          "evidence": "Eve claimed Seer and identified Bob as a werewolf.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Trying to get a speaking slot to start the conversation."
+        },
+        {
+          "round": 1,
+          "text": "Encouraging info sharing while acknowledging Frank and Bob's points without fully committing to suspicion against Alice."
+        },
+        {
+          "round": 1,
+          "text": "Observing the dynamics between Frank/Bob and Alice/Eve."
+        },
+        {
+          "round": 1,
+          "text": "No strong evidence against anyone yet; Frank and Bob's arguments against Alice are weak."
+        },
+        {
+          "round": 2,
+          "text": "Bidding to discuss the second consecutive night of no deaths and look for Seer claims."
+        },
+        {
+          "round": 2,
+          "text": "Acknowledging the Seer claim and pushing for Bob's response to gauge authenticity."
+        },
+        {
+          "round": 2,
+          "text": "Voting Bob based on Eve's Seer claim."
+        }
+      ],
+      "plan": ""
+    }
+  }
+}

@@ -1,0 +1,231 @@
+{
+  "game_id": "g0080-google_gemma-4-31b-it-vs-google_gemma-4-31b-it",
+  "memories": {
+    "Alice": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night, protecting a random player."
+        }
+      ],
+      "plan": ""
+    },
+    "Bob": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Bidding to speak on Day 1 to start gathering information."
+        },
+        {
+          "round": 1,
+          "text": "No information available yet; waiting to see if anyone claims Seer or makes a move."
+        },
+        {
+          "round": 1,
+          "text": "No evidence against any player yet; better to abstain than risk exiling a villager on Day 1."
+        }
+      ],
+      "plan": ""
+    },
+    "Carol": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Initial bid to get a speaking slot and start gathering info."
+        },
+        {
+          "round": 1,
+          "text": "Opening the discussion to gather information."
+        },
+        {
+          "round": 1,
+          "text": "No evidence to accuse or defend anyone yet."
+        },
+        {
+          "round": 1,
+          "text": "No evidence available to make an informed vote."
+        },
+        {
+          "round": 2,
+          "text": "Trying to get a speaking slot to push for information from the Seer or analyze Dave and Frank's silence."
+        },
+        {
+          "round": 2,
+          "text": "No concrete evidence yet; waiting to see if voting pattern analysis reveals anything."
+        },
+        {
+          "round": 2,
+          "text": "No one has provided a concrete lead or claimed a role; voting randomly is too risky."
+        }
+      ],
+      "plan": ""
+    },
+    "Dave": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Coordinated with Grace in pack chat to target Alice."
+        },
+        {
+          "round": 1,
+          "text": "Bidding moderately to participate in the first day's discussion and establish a villager persona."
+        },
+        {
+          "round": 1,
+          "text": "Staying neutral to avoid suspicion while the village is undecided."
+        },
+        {
+          "round": 1,
+          "text": "First day, no information available. Abstaining to avoid suspicion and protect my teammate Grace."
+        },
+        {
+          "round": 2,
+          "text": "Coordinating with Grace to target Bob as proposed in pack chat."
+        },
+        {
+          "round": 2,
+          "text": "Bidding to influence the discussion and protect the pack."
+        },
+        {
+          "round": 2,
+          "text": "Blending in by agreeing with Frank and encouraging the village to target 'quiet' players to deflect suspicion from Grace and myself."
+        },
+        {
+          "round": 2,
+          "text": "Staying silent to avoid drawing attention and to see if others initiate accusations."
+        },
+        {
+          "round": 2,
+          "text": "No clear target to frame without risking suspicion; waiting for others to suggest a lead."
+        }
+      ],
+      "plan": ""
+    },
+    "Eve": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "First day, bidding to get a baseline and observe others."
+        },
+        {
+          "round": 1,
+          "text": "Encouraging Seer to speak and gathering initial opinions."
+        },
+        {
+          "round": 1,
+          "text": "No information available yet; waiting for others to react or a Seer to reveal themselves."
+        },
+        {
+          "round": 1,
+          "text": "No information available on day 1; avoiding random lynching."
+        },
+        {
+          "round": 2,
+          "text": "Trying to get a speaking slot to push for information from the Seer or discuss the silent players."
+        },
+        {
+          "round": 2,
+          "text": "Encouraging the group to analyze R1 votes since no one has claimed Seer yet."
+        },
+        {
+          "round": 2,
+          "text": "No concrete evidence or suspicions yet; staying silent to avoid baseless accusations."
+        },
+        {
+          "round": 2,
+          "text": "No concrete evidence yet; avoiding a random guess."
+        }
+      ],
+      "plan": ""
+    },
+    "Frank": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night inspection to start identifying factions."
+        },
+        {
+          "round": 1,
+          "text": "Low bid for Day 1 to observe others while maintaining budget."
+        },
+        {
+          "round": 1,
+          "text": "No information on living players yet; avoiding early exposure as Seer."
+        },
+        {
+          "round": 1,
+          "text": "No information on other players yet. Avoiding random guesses."
+        },
+        {
+          "round": 2,
+          "text": "Inspecting Bob to start identifying the werewolves among the remaining players."
+        },
+        {
+          "round": 2,
+          "text": "Need to tell the village that Alice and Bob were confirmed villagers."
+        },
+        {
+          "round": 2,
+          "text": "Trying to probe for reactions without revealing my Seer identity yet."
+        },
+        {
+          "round": 2,
+          "text": "Waiting for more information or patterns to emerge before revealing my Seer role or making a guess."
+        },
+        {
+          "round": 2,
+          "text": "No evidence against any remaining players yet. Alice and Bob were confirmed villagers."
+        }
+      ],
+      "plan": ""
+    },
+    "Grace": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Agreed with Dave to target Alice."
+        },
+        {
+          "round": 1,
+          "text": "Trying to get a speaking slot to blend in and steer the conversation."
+        },
+        {
+          "round": 1,
+          "text": "Playing the role of a cooperative villager to avoid suspicion."
+        },
+        {
+          "round": 1,
+          "text": "Maintaining a neutral profile to avoid suspicion."
+        },
+        {
+          "round": 1,
+          "text": "No evidence available yet; avoiding random votes to protect my ally Dave and maintain my cover."
+        },
+        {
+          "round": 2,
+          "text": "Bob was quiet on Day 1 and Dave agreed to this target."
+        },
+        {
+          "round": 2,
+          "text": "Bidding moderately to stay in the conversation and protect Dave."
+        },
+        {
+          "round": 2,
+          "text": "No one is currently suspected; staying quiet to avoid drawing attention."
+        },
+        {
+          "round": 2,
+          "text": "Trying to eliminate a villager to reach the win condition."
+        }
+      ],
+      "plan": ""
+    }
+  }
+}

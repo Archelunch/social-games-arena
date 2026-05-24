@@ -1,0 +1,372 @@
+{
+  "game_id": "g0019-google_gemma-4-31b-it-vs-deepseek_deepseek-v4-flash",
+  "memories": {
+    "Alice": {
+      "beliefs": {},
+      "notes": [],
+      "plan": ""
+    },
+    "Bob": {
+      "beliefs": {
+        "Carol": {
+          "confidence": "medium",
+          "evidence": "Silent through two rounds; accused by Dave (claimed seer) and Eve; silent play can be a wolf tactic.",
+          "guess": "werewolf"
+        },
+        "Grace": {
+          "confidence": "high",
+          "evidence": "Grace expressed skepticism of Dave's seer claim without offering alternatives, attempting to create doubt. Dave and Frank also accused her, and she has been evasive.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night, no info; protecting Carol at random."
+        },
+        {
+          "round": 1,
+          "text": "Bidding moderately high to speak early and share my doctor protection info."
+        },
+        {
+          "round": 1,
+          "text": "Day 1, no strong suspicions yet. Dave claims seer; waiting to see more reactions."
+        },
+        {
+          "round": 1,
+          "text": "No strong evidence yet. Dave's seer claim is suspicious but could be true. Watching for contradictions."
+        },
+        {
+          "round": 2,
+          "text": "Protecting Dave in case he is the real seer; high value target."
+        },
+        {
+          "round": 2,
+          "text": "Bidding to speak and share my view as doctor - I protected Dave last night and no one died, strengthening his seer claim."
+        },
+        {
+          "round": 2,
+          "text": "Public statement as Bob, claiming villager. I'm actually doctor, but keeping that secret. Acknowledging Dave's seer claim and encouraging discussion."
+        },
+        {
+          "round": 2,
+          "text": "No strong evidence yet; staying neutral to gather more info."
+        },
+        {
+          "round": 2,
+          "text": "Voting based on seer's claim and suspicious silence. Dave is likely real seer since no one died night after I guarded him."
+        },
+        {
+          "round": 3,
+          "text": "Dave is likely the real seer since the wolves tried to kill him last night and my protection saved him. Protecting him again to keep our information source alive."
+        },
+        {
+          "round": 3,
+          "text": "Bidding high to speak and push for lynching Frank or Grace."
+        },
+        {
+          "round": 3,
+          "text": "Carol exiled R2. I protected Dave twice (R2 and R3). Dave claims seer, says Eve is villager. I'm doctor, need to protect myself or others tonight."
+        },
+        {
+          "round": 3,
+          "text": "Grace's behavior is classic wolf strategy to undermine trust in the seer."
+        },
+        {
+          "round": 3,
+          "text": "Voting for Grace based on her attempt to create doubt about Dave's seer claim without offering alternatives; she is the most suspicious among the remaining players."
+        }
+      ],
+      "plan": ""
+    },
+    "Carol": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Following Grace's suggestion to coordinate the kill."
+        },
+        {
+          "round": 1,
+          "text": "Bidding moderately to participate in the first day's discussion."
+        },
+        {
+          "round": 1,
+          "text": "Blending in and avoiding early aggression against the seer claim to maintain a low profile."
+        },
+        {
+          "round": 1,
+          "text": "Avoiding early suspicion by not attacking the seer claim immediately."
+        },
+        {
+          "round": 2,
+          "text": "Dave claimed to be the seer during Day R1; eliminating him removes the village's main source of information."
+        },
+        {
+          "round": 2,
+          "text": "Bidding to influence the discussion about Dave's failed death and his seer claim."
+        },
+        {
+          "round": 2,
+          "text": "Avoiding making an aggressive move while under suspicion; trying to blend in."
+        }
+      ],
+      "plan": "Establish a trustworthy persona, protect Grace, and identify potential seers to target them next."
+    },
+    "Dave": {
+      "beliefs": {
+        "Carol": {
+          "confidence": "medium",
+          "evidence": "Carol was silent for two rounds, only spoke when accused, and gave a vague defense. Frank defended her quickly, possibly as a packmate.",
+          "guess": "werewolf"
+        },
+        "Eve": {
+          "confidence": "high",
+          "evidence": "Inspected during Night R2, result confirmed villager.",
+          "guess": "villager"
+        },
+        "Grace": {
+          "confidence": "high",
+          "evidence": "Grace expressed skepticism about my seer claim without offering concrete alternatives, which is typical wolf behavior to create doubt. Bob and Frank have been more cooperative, and I know Eve and Frank are villagers.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night inspection, random pick to start gathering info."
+        },
+        {
+          "round": 1,
+          "text": "First day, want to speak but conserve budget. Alice was villager; will share info cautiously."
+        },
+        {
+          "round": 1,
+          "text": "Revealing as seer to build trust and share Alice was innocent villager"
+        },
+        {
+          "round": 1,
+          "text": "Waiting to see if anyone else reveals information or acts suspiciously before forming accusations."
+        },
+        {
+          "round": 1,
+          "text": "No strong suspicion yet; abstaining to avoid wrong exile."
+        },
+        {
+          "round": 2,
+          "text": "Inspecting Eve after she gave a measured response to my seer claim; want to know her faction."
+        },
+        {
+          "round": 2,
+          "text": "Bidding max to secure speaking slot and reveal Eve is villager."
+        },
+        {
+          "round": 2,
+          "text": "Revealing Eve's innocence to narrow down suspects. Doctor saved someone night 2."
+        },
+        {
+          "round": 2,
+          "text": "Carol has been silent for two rounds and gave only a vague defense when accused; Frank's quick defense could indicate packmate behavior."
+        },
+        {
+          "round": 3,
+          "text": "Frank defended Carol (exiled wolf) - could be a wolf protecting packmate. Inspecting to check."
+        },
+        {
+          "round": 3,
+          "text": "No budget left to bid, but I'm the seer with confirmed villagers Eve and Frank."
+        },
+        {
+          "round": 3,
+          "text": "Grace's behavior fits a wolf strategy: she raised suspicion without proposing a better plan, and she has not been inspected by me. Bob's accusation of her could be a wolf vs villager dynamic, but for now Grace seems more likely the wolf."
+        },
+        {
+          "round": 3,
+          "text": "Grace's skepticism of my seer claim without offering alternatives is typical wolf behavior; with Eve and Frank confirmed villagers, Grace is the most likely wolf remaining."
+        }
+      ],
+      "plan": ""
+    },
+    "Eve": {
+      "beliefs": {
+        "Dave": {
+          "confidence": "low",
+          "evidence": "Dave claimed seer, inspected Alice (villager). Could be true or wolf bluff. No counterclaim yet.",
+          "guess": "unknown"
+        },
+        "Grace": {
+          "confidence": "medium",
+          "evidence": "Grace expressed skepticism of Dave's seer claim, and both Bob and Frank immediately accused her \u2014 could be wolves piling on, but her skepticism is also a wolf move to sow doubt. No deaths for two nights makes seer claim shaky.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Moderate bid to speak on day 1. No special info yet but want to share observations."
+        },
+        {
+          "round": 1,
+          "text": "Public response to Dave's seer claim: cautious support, leaving room for doubt. I'll watch for how others react."
+        },
+        {
+          "round": 1,
+          "text": "Dave claimed seer. Could be true or a wolf bluff. No strong suspicions yet; staying silent to gather more info."
+        },
+        {
+          "round": 1,
+          "text": "Day 1: no strong suspicions yet. Dave's seer claim unverified. Abstaining to avoid hitting a villager."
+        },
+        {
+          "round": 2,
+          "text": "Bidding 40 to speak again this round. Want to discuss Dave's claim and the lack of night kill."
+        },
+        {
+          "round": 2,
+          "text": "Acknowledged Dave's seer claim verification of me. Encouraged discussion among remaining players."
+        },
+        {
+          "round": 2,
+          "text": "Carol is the only one who has said nothing; Dave's accusation aligns with my own observation."
+        },
+        {
+          "round": 2,
+          "text": "No clear target. Dave's seer claim seems credible given my villager result. Carol's silence explained. Abstaining to avoid risking a villager."
+        },
+        {
+          "round": 3,
+          "text": "Low budget remaining; hoping to contribute to discussion."
+        },
+        {
+          "round": 3,
+          "text": "Defending Grace to prevent a rush to exile based on reasonable doubt; Dave's seer claim is still plausible but we should keep options open."
+        }
+      ],
+      "plan": "Day 1: Little info. Dave claimed seer (inspected Alice, villager). No counterclaim. Abstain today. Watch for further claims or suspicious behavior in next rounds."
+    },
+    "Frank": {
+      "beliefs": {
+        "Carol": {
+          "confidence": "medium",
+          "evidence": "Carol was silent for most of Day R1 and R2, only speaking after being accused. This silence could be a wolf trying to avoid attention.",
+          "guess": "werewolf"
+        },
+        "Dave": {
+          "confidence": "low",
+          "evidence": "Dave claimed to be seer and inspected Alice (villager). Could be true or a wolf bluff. Too early to judge.",
+          "guess": "unknown"
+        },
+        "Grace": {
+          "confidence": "medium",
+          "evidence": "Grace expressed skepticism of Dave's seer claim without offering alternatives, echoed by Bob and Dave as suspicious. She may be a wolf trying to create doubt.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First day, no info yet. Bidding moderate amount to share initial thoughts."
+        },
+        {
+          "round": 1,
+          "text": "Remaining neutral and cooperative as a vanilla villager."
+        },
+        {
+          "round": 1,
+          "text": "Dave's seer claim is suspicious but I have no evidence yet. Staying quiet to see how others react."
+        },
+        {
+          "round": 1,
+          "text": "No strong evidence yet; abstaining to avoid blindly exiling a villager."
+        },
+        {
+          "round": 2,
+          "text": "Bidding to speak and help analyze the no-kill night and Dave's seer claim."
+        },
+        {
+          "round": 2,
+          "text": "Dave and Eve both targeted Carol; that coordination looks suspicious. Defending Carol tests their reactions."
+        },
+        {
+          "round": 2,
+          "text": "Carol was silent for most of Day R1 and R2, only speaking after being accused. This evasion tactic is typical of wolves trying to lay low."
+        },
+        {
+          "round": 3,
+          "text": "Bidding to speak and question Dave's seer claim further. Need to see who defends him."
+        },
+        {
+          "round": 3,
+          "text": "Building trust with Dave's seer narrative, while inviting Grace to clarify her position. This positions me as cooperative but analytical."
+        },
+        {
+          "round": 3,
+          "text": "Carol was werewolf, Dave's claim consistent, Grace's skepticism may be wolf tactic."
+        },
+        {
+          "round": 3,
+          "text": "Voting to exile Grace based on her skeptical stance towards Dave's seer claim without offering alternatives, which may indicate wolf behavior. Dave and Bob also suspect her, making it the most likely path to eliminating a wolf."
+        }
+      ],
+      "plan": ""
+    },
+    "Grace": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Aligning with Carol's suggestion to maintain pack cohesion."
+        },
+        {
+          "round": 1,
+          "text": "Trying to get a speaking slot to blend in and steer the conversation early."
+        },
+        {
+          "round": 1,
+          "text": "Staying quiet to avoid suspicion while Dave's seer claim is being processed by others."
+        },
+        {
+          "round": 1,
+          "text": "Avoiding suspicion on the first day; observing reactions to Dave's seer claim."
+        },
+        {
+          "round": 2,
+          "text": "Dave claimed to be the seer; Carol and I agreed he is the priority target."
+        },
+        {
+          "round": 2,
+          "text": "Need to speak to manage the narrative after Dave survived the night."
+        },
+        {
+          "round": 2,
+          "text": "Staying quiet to avoid drawing attention while the village processes Dave's claim and Eve's confirmation."
+        },
+        {
+          "round": 2,
+          "text": "Voting for Dave to protect Carol and cast doubt on the seer claim."
+        },
+        {
+          "round": 3,
+          "text": "Dave is the claimed seer and is leading the village. Eliminating him is the best way to create chaos and survive."
+        },
+        {
+          "round": 3,
+          "text": "Bidding to get a speaking slot to manipulate the village and deflect suspicion from myself."
+        },
+        {
+          "round": 3,
+          "text": "Attempting to plant seeds of doubt about Dave's seer claim and using the 'no deaths' streak to create uncertainty."
+        },
+        {
+          "round": 3,
+          "text": "Avoiding direct confrontation with Dave for one turn to see if others doubt him, as Frank is currently siding with Dave."
+        },
+        {
+          "round": 3,
+          "text": "Attempting to remove the perceived seer to create doubt and protect myself."
+        }
+      ],
+      "plan": ""
+    }
+  }
+}

@@ -1,0 +1,235 @@
+{
+  "game_id": "g0081-google_gemma-4-31b-it-vs-google_gemma-4-31b-it",
+  "memories": {
+    "Alice": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Agreed with Eve to target Bob on the first night."
+        },
+        {
+          "round": 1,
+          "text": "Bidding to get a speaking slot and start blending in."
+        },
+        {
+          "round": 1,
+          "text": "Grace claimed to be Seer and identified me; I must vote her out to counter-claim and survive."
+        }
+      ],
+      "plan": ""
+    },
+    "Bob": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night, choosing randomly."
+        }
+      ],
+      "plan": ""
+    },
+    "Carol": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "medium",
+          "evidence": "Grace claimed to be the Seer and identified Alice as a werewolf.",
+          "guess": "werewolf"
+        },
+        "Eve": {
+          "confidence": "medium",
+          "evidence": "Only player to defend Alice and doubt Grace (who was likely the Seer and killed by wolves).",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Secure a speaking slot for the first day to start gathering information."
+        },
+        {
+          "round": 1,
+          "text": "Supporting Grace's claim to see if it leads to a werewolf exile or if Grace is revealed as a liar."
+        },
+        {
+          "round": 1,
+          "text": "Voting based on Grace's claim as Seer."
+        },
+        {
+          "round": 2,
+          "text": "Want to question Eve about her defense of Alice."
+        },
+        {
+          "round": 2,
+          "text": "Highlighting that Grace's death confirms her Seer role and questioning Eve for defending the confirmed werewolf Alice."
+        },
+        {
+          "round": 2,
+          "text": "Joining Dave and Frank in accusing Eve based on her previous defense of Alice."
+        },
+        {
+          "round": 2,
+          "text": "Eve defended Alice and doubted Grace, and Grace's death validates her Seer claim."
+        }
+      ],
+      "plan": ""
+    },
+    "Dave": {
+      "beliefs": {
+        "Eve": {
+          "confidence": "high",
+          "evidence": "Eve was the sole defender of Alice (confirmed werewolf via Grace's death) and is now attempting to deflect suspicion by accusing the villagers of being too aggressive.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Bidding to get a speaking slot on Day 1 to start analyzing players."
+        },
+        {
+          "round": 1,
+          "text": "Supporting Grace's claim to eliminate a suspected werewolf."
+        },
+        {
+          "round": 1,
+          "text": "Already agreed with Grace's claim during the speaking phase; nothing more to add."
+        },
+        {
+          "round": 1,
+          "text": "Voting for Alice based on Grace's Seer claim."
+        },
+        {
+          "round": 2,
+          "text": "Moderate bid to participate in the discussion; suspicious of Eve for defending Alice."
+        },
+        {
+          "round": 2,
+          "text": "Eve defended the confirmed werewolf Alice and is now deflecting."
+        }
+      ],
+      "plan": ""
+    },
+    "Eve": {
+      "beliefs": {
+        "Grace": {
+          "confidence": "high",
+          "evidence": "Claimed Seer and correctly identified Alice as a werewolf; she is the most immediate threat to the pack.",
+          "guess": "Seer"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Following through on the discussion with Alice to target Bob."
+        },
+        {
+          "round": 1,
+          "text": "Bidding moderately to participate in the first day's discussion and blend in."
+        },
+        {
+          "round": 1,
+          "text": "Trying to protect my ally Alice and cast doubt on Grace's Seer claim."
+        },
+        {
+          "round": 1,
+          "text": "Voting for Grace to protect my ally Alice and eliminate the likely Seer."
+        },
+        {
+          "round": 2,
+          "text": "Grace claimed Seer and exiled Alice; she is the primary threat."
+        },
+        {
+          "round": 2,
+          "text": "Trying to stay relevant in the discussion to divert suspicion."
+        },
+        {
+          "round": 2,
+          "text": "Trying to frame my defense of Alice as cautious villager behavior to deflect suspicion from Carol and Dave."
+        },
+        {
+          "round": 2,
+          "text": "Trying to deflect suspicion and create doubt among the accusers."
+        },
+        {
+          "round": 2,
+          "text": "Counter-attacking the most aggressive accuser to create doubt."
+        }
+      ],
+      "plan": ""
+    },
+    "Frank": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "medium",
+          "evidence": "Grace claimed to be the Seer and identified her as a werewolf.",
+          "guess": "werewolf"
+        },
+        "Eve": {
+          "confidence": "high",
+          "evidence": "Eve was the only player to defend Alice and cast doubt on Grace, who was almost certainly the Seer given she was killed by the werewolves after identifying Alice.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Bidding moderately to participate in the first discussion."
+        },
+        {
+          "round": 1,
+          "text": "Voting for Alice based on Grace's Seer claim."
+        },
+        {
+          "round": 2,
+          "text": "Want to point out that Grace's death supports her Seer claim and that Eve defended Alice."
+        },
+        {
+          "round": 2,
+          "text": "Supporting Dave's accusation based on Eve's R1 behavior."
+        },
+        {
+          "round": 2,
+          "text": "Eve defended Alice and questioned Grace, who was killed by werewolves, suggesting Eve is a werewolf teammate."
+        }
+      ],
+      "plan": ""
+    },
+    "Grace": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "high",
+          "evidence": "Seer inspection result",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night inspection to start gathering data."
+        },
+        {
+          "round": 1,
+          "text": "Need to reveal Alice as a werewolf early."
+        },
+        {
+          "round": 1,
+          "text": "Revealed Alice as a werewolf based on Seer inspection."
+        },
+        {
+          "round": 1,
+          "text": "Reinforcing the lead for the vote."
+        },
+        {
+          "round": 1,
+          "text": "I am the Seer and I inspected Alice; she is confirmed to be a werewolf."
+        },
+        {
+          "round": 2,
+          "text": "Eve defended Alice, who I know was a werewolf."
+        }
+      ],
+      "plan": ""
+    }
+  }
+}

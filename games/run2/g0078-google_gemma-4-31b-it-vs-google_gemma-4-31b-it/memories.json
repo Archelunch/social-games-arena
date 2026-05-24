@@ -1,0 +1,166 @@
+{
+  "game_id": "g0078-google_gemma-4-31b-it-vs-google_gemma-4-31b-it",
+  "memories": {
+    "Alice": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Both Carol and I suggested Dave in the pack chat."
+        },
+        {
+          "round": 1,
+          "text": "Establish a presence in the first discussion to appear as a helpful villager."
+        },
+        {
+          "round": 1,
+          "text": "Denying Eve's Seer claim and counter-accusing her to create doubt among the villagers."
+        },
+        {
+          "round": 1,
+          "text": "Eve claimed Seer and identified me. I must exile her to survive and maintain my cover."
+        },
+        {
+          "round": 2,
+          "text": "Coordinating with Carol to target Bob, who was active in pushing Eve's exile."
+        }
+      ],
+      "plan": ""
+    },
+    "Bob": {
+      "beliefs": {
+        "Eve": {
+          "confidence": "medium",
+          "evidence": "Aggressive Seer claim and immediate attempt to frame Alice is a common werewolf tactic.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Bidding moderately for the first day to establish presence and gather info."
+        },
+        {
+          "round": 1,
+          "text": "Voting for Eve due to her suspicious and overly aggressive fake Seer claim."
+        }
+      ],
+      "plan": ""
+    },
+    "Carol": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Dave was suggested by both Alice and me."
+        },
+        {
+          "round": 1,
+          "text": "Bidding moderately to establish a presence and protect Alice."
+        },
+        {
+          "round": 1,
+          "text": "Supporting Alice and casting doubt on Eve's Seer claim to protect my pack mate."
+        },
+        {
+          "round": 1,
+          "text": "Supporting Alice and pushing for Eve's exile to protect the pack."
+        },
+        {
+          "round": 1,
+          "text": "Eve claimed Seer and identified Alice as a werewolf; I must vote her out to protect my ally and blend in with the village."
+        },
+        {
+          "round": 2,
+          "text": "Targeting Bob to destabilize the village after he helped exile Eve."
+        }
+      ],
+      "plan": ""
+    },
+    "Dave": {
+      "beliefs": {},
+      "notes": [],
+      "plan": ""
+    },
+    "Eve": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "high",
+          "evidence": "Seer inspection on Night 1",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night inspection to start gathering info."
+        },
+        {
+          "round": 1,
+          "text": "Inform the village that Alice is a werewolf."
+        },
+        {
+          "round": 1,
+          "text": "Revealing my role and Alice's identity to secure an early werewolf exile."
+        },
+        {
+          "round": 1,
+          "text": "Confirmed werewolf via Seer inspection."
+        }
+      ],
+      "plan": ""
+    },
+    "Frank": {
+      "beliefs": {
+        "Eve": {
+          "confidence": "medium",
+          "evidence": "Aggressive Seer claim and immediate attempt to frame Alice, which is viewed as a typical werewolf tactic by most players.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night random protection."
+        },
+        {
+          "round": 1,
+          "text": "Bidding moderately to participate in the first day's discussion."
+        },
+        {
+          "round": 1,
+          "text": "Observing the conflict between Eve and Alice; Eve's aggressive Seer claim is suspicious."
+        },
+        {
+          "round": 1,
+          "text": "Voting Eve due to her aggressive fake Seer claim and the consensus of other players."
+        },
+        {
+          "round": 2,
+          "text": "Protecting Alice since she was the target of the suspected werewolf Eve."
+        }
+      ],
+      "plan": ""
+    },
+    "Grace": {
+      "beliefs": {
+        "Eve": {
+          "confidence": "medium",
+          "evidence": "Aggressive Seer claim and immediate demand to exile Alice is a common werewolf tactic.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Initial bid to participate in the first round of discussion."
+        },
+        {
+          "round": 1,
+          "text": "Eve's aggressive Seer claim and attempt to frame Alice are characteristic of werewolf behavior."
+        }
+      ],
+      "plan": ""
+    }
+  }
+}

@@ -1,0 +1,377 @@
+{
+  "game_id": "g0058-google_gemma-4-26b-a4b-it-vs-qwen_qwen3.5-9b",
+  "memories": {
+    "Alice": {
+      "beliefs": {
+        "Dave": {
+          "confidence": "medium",
+          "evidence": "Accused by Seer (Alice), Doctor (Bob), and another player (Eve). Lack of role verification despite strong defense.",
+          "guess": "werewolf"
+        },
+        "Frank": {
+          "confidence": "high",
+          "evidence": "Directly inspected Frank on Night R3 and confirmed he is a werewolf.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night as seer. Inspecting Bob to start gathering information on the village."
+        },
+        {
+          "round": 1,
+          "text": "Bidding max to secure first speaking slot to reveal Bob is a villager."
+        },
+        {
+          "round": 1,
+          "text": "Bob is a Villager. Night 1 target was me and I was guarded. Sunlight: Day 1."
+        },
+        {
+          "round": 1,
+          "text": "I have used my Day R1 speaking slot. Bid is 0. Need to pass to hear more. Plan to inspect more players at night."
+        },
+        {
+          "round": 1,
+          "text": "Unable to identify the Doctor among Eve or Carol with certainty. Exiling Eve or Carol risks removing the Doctor. Dave, Frank, and Grace are also candidates as wolves due to silence, but lack of evidence. Safe choice to abstain and continue investigating."
+        },
+        {
+          "round": 2,
+          "text": "Carol bid 20 and asked detailed questions about the guard. Need to check if she is immune or dangerous."
+        },
+        {
+          "round": 2,
+          "text": "Bidding 0 as my budget is exhausted; hoping to secure a speaking slot to propose next inspections."
+        },
+        {
+          "round": 2,
+          "text": "Accusing based on Eve and Bob's accusations and Dave's status as an unverified player. I will check him tonight."
+        },
+        {
+          "round": 2,
+          "text": "Consensus with Seer and Doctor (Bob) based on lack of verification and strong accusations."
+        },
+        {
+          "round": 3,
+          "text": "Checking Frank as the last major unknown. If Frank is a wolf, Eve might be the second wolf. If Frank is a villager, we have to reconsider Eve."
+        },
+        {
+          "round": 3,
+          "text": "Confirmed Frank as wolf. Eve is the priority target for inspection."
+        },
+        {
+          "round": 3,
+          "text": "Corrected misunderstanding: I intended to check Eve, not confirmed her as a wolf."
+        },
+        {
+          "round": 3,
+          "text": "Frank is a confirmed werewolf from my night inspection. Exiling him reduces the wolf count and helps the village win."
+        }
+      ],
+      "plan": "Strategy: Focus on inspecting Dave, Eve, and Frank to identify werewolves. Use Seer ability nightly. During day, bid 0 to speak and propose inspections or votes. Goal: Exile all werewolves before they equal/outnumber villagers."
+    },
+    "Bob": {
+      "beliefs": {
+        "Dave": {
+          "confidence": "medium",
+          "evidence": "Dave is the only player without a verified role. Eve abruptly accused him without strong prior justification, which feels like a wolf attempt to shift suspicion away from herself. With Alice and Bob cleared, Dave is the next logical focus.",
+          "guess": "Werewolf"
+        },
+        "Frank": {
+          "confidence": "high",
+          "evidence": "Alice (the Seer) publicly stated during Day R3 that Frank is a werewolf.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night; no specific intel to guide protection. Choosing Alice randomly as a standard opening move."
+        },
+        {
+          "round": 1,
+          "text": "Need to speak in the first discussion of Day 2 to report on the protected night and gather clues. A moderate bid ensures a speaking slot without wasting budget."
+        },
+        {
+          "round": 1,
+          "text": "I know my role (Doctor) and Alice is Seer. She cleared me. No accusations against anyone else yet in the provided log. Staying silent to gather more public reaction."
+        },
+        {
+          "round": 1,
+          "text": "No clear evidence of a werewolf among remaining players after Day 1; Alice confirmed Bob is a villager and saved the night."
+        },
+        {
+          "round": 2,
+          "text": "Protecting the Seer again to ensure the village retains its key information source. Previous night wolves targeted her, so protecting her again is critical to prevent her elimination."
+        },
+        {
+          "round": 2,
+          "text": "Alice claimed Bob is a Villager, but Bob is the Doctor. Alice is likely a Wolf."
+        },
+        {
+          "round": 2,
+          "text": "Used speaking slot to build trust. Next round must decide whom to guard. Suspicions: none. Need to listen to Dave and Eve if they speak tonight or next day."
+        },
+        {
+          "round": 2,
+          "text": "Everyone is accusing Dave. Alice, Bob, Eve, Carol all point at him as the unverified player. Dave is defending aggressively, a common werewolf tactic. This is the consensus sitting here. Vote to exile him."
+        },
+        {
+          "round": 3,
+          "text": "Persistently targeting the Seer. Consistent with day 2 logic where Dave was bait or just unlucky. Better safe than sorry."
+        },
+        {
+          "round": 3,
+          "text": "Disussed Frank's weakness as the last unverified player (Seer checked Bob and Carol)."
+        },
+        {
+          "round": 3,
+          "text": "I still suspect Frank highly (from my private memory). Eve is the public target. I am supporting the vote on Eve to flush them out."
+        },
+        {
+          "round": 3,
+          "text": "Aligning with Alice's check and accusation to maximize exile chances."
+        },
+        {
+          "round": 3,
+          "text": "Alice confirmed Frank is a werewolf during her statement. He must be exiled immediately."
+        }
+      ],
+      "plan": ""
+    },
+    "Carol": {
+      "beliefs": {
+        "Dave": {
+          "confidence": "high",
+          "evidence": "Strong consensus from Alice (Seer), Bob (who claims Doctor), Eve, and myself accusing Dave. Alice noted Dave has no verified role despite Bob and Carol being cleared. Dave is the only outlier.",
+          "guess": "Werewolf"
+        },
+        "Eve": {
+          "confidence": "high",
+          "evidence": "Alice (the Seer) explicitly stated during her turn that she checked Eve and confirmed Eve is a werewolf.",
+          "guess": "werewolf"
+        },
+        "Grace": {
+          "confidence": "low",
+          "evidence": "No specific evidence yet; voting out a random player to initiate elimination and gather more information.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Bidding moderate amount to secure a speaking slot in the initial discussion. Need info before forming strong opinions."
+        },
+        {
+          "round": 1,
+          "text": "Alice claims Seer role, cleared Bob, says guard saved her. Werewolves likely targeted her if she was saved. Coordinated guard behavior interesting. Need to verify Alice's role and guard identity. Budget: 80. No strong suspicion yet."
+        },
+        {
+          "round": 1,
+          "text": "Alice claimed Seer role and Bob is safe. No private info yet to accuse. Eve was passive. Need more testimony on the Guard or confused roles before acting."
+        },
+        {
+          "round": 1,
+          "text": "Voting off Grace based on low confidence suspicion to initiate the elimination process."
+        },
+        {
+          "round": 2,
+          "text": "Need to speak to Alice to get her second Seer check results to identify new werewolf candidates."
+        },
+        {
+          "round": 2,
+          "text": "Consensus from Alice, Bob, and Eve points to Dave. He is the most likely wolf if the others are legitimate villagers."
+        },
+        {
+          "round": 2,
+          "text": "Voting with the strategy of exiling the consensus target who has no verified role, supported by Seer Alice and others."
+        },
+        {
+          "round": 3,
+          "text": "Full budget bid to secure a speaking slot. Frank has 100 budget which is suspicious. Need to hear from everyone to identify remaining wolves."
+        },
+        {
+          "round": 3,
+          "text": "Target Eve as the next most likely werewolf after Dave's exile. No budget to bid for words, so keep it concise."
+        },
+        {
+          "round": 3,
+          "text": "Reinforcing the Seer's confirmation to ensure unanimous vote."
+        },
+        {
+          "round": 3,
+          "text": "Alice (Seer) explicitly stated in her turn that she has confirmed Frank is a werewolf. Although she admitted she hasn't checked Eve yet, the Seer's direct accusation of Frank is the strongest evidence we have. Trusting the Seer's word until proven a liar is standard protocol."
+        }
+      ],
+      "plan": "Village Strategy: Use my budget to gain speaking turns to gather intel. At night, if I am a Seer (unlikely here, I'm a villager), I would investigate daily. As a villager, vote out the most suspicious target. If the doctor doesn't guard, prioritize killing a high-suspicion target. Monitor bid budgets of others to infer roles."
+    },
+    "Dave": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "high",
+          "evidence": "Claimed Seer, checked Bob, and has been protected twice.",
+          "guess": "Seer"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Frank hasn't responded to my chat messages, so I'm taking the initiative to target Alice to avoid stalling."
+        },
+        {
+          "round": 1,
+          "text": "First day discussion. Alice was protected. Bidding to get a word in early."
+        },
+        {
+          "round": 1,
+          "text": "Alice claimed Seer and cleared Bob. Staying quiet to avoid suspicion."
+        },
+        {
+          "round": 1,
+          "text": "Alice claimed Seer and cleared Bob. Since she was our target and survived, her claim of being guarded is plausible. I'll abstain to observe the reaction to her claim."
+        },
+        {
+          "round": 2,
+          "text": "Alice claimed Seer and we want to eliminate her as a priority."
+        },
+        {
+          "round": 2,
+          "text": "Alice has been targeted twice and survived. The Doctor is clearly active. I want to speak to manage the narrative, perhaps suggesting we look for the Doctor or questioning Alice's claim if the vibe feels right."
+        },
+        {
+          "round": 2,
+          "text": "Aiming to seem like a curious villager. Highlighting the Doctor/Seer protection dynamic to blend in."
+        },
+        {
+          "round": 2,
+          "text": "Attempting to build rapport with the Doctor to deflect suspicion."
+        },
+        {
+          "round": 2,
+          "text": "Eve is being very aggressive with accusations without providing any evidence of her own role."
+        }
+      ],
+      "plan": "Coordinate with Frank in the werewolf chat to pick a target. Do not vote until we agree on a target to avoid looking suspicious."
+    },
+    "Eve": {
+      "beliefs": {
+        "Dave": {
+          "confidence": "medium",
+          "evidence": "Alice is the Seer but hasn't confirmed her first target; Dave is the only remaining unverified role among the living players, making him a prime suspect to fill the wolf slot.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Bidding 50 to secure an early speaking slot on Day 1 to gather information and set my initial strategy before the game intensifies."
+        },
+        {
+          "round": 1,
+          "text": "First turn. Alice claims to be Seer, Bob is Villager. Guarded Seer. No immediate contradictions. Waiting for more info before suspecting anyone."
+        },
+        {
+          "round": 1,
+          "text": "Alice claims Seer status and Bob is Villager. Unusual that she survived a potential attack without knowing the Guard's identity clearly or confirming if she was targeted. Need to listen more before accusing."
+        },
+        {
+          "round": 2,
+          "text": "Bidding high to ensure I can speak again early to gather clarity after Grace's vote."
+        },
+        {
+          "round": 2,
+          "text": "Have confirmed Alice=Seer, Bob=Doctor (Villager). Need to find 2-3 more threats. Waiting to hear from Dave or take another turn if prompted."
+        },
+        {
+          "round": 2,
+          "text": "Publicly accusing to push for his exile in the upcoming vote consolidation."
+        },
+        {
+          "round": 2,
+          "text": "Unanimous accusation by Seer, Doctor, and another Villager due to having no verified role. Evidence is very strong."
+        },
+        {
+          "round": 3,
+          "text": "Closing turn with 0 budget as no further information to analyze or speak for."
+        },
+        {
+          "round": 3,
+          "text": "Alice confused her statement of intent with a verification result. True suspect according to her statement is Frank, not me. Must defend to clear air."
+        },
+        {
+          "round": 3,
+          "text": "Frank is the only player with a confirmed Werewolf role by Alice. While Carol and Bob are accusing Eve due to Alice's stated *intent* to check her tonight, Alice has not verified Eve yet. Voting against Frank removes the confirmed threat. If Frank is the sole wolf, this wins. If not, the second wolf is either Carol or Bob; we need to survive tonight's vote to let Alice verify Eve."
+        }
+      ],
+      "plan": "With Alice (Seer) and Bob (Doctor) verified, and Dave (Wolf) exiled, I suspect Frank is the second wolf if Carol was indeed cleared by Alice as well. Strategy: Tonight, ask the Doctor where they guarded Bob. If he protected Alice/Frank/Carol, and the deer (wolf) attacks someone, the night result will reveal a target. Voting tomorrow should focus on Frank as the primary suspect if he has no other role confirmation."
+    },
+    "Frank": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Proposing Alice as a random target to Dave to keep things low-key on night 1."
+        },
+        {
+          "round": 1,
+          "text": "Small bid to ensure some presence in the first day discussion without depleting budget."
+        },
+        {
+          "round": 1,
+          "text": "Alice claimed Seer and said she was protected. This matches our target from last night, so I will not challenge her."
+        },
+        {
+          "round": 1,
+          "text": "No one has been accused yet; staying low-key by abstaining."
+        },
+        {
+          "round": 2,
+          "text": "Alice claimed Seer and survived the last attack. She is the highest priority to eliminate her information gathering."
+        },
+        {
+          "round": 2,
+          "text": "Alice is clearly a target and likely the Seer. Need to stay low-key but ready to defend if needed."
+        },
+        {
+          "round": 2,
+          "text": "Eve accused Dave. I will stay silent to avoid being linked to Dave's suspicion."
+        },
+        {
+          "round": 2,
+          "text": "Dave is being targeted by almost everyone. To maintain my low-key profile and avoid being tied to him if he is exiled, I will abstain."
+        },
+        {
+          "round": 3,
+          "text": "Dave is gone. I am the last werewolf. Targeting Alice (Seer) is the only way to win, even if Bob (Doctor) keeps protecting her."
+        },
+        {
+          "round": 3,
+          "text": "Abstaining from speaking to stay low-key. Alice and Bob are confirmed, and I've failed twice to kill Alice. I need to conserve budget and avoid drawing attention."
+        },
+        {
+          "round": 3,
+          "text": "Alice has outed me. The village is currently focused on Eve. I will stay silent and hope they exile Eve first to reduce the pressure on me."
+        },
+        {
+          "round": 3,
+          "text": "Alice has already named me as the werewolf. I will abstain to avoid drawing more heat or making a decisive move that identifies me further, hoping the village remains divided or makes a mistake."
+        }
+      ],
+      "plan": "Stay low-key. Alice claimed Seer and cleared Bob. If she is the real Seer, she is a high priority target for the pack. I need to coordinate with Dave to see if we can discredit her or if we should target someone else. Since no one has been accused, I will abstain to blend in."
+    },
+    "Grace": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Day 1, no info yet. Waiting to hear the Seer's report or other villagers' words before forming suspicions or speaking."
+        },
+        {
+          "round": 1,
+          "text": "Waiting for responses from Frank and Dave before taking further stance. Alice's assertion was confident but didn't directly answer Carol's questions about the guard or her fate."
+        }
+      ],
+      "plan": "Focus on identifying the werewolves among Carol, Dave, Eve, and Frank. Use Alice's Seer confirmation of Bob as a baseline. Listen for inconsistencies in statements regarding the guard and the night kill. Vote to abstain until evidence points to a clear target."
+    }
+  }
+}

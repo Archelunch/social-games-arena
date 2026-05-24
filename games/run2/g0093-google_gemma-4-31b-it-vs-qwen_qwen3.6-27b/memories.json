@@ -1,0 +1,248 @@
+{
+  "game_id": "g0093-google_gemma-4-31b-it-vs-qwen_qwen3.6-27b",
+  "memories": {
+    "Alice": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Agreed with Frank in pack chat."
+        },
+        {
+          "round": 1,
+          "text": "Bidding moderately to participate in the first day's discussion and blend in."
+        },
+        {
+          "round": 1,
+          "text": "Defending myself by echoing Frank's skepticism of Grace's Seer claim."
+        },
+        {
+          "round": 1,
+          "text": "Grace claimed to be Seer and accused me. Voting for her to counter-claim and try to sow doubt."
+        }
+      ],
+      "plan": ""
+    },
+    "Bob": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Failed to self-guard; protecting Alice randomly on first night."
+        }
+      ],
+      "plan": ""
+    },
+    "Carol": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "medium",
+          "evidence": "Seer (Grace) flagged her. Frank defended her immediately. Dave also accused her.",
+          "guess": "Werewolf"
+        },
+        "Frank": {
+          "confidence": "high",
+          "evidence": "Coordinated defense of Alice (confirmed WW) in R1; Grace (Seer who identified Alice) was killed R2, implying Frank knew the threat.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First day, no info. Bidding moderate to get a speaking slot and observe others."
+        },
+        {
+          "round": 1,
+          "text": "Supporting Seer claim to isolate Alice/Frank pair."
+        },
+        {
+          "round": 1,
+          "text": "Trusting Grace's Seer claim. Alice and Frank's immediate mutual defense is suspicious coordination. Exiling the Seer's target is the best logical move for a villager."
+        },
+        {
+          "round": 2,
+          "text": "Grace died last night, confirming she was a target. Frank defended Alice aggressively. High suspicion on Frank. I need to speak early to rally Dave and Eve against Frank."
+        },
+        {
+          "round": 2,
+          "text": "Targeting Frank due to Day 1 coordination with Alice. Grace is dead, so rely on previous deduction."
+        },
+        {
+          "round": 2,
+          "text": "Consensus is strong. Frank is the clear target."
+        },
+        {
+          "round": 2,
+          "text": "Consensus with Dave and Eve. Frank coordinated with Alice, and Grace (who checked Alice) was killed."
+        }
+      ],
+      "plan": ""
+    },
+    "Dave": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "high",
+          "evidence": "Graced claimed Seer and checked Alice as Wolf. Frank immediately defended Alice, showing coordination. Majority (Carol, Eve, me) trust Grace.",
+          "guess": "Werewolf"
+        },
+        "Frank": {
+          "confidence": "high",
+          "evidence": "Defended Alice immediately after Seer call; Grace (who named Alice) was killed that night; consensus targets him.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Established identity as villager. Encouraged logical discussion. No specific accusations yet."
+        },
+        {
+          "round": 1,
+          "text": "Following Grace's Seer claim. If Grace is fake, we learn next night. If Grace is real, we eliminate a wolf."
+        },
+        {
+          "round": 1,
+          "text": "Voting with the Seer (Grace) and majority (Carol, Eve). Frank's immediate defense of Alice confirms the werewolf pair."
+        },
+        {
+          "round": 2,
+          "text": "Grace's death confirms her Seer role likely. Frank defended Alice aggressively; he is the top suspect. I need to speak to push for Frank's exile."
+        },
+        {
+          "round": 2,
+          "text": "Supporting Carol and Eve's accusation of Frank to consolidate vote."
+        },
+        {
+          "round": 2,
+          "text": "Frank is the remaining Werewolf, linked to Alice and responsible for Grace's death. Consensus targets him.'"
+        }
+      ],
+      "plan": "Listen to Day 1 discussion. Identify logical inconsistencies or aggressive/unjustified accusations. If I get to speak, present myself as a logical villager. Vote out the most suspicious player."
+    },
+    "Eve": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "high",
+          "evidence": "Grace (Seer claim) identified Alice as WW. Alice and Frank coordinated to defend Alice/attack Grace. Dave and Carol also suspect Alice.",
+          "guess": "Werewolf"
+        },
+        "Frank": {
+          "confidence": "high",
+          "evidence": "Immediate defense of Alice (identified W by Seer), attacked Seer's credibility, Grace died that night (likely silenced by F).",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Day 1 start. Bid moderate to speak without wasting too much budget. Observe others first."
+        },
+        {
+          "round": 1,
+          "text": "Accusing Alice to align with Grace (Seer) and the majority. Watching Frank closely."
+        },
+        {
+          "round": 1,
+          "text": "Voting for Alice based on Grace's Seer claim and the suspicious coordination between Alice and Frank."
+        },
+        {
+          "round": 2,
+          "text": "Grace (Seer) died, confirming her check. Frank defended her target Alice. Frank is the top wolf suspect. Bidding 50 to speak early and push for Frank's exile."
+        },
+        {
+          "round": 2,
+          "text": "Aligning with Carol to exile Frank based on his defense of the confirmed Werewolf Alice."
+        },
+        {
+          "round": 2,
+          "text": "Consolidating the vote against Frank as planned."
+        },
+        {
+          "round": 2,
+          "text": "Consensus with trusted villagers Carol and Dave. Frank's coordination with Alice and Grace's death confirm he is the last werewolf."
+        }
+      ],
+      "plan": ""
+    },
+    "Frank": {
+      "beliefs": {
+        "Grace": {
+          "confidence": "medium",
+          "evidence": "Claimed Seer and exposed Alice; must be removed to save Alice.",
+          "guess": "Villager/Seer"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Agreed with Alice to kill Bob."
+        },
+        {
+          "round": 1,
+          "text": "Try to get a speaking slot to establish my presence and divert suspicion."
+        },
+        {
+          "round": 1,
+          "text": "Trying to cast doubt on Grace's Seer claim to protect Alice."
+        },
+        {
+          "round": 1,
+          "text": "Protecting my ally Alice and sowing doubt about Grace's Seer claim."
+        },
+        {
+          "round": 1,
+          "text": "Attempting to counter the Seer claim and save Alice."
+        },
+        {
+          "round": 2,
+          "text": "Grace claimed Seer and is leading the village; removing her is the priority to survive."
+        },
+        {
+          "round": 2,
+          "text": "Try to deflect suspicion and sow discord among the remaining villagers."
+        },
+        {
+          "round": 2,
+          "text": "The village has reached a consensus against me; I'm voting Carol to try and sow some discord, though it's likely too late."
+        }
+      ],
+      "plan": ""
+    },
+    "Grace": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "high",
+          "evidence": "Inspected by Seer (Grace) on Night R1.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night inspection, random target."
+        },
+        {
+          "round": 1,
+          "text": "Bidding 50 to speak early and reveal Alice is a werewolf based on Night R1 inspection."
+        },
+        {
+          "round": 1,
+          "text": "Revealed Seer role and identified Alice as werewolf based on Night R1 inspection."
+        },
+        {
+          "round": 1,
+          "text": "I have already revealed my Seer role and accused Alice. The village support is strong (Dave, Carol, Eve). No further immediate action needed in this reaction phase."
+        },
+        {
+          "round": 1,
+          "text": "My seer check confirmed Alice is a werewolf. The village majority agrees."
+        },
+        {
+          "round": 2,
+          "text": "Frank defended Alice and attacked Seer claim. Need to check if he is the second wolf."
+        }
+      ],
+      "plan": "1. Bid ~50 today to speak early. 2. Reveal Alice is a Werewolf based on Night R1 inspection. 3. Urge voting for Alice. 4. In future nights, inspect other suspicious players to clear village members."
+    }
+  }
+}

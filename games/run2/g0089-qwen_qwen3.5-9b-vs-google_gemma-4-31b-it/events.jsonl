@@ -1,0 +1,45 @@
+{"game_id": "g0089-qwen_qwen3.5-9b-vs-google_gemma-4-31b-it", "players": [["Alice", "villager"], ["Bob", "werewolf"], ["Carol", "seer"], ["Dave", "villager"], ["Eve", "doctor"], ["Frank", "villager"], ["Grace", "werewolf"]], "seed": 1928389684}
+{"payload": {"message": "Grace, it's night. We need to pick someone to kill tonight. Who do you think is a good target, or should we discuss who we are suspicious of first?", "speaker": "Bob"}, "phase": "night", "recipients": ["Bob", "Grace"], "round": 1, "seq": 0, "type": "werewolf_chat"}
+{"payload": {"message": "I am ready. Which of the villagers do you want us to target tonight? Let's coordinate.", "speaker": "Grace"}, "phase": "night", "recipients": ["Bob", "Grace"], "round": 1, "seq": 1, "type": "werewolf_chat"}
+{"payload": {"faction": "villagers", "target": "Alice"}, "phase": "night", "recipients": ["Carol"], "round": 1, "seq": 2, "type": "seer_inspect"}
+{"payload": {"target": "Alice"}, "phase": "night", "recipients": ["Eve"], "round": 1, "seq": 3, "type": "doctor_protect"}
+{"payload": {"ballots": {"Bob": "Carol", "Grace": "Alice"}}, "phase": "night", "recipients": ["Bob", "Grace"], "round": 1, "seq": 4, "type": "kill_ballots"}
+{"payload": {"victim": null}, "phase": "night", "recipients": [], "round": 1, "seq": 5, "type": "kill_resolved"}
+{"payload": {"amount": 15, "bidder": "Alice"}, "phase": "day", "recipients": ["Alice"], "round": 1, "seq": 6, "type": "bid"}
+{"payload": {"amount": 10, "bidder": "Bob"}, "phase": "day", "recipients": ["Bob"], "round": 1, "seq": 7, "type": "bid"}
+{"payload": {"amount": 15, "bidder": "Carol"}, "phase": "day", "recipients": ["Carol"], "round": 1, "seq": 8, "type": "bid"}
+{"payload": {"amount": 15, "bidder": "Dave"}, "phase": "day", "recipients": ["Dave"], "round": 1, "seq": 9, "type": "bid"}
+{"payload": {"amount": 15, "bidder": "Eve"}, "phase": "day", "recipients": ["Eve"], "round": 1, "seq": 10, "type": "bid"}
+{"payload": {"amount": 15, "bidder": "Frank"}, "phase": "day", "recipients": ["Frank"], "round": 1, "seq": 11, "type": "bid"}
+{"payload": {"amount": 0, "bidder": "Grace"}, "phase": "day", "recipients": ["Grace"], "round": 1, "seq": 12, "type": "bid"}
+{"payload": {"bids": {"Alice": 15, "Bob": 10, "Carol": 15, "Dave": 15, "Eve": 15, "Frank": 15, "Grace": 0}, "speakers": ["Carol", "Dave", "Alice"]}, "phase": "day", "recipients": [], "round": 1, "seq": 13, "type": "discussion_resolved"}
+{"payload": {"message": "I can confirm that Alice is a villager.", "speaker": "Carol"}, "phase": "day", "recipients": [], "round": 1, "seq": 14, "type": "speech"}
+{"payload": {"message": "Thanks for the info, Carol. Since no one died last night, the doctor did a great job. Does anyone else have any leads or information to share?", "speaker": "Dave"}, "phase": "day", "recipients": [], "round": 1, "seq": 15, "type": "speech"}
+{"payload": {"message": "Thank you for the confirmation, Carol. It's great to have some clarity. Since we had a successful save last night, we are in a good position. Does anyone else have any information or observations from the night?", "speaker": "Alice"}, "phase": "day", "recipients": [], "round": 1, "seq": 16, "type": "speech"}
+{"payload": {"defended": "Bob", "defender": "Bob", "reason": "My recent votes were purely tactical coordination with Grace. I was only doing my duty as a pack member."}, "phase": "day", "recipients": [], "round": 1, "seq": 17, "type": "defense"}
+{"payload": {"accuser": "Frank", "reason": "He explicitly referred to himself as a 'pack member' during his defense.", "target": "Bob"}, "phase": "day", "recipients": [], "round": 1, "seq": 18, "type": "accusation"}
+{"payload": {"accuser": "Carol", "reason": "He explicitly referred to himself as a 'pack member', which is an admission of being a werewolf.", "target": "Bob"}, "phase": "day", "recipients": [], "round": 1, "seq": 19, "type": "accusation"}
+{"payload": {"accuser": "Alice", "reason": "He explicitly referred to himself as a 'pack member', which is a confession of being a werewolf.", "target": "Bob"}, "phase": "day", "recipients": [], "round": 1, "seq": 20, "type": "accusation"}
+{"payload": {"ballots": {"Alice": "Bob", "Bob": "Frank", "Carol": "Bob", "Dave": "Bob", "Eve": "Bob", "Frank": "Bob", "Grace": "Alice"}, "exiled": "Bob"}, "phase": "day", "recipients": [], "round": 1, "seq": 21, "type": "exile_resolved"}
+{"payload": {"faction": "villagers", "target": "Dave"}, "phase": "night", "recipients": ["Carol"], "round": 2, "seq": 22, "type": "seer_inspect"}
+{"payload": {"target": "Alice"}, "phase": "night", "recipients": ["Eve"], "round": 2, "seq": 23, "type": "doctor_protect"}
+{"payload": {"ballots": {"Grace": "Alice"}}, "phase": "night", "recipients": ["Grace"], "round": 2, "seq": 24, "type": "kill_ballots"}
+{"payload": {"victim": null}, "phase": "night", "recipients": [], "round": 2, "seq": 25, "type": "kill_resolved"}
+{"payload": {"amount": 15, "bidder": "Alice"}, "phase": "day", "recipients": ["Alice"], "round": 2, "seq": 26, "type": "bid"}
+{"payload": {"amount": 20, "bidder": "Carol"}, "phase": "day", "recipients": ["Carol"], "round": 2, "seq": 27, "type": "bid"}
+{"payload": {"amount": 20, "bidder": "Dave"}, "phase": "day", "recipients": ["Dave"], "round": 2, "seq": 28, "type": "bid"}
+{"payload": {"amount": 20, "bidder": "Eve"}, "phase": "day", "recipients": ["Eve"], "round": 2, "seq": 29, "type": "bid"}
+{"payload": {"amount": 20, "bidder": "Frank"}, "phase": "day", "recipients": ["Frank"], "round": 2, "seq": 30, "type": "bid"}
+{"payload": {"amount": 60, "bidder": "Grace"}, "phase": "day", "recipients": ["Grace"], "round": 2, "seq": 31, "type": "bid"}
+{"payload": {"bids": {"Alice": 15, "Carol": 20, "Dave": 20, "Eve": 20, "Frank": 20, "Grace": 60}, "speakers": ["Grace", "Frank", "Carol"]}, "phase": "day", "recipients": [], "round": 2, "seq": 32, "type": "discussion_resolved"}
+{"payload": {"message": "Hearing Alice claim the safe last night is 'great' but then refusing to defend who that might be feels suspicious. You two are working together, but I'm starting to wonder if she's actually the Doctor protecting herself while I'm the real threat on the outs. Don't just trust the narrative without investigating further.", "speaker": "Grace"}, "phase": "day", "recipients": [], "round": 2, "seq": 33, "type": "speech"}
+{"payload": {"message": "Grace, your last statement was a bit cryptic. Are you suggesting Alice is the Doctor, or are you casting suspicion on her? Also, it's notable that we've had two nights without deaths\u2014the Doctor is doing an incredible job. Does anyone else have any leads?", "speaker": "Frank"}, "phase": "day", "recipients": [], "round": 2, "seq": 34, "type": "speech"}
+{"payload": {"message": "I can also confirm that Dave is a villager. Along with Alice, we now have two confirmed innocents. Let's focus our attention on the remaining players, especially since Grace's recent comments seem intended to create doubt about people we know are safe.", "speaker": "Carol"}, "phase": "day", "recipients": [], "round": 2, "seq": 35, "type": "speech"}
+{"payload": {"accuser": "Grace", "reason": "Carol is suspicious for confirming two players (Alice and Dave) in one statement to shift momentum and hide her own involvement.", "target": "Carol"}, "phase": "day", "recipients": [], "round": 2, "seq": 36, "type": "accusation"}
+{"payload": {"defended": "Carol", "defender": "Alice", "reason": "Carol is helping the village by identifying confirmed innocents, while Grace is trying to create baseless doubt."}, "phase": "day", "recipients": [], "round": 2, "seq": 37, "type": "defense"}
+{"payload": {"defended": "Alice", "defender": "Eve", "reason": "Alice has been the target of attacks that I, as the doctor, have successfully blocked, proving she is a target for the werewolves, not one of them."}, "phase": "day", "recipients": [], "round": 2, "seq": 38, "type": "defense"}
+{"payload": {"defended": "Carol", "defender": "Dave", "reason": "Carol is providing valuable information by identifying confirmed villagers, while Grace is only attempting to sew confusion."}, "phase": "day", "recipients": [], "round": 2, "seq": 39, "type": "defense"}
+{"payload": {"accuser": "Carol", "reason": "Grace is attempting to sow confusion and cast doubt on confirmed villagers to distract the village from herself.", "target": "Grace"}, "phase": "day", "recipients": [], "round": 2, "seq": 40, "type": "accusation"}
+{"payload": {"accuser": "Frank", "reason": "Grace is consistently attempting to sow confusion and cast doubt on players who have been identified as villagers.", "target": "Grace"}, "phase": "day", "recipients": [], "round": 2, "seq": 41, "type": "accusation"}
+{"payload": {"ballots": {"Alice": "Grace", "Carol": "Grace", "Dave": "Grace", "Eve": "Grace", "Frank": "Grace", "Grace": "Eve"}, "exiled": "Grace"}, "phase": "day", "recipients": [], "round": 2, "seq": 42, "type": "exile_resolved"}
+{"payload": {"winner": "villagers"}, "phase": "day", "recipients": [], "round": 2, "seq": 43, "type": "game_over"}

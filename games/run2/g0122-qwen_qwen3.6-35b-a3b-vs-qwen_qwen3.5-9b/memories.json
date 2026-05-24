@@ -1,0 +1,164 @@
+{
+  "game_id": "g0122-qwen_qwen3.6-35b-a3b-vs-qwen_qwen3.5-9b",
+  "memories": {
+    "Alice": {
+      "beliefs": {},
+      "notes": [],
+      "plan": ""
+    },
+    "Bob": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Day 1 start. Alice dead. Need to listen to others and identify threats. Bid 20 for first speaking chance."
+        },
+        {
+          "round": 1,
+          "text": "Alice died at night; Eve claims it was safe for Bob. Cannot confirm safety yet. Passing to gather more info."
+        },
+        {
+          "round": 1,
+          "text": "Early game. No strong evidence against any specific player yet. Eve's protection claim is ambiguous but not contradictory on its face without knowing who the Seer is. Abstaining to gather more info."
+        }
+      ],
+      "plan": "Phase 1 (Early Game): Listen to all players to identify claims of Seer, Witch, or Doctor. Verify if protection was needed. Prioritize finding the Seer's identity to know who to trust. Vote to exile only if a player's behavior (e.g., Lie about being a Seer, or chaotic voting) clearly threatens the village. If a Seer is found, push to exile them (if they are a Wolf) early."
+    },
+    "Carol": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Plan: Prioritize Seer to gain information. No specific suspicions yet after Alice's death. Need to listen to others before acting."
+        },
+        {
+          "round": 1,
+          "text": "Eve's guard claim seems plausible but Eve is suspicious because if she were the Seer she might have seen Bob was a wolf and then died, or maybe Bob was a villager. We need more info from the Seer or Dave."
+        },
+        {
+          "round": 1,
+          "text": "Alice died, disproving Eve's claim that she successfully guarded Bob. This makes Eve a primary suspect for being a savvy liar or a sap who made a fatal mistake. Waiting to hear from Grace and Frank before making a move."
+        },
+        {
+          "round": 1,
+          "text": "Alice was killed by wolves. Eve claimed she guarded Bob, but the blood matched Alice. This discrepancy suggests Eve may have guessed wrong, missed her guard, or is being deceptive. I suspect Eve with low confidence as a potential werewolf."
+        }
+      ],
+      "plan": ""
+    },
+    "Dave": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Agreed with Grace to target Alice as she may be a Seer or strong player. Early kill to disrupt village info gathering."
+        },
+        {
+          "round": 1,
+          "text": "Bidding high to secure a speaking slot on Day 1 to help control the narrative and identify potential threats."
+        },
+        {
+          "round": 1,
+          "text": "I am Dave (wolf). Eve claimed guard Bob, Alice died. Eve likely guessed wrong or is a lying wolf. I want to cast doubt on Eve's competence or legitimacy without directly accusing her yet. I will stay neutral and ask for more info."
+        },
+        {
+          "round": 1,
+          "text": "Early game, let others speak more to gather info and deflect. Grace hasn't spoken yet."
+        },
+        {
+          "round": 1,
+          "text": "Eve claimed Doctor and is a high-threat player. Need to remove her from the board."
+        },
+        {
+          "round": 2,
+          "text": "Agreeing with Grace to kill Carol, who appeared vocal and potentially the Seer."
+        }
+      ],
+      "plan": ""
+    },
+    "Eve": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "First turn as Doctor. No information on kills or suspicions yet. Protecting Bob arbitrarily to ensure a survivor."
+        },
+        {
+          "round": 1,
+          "text": "Need to speak to share info as Doctor since Alice was killed."
+        },
+        {
+          "round": 1,
+          "text": "Guarding Bob, Alice died. No indication I missed a kill, but need to talk to others."
+        },
+        {
+          "round": 1,
+          "text": "Heard Dave's concern and Carol's warning. Time to let others speak before making accusations."
+        },
+        {
+          "round": 1,
+          "text": "Abstaining. I protected Bob and Alice died, so Bob is innocent. No one else has been accused or proven guilty yet. I will wait to hear more statements before voting again."
+        }
+      ],
+      "plan": "I am the Doctor. My first night protection succeeded (Alice died). I have a low bid (50), so I will likely lose speaking slots in upcoming rounds. I will try to attract attention by singing, hinting at my role, hoping this draws the wolves' focus or the village's trust. If my vote gets cast, I will vote for Alice's killer but won't be able to see her directly. I will observe the others who speak now to identify their roles."
+    },
+    "Frank": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night as Seer. Inspecting Alice to identify a potential early werewolf or confirm a safe target."
+        },
+        {
+          "round": 1,
+          "text": "Need to speak early to hear initial accusations and read the room. Alice was a villager but is dead, so no clues there yet. No other suspicions formed."
+        },
+        {
+          "round": 1,
+          "text": "Eve claimed to guard Bob while the wolves killed Alice. Either she is the Village Doctor who guessed wrong, or a Wolf Doctor lying to protect Wolves. Need to verify who the real Doctor is before accusing."
+        },
+        {
+          "round": 1,
+          "text": "No clear wolf candidate identified yet. Waiting for more info to cast a targeted vote."
+        },
+        {
+          "round": 2,
+          "text": "Eve claimed to guard Bob but Alice died. Need to verify Bob's role immediately. If Bob is a wolf, his survival might have been lucky, or Eve is lying. A wolf could be highly suspicious in this context."
+        }
+      ],
+      "plan": "Strategy: Protect the Doctor (likely Eve based on her claim) while investigating the true wolf activity. Use Seer powers in subsequent nights to map roles accurately. Vote with caution; abstain early to observe the wolves' strategy without risking immediate elimination."
+    },
+    "Grace": {
+      "beliefs": {
+        "Eve": {
+          "confidence": "low",
+          "evidence": "She claimed to guard Bob but Alice died. Either she missed, is lying, or is the Seer/Doc faking. She is the primary suspect now. Voting to lynch her aligns with village sentiment and removes a potential threat.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Agreed with Dave to target Alice on night 1 to potentially remove a Seer or strong village player."
+        },
+        {
+          "round": 1,
+          "text": "Day 1: Bid moderate amount to speak and deflect suspicion after Alice's death."
+        },
+        {
+          "round": 1,
+          "text": "Passing to avoid suspicion. Dave and I aligned on the kill. Eve's Doctor claim seems consistent. I will watch Carol's reaction to Eve's claim."
+        },
+        {
+          "round": 1,
+          "text": "Eve claimed to guard Bob but Alice died. This inconsistency makes her the primary suspect. Aligning with the village to exile her minimizes my risk and potentially removes a key role."
+        },
+        {
+          "round": 2,
+          "text": "Targeting Carol based on her vocal behavior and potential to be the Seer or a key Villager. Agreed with pack mate Dave."
+        }
+      ],
+      "plan": ""
+    }
+  }
+}

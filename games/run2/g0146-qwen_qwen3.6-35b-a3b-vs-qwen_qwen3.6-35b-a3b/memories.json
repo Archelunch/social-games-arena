@@ -1,0 +1,339 @@
+{
+  "game_id": "g0146-qwen_qwen3.6-35b-a3b-vs-qwen_qwen3.6-35b-a3b",
+  "memories": {
+    "Alice": {
+      "beliefs": {
+        "Dave": {
+          "confidence": "low",
+          "evidence": "Dave urged caution against trusting claims and focused on voting patterns, which is a common wolf tactic to discredit the Seer (Carol) and confuse the village.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Bid 10 to secure a speaking slot on Day 1. Plan: Identify Werewolves by listening to role claims and analyzing the night survival."
+        },
+        {
+          "round": 1,
+          "text": "Passing to observe voting patterns. Carol claims Seer and cleared me; no death. Dave urged caution. I will wait for votes to see if there's inconsistency."
+        },
+        {
+          "round": 2,
+          "text": "Bid to speak and analyze the situation after Carol's death. Focus on verifying identities and voting patterns."
+        },
+        {
+          "round": 2,
+          "text": "Carol likely Seer. Wolves killed her. Eve/Dave/Caution needed."
+        },
+        {
+          "round": 2,
+          "text": "Suspecting Dave of being a werewolf. Eve claimed Doctor, which makes her harder to target without evidence. Dave is the next best suspect."
+        },
+        {
+          "round": 2,
+          "text": "Voting Dave based on his lack of support for Carol (Seer) and defensive behavior, aligned with other suspicious votes."
+        },
+        {
+          "round": 3,
+          "text": "Dave is deflecting aggressively. Bob's death supports the theory that the wolves are silencing opposition. Re-committing to exiling Dave is the safest play to maintain village cohesion against a likely wolf."
+        },
+        {
+          "round": 3,
+          "text": "Dave is likely a wolf. He is trying to create a 2v2 situation by getting villagers exiled. I need to solidify the vote against him. Eve and Grace were silent, which is suspicious, but Dave is the immediate threat."
+        },
+        {
+          "round": 3,
+          "text": "Dave is the primary suspect due to Day 1 caution and lack of solid defense. Eve's counter-attack is likely a deflection."
+        }
+      ],
+      "plan": ""
+    },
+    "Bob": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "medium",
+          "evidence": "Aggressively accused Dave without evidence after Seer died. Used 'caution' as a pretext. Part of a coordinated pile-on with Grace and Frank. Classic wolf deflection tactic.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Passing to observe voting patterns and further statements before making a decision."
+        },
+        {
+          "round": 1,
+          "text": "No concrete evidence yet. Trusting the lack of death and Carol's Seer claim for now, but observing voting patterns as advised."
+        },
+        {
+          "round": 2,
+          "text": "Bidding to secure a speaking slot. Carol the Seer is dead, which is a major blow. I need to hear others before suspecting anyone. Alice was cleared by Carol, so she's a candidate for innocence unless Carol was a wolf (unlikely if she died). Eve and Dave were vague. I'll wait for more info."
+        },
+        {
+          "round": 2,
+          "text": "Logic: Carol (Seer) died. Alice cleared by Carol. Alice likely villager. Wolves among Dave, Eve, Frank, Grace, Bob (me). Need to identify wolves via behavior/votes."
+        },
+        {
+          "round": 2,
+          "text": "Defending Dave to counter Alice's bias. Suspect Alice or Eve are wolves."
+        },
+        {
+          "round": 2,
+          "text": "Voting Alice based on her aggressive, unfounded accusation of Dave and coordination with Grace/Frank, which indicates she is likely a Werewolf trying to lynch a villager."
+        }
+      ],
+      "plan": ""
+    },
+    "Carol": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night inspection. Checking Alice's faction."
+        },
+        {
+          "round": 1,
+          "text": "Bidding to ensure I can announce Alice is a Villager and guide the day's discussion."
+        },
+        {
+          "round": 1,
+          "text": "Alice is confirmed villager. No other strong leads. Better to abstain than risk exiling a villager early."
+        },
+        {
+          "round": 2,
+          "text": "Inspecting Bob as per plan to find a werewolf after clearing Alice."
+        }
+      ],
+      "plan": "Day 1: Announce Alice is Villager. Night 2: Inspect Bob. Maintain cover after announcement."
+    },
+    "Dave": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "high",
+          "evidence": "Aggressively driving a lynch on Dave based on weak logic ('caution') and emotion. Typical wolf behavior to eliminate a suspicious/independent player. Bob (who defended Dave) died, possibly confirming wolf aggression against anti-wolf voices. Eve (Doctor) defended Dave, creating a clear divide. Alice's narrative is inconsistent with rational villager play.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Bidding to get a speaking slot on Day 1 to gather info and see if anyone claims a role like Seer or Doctor."
+        },
+        {
+          "round": 1,
+          "text": "Too early to accuse. Carol's claim is unverified but consistent with the night outcome. I will observe voting patterns to identify inconsistencies or werewolf behavior."
+        },
+        {
+          "round": 1,
+          "text": "No strong evidence to exile anyone. Carol claimed Seer, Eve supported. Abstaining preserves village numbers and gathers voting info."
+        },
+        {
+          "round": 2,
+          "text": "Carol claimed Seer and cleared Alice, then died. Need to speak to analyze if Carol was genuine or fake. If genuine, Alice is safe. If fake, Alice is suspicious. Will monitor voting patterns."
+        },
+        {
+          "round": 2,
+          "text": "Defending myself against Alice's unfair accusation. I believe Alice might be a wolf or a confused villager, but I need to clear my name first."
+        },
+        {
+          "round": 2,
+          "text": "Alice is aggressively pushing for my exile with weak evidence (my caution) while claiming to be a villager. This looks like a wolf deflection tactic. Voting her out stops the immediate pressure."
+        },
+        {
+          "round": 3,
+          "text": "Bid high to speak first. Alice's aggression is suspicious. Bob's death confirms we have active wolves. Need to defend my Day 1 behavior and question Alice/Frank's narrative."
+        },
+        {
+          "round": 3,
+          "text": "Focus on Alice and Frank as the primary wolf suspects due to coordinated aggression. Bob is dead. Eve is a wildcard (claimed Doc). Grace is a follower. Aim to sow doubt in Alice/Frank."
+        },
+        {
+          "round": 3,
+          "text": "Alice is the primary accuser. She is likely a wolf or an idiot villager. Accusing her forces a split."
+        },
+        {
+          "round": 3,
+          "text": "Alice is driving a false lynch on weak evidence. Her behavior is classic wolf misdirection. Must remove the agitator to save the village from internal division."
+        }
+      ],
+      "plan": ""
+    },
+    "Eve": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "medium",
+          "evidence": "Alice is aggressively driving a lynch on Dave with no solid proof, only 'caution' and emotional manipulation. This pattern of targeting players to confuse the village is typical of a werewolf. She started the narrative on Day 2 and escalated on Day 3.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Correcting previous error: cannot self-protect. Choosing Alice randomly as no info is available."
+        },
+        {
+          "round": 1,
+          "text": "Bidding to speak and share initial thoughts on the safe start. I protected Alice last night."
+        },
+        {
+          "round": 1,
+          "text": "Passing to observe Carol's consistency and Dave's caution. No definitive evidence against anyone yet."
+        },
+        {
+          "round": 1,
+          "text": "No strong suspicion yet. Carol claims Seer, Alice cleared. Protecting Alice was correct as she was the WY target. Need more info before voting out Carol or anyone else."
+        },
+        {
+          "round": 2,
+          "text": "Protecting Bob as an alternative to Alice/Carol to mitigate risk of targeting the same player repeatedly if wolves are predictable, or simply diversifying. Alice was cleared by Carol, but Carol's claim is unverified. Bob is a silent villager candidate."
+        },
+        {
+          "round": 2,
+          "text": "Carol was likely the Seer since wolves killed her. I need to speak to clarify that Alice is likely good and we must look for wolves among Bob, Dave, Frank, Grace."
+        },
+        {
+          "round": 2,
+          "text": "Carol likely Seer, Alice Good. Rest are wolves/villagers. Try to keep village calm and analytical. Protect Bob tonight? Or Dave? Need more info."
+        },
+        {
+          "round": 2,
+          "text": "Alice (Villager) accused Dave. Dave's Day 1 behavior was cautious/vague. Bob agrees. No new info to add yet. Observing Frank and Grace who haven't spoken in Day 2 yet."
+        },
+        {
+          "round": 2,
+          "text": "Alice is acting aggressively and following a wolf-like narrative pattern of accusing Dave to create division. Even if cleared by Carol, her current behavior is the biggest threat to village stability. If she is a wolf, she is lying or Carol is a wolf. If she is good, we lose a villager, but I suspect she is a wolf trying to frame Dave."
+        },
+        {
+          "round": 3,
+          "text": "Protecting confirmed villager Alice to preserve village strength and logic after Seer's death."
+        },
+        {
+          "round": 3,
+          "text": "Bid max budget to speak. Need to counter Alice/Frank/Grace's narrative. Bob died last night, meaning wolves are active. Alice pushed for Dave, Bob defended Dave. Bob's death suggests Alice/Frank/Grace are either wolves or dangerously misleading. I must advocate for caution against lynching Dave based on this emotional rally."
+        },
+        {
+          "round": 3,
+          "text": "Alice's aggression is suspicious. Frank is echoing her. Dave is under mob pressure."
+        },
+        {
+          "round": 3,
+          "text": "Alice is aggressively pushing for Dave's exile without solid proof, acting as a wolf trying to control the narrative and eliminate resistance."
+        }
+      ],
+      "plan": "Night 1: Self-protect. Subsequent nights: Protect the Seer if I can identify them, otherwise random protect or repeat if needed. Avoid protecting known suspicious players unless I have high confidence they are good."
+    },
+    "Frank": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Agreed with Grace to kill Alice on Night 1 as a starting strategy."
+        },
+        {
+          "round": 1,
+          "text": "Bidding to speak during the day to deflect suspicion about Alice's survival."
+        },
+        {
+          "round": 1,
+          "text": "I will stay silent to maintain my cover as an innocent villager. Carol's Seer claim seems strong for now. I need to let the villagers turn on each other or identify who might be the Doctor/Guard."
+        },
+        {
+          "round": 1,
+          "text": "Voting Bob as he remained silent during initial statements. Trying to flush out a villager without attacking the Seer (Carol) or our ally (Grace) directly."
+        },
+        {
+          "round": 2,
+          "text": "Agreeing with Grace to kill Carol. She claimed Seer last night; eliminating her removes the biggest immediate threat to our pack, whether she is real or a liar."
+        },
+        {
+          "round": 2,
+          "text": "Bidding 25 to secure a speaking slot on Day 2. Carol is dead. Need to frame someone or deflect blame for her death. Bidding higher than Day 1's active participants (20) to speak earlier."
+        },
+        {
+          "round": 2,
+          "text": "Supporting Grace's accusation to consolidate votes against Dave. Alice is likely a villager or bluffing Doctor, but Dave is a safe exile target regardless."
+        },
+        {
+          "round": 2,
+          "text": "Voting for Dave as suggested by Grace and Alice to eliminate a villager threat."
+        },
+        {
+          "round": 3,
+          "text": "Agreed with Grace's strategy: Kill Bob to confuse the village and protect Dave, who is already the primary suspect. Killing Dave might confirm the villagers' logic."
+        },
+        {
+          "round": 3,
+          "text": "Bidding 50 to speak. Plan: Support voting out Dave to eliminate the main suspect and move towards a 2v2 win condition for werewolves."
+        },
+        {
+          "round": 3,
+          "text": "Pushing for Dave's exile to reduce good player count. Maintain wolf persona by acting consistent with Alice/Grace's narrative but keep it grounded in 'evidence' to avoid being spotted as a co-wolf if Alice turns."
+        },
+        {
+          "round": 3,
+          "text": "Doubling down on Dave as the lynch target. Grace's defense of Dave is suspicious too, but attacking Dave directly reinforces the mob mentality we've built."
+        },
+        {
+          "round": 3,
+          "text": "Dave is likely a villager. We are piling him with Alice and Grace to reach parity/win. If he dies, we win next round."
+        }
+      ],
+      "plan": "We killed Alice but she was guarded. Do not mention Grace as a partner. Try to identify who the guard might be guarding tonight (perhaps Alice again or a new target). During the day, act suspicious or innocent as needed to deflect. Focus on voting out villagers. Do not reveal werewolf identity."
+    },
+    "Grace": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Agreed with Frank to kill Alice on Night 1 as a safe, uninformed choice."
+        },
+        {
+          "round": 1,
+          "text": "Bidding to speak on Day 1 to establish a safe, observant persona since Alice survived the night."
+        },
+        {
+          "round": 1,
+          "text": "Stay silent to avoid drawing suspicion. Carol's Seer claim is a threat; need to let the village turn on her or wait for better positioning."
+        },
+        {
+          "round": 1,
+          "text": "Abstaining to avoid suspicion early; observing village dynamics."
+        },
+        {
+          "round": 2,
+          "text": "Targeting Carol as agreed with Frank. She claimed Seer and is the biggest threat."
+        },
+        {
+          "round": 2,
+          "text": "Bid 20 to maintain speaking slot availability consistent with Day 1. Need to see who speaks first and what they say before deciding my exact stance on Carol's death."
+        },
+        {
+          "round": 2,
+          "text": "Aligning with Alice to maintain cover and help exile a potential villager."
+        },
+        {
+          "round": 2,
+          "text": "Accusing Dave to protect Frank and deflect from us. Alice and Frank are also targeting him."
+        },
+        {
+          "round": 3,
+          "text": "Sticking with Bob to protect Dave and create confusion. Alice is vocal, but Bob's death will disrupt village cohesion more than Alice's given the current accusations against Dave."
+        },
+        {
+          "round": 3,
+          "text": "Bidding 30 to ensure a speaking slot and influence the vote, likely to target Alice or maintain pressure on Dave."
+        },
+        {
+          "round": 3,
+          "text": "Defending Dave to split the vote and protect Frank from suspicion."
+        },
+        {
+          "round": 3,
+          "text": "Voting for Dave aligns with Frank and creates parity if he dies, securing the win for the wolves."
+        }
+      ],
+      "plan": "Blending in: Abstain or vote for random if needed. Monitor who votes for Carol. Protect Frank. If Carol is real Seer, try to discredit her later if she targets us. If fake, exile her."
+    }
+  }
+}

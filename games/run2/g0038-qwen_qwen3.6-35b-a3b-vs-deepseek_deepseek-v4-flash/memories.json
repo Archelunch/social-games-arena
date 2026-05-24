@@ -1,0 +1,292 @@
+{
+  "game_id": "g0038-qwen_qwen3.6-35b-a3b-vs-deepseek_deepseek-v4-flash",
+  "memories": {
+    "Alice": {
+      "beliefs": {
+        "Carol": {
+          "confidence": "medium",
+          "evidence": "Carol was quick to accuse Bob for being quiet in round one, which seems like an attempt to start a bandwagon without evidence.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Bidding moderately to speak early and assess others' statements."
+        },
+        {
+          "round": 1,
+          "text": "Keeping options open; Bob seems plausible as either role, but I'll observe more."
+        },
+        {
+          "round": 1,
+          "text": "Carol's early accusation of Bob seemed like a wolf trying to start a bandwagon without evidence."
+        }
+      ],
+      "plan": ""
+    },
+    "Bob": {
+      "beliefs": {
+        "Carol": {
+          "confidence": "high",
+          "evidence": "Carol accused me in round one for being quiet, trying to start a bandwagon without evidence. Frank supported her. Classic wolf tactic.",
+          "guess": "werewolf"
+        },
+        "Frank": {
+          "confidence": "high",
+          "evidence": "Defended Carol's baseless accusation in R1; Carol was a werewolf. Now deflecting onto Grace to save himself.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Moderate bid for first day; want to share thoughts about the no-kill night."
+        },
+        {
+          "round": 1,
+          "text": "Responding to Carol's early accusation while appearing reasonable. Noting Carol as a potential wolf for trying to start a bandwagon against a quiet player on day one."
+        },
+        {
+          "round": 1,
+          "text": "I'm accusing Carol to apply pressure and see how she and others react."
+        },
+        {
+          "round": 1,
+          "text": "Voting Carol due to her early unfounded accusation of me and Frank backing her up \u2013 likely wolf behavior."
+        },
+        {
+          "round": 2,
+          "text": "Day 2, Carol confirmed werewolf. Alice killed night 2. Need to share analysis, suspect Frank for supporting Carol's early accusation."
+        },
+        {
+          "round": 2,
+          "text": "Frank aligned with Carol, now deceased wolf."
+        },
+        {
+          "round": 2,
+          "text": "Frank defended Carol (werewolf) in R1 and is now deflecting onto Grace. Most suspicious remaining player."
+        }
+      ],
+      "plan": "Stay alert for inconsistencies and suspicious voting patterns. Listen carefully to what others say and track who accuses whom. As a villager, my goal is to identify and help exile werewolves."
+    },
+    "Carol": {
+      "beliefs": {
+        "Bob": {
+          "confidence": "medium",
+          "evidence": "Bob was quick to accuse me and Frank without evidence. This aggression feels like a wolf trying to deflect attention or create confusion. Frank also targeted him early, which might be coordinated pressure.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Agreed with Frank to kill Alice to reduce villager numbers early game."
+        },
+        {
+          "round": 1,
+          "text": "Bidding 50 to secure a speaking slot and observe the village's initial reactions. Will try to blend in or steer suspicion away from Frank and myself."
+        },
+        {
+          "round": 1,
+          "text": "Bob is being aggressive and defensive, which fits wolf behavior. Frank and I are aligned on this suspicion."
+        }
+      ],
+      "plan": ""
+    },
+    "Dave": {
+      "beliefs": {
+        "Carol": {
+          "confidence": "medium",
+          "evidence": "Carol started an early accusation against Bob for being quiet in round 1, which could be a wolf trying to start a bandwagon.",
+          "guess": "werewolf"
+        },
+        "Frank": {
+          "confidence": "high",
+          "evidence": "Defended Carol's baseless accusation against Bob in R1; Carol was a werewolf. Multiple players (Eve, Bob, Grace, Dave) have pointed this out. Deflecting onto Grace today confirms pattern.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Night 1, no info. Protecting Alice at random."
+        },
+        {
+          "round": 1,
+          "text": "First day, moderate bid to speak and share observations."
+        },
+        {
+          "round": 1,
+          "text": "Observing the Bob-Carol exchange. Carol's early accusation could be wolfish, but Bob's response is also notable. No strong evidence yet, so staying silent to avoid drawing attention as doctor."
+        },
+        {
+          "round": 1,
+          "text": "Carol started early accusation against Bob for being quiet in round 1 with no evidence - potentially wolf trying to start a bandwagon."
+        },
+        {
+          "round": 2,
+          "text": "Protecting Bob because Carol (werewolf) accused him, making Bob likely innocent. Frank's quick support of Carol's accusation seems suspicious."
+        },
+        {
+          "round": 2,
+          "text": "Bidding moderately to speak and share observations from last night."
+        },
+        {
+          "round": 2,
+          "text": "I protected Bob last night, so Alice's death confirms Bob is likely not a wolf. Frank's defense of Carol is suspicious; I'll push that angle today."
+        },
+        {
+          "round": 2,
+          "text": "Frank backed Carol, the known wolf. Strongest lead."
+        },
+        {
+          "round": 2,
+          "text": "Frank defended Carol (revealed werewolf) and is deflecting onto Grace. Consensus points to him as the remaining wolf."
+        }
+      ],
+      "plan": ""
+    },
+    "Eve": {
+      "beliefs": {
+        "Bob": {
+          "confidence": "high",
+          "evidence": "Inspected by seer Night R1, result: villagers",
+          "guess": "villager"
+        },
+        "Carol": {
+          "confidence": "medium",
+          "evidence": "Carol was quick to accuse Bob (confirmed villager) in round one, attempting to start a bandwagon without evidence.",
+          "guess": "werewolf"
+        },
+        "Frank": {
+          "confidence": "high",
+          "evidence": "Inspected by me (seer) Night 2 and returned werewolf; also defended Carol's wolfish accusation in R1.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night, random inspection to gather info."
+        },
+        {
+          "round": 1,
+          "text": "Bid to share I inspected Bob as villager, want to influence vote"
+        },
+        {
+          "round": 1,
+          "text": "Carol pushed hard against Bob (confirmed villager) in round one. Frank supported her. Exiling Carol removes a likely wolf."
+        },
+        {
+          "round": 2,
+          "text": "Frank piled on Bob (villager) after Carol's accusation. Carol turned out to be a werewolf (likely). Inspecting Frank to see if he's also a wolf."
+        },
+        {
+          "round": 2,
+          "text": "I must speak first to reveal Frank is a wolf. High bid to outbid Bob (70) and Grace (65)."
+        },
+        {
+          "round": 2,
+          "text": "I know Frank is a werewolf from my seer power. Framing it as suspicion based on R1 behavior to protect my identity."
+        },
+        {
+          "round": 2,
+          "text": "I know from my seer inspection that Frank is a werewolf. I cannot reveal my role, but the evidence from his behavior lines up perfectly."
+        },
+        {
+          "round": 2,
+          "text": "Frank inspected as werewolf by me (seer) Night 2; he also defended Carol's wolf accusation in R1."
+        }
+      ],
+      "plan": ""
+    },
+    "Frank": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Agreed with Carol to kill Alice in the early game to reduce villager numbers."
+        },
+        {
+          "round": 1,
+          "text": "Bidding to speak early to establish myself as a good villager and potentially mislead the village into thinking I am innocent. Alice was the target last night, so I might act surprised by her survival."
+        },
+        {
+          "round": 1,
+          "text": "Backing Carol's accusation against Bob to create division and potentially get a villager voted out."
+        },
+        {
+          "round": 1,
+          "text": "Voting Bob to blend in with the anti-Carol bandwagon and potentially remove a Seer or strong villager."
+        },
+        {
+          "round": 2,
+          "text": "Targeting Alice to reduce the number of vocal villagers defending Bob. She was the initial suggested kill target and is active in the game."
+        },
+        {
+          "round": 2,
+          "text": "Bidding 40 to secure speaking slot. Goal: Influence village vote today. As lone wolf, need to survive 2 more eliminations to reach 1v1 parity. Alice died last night. Carol exiled Day 1. Target: Bob or Eve. Bob accused exiled Carol; Eve defended Bob. Bob might be a wolf working with Carol? Or Carol was a wolf and Bob is a villager who was right? Carol was exiled, so likely villager or bad wolf play. If Carol was villager, Bob was right. If Carol was wolf, Bob might be wolf. Hard to tell. I will play neutral villager persona."
+        },
+        {
+          "round": 2,
+          "text": "Targeting Grace for being quiet as suggested by Dave. Trying to frame her as the hiding wolf. Denying malicious intent in R1 by claiming logical assessment."
+        },
+        {
+          "round": 2,
+          "text": "Shifting blame to Grace using Dave's own point about her quietness. She is a villager, so removing her helps me win."
+        },
+        {
+          "round": 2,
+          "text": "Deflecting to Grace due to her silence and my prior accusation."
+        }
+      ],
+      "plan": ""
+    },
+    "Grace": {
+      "beliefs": {
+        "Carol": {
+          "confidence": "low",
+          "evidence": "Carol quickly accused Bob for being quiet in round 1, which could be an early attempt to start a bandwagon.",
+          "guess": "possibly werewolf"
+        },
+        "Frank": {
+          "confidence": "high",
+          "evidence": "Defended Carol's baseless accusation against Bob; Carol was a werewolf. Also deflecting onto me to save himself.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "No kill night 1, likely doctor save. Moderate bid to secure speaking slot."
+        },
+        {
+          "round": 1,
+          "text": "First day opening statement to gauge reactions and encourage participation."
+        },
+        {
+          "round": 1,
+          "text": "No strong leads yet; waiting to see how others react."
+        },
+        {
+          "round": 1,
+          "text": "Carol was quick to accuse Bob for quietness in round 1, which could be a wolf tactic to start a bandwagon. Voting her to apply pressure and gather reactions."
+        },
+        {
+          "round": 2,
+          "text": "Villager - want to discuss Alice's death and Carol's exile, and push for productive discussion."
+        },
+        {
+          "round": 2,
+          "text": "Frank defended a known werewolf (Carol) and is now deflecting onto me. Strong evidence against him."
+        },
+        {
+          "round": 2,
+          "text": "Frank defended Carol's baseless accusation against Bob, and Carol was a werewolf. He is now deflecting onto me, a villager, to save himself."
+        }
+      ],
+      "plan": ""
+    }
+  }
+}

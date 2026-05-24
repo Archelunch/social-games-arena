@@ -1,0 +1,278 @@
+{
+  "game_id": "g0089-qwen_qwen3.5-9b-vs-google_gemma-4-31b-it",
+  "memories": {
+    "Alice": {
+      "beliefs": {
+        "Bob": {
+          "confidence": "high",
+          "evidence": "Explicitly referred to himself as a 'pack member' during his defense.",
+          "guess": "werewolf"
+        },
+        "Grace": {
+          "confidence": "high",
+          "evidence": "Grace has been consistently attempting to cast doubt on confirmed villagers (Alice, Dave, Carol) and sowing confusion to distract the village.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Moderate bid to start the conversation and gauge others' reactions."
+        },
+        {
+          "round": 1,
+          "text": "Acknowledging Carol as a likely Seer and keeping the conversation open."
+        },
+        {
+          "round": 1,
+          "text": "Bob admitted to being a pack member."
+        },
+        {
+          "round": 2,
+          "text": "Seeking to discuss the second successful save and narrow down suspects."
+        },
+        {
+          "round": 2,
+          "text": "Grace has consistently attacked confirmed villagers and tried to create doubt where there is clarity."
+        }
+      ],
+      "plan": ""
+    },
+    "Bob": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "low",
+          "evidence": "Alice claimed she feels safe after being targeted last night, fitting the behavior of a player who successfully guarded themselves.",
+          "guess": "Villager (likely Doctor)"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Day 1 kill request. No specific info yet, targeting to start the night."
+        },
+        {
+          "round": 1,
+          "text": "Bidding a small amount to stay active in case the conversation gets heated, but conserving budget."
+        },
+        {
+          "round": 1,
+          "text": "Frank aggressively framed me in his defense. As a wolf, I need to disrupt the public consensus. If he is a wolf, this frames another wolf or at least shifts the blame. If he is a villager, hoping their panic creates a split vote. Also, Alice and Carol confirmed Alice's innocence, making her less likely to be the Seer compared to Frank who is acting erratic."
+        }
+      ],
+      "plan": "Our immediate goal is to identify the Seer and Doctor among the villagers to avoid them exposing our targets. We need to vote strategically during the day to frame our kills against high-suspicion targets or key roles. We must stay quiet on public forums until we have a solid lead on a kill target, using private chat only for coordination. Prioritize eliminating the Seer first if possible, as they know our ally."
+    },
+    "Carol": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "high",
+          "evidence": "Seer inspection confirmed she is a villager.",
+          "guess": "villager"
+        },
+        "Bob": {
+          "confidence": "high",
+          "evidence": "Explicitly called himself a 'pack member' during the speaking phase.",
+          "guess": "werewolf"
+        },
+        "Grace": {
+          "confidence": "high",
+          "evidence": "Attempting to cast doubt on confirmed villagers and the Seer to distract the village.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night inspection to start identifying factions."
+        },
+        {
+          "round": 1,
+          "text": "Bidding modestly on Day 1 to observe the room and gauge other players' eagerness."
+        },
+        {
+          "round": 1,
+          "text": "Revealed Alice as a villager to establish a baseline of trust."
+        },
+        {
+          "round": 1,
+          "text": "Bob admitted to being a pack member."
+        },
+        {
+          "round": 2,
+          "text": "Checking Dave to find more werewolves after Bob's confession."
+        },
+        {
+          "round": 2,
+          "text": "Confirm Dave is a villager."
+        },
+        {
+          "round": 2,
+          "text": "Grace has consistently tried to cast doubt on confirmed villagers and the Seer."
+        }
+      ],
+      "plan": ""
+    },
+    "Dave": {
+      "beliefs": {
+        "Bob": {
+          "confidence": "high",
+          "evidence": "Explicitly referred to himself as a 'pack member' during his defense.",
+          "guess": "werewolf"
+        },
+        "Grace": {
+          "confidence": "high",
+          "evidence": "Consistently sowing confusion, attacking confirmed villagers (Alice, Dave), and trying to deflect attention from herself.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Bidding moderately to get a speaking slot in the first round to gauge others."
+        },
+        {
+          "round": 1,
+          "text": "Acknowledging Carol's claim and probing for more info."
+        },
+        {
+          "round": 1,
+          "text": "No evidence to accuse anyone yet; waiting for more information."
+        },
+        {
+          "round": 1,
+          "text": "Bob admitted to being a pack member."
+        },
+        {
+          "round": 2,
+          "text": "Want to discuss the double successful save and coordinate finding the next werewolf."
+        },
+        {
+          "round": 2,
+          "text": "Grace is consistently attacking confirmed villagers and attempting to confuse the group."
+        }
+      ],
+      "plan": ""
+    },
+    "Eve": {
+      "beliefs": {
+        "Bob": {
+          "confidence": "high",
+          "evidence": "Explicitly called himself a 'pack member' during his defense.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night, protecting a random player (Alice)."
+        },
+        {
+          "round": 1,
+          "text": "Alice was protected and no one died, so she is likely innocent. Bidding moderately to listen first."
+        },
+        {
+          "round": 1,
+          "text": "I saved Alice; Carol confirmed her. No one seems suspicious yet."
+        },
+        {
+          "round": 1,
+          "text": "Bob confessed to being a pack member."
+        },
+        {
+          "round": 2,
+          "text": "Alice was likely the target last night since no one died; protecting her again to ensure survival."
+        },
+        {
+          "round": 2,
+          "text": "Bid to potentially share that Alice was targeted twice."
+        },
+        {
+          "round": 2,
+          "text": "Grace has consistently attempted to sow confusion and cast doubt on players identified as villagers."
+        }
+      ],
+      "plan": ""
+    },
+    "Frank": {
+      "beliefs": {
+        "Bob": {
+          "confidence": "high",
+          "evidence": "He explicitly referred to himself as a 'pack member' during his defense.",
+          "guess": "werewolf"
+        },
+        "Grace": {
+          "confidence": "medium",
+          "evidence": "Consistently sowing confusion, attacking confirmed villagers, and attempting to discredit the Doctor's claims.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Bidding to get an early speaking slot to discuss the night 1 save."
+        },
+        {
+          "round": 1,
+          "text": "Bob essentially admitted to being a werewolf by using the term 'pack member'."
+        },
+        {
+          "round": 1,
+          "text": "Bob confessed to being a pack member."
+        },
+        {
+          "round": 2,
+          "text": "Discuss the second successful save and look for info from Seer/Doctor."
+        },
+        {
+          "round": 2,
+          "text": "Questioning Grace's odd behavior and high bid."
+        },
+        {
+          "round": 2,
+          "text": "Grace is aggressively casting doubt on confirmed villagers and the Doctor to sew confusion."
+        }
+      ],
+      "plan": ""
+    },
+    "Grace": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "medium",
+          "evidence": "Grace targeted Alice specifically in Night R1 and Night R2. Alice survived both nights while being targeted, indicating strong village protection (likely by the Doctor). Her survival against repeated threats suggests she is a critical village asset, though her faction remains unconfirmed.",
+          "guess": "Villager (likely Doctor or key target)"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night kill. Targeting a Seer with first-night information is standard strategy to prevent immediate village advantage. Aiming at Alice as a potential Seer."
+        },
+        {
+          "round": 1,
+          "text": "No new info to share; staying silent avoids premature suspicion while we wait for night action or better leads."
+        },
+        {
+          "round": 1,
+          "text": "Bob must stay alive. Voting for Alice prevents a unanimous pack vote against Bob while drawing no heat back on me immediately. Bob is confirmed wolf by his 'pack member' admission."
+        },
+        {
+          "round": 2,
+          "text": "Bob exiled. No clear Seer/Doctor identified to target specifically. Taking out random villager Alice to reduce village count."
+        },
+        {
+          "round": 2,
+          "text": "Bid high to ensure I can speak if I need to defend my strategy of targeting Alice, though I know I am the wolf."
+        },
+        {
+          "round": 2,
+          "text": "Attempt to sow doubt on Alice to shift the vote away from me. I need to make the village question their targets or take risks."
+        },
+        {
+          "round": 2,
+          "text": "Targeting Eve who claims to be the Doctor, hoping she is not protected or she protects someone else. Aim to reduce player count to eventually win."
+        }
+      ],
+      "plan": "Day 1: Coordinate with Bob to identify and target a high-value village member (Seer or Doctor) if possible. If the Seer and Doctor are identified, prioritize killing them to reduce village adaptability. On our first defense, vote together on the killer's targets to ensure consistency. Remain defensive against accusation initially; do not reveal we know each other publicly until necessary."
+    }
+  }
+}

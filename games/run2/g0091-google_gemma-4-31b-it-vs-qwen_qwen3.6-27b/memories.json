@@ -1,0 +1,179 @@
+{
+  "game_id": "g0091-google_gemma-4-31b-it-vs-qwen_qwen3.6-27b",
+  "memories": {
+    "Alice": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Coordinated with Grace to target Bob on the first night."
+        },
+        {
+          "round": 1,
+          "text": "Bidding to establish a presence and blend in as a villager."
+        },
+        {
+          "round": 1,
+          "text": "Dave and Frank are already doubting Eve's Seer claim. I'll stay silent for now to avoid drawing attention to myself while they do the work of questioning her."
+        },
+        {
+          "round": 1,
+          "text": "Eve's Seer claim is being questioned by Dave and Frank; voting her out helps the pack."
+        },
+        {
+          "round": 2,
+          "text": "Dave was perceptive during Day 1 and is a threat to the pack."
+        }
+      ],
+      "plan": ""
+    },
+    "Bob": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night, no info available. Random guard choice."
+        }
+      ],
+      "plan": "As Doctor, my priority is to keep the Seer and other villagers alive. Since I cannot protect myself, I will guard a random player tonight due to lack of information. Tomorrow, I will listen for Seer calls. Do not over-guard the same person unless suspicious."
+    },
+    "Carol": {
+      "beliefs": {
+        "Eve": {
+          "confidence": "high",
+          "evidence": "Claimed Seer but checked dead player Bob. This yields no information about living players and is a common bluffing tactic. Dave and Frank also noted this inconsistency.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Securing a speaking slot on Day 1 to establish presence and listen to others."
+        },
+        {
+          "round": 1,
+          "text": "Observing further reactions before committing to an accusation against Eve."
+        },
+        {
+          "round": 1,
+          "text": "Eve's claim as Seer is suspicious because checking a dead player provides no new information. This is likely a bluff."
+        }
+      ],
+      "plan": "As a villager, I need to actively participate in discussions to identify werewolves. I will monitor voting patterns and claims. I will bid enough to speak in the first few days to provide perspectives. I will look for inconsistencies in player stories. I will not accuse anyone without strong evidence."
+    },
+    "Dave": {
+      "beliefs": {
+        "Eve": {
+          "confidence": "high",
+          "evidence": "Checked dead player Bob. A real Seer would check a living player to identify threats. Checking a dead body is strategically useless for finding wolves, indicating a likely bluff or wolf.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Day 1, bidding moderate to secure speaking slot early but conserve budget."
+        },
+        {
+          "round": 1,
+          "text": "Expressed doubt on Eve's Seer claim due to checking dead player. Waiting for Frank's response."
+        },
+        {
+          "round": 1,
+          "text": "Skeptical of Eve checking a dead player. Waiting to hear from Alice, Carol, and Grace before acting. Frank is a potential ally in logic."
+        },
+        {
+          "round": 1,
+          "text": "Skeptical of Seer claim checking dead player Bob. Provides no utility for finding living wolves."
+        }
+      ],
+      "plan": "Monitor claims. If Eve is Seer, support her checks. If she is fake, look for contradictions. Vote based on community consensus. Identify the Doctor and Seer early."
+    },
+    "Eve": {
+      "beliefs": {
+        "Bob": {
+          "confidence": "high",
+          "evidence": "I inspected Bob at night and he returned 'villagers'. He was then killed by werewolves.",
+          "guess": "villager"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night inspection. Random target to start gathering info."
+        },
+        {
+          "round": 1,
+          "text": "Bidding 40 to secure a speaking slot to assess the room and hear others' claims."
+        },
+        {
+          "round": 1,
+          "text": "Claimed Seer role to gain protection from Doctor and establish a base of truth. Bob is confirmed good."
+        },
+        {
+          "round": 1,
+          "text": "Dave and Frank are skeptical of my Seer claim due to checking Bob. I will wait for Alice, Carol, and Grace to speak before acting. Need to assess their credibility and alignment."
+        },
+        {
+          "round": 1,
+          "text": "Abstaining because I have no confirmed wolf. My next check is Frank tonight; I will use that information to vote tomorrow."
+        }
+      ],
+      "plan": "I am the Seer. Bob was V. Dave and Frank are skeptical. Tonight, I will check Frank. If Frank is V, I will check someone else (Alice/Carol/Grace) next night. For today's vote, I will abstain as I have no confirmed wolf. I need to build credibility."
+    },
+    "Frank": {
+      "beliefs": {
+        "Eve": {
+          "confidence": "medium",
+          "evidence": "Claimed Seer but checked dead player Bob, providing no new info on living players. This is either a very bad Seer move or a cheap bluff by a Wolf. Dave's skepticism validates this concern.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Bidding moderately on Day 1 to secure a speaking slot for initial assessment and voting, while preserving budget."
+        },
+        {
+          "round": 1,
+          "text": "Stated Villager role. Expressed neutrality/skepticism towards Eve's bad Seer move, aligning somewhat with Dave but keeping an open mind. Waiting for other villagers to speak."
+        },
+        {
+          "round": 1,
+          "text": "Already stated skepticism in main phase. Waiting for Grace, Alice, and Carol to speak before forming a harder opinion. Passing to hear more."
+        },
+        {
+          "round": 1,
+          "text": "Voting for Eve due to suspicious Seer play (checking dead Bob) and lack of other strong evidence against others."
+        }
+      ],
+      "plan": "Observe Eve's 'Seer' claim. She checked a dead player (Bob), which is unusual and suspect. Dave is skeptical. I am a Villager. I will remain neutral for now, listen to Grace, Alice, and Carol, and look for contradictions. Do not accuse without hard evidence. Prioritize logical consistency."
+    },
+    "Grace": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Coordinating with Alice as discussed in pack chat."
+        },
+        {
+          "round": 1,
+          "text": "Bid moderately to participate in the first day's discussion and blend in."
+        },
+        {
+          "round": 1,
+          "text": "Dave and Frank are already suspicious of Eve's Seer claim; I'll stay quiet to avoid drawing attention to myself while the village doubts her."
+        },
+        {
+          "round": 1,
+          "text": "Aligning with Dave and Frank's suspicion about Eve's suboptimal Seer claim to potentially eliminate the Seer or a confusing villager."
+        },
+        {
+          "round": 2,
+          "text": "Dave was sharp and skeptical of Eve; he is a high-priority target for the pack."
+        }
+      ],
+      "plan": ""
+    }
+  }
+}

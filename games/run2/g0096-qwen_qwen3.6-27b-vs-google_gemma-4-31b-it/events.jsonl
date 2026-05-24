@@ -1,0 +1,54 @@
+{"game_id": "g0096-qwen_qwen3.6-27b-vs-google_gemma-4-31b-it", "players": [["Alice", "werewolf"], ["Bob", "doctor"], ["Carol", "villager"], ["Dave", "seer"], ["Eve", "werewolf"], ["Frank", "villager"], ["Grace", "villager"]], "seed": 273572090}
+{"payload": {"message": "Hi Eve, first night. Let's target Bob. Do you agree?", "speaker": "Alice"}, "phase": "night", "recipients": ["Alice", "Eve"], "round": 1, "seq": 0, "type": "werewolf_chat"}
+{"payload": {"message": "Alice, let's coordinate. Since we don't know who the doctor or seer is, I suggest we kill Frank tonight to start. Does that work for you?", "speaker": "Eve"}, "phase": "night", "recipients": ["Alice", "Eve"], "round": 1, "seq": 1, "type": "werewolf_chat"}
+{"payload": {"faction": "werewolves", "target": "Alice"}, "phase": "night", "recipients": ["Dave"], "round": 1, "seq": 2, "type": "seer_inspect"}
+{"payload": {"target": "Alice"}, "phase": "night", "recipients": ["Bob"], "round": 1, "seq": 3, "type": "doctor_protect"}
+{"payload": {"ballots": {"Alice": "Frank", "Eve": "Frank"}}, "phase": "night", "recipients": ["Alice", "Eve"], "round": 1, "seq": 4, "type": "kill_ballots"}
+{"payload": {"victim": "Frank"}, "phase": "night", "recipients": [], "round": 1, "seq": 5, "type": "kill_resolved"}
+{"payload": {"amount": 10, "bidder": "Alice"}, "phase": "day", "recipients": ["Alice"], "round": 1, "seq": 6, "type": "bid"}
+{"payload": {"amount": 15, "bidder": "Bob"}, "phase": "day", "recipients": ["Bob"], "round": 1, "seq": 7, "type": "bid"}
+{"payload": {"amount": 15, "bidder": "Carol"}, "phase": "day", "recipients": ["Carol"], "round": 1, "seq": 8, "type": "bid"}
+{"payload": {"amount": 30, "bidder": "Dave"}, "phase": "day", "recipients": ["Dave"], "round": 1, "seq": 9, "type": "bid"}
+{"payload": {"amount": 5, "bidder": "Eve"}, "phase": "day", "recipients": ["Eve"], "round": 1, "seq": 10, "type": "bid"}
+{"payload": {"amount": 15, "bidder": "Grace"}, "phase": "day", "recipients": ["Grace"], "round": 1, "seq": 11, "type": "bid"}
+{"payload": {"bids": {"Alice": 10, "Bob": 15, "Carol": 15, "Dave": 30, "Eve": 5, "Grace": 15}, "speakers": ["Dave", "Carol", "Bob"]}, "phase": "day", "recipients": [], "round": 1, "seq": 12, "type": "discussion_resolved"}
+{"payload": {"message": "I am the seer, and I inspected Alice last night. She is a werewolf. We must exile her immediately!", "speaker": "Dave"}, "phase": "day", "recipients": [], "round": 1, "seq": 13, "type": "speech"}
+{"payload": {"message": "Dave, that's a very strong claim. Alice, how do you respond to this? If Dave is indeed the seer, we have a clear target, but I want to hear Alice's side before we commit.", "speaker": "Carol"}, "phase": "day", "recipients": [], "round": 1, "seq": 14, "type": "speech"}
+{"payload": {"message": "Dave, that is a very bold claim. If you are indeed the seer, Alice is our primary target. However, we should hear Alice's response first to see if she has a counter-claim or a plausible defense before we vote.", "speaker": "Bob"}, "phase": "day", "recipients": [], "round": 1, "seq": 15, "type": "speech"}
+{"payload": {"accuser": "Dave", "reason": "I am the seer and I saw that she is a werewolf.", "target": "Alice"}, "phase": "day", "recipients": [], "round": 1, "seq": 16, "type": "accusation"}
+{"payload": {"defended": "Alice", "defender": "Alice", "reason": "Dave's claim is suspicious. A real Seer would verify. He is likely a Wolf trying to frame a villager to die. I am innocent."}, "phase": "day", "recipients": [], "round": 1, "seq": 17, "type": "defense"}
+{"payload": {"accuser": "Eve", "reason": "Dave's claim is too convenient and aggressive. True seers often verify. He might be a wolf framing Alice to divert attention from his partner.", "target": "Dave"}, "phase": "day", "recipients": [], "round": 1, "seq": 18, "type": "accusation"}
+{"payload": {"ballots": {"Alice": "Dave", "Bob": "abstain", "Carol": "abstain", "Dave": "Alice", "Eve": "Alice", "Grace": "Alice"}, "exiled": "Alice"}, "phase": "day", "recipients": [], "round": 1, "seq": 19, "type": "exile_resolved"}
+{"payload": {"faction": "villagers", "target": "Bob"}, "phase": "night", "recipients": ["Dave"], "round": 2, "seq": 20, "type": "seer_inspect"}
+{"payload": {"target": "Dave"}, "phase": "night", "recipients": ["Bob"], "round": 2, "seq": 21, "type": "doctor_protect"}
+{"payload": {"ballots": {"Eve": "Dave"}}, "phase": "night", "recipients": ["Eve"], "round": 2, "seq": 22, "type": "kill_ballots"}
+{"payload": {"victim": null}, "phase": "night", "recipients": [], "round": 2, "seq": 23, "type": "kill_resolved"}
+{"payload": {"amount": 30, "bidder": "Bob"}, "phase": "day", "recipients": ["Bob"], "round": 2, "seq": 24, "type": "bid"}
+{"payload": {"amount": 20, "bidder": "Carol"}, "phase": "day", "recipients": ["Carol"], "round": 2, "seq": 25, "type": "bid"}
+{"payload": {"amount": 20, "bidder": "Dave"}, "phase": "day", "recipients": ["Dave"], "round": 2, "seq": 26, "type": "bid"}
+{"payload": {"amount": 0, "bidder": "Eve"}, "phase": "day", "recipients": ["Eve"], "round": 2, "seq": 27, "type": "bid"}
+{"payload": {"amount": 20, "bidder": "Grace"}, "phase": "day", "recipients": ["Grace"], "round": 2, "seq": 28, "type": "bid"}
+{"payload": {"bids": {"Bob": 30, "Carol": 20, "Dave": 20, "Eve": 0, "Grace": 20}, "speakers": ["Bob", "Carol", "Grace"]}, "phase": "day", "recipients": [], "round": 2, "seq": 29, "type": "discussion_resolved"}
+{"payload": {"message": "Everyone, notice that no one died last night. I am the doctor and I protected Dave. This means the werewolves tried to kill Dave, which proves Dave is not a werewolf.", "speaker": "Bob"}, "phase": "day", "recipients": [], "round": 2, "seq": 30, "type": "speech"}
+{"payload": {"message": "Bob, that is a very convenient coincidence. Why did you choose to protect Dave specifically last night? We should be cautious\u2014werewolves often work in pairs to clear each other's names. If Bob is lying about being the doctor, he's just protecting his partner, Dave.", "speaker": "Carol"}, "phase": "day", "recipients": [], "round": 2, "seq": 31, "type": "speech"}
+{"payload": {"message": "The fact that no one died is interesting. Bob, why did you decide to protect Dave specifically last night? And Dave, if you are the seer, did you inspect anyone else last night? If Bob is telling the truth, Dave is likely safe, but we need to be sure we aren't being played by a coordinated pair.", "speaker": "Grace"}, "phase": "day", "recipients": [], "round": 2, "seq": 32, "type": "speech"}
+{"payload": {"defended": "Bob", "defender": "Dave", "reason": "I am the seer and I inspected Bob last night; he is a villager, so his claim of being the doctor is credible."}, "phase": "day", "recipients": [], "round": 2, "seq": 33, "type": "defense"}
+{"payload": {"defended": "Dave", "defender": "Bob", "reason": "The werewolves tried to kill Dave last night, which confirms he is not one of them."}, "phase": "day", "recipients": [], "round": 2, "seq": 34, "type": "defense"}
+{"payload": {"accuser": "Carol", "reason": "Bob and Dave are clearing each other too conveniently; this looks like a coordinated werewolf pair trying to fake power roles.", "target": "Bob"}, "phase": "day", "recipients": [], "round": 2, "seq": 35, "type": "accusation"}
+{"payload": {"ballots": {"Bob": "Carol", "Carol": "Bob", "Dave": "Carol", "Eve": "Carol", "Grace": "Bob"}, "exiled": "Carol"}, "phase": "day", "recipients": [], "round": 2, "seq": 36, "type": "exile_resolved"}
+{"payload": {"faction": "werewolves", "target": "Eve"}, "phase": "night", "recipients": ["Dave"], "round": 3, "seq": 37, "type": "seer_inspect"}
+{"payload": {"target": "Dave"}, "phase": "night", "recipients": ["Bob"], "round": 3, "seq": 38, "type": "doctor_protect"}
+{"payload": {"ballots": {"Eve": "Dave"}}, "phase": "night", "recipients": ["Eve"], "round": 3, "seq": 39, "type": "kill_ballots"}
+{"payload": {"victim": null}, "phase": "night", "recipients": [], "round": 3, "seq": 40, "type": "kill_resolved"}
+{"payload": {"amount": 30, "bidder": "Bob"}, "phase": "day", "recipients": ["Bob"], "round": 3, "seq": 41, "type": "bid"}
+{"payload": {"amount": 30, "bidder": "Dave"}, "phase": "day", "recipients": ["Dave"], "round": 3, "seq": 42, "type": "bid"}
+{"payload": {"amount": 0, "bidder": "Eve"}, "phase": "day", "recipients": ["Eve"], "round": 3, "seq": 43, "type": "bid"}
+{"payload": {"amount": 30, "bidder": "Grace"}, "phase": "day", "recipients": ["Grace"], "round": 3, "seq": 44, "type": "bid"}
+{"payload": {"bids": {"Bob": 30, "Dave": 30, "Eve": 0, "Grace": 30}, "speakers": ["Bob", "Dave", "Grace"]}, "phase": "day", "recipients": [], "round": 3, "seq": 45, "type": "discussion_resolved"}
+{"payload": {"message": "Everyone, for the second night in a row, I protected Dave and no one died. This is conclusive proof that the werewolves are trying to kill Dave. Dave is definitely a villager, and since we've already exiled Carol, we should now look closely at Eve and Grace.", "speaker": "Bob"}, "phase": "day", "recipients": [], "round": 3, "seq": 46, "type": "speech"}
+{"payload": {"message": "I have the confirmation the village needs. As the seer, I inspected Eve last night, and she is a werewolf. We must exile her immediately to win.", "speaker": "Dave"}, "phase": "day", "recipients": [], "round": 3, "seq": 47, "type": "speech"}
+{"payload": {"message": "Dave, your claim that Eve is a werewolf is very direct. Eve, what do you have to say for yourself? I'm still wary of how perfectly Bob and Dave's stories align\u2014it's exactly what a werewolf pair would do to secure control of the village\u2014but if Dave is telling the truth, we win today. Eve, give us a reason not to believe the Seer.", "speaker": "Grace"}, "phase": "day", "recipients": [], "round": 3, "seq": 48, "type": "speech"}
+{"payload": {"accuser": "Bob", "reason": "Dave is confirmed safe because I protected him twice and no one died, so his claim that Eve is a werewolf must be true.", "target": "Eve"}, "phase": "day", "recipients": [], "round": 3, "seq": 49, "type": "accusation"}
+{"payload": {"accuser": "Eve", "reason": "Bob is the werewolf faking the Doctor role to protect Dave, his partner, who is faking the Seer role to clear him.", "target": "Bob"}, "phase": "day", "recipients": [], "round": 3, "seq": 50, "type": "accusation"}
+{"payload": {"ballots": {"Bob": "Eve", "Dave": "Eve", "Eve": "Bob", "Grace": "Eve"}, "exiled": "Eve"}, "phase": "day", "recipients": [], "round": 3, "seq": 51, "type": "exile_resolved"}
+{"payload": {"winner": "villagers"}, "phase": "day", "recipients": [], "round": 3, "seq": 52, "type": "game_over"}

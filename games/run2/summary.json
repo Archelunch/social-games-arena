@@ -1,0 +1,1379 @@
+{
+  "aggregate": {
+    "mean_game_length": 2.619047619047619,
+    "mean_illegal_move_rate": 0.004445999233233057,
+    "models": [
+      {
+        "completion_tokens": 441938,
+        "games": 164,
+        "illegal_moves": 8,
+        "model": "deepseek/deepseek-v4-flash",
+        "prompt_tokens": 3256679,
+        "roles": [
+          {
+            "games": 22,
+            "role": "doctor",
+            "win_rate": 0.36363636363636365,
+            "wins": 8
+          },
+          {
+            "games": 22,
+            "role": "seer",
+            "win_rate": 0.36363636363636365,
+            "wins": 8
+          },
+          {
+            "games": 66,
+            "role": "villager",
+            "win_rate": 0.36363636363636365,
+            "wins": 24
+          },
+          {
+            "games": 54,
+            "role": "werewolf",
+            "win_rate": 0.7407407407407407,
+            "wins": 40
+          }
+        ],
+        "tool_calls": 1294,
+        "win_rate": 0.4878048780487805,
+        "wins": 80
+      },
+      {
+        "completion_tokens": 665600,
+        "games": 167,
+        "illegal_moves": 17,
+        "model": "google/gemma-4-26b-a4b-it",
+        "prompt_tokens": 4336174,
+        "roles": [
+          {
+            "games": 23,
+            "role": "doctor",
+            "win_rate": 0.21739130434782608,
+            "wins": 5
+          },
+          {
+            "games": 23,
+            "role": "seer",
+            "win_rate": 0.21739130434782608,
+            "wins": 5
+          },
+          {
+            "games": 69,
+            "role": "villager",
+            "win_rate": 0.21739130434782608,
+            "wins": 15
+          },
+          {
+            "games": 52,
+            "role": "werewolf",
+            "win_rate": 0.6153846153846154,
+            "wins": 32
+          }
+        ],
+        "tool_calls": 1683,
+        "win_rate": 0.3413173652694611,
+        "wins": 57
+      },
+      {
+        "completion_tokens": 340594,
+        "games": 170,
+        "illegal_moves": 1,
+        "model": "google/gemma-4-31b-it",
+        "prompt_tokens": 3209822,
+        "roles": [
+          {
+            "games": 24,
+            "role": "doctor",
+            "win_rate": 0.75,
+            "wins": 18
+          },
+          {
+            "games": 24,
+            "role": "seer",
+            "win_rate": 0.75,
+            "wins": 18
+          },
+          {
+            "games": 72,
+            "role": "villager",
+            "win_rate": 0.75,
+            "wins": 54
+          },
+          {
+            "games": 50,
+            "role": "werewolf",
+            "win_rate": 0.68,
+            "wins": 34
+          }
+        ],
+        "tool_calls": 1578,
+        "win_rate": 0.7294117647058823,
+        "wins": 124
+      },
+      {
+        "completion_tokens": 1163316,
+        "games": 173,
+        "illegal_moves": 2,
+        "model": "qwen/qwen3.5-9b",
+        "prompt_tokens": 2885381,
+        "roles": [
+          {
+            "games": 25,
+            "role": "doctor",
+            "win_rate": 0.12,
+            "wins": 3
+          },
+          {
+            "games": 25,
+            "role": "seer",
+            "win_rate": 0.12,
+            "wins": 3
+          },
+          {
+            "games": 75,
+            "role": "villager",
+            "win_rate": 0.12,
+            "wins": 9
+          },
+          {
+            "games": 48,
+            "role": "werewolf",
+            "win_rate": 0.4166666666666667,
+            "wins": 20
+          }
+        ],
+        "tool_calls": 1170,
+        "win_rate": 0.2023121387283237,
+        "wins": 35
+      },
+      {
+        "completion_tokens": 879735,
+        "games": 176,
+        "illegal_moves": 4,
+        "model": "qwen/qwen3.6-27b",
+        "prompt_tokens": 3956094,
+        "roles": [
+          {
+            "games": 26,
+            "role": "doctor",
+            "win_rate": 0.5384615384615384,
+            "wins": 14
+          },
+          {
+            "games": 26,
+            "role": "seer",
+            "win_rate": 0.5384615384615384,
+            "wins": 14
+          },
+          {
+            "games": 78,
+            "role": "villager",
+            "win_rate": 0.5384615384615384,
+            "wins": 42
+          },
+          {
+            "games": 46,
+            "role": "werewolf",
+            "win_rate": 0.6521739130434783,
+            "wins": 30
+          }
+        ],
+        "tool_calls": 1334,
+        "win_rate": 0.5681818181818182,
+        "wins": 100
+      },
+      {
+        "completion_tokens": 1229302,
+        "games": 179,
+        "illegal_moves": 6,
+        "model": "qwen/qwen3.6-35b-a3b",
+        "prompt_tokens": 3591348,
+        "roles": [
+          {
+            "games": 27,
+            "role": "doctor",
+            "win_rate": 0.37037037037037035,
+            "wins": 10
+          },
+          {
+            "games": 27,
+            "role": "seer",
+            "win_rate": 0.37037037037037035,
+            "wins": 10
+          },
+          {
+            "games": 81,
+            "role": "villager",
+            "win_rate": 0.37037037037037035,
+            "wins": 30
+          },
+          {
+            "games": 44,
+            "role": "werewolf",
+            "win_rate": 0.5,
+            "wins": 22
+          }
+        ],
+        "tool_calls": 1549,
+        "win_rate": 0.4022346368715084,
+        "wins": 72
+      }
+    ],
+    "n_games": 147
+  },
+  "failed": [],
+  "games": [
+    {
+      "game_id": "g0000-deepseek_deepseek-v4-flash-vs-deepseek_deepseek-v4-flash",
+      "seed": 160222076,
+      "villager_model": "deepseek/deepseek-v4-flash",
+      "werewolf_model": "deepseek/deepseek-v4-flash",
+      "winner": "werewolves"
+    },
+    {
+      "game_id": "g0001-deepseek_deepseek-v4-flash-vs-deepseek_deepseek-v4-flash",
+      "seed": 411618085,
+      "villager_model": "deepseek/deepseek-v4-flash",
+      "werewolf_model": "deepseek/deepseek-v4-flash",
+      "winner": "villagers"
+    },
+    {
+      "game_id": "g0002-deepseek_deepseek-v4-flash-vs-deepseek_deepseek-v4-flash",
+      "seed": 716893640,
+      "villager_model": "deepseek/deepseek-v4-flash",
+      "werewolf_model": "deepseek/deepseek-v4-flash",
+      "winner": "werewolves"
+    },
+    {
+      "game_id": "g0003-deepseek_deepseek-v4-flash-vs-deepseek_deepseek-v4-flash",
+      "seed": 286369870,
+      "villager_model": "deepseek/deepseek-v4-flash",
+      "werewolf_model": "deepseek/deepseek-v4-flash",
+      "winner": "werewolves"
+    },
+    {
+      "game_id": "g0004-deepseek_deepseek-v4-flash-vs-deepseek_deepseek-v4-flash",
+      "seed": 1480120772,
+      "villager_model": "deepseek/deepseek-v4-flash",
+      "werewolf_model": "deepseek/deepseek-v4-flash",
+      "winner": "werewolves"
+    },
+    {
+      "game_id": "g0005-deepseek_deepseek-v4-flash-vs-deepseek_deepseek-v4-flash",
+      "seed": 1408904006,
+      "villager_model": "deepseek/deepseek-v4-flash",
+      "werewolf_model": "deepseek/deepseek-v4-flash",
+      "winner": "werewolves"
+    },
+    {
+      "game_id": "g0006-deepseek_deepseek-v4-flash-vs-deepseek_deepseek-v4-flash",
+      "seed": 1780404262,
+      "villager_model": "deepseek/deepseek-v4-flash",
+      "werewolf_model": "deepseek/deepseek-v4-flash",
+      "winner": "werewolves"
+    },
+    {
+      "game_id": "g0007-deepseek_deepseek-v4-flash-vs-google_gemma-4-26b-a4b-it",
+      "seed": 1996373426,
+      "villager_model": "google/gemma-4-26b-a4b-it",
+      "werewolf_model": "deepseek/deepseek-v4-flash",
+      "winner": "werewolves"
+    },
+    {
+      "game_id": "g0008-google_gemma-4-26b-a4b-it-vs-deepseek_deepseek-v4-flash",
+      "seed": 1839733077,
+      "villager_model": "deepseek/deepseek-v4-flash",
+      "werewolf_model": "google/gemma-4-26b-a4b-it",
+      "winner": "werewolves"
+    },
+    {
+      "game_id": "g0009-deepseek_deepseek-v4-flash-vs-google_gemma-4-26b-a4b-it",
+      "seed": 1879686290,
+      "villager_model": "google/gemma-4-26b-a4b-it",
+      "werewolf_model": "deepseek/deepseek-v4-flash",
+      "winner": "werewolves"
+    },
+    {
+      "game_id": "g0010-google_gemma-4-26b-a4b-it-vs-deepseek_deepseek-v4-flash",
+      "seed": 1379522261,
+      "villager_model": "deepseek/deepseek-v4-flash",
+      "werewolf_model": "google/gemma-4-26b-a4b-it",
+      "winner": "werewolves"
+    },
+    {
+      "game_id": "g0011-deepseek_deepseek-v4-flash-vs-google_gemma-4-26b-a4b-it",
+      "seed": 1890996008,
+      "villager_model": "google/gemma-4-26b-a4b-it",
+      "werewolf_model": "deepseek/deepseek-v4-flash",
+      "winner": "werewolves"
+    },
+    {
+      "game_id": "g0012-google_gemma-4-26b-a4b-it-vs-deepseek_deepseek-v4-flash",
+      "seed": 609696139,
+      "villager_model": "deepseek/deepseek-v4-flash",
+      "werewolf_model": "google/gemma-4-26b-a4b-it",
+      "winner": "werewolves"
+    },
+    {
+      "game_id": "g0013-deepseek_deepseek-v4-flash-vs-google_gemma-4-26b-a4b-it",
+      "seed": 1770377794,
+      "villager_model": "google/gemma-4-26b-a4b-it",
+      "werewolf_model": "deepseek/deepseek-v4-flash",
+      "winner": "werewolves"
+    },
+    {
+      "game_id": "g0014-deepseek_deepseek-v4-flash-vs-google_gemma-4-31b-it",
+      "seed": 1684125718,
+      "villager_model": "google/gemma-4-31b-it",
+      "werewolf_model": "deepseek/deepseek-v4-flash",
+      "winner": "villagers"
+    },
+    {
+      "game_id": "g0015-google_gemma-4-31b-it-vs-deepseek_deepseek-v4-flash",
+      "seed": 276374864,
+      "villager_model": "deepseek/deepseek-v4-flash",
+      "werewolf_model": "google/gemma-4-31b-it",
+      "winner": "werewolves"
+    },
+    {
+      "game_id": "g0016-deepseek_deepseek-v4-flash-vs-google_gemma-4-31b-it",
+      "seed": 1779485030,
+      "villager_model": "google/gemma-4-31b-it",
+      "werewolf_model": "deepseek/deepseek-v4-flash",
+      "winner": "werewolves"
+    },
+    {
+      "game_id": "g0017-google_gemma-4-31b-it-vs-deepseek_deepseek-v4-flash",
+      "seed": 1228982502,
+      "villager_model": "deepseek/deepseek-v4-flash",
+      "werewolf_model": "google/gemma-4-31b-it",
+      "winner": "werewolves"
+    },
+    {
+      "game_id": "g0018-deepseek_deepseek-v4-flash-vs-google_gemma-4-31b-it",
+      "seed": 632260366,
+      "villager_model": "google/gemma-4-31b-it",
+      "werewolf_model": "deepseek/deepseek-v4-flash",
+      "winner": "werewolves"
+    },
+    {
+      "game_id": "g0019-google_gemma-4-31b-it-vs-deepseek_deepseek-v4-flash",
+      "seed": 841896552,
+      "villager_model": "deepseek/deepseek-v4-flash",
+      "werewolf_model": "google/gemma-4-31b-it",
+      "winner": "villagers"
+    },
+    {
+      "game_id": "g0020-deepseek_deepseek-v4-flash-vs-google_gemma-4-31b-it",
+      "seed": 611754946,
+      "villager_model": "google/gemma-4-31b-it",
+      "werewolf_model": "deepseek/deepseek-v4-flash",
+      "winner": "villagers"
+    },
+    {
+      "game_id": "g0021-deepseek_deepseek-v4-flash-vs-qwen_qwen3.5-9b",
+      "seed": 1331725109,
+      "villager_model": "qwen/qwen3.5-9b",
+      "werewolf_model": "deepseek/deepseek-v4-flash",
+      "winner": "villagers"
+    },
+    {
+      "game_id": "g0022-qwen_qwen3.5-9b-vs-deepseek_deepseek-v4-flash",
+      "seed": 906233465,
+      "villager_model": "deepseek/deepseek-v4-flash",
+      "werewolf_model": "qwen/qwen3.5-9b",
+      "winner": "villagers"
+    },
+    {
+      "game_id": "g0023-deepseek_deepseek-v4-flash-vs-qwen_qwen3.5-9b",
+      "seed": 891833109,
+      "villager_model": "qwen/qwen3.5-9b",
+      "werewolf_model": "deepseek/deepseek-v4-flash",
+      "winner": "werewolves"
+    },
+    {
+      "game_id": "g0024-qwen_qwen3.5-9b-vs-deepseek_deepseek-v4-flash",
+      "seed": 443512533,
+      "villager_model": "deepseek/deepseek-v4-flash",
+      "werewolf_model": "qwen/qwen3.5-9b",
+      "winner": "werewolves"
+    },
+    {
+      "game_id": "g0025-deepseek_deepseek-v4-flash-vs-qwen_qwen3.5-9b",
+      "seed": 426935375,
+      "villager_model": "qwen/qwen3.5-9b",
+      "werewolf_model": "deepseek/deepseek-v4-flash",
+      "winner": "werewolves"
+    },
+    {
+      "game_id": "g0026-qwen_qwen3.5-9b-vs-deepseek_deepseek-v4-flash",
+      "seed": 1663369154,
+      "villager_model": "deepseek/deepseek-v4-flash",
+      "werewolf_model": "qwen/qwen3.5-9b",
+      "winner": "villagers"
+    },
+    {
+      "game_id": "g0027-deepseek_deepseek-v4-flash-vs-qwen_qwen3.5-9b",
+      "seed": 280585147,
+      "villager_model": "qwen/qwen3.5-9b",
+      "werewolf_model": "deepseek/deepseek-v4-flash",
+      "winner": "werewolves"
+    },
+    {
+      "game_id": "g0028-deepseek_deepseek-v4-flash-vs-qwen_qwen3.6-27b",
+      "seed": 1125930417,
+      "villager_model": "qwen/qwen3.6-27b",
+      "werewolf_model": "deepseek/deepseek-v4-flash",
+      "winner": "villagers"
+    },
+    {
+      "game_id": "g0029-qwen_qwen3.6-27b-vs-deepseek_deepseek-v4-flash",
+      "seed": 1598071274,
+      "villager_model": "deepseek/deepseek-v4-flash",
+      "werewolf_model": "qwen/qwen3.6-27b",
+      "winner": "villagers"
+    },
+    {
+      "game_id": "g0030-deepseek_deepseek-v4-flash-vs-qwen_qwen3.6-27b",
+      "seed": 174764210,
+      "villager_model": "qwen/qwen3.6-27b",
+      "werewolf_model": "deepseek/deepseek-v4-flash",
+      "winner": "werewolves"
+    },
+    {
+      "game_id": "g0031-qwen_qwen3.6-27b-vs-deepseek_deepseek-v4-flash",
+      "seed": 270229047,
+      "villager_model": "deepseek/deepseek-v4-flash",
+      "werewolf_model": "qwen/qwen3.6-27b",
+      "winner": "werewolves"
+    },
+    {
+      "game_id": "g0032-deepseek_deepseek-v4-flash-vs-qwen_qwen3.6-27b",
+      "seed": 402725913,
+      "villager_model": "qwen/qwen3.6-27b",
+      "werewolf_model": "deepseek/deepseek-v4-flash",
+      "winner": "villagers"
+    },
+    {
+      "game_id": "g0033-qwen_qwen3.6-27b-vs-deepseek_deepseek-v4-flash",
+      "seed": 938435487,
+      "villager_model": "deepseek/deepseek-v4-flash",
+      "werewolf_model": "qwen/qwen3.6-27b",
+      "winner": "villagers"
+    },
+    {
+      "game_id": "g0034-deepseek_deepseek-v4-flash-vs-qwen_qwen3.6-27b",
+      "seed": 130871917,
+      "villager_model": "qwen/qwen3.6-27b",
+      "werewolf_model": "deepseek/deepseek-v4-flash",
+      "winner": "werewolves"
+    },
+    {
+      "game_id": "g0035-deepseek_deepseek-v4-flash-vs-qwen_qwen3.6-35b-a3b",
+      "seed": 623357559,
+      "villager_model": "qwen/qwen3.6-35b-a3b",
+      "werewolf_model": "deepseek/deepseek-v4-flash",
+      "winner": "villagers"
+    },
+    {
+      "game_id": "g0036-qwen_qwen3.6-35b-a3b-vs-deepseek_deepseek-v4-flash",
+      "seed": 1070340030,
+      "villager_model": "deepseek/deepseek-v4-flash",
+      "werewolf_model": "qwen/qwen3.6-35b-a3b",
+      "winner": "werewolves"
+    },
+    {
+      "game_id": "g0037-deepseek_deepseek-v4-flash-vs-qwen_qwen3.6-35b-a3b",
+      "seed": 1049445367,
+      "villager_model": "qwen/qwen3.6-35b-a3b",
+      "werewolf_model": "deepseek/deepseek-v4-flash",
+      "winner": "werewolves"
+    },
+    {
+      "game_id": "g0038-qwen_qwen3.6-35b-a3b-vs-deepseek_deepseek-v4-flash",
+      "seed": 1174525581,
+      "villager_model": "deepseek/deepseek-v4-flash",
+      "werewolf_model": "qwen/qwen3.6-35b-a3b",
+      "winner": "villagers"
+    },
+    {
+      "game_id": "g0039-deepseek_deepseek-v4-flash-vs-qwen_qwen3.6-35b-a3b",
+      "seed": 646317597,
+      "villager_model": "qwen/qwen3.6-35b-a3b",
+      "werewolf_model": "deepseek/deepseek-v4-flash",
+      "winner": "werewolves"
+    },
+    {
+      "game_id": "g0040-qwen_qwen3.6-35b-a3b-vs-deepseek_deepseek-v4-flash",
+      "seed": 2056986197,
+      "villager_model": "deepseek/deepseek-v4-flash",
+      "werewolf_model": "qwen/qwen3.6-35b-a3b",
+      "winner": "villagers"
+    },
+    {
+      "game_id": "g0041-deepseek_deepseek-v4-flash-vs-qwen_qwen3.6-35b-a3b",
+      "seed": 345917151,
+      "villager_model": "qwen/qwen3.6-35b-a3b",
+      "werewolf_model": "deepseek/deepseek-v4-flash",
+      "winner": "werewolves"
+    },
+    {
+      "game_id": "g0042-google_gemma-4-26b-a4b-it-vs-google_gemma-4-26b-a4b-it",
+      "seed": 1410506909,
+      "villager_model": "google/gemma-4-26b-a4b-it",
+      "werewolf_model": "google/gemma-4-26b-a4b-it",
+      "winner": "werewolves"
+    },
+    {
+      "game_id": "g0043-google_gemma-4-26b-a4b-it-vs-google_gemma-4-26b-a4b-it",
+      "seed": 1131892901,
+      "villager_model": "google/gemma-4-26b-a4b-it",
+      "werewolf_model": "google/gemma-4-26b-a4b-it",
+      "winner": "werewolves"
+    },
+    {
+      "game_id": "g0044-google_gemma-4-26b-a4b-it-vs-google_gemma-4-26b-a4b-it",
+      "seed": 1790052319,
+      "villager_model": "google/gemma-4-26b-a4b-it",
+      "werewolf_model": "google/gemma-4-26b-a4b-it",
+      "winner": "werewolves"
+    },
+    {
+      "game_id": "g0045-google_gemma-4-26b-a4b-it-vs-google_gemma-4-26b-a4b-it",
+      "seed": 143727223,
+      "villager_model": "google/gemma-4-26b-a4b-it",
+      "werewolf_model": "google/gemma-4-26b-a4b-it",
+      "winner": "werewolves"
+    },
+    {
+      "game_id": "g0046-google_gemma-4-26b-a4b-it-vs-google_gemma-4-26b-a4b-it",
+      "seed": 1095694164,
+      "villager_model": "google/gemma-4-26b-a4b-it",
+      "werewolf_model": "google/gemma-4-26b-a4b-it",
+      "winner": "werewolves"
+    },
+    {
+      "game_id": "g0047-google_gemma-4-26b-a4b-it-vs-google_gemma-4-26b-a4b-it",
+      "seed": 366066712,
+      "villager_model": "google/gemma-4-26b-a4b-it",
+      "werewolf_model": "google/gemma-4-26b-a4b-it",
+      "winner": "villagers"
+    },
+    {
+      "game_id": "g0048-google_gemma-4-26b-a4b-it-vs-google_gemma-4-26b-a4b-it",
+      "seed": 529151834,
+      "villager_model": "google/gemma-4-26b-a4b-it",
+      "werewolf_model": "google/gemma-4-26b-a4b-it",
+      "winner": "werewolves"
+    },
+    {
+      "game_id": "g0049-google_gemma-4-26b-a4b-it-vs-google_gemma-4-31b-it",
+      "seed": 1317682433,
+      "villager_model": "google/gemma-4-31b-it",
+      "werewolf_model": "google/gemma-4-26b-a4b-it",
+      "winner": "villagers"
+    },
+    {
+      "game_id": "g0050-google_gemma-4-31b-it-vs-google_gemma-4-26b-a4b-it",
+      "seed": 1702715154,
+      "villager_model": "google/gemma-4-26b-a4b-it",
+      "werewolf_model": "google/gemma-4-31b-it",
+      "winner": "werewolves"
+    },
+    {
+      "game_id": "g0051-google_gemma-4-26b-a4b-it-vs-google_gemma-4-31b-it",
+      "seed": 1170086935,
+      "villager_model": "google/gemma-4-31b-it",
+      "werewolf_model": "google/gemma-4-26b-a4b-it",
+      "winner": "villagers"
+    },
+    {
+      "game_id": "g0052-google_gemma-4-31b-it-vs-google_gemma-4-26b-a4b-it",
+      "seed": 662064544,
+      "villager_model": "google/gemma-4-26b-a4b-it",
+      "werewolf_model": "google/gemma-4-31b-it",
+      "winner": "villagers"
+    },
+    {
+      "game_id": "g0053-google_gemma-4-26b-a4b-it-vs-google_gemma-4-31b-it",
+      "seed": 2097941806,
+      "villager_model": "google/gemma-4-31b-it",
+      "werewolf_model": "google/gemma-4-26b-a4b-it",
+      "winner": "villagers"
+    },
+    {
+      "game_id": "g0054-google_gemma-4-31b-it-vs-google_gemma-4-26b-a4b-it",
+      "seed": 2018498611,
+      "villager_model": "google/gemma-4-26b-a4b-it",
+      "werewolf_model": "google/gemma-4-31b-it",
+      "winner": "werewolves"
+    },
+    {
+      "game_id": "g0055-google_gemma-4-26b-a4b-it-vs-google_gemma-4-31b-it",
+      "seed": 822878615,
+      "villager_model": "google/gemma-4-31b-it",
+      "werewolf_model": "google/gemma-4-26b-a4b-it",
+      "winner": "villagers"
+    },
+    {
+      "game_id": "g0056-google_gemma-4-26b-a4b-it-vs-qwen_qwen3.5-9b",
+      "seed": 1191872436,
+      "villager_model": "qwen/qwen3.5-9b",
+      "werewolf_model": "google/gemma-4-26b-a4b-it",
+      "winner": "werewolves"
+    },
+    {
+      "game_id": "g0057-qwen_qwen3.5-9b-vs-google_gemma-4-26b-a4b-it",
+      "seed": 797706327,
+      "villager_model": "google/gemma-4-26b-a4b-it",
+      "werewolf_model": "qwen/qwen3.5-9b",
+      "winner": "werewolves"
+    },
+    {
+      "game_id": "g0058-google_gemma-4-26b-a4b-it-vs-qwen_qwen3.5-9b",
+      "seed": 1725671488,
+      "villager_model": "qwen/qwen3.5-9b",
+      "werewolf_model": "google/gemma-4-26b-a4b-it",
+      "winner": "villagers"
+    },
+    {
+      "game_id": "g0059-qwen_qwen3.5-9b-vs-google_gemma-4-26b-a4b-it",
+      "seed": 929979484,
+      "villager_model": "google/gemma-4-26b-a4b-it",
+      "werewolf_model": "qwen/qwen3.5-9b",
+      "winner": "villagers"
+    },
+    {
+      "game_id": "g0060-google_gemma-4-26b-a4b-it-vs-qwen_qwen3.5-9b",
+      "seed": 1173979795,
+      "villager_model": "qwen/qwen3.5-9b",
+      "werewolf_model": "google/gemma-4-26b-a4b-it",
+      "winner": "werewolves"
+    },
+    {
+      "game_id": "g0061-qwen_qwen3.5-9b-vs-google_gemma-4-26b-a4b-it",
+      "seed": 1776519189,
+      "villager_model": "google/gemma-4-26b-a4b-it",
+      "werewolf_model": "qwen/qwen3.5-9b",
+      "winner": "villagers"
+    },
+    {
+      "game_id": "g0062-google_gemma-4-26b-a4b-it-vs-qwen_qwen3.5-9b",
+      "seed": 2082555934,
+      "villager_model": "qwen/qwen3.5-9b",
+      "werewolf_model": "google/gemma-4-26b-a4b-it",
+      "winner": "werewolves"
+    },
+    {
+      "game_id": "g0063-google_gemma-4-26b-a4b-it-vs-qwen_qwen3.6-27b",
+      "seed": 1808888785,
+      "villager_model": "qwen/qwen3.6-27b",
+      "werewolf_model": "google/gemma-4-26b-a4b-it",
+      "winner": "werewolves"
+    },
+    {
+      "game_id": "g0064-qwen_qwen3.6-27b-vs-google_gemma-4-26b-a4b-it",
+      "seed": 1110614414,
+      "villager_model": "google/gemma-4-26b-a4b-it",
+      "werewolf_model": "qwen/qwen3.6-27b",
+      "winner": "werewolves"
+    },
+    {
+      "game_id": "g0065-google_gemma-4-26b-a4b-it-vs-qwen_qwen3.6-27b",
+      "seed": 277855502,
+      "villager_model": "qwen/qwen3.6-27b",
+      "werewolf_model": "google/gemma-4-26b-a4b-it",
+      "winner": "villagers"
+    },
+    {
+      "game_id": "g0066-qwen_qwen3.6-27b-vs-google_gemma-4-26b-a4b-it",
+      "seed": 1517381262,
+      "villager_model": "google/gemma-4-26b-a4b-it",
+      "werewolf_model": "qwen/qwen3.6-27b",
+      "winner": "werewolves"
+    },
+    {
+      "game_id": "g0067-google_gemma-4-26b-a4b-it-vs-qwen_qwen3.6-27b",
+      "seed": 1635589796,
+      "villager_model": "qwen/qwen3.6-27b",
+      "werewolf_model": "google/gemma-4-26b-a4b-it",
+      "winner": "werewolves"
+    },
+    {
+      "game_id": "g0068-qwen_qwen3.6-27b-vs-google_gemma-4-26b-a4b-it",
+      "seed": 240332430,
+      "villager_model": "google/gemma-4-26b-a4b-it",
+      "werewolf_model": "qwen/qwen3.6-27b",
+      "winner": "werewolves"
+    },
+    {
+      "game_id": "g0069-google_gemma-4-26b-a4b-it-vs-qwen_qwen3.6-27b",
+      "seed": 342047800,
+      "villager_model": "qwen/qwen3.6-27b",
+      "werewolf_model": "google/gemma-4-26b-a4b-it",
+      "winner": "werewolves"
+    },
+    {
+      "game_id": "g0070-google_gemma-4-26b-a4b-it-vs-qwen_qwen3.6-35b-a3b",
+      "seed": 1896001183,
+      "villager_model": "qwen/qwen3.6-35b-a3b",
+      "werewolf_model": "google/gemma-4-26b-a4b-it",
+      "winner": "villagers"
+    },
+    {
+      "game_id": "g0071-qwen_qwen3.6-35b-a3b-vs-google_gemma-4-26b-a4b-it",
+      "seed": 1867309957,
+      "villager_model": "google/gemma-4-26b-a4b-it",
+      "werewolf_model": "qwen/qwen3.6-35b-a3b",
+      "winner": "werewolves"
+    },
+    {
+      "game_id": "g0072-google_gemma-4-26b-a4b-it-vs-qwen_qwen3.6-35b-a3b",
+      "seed": 544601176,
+      "villager_model": "qwen/qwen3.6-35b-a3b",
+      "werewolf_model": "google/gemma-4-26b-a4b-it",
+      "winner": "villagers"
+    },
+    {
+      "game_id": "g0073-qwen_qwen3.6-35b-a3b-vs-google_gemma-4-26b-a4b-it",
+      "seed": 526820269,
+      "villager_model": "google/gemma-4-26b-a4b-it",
+      "werewolf_model": "qwen/qwen3.6-35b-a3b",
+      "winner": "werewolves"
+    },
+    {
+      "game_id": "g0074-google_gemma-4-26b-a4b-it-vs-qwen_qwen3.6-35b-a3b",
+      "seed": 1563293926,
+      "villager_model": "qwen/qwen3.6-35b-a3b",
+      "werewolf_model": "google/gemma-4-26b-a4b-it",
+      "winner": "villagers"
+    },
+    {
+      "game_id": "g0075-qwen_qwen3.6-35b-a3b-vs-google_gemma-4-26b-a4b-it",
+      "seed": 2119437795,
+      "villager_model": "google/gemma-4-26b-a4b-it",
+      "werewolf_model": "qwen/qwen3.6-35b-a3b",
+      "winner": "villagers"
+    },
+    {
+      "game_id": "g0076-google_gemma-4-26b-a4b-it-vs-qwen_qwen3.6-35b-a3b",
+      "seed": 893749060,
+      "villager_model": "qwen/qwen3.6-35b-a3b",
+      "werewolf_model": "google/gemma-4-26b-a4b-it",
+      "winner": "werewolves"
+    },
+    {
+      "game_id": "g0077-google_gemma-4-31b-it-vs-google_gemma-4-31b-it",
+      "seed": 116652465,
+      "villager_model": "google/gemma-4-31b-it",
+      "werewolf_model": "google/gemma-4-31b-it",
+      "winner": "villagers"
+    },
+    {
+      "game_id": "g0078-google_gemma-4-31b-it-vs-google_gemma-4-31b-it",
+      "seed": 1679328844,
+      "villager_model": "google/gemma-4-31b-it",
+      "werewolf_model": "google/gemma-4-31b-it",
+      "winner": "werewolves"
+    },
+    {
+      "game_id": "g0079-google_gemma-4-31b-it-vs-google_gemma-4-31b-it",
+      "seed": 1634210384,
+      "villager_model": "google/gemma-4-31b-it",
+      "werewolf_model": "google/gemma-4-31b-it",
+      "winner": "villagers"
+    },
+    {
+      "game_id": "g0080-google_gemma-4-31b-it-vs-google_gemma-4-31b-it",
+      "seed": 1054710534,
+      "villager_model": "google/gemma-4-31b-it",
+      "werewolf_model": "google/gemma-4-31b-it",
+      "winner": "werewolves"
+    },
+    {
+      "game_id": "g0081-google_gemma-4-31b-it-vs-google_gemma-4-31b-it",
+      "seed": 1110794371,
+      "villager_model": "google/gemma-4-31b-it",
+      "werewolf_model": "google/gemma-4-31b-it",
+      "winner": "villagers"
+    },
+    {
+      "game_id": "g0082-google_gemma-4-31b-it-vs-google_gemma-4-31b-it",
+      "seed": 1912080845,
+      "villager_model": "google/gemma-4-31b-it",
+      "werewolf_model": "google/gemma-4-31b-it",
+      "winner": "villagers"
+    },
+    {
+      "game_id": "g0083-google_gemma-4-31b-it-vs-google_gemma-4-31b-it",
+      "seed": 651741940,
+      "villager_model": "google/gemma-4-31b-it",
+      "werewolf_model": "google/gemma-4-31b-it",
+      "winner": "werewolves"
+    },
+    {
+      "game_id": "g0084-google_gemma-4-31b-it-vs-qwen_qwen3.5-9b",
+      "seed": 252417316,
+      "villager_model": "qwen/qwen3.5-9b",
+      "werewolf_model": "google/gemma-4-31b-it",
+      "winner": "werewolves"
+    },
+    {
+      "game_id": "g0085-qwen_qwen3.5-9b-vs-google_gemma-4-31b-it",
+      "seed": 1222824391,
+      "villager_model": "google/gemma-4-31b-it",
+      "werewolf_model": "qwen/qwen3.5-9b",
+      "winner": "villagers"
+    },
+    {
+      "game_id": "g0086-google_gemma-4-31b-it-vs-qwen_qwen3.5-9b",
+      "seed": 494212460,
+      "villager_model": "qwen/qwen3.5-9b",
+      "werewolf_model": "google/gemma-4-31b-it",
+      "winner": "werewolves"
+    },
+    {
+      "game_id": "g0087-qwen_qwen3.5-9b-vs-google_gemma-4-31b-it",
+      "seed": 248268714,
+      "villager_model": "google/gemma-4-31b-it",
+      "werewolf_model": "qwen/qwen3.5-9b",
+      "winner": "villagers"
+    },
+    {
+      "game_id": "g0088-google_gemma-4-31b-it-vs-qwen_qwen3.5-9b",
+      "seed": 2144116997,
+      "villager_model": "qwen/qwen3.5-9b",
+      "werewolf_model": "google/gemma-4-31b-it",
+      "winner": "werewolves"
+    },
+    {
+      "game_id": "g0089-qwen_qwen3.5-9b-vs-google_gemma-4-31b-it",
+      "seed": 1928389684,
+      "villager_model": "google/gemma-4-31b-it",
+      "werewolf_model": "qwen/qwen3.5-9b",
+      "winner": "villagers"
+    },
+    {
+      "game_id": "g0090-google_gemma-4-31b-it-vs-qwen_qwen3.5-9b",
+      "seed": 846775528,
+      "villager_model": "qwen/qwen3.5-9b",
+      "werewolf_model": "google/gemma-4-31b-it",
+      "winner": "werewolves"
+    },
+    {
+      "game_id": "g0091-google_gemma-4-31b-it-vs-qwen_qwen3.6-27b",
+      "seed": 1475639678,
+      "villager_model": "qwen/qwen3.6-27b",
+      "werewolf_model": "google/gemma-4-31b-it",
+      "winner": "werewolves"
+    },
+    {
+      "game_id": "g0092-qwen_qwen3.6-27b-vs-google_gemma-4-31b-it",
+      "seed": 355530968,
+      "villager_model": "google/gemma-4-31b-it",
+      "werewolf_model": "qwen/qwen3.6-27b",
+      "winner": "werewolves"
+    },
+    {
+      "game_id": "g0093-google_gemma-4-31b-it-vs-qwen_qwen3.6-27b",
+      "seed": 535083885,
+      "villager_model": "qwen/qwen3.6-27b",
+      "werewolf_model": "google/gemma-4-31b-it",
+      "winner": "villagers"
+    },
+    {
+      "game_id": "g0094-qwen_qwen3.6-27b-vs-google_gemma-4-31b-it",
+      "seed": 1685469010,
+      "villager_model": "google/gemma-4-31b-it",
+      "werewolf_model": "qwen/qwen3.6-27b",
+      "winner": "villagers"
+    },
+    {
+      "game_id": "g0095-google_gemma-4-31b-it-vs-qwen_qwen3.6-27b",
+      "seed": 712955056,
+      "villager_model": "qwen/qwen3.6-27b",
+      "werewolf_model": "google/gemma-4-31b-it",
+      "winner": "werewolves"
+    },
+    {
+      "game_id": "g0096-qwen_qwen3.6-27b-vs-google_gemma-4-31b-it",
+      "seed": 273572090,
+      "villager_model": "google/gemma-4-31b-it",
+      "werewolf_model": "qwen/qwen3.6-27b",
+      "winner": "villagers"
+    },
+    {
+      "game_id": "g0097-google_gemma-4-31b-it-vs-qwen_qwen3.6-27b",
+      "seed": 314422669,
+      "villager_model": "qwen/qwen3.6-27b",
+      "werewolf_model": "google/gemma-4-31b-it",
+      "winner": "villagers"
+    },
+    {
+      "game_id": "g0098-google_gemma-4-31b-it-vs-qwen_qwen3.6-35b-a3b",
+      "seed": 2004544644,
+      "villager_model": "qwen/qwen3.6-35b-a3b",
+      "werewolf_model": "google/gemma-4-31b-it",
+      "winner": "werewolves"
+    },
+    {
+      "game_id": "g0099-qwen_qwen3.6-35b-a3b-vs-google_gemma-4-31b-it",
+      "seed": 587735247,
+      "villager_model": "google/gemma-4-31b-it",
+      "werewolf_model": "qwen/qwen3.6-35b-a3b",
+      "winner": "villagers"
+    },
+    {
+      "game_id": "g0100-google_gemma-4-31b-it-vs-qwen_qwen3.6-35b-a3b",
+      "seed": 2086622526,
+      "villager_model": "qwen/qwen3.6-35b-a3b",
+      "werewolf_model": "google/gemma-4-31b-it",
+      "winner": "werewolves"
+    },
+    {
+      "game_id": "g0101-qwen_qwen3.6-35b-a3b-vs-google_gemma-4-31b-it",
+      "seed": 1457663633,
+      "villager_model": "google/gemma-4-31b-it",
+      "werewolf_model": "qwen/qwen3.6-35b-a3b",
+      "winner": "villagers"
+    },
+    {
+      "game_id": "g0102-google_gemma-4-31b-it-vs-qwen_qwen3.6-35b-a3b",
+      "seed": 520941947,
+      "villager_model": "qwen/qwen3.6-35b-a3b",
+      "werewolf_model": "google/gemma-4-31b-it",
+      "winner": "werewolves"
+    },
+    {
+      "game_id": "g0103-qwen_qwen3.6-35b-a3b-vs-google_gemma-4-31b-it",
+      "seed": 1635591054,
+      "villager_model": "google/gemma-4-31b-it",
+      "werewolf_model": "qwen/qwen3.6-35b-a3b",
+      "winner": "villagers"
+    },
+    {
+      "game_id": "g0104-google_gemma-4-31b-it-vs-qwen_qwen3.6-35b-a3b",
+      "seed": 1657274690,
+      "villager_model": "qwen/qwen3.6-35b-a3b",
+      "werewolf_model": "google/gemma-4-31b-it",
+      "winner": "werewolves"
+    },
+    {
+      "game_id": "g0105-qwen_qwen3.5-9b-vs-qwen_qwen3.5-9b",
+      "seed": 1090071571,
+      "villager_model": "qwen/qwen3.5-9b",
+      "werewolf_model": "qwen/qwen3.5-9b",
+      "winner": "werewolves"
+    },
+    {
+      "game_id": "g0106-qwen_qwen3.5-9b-vs-qwen_qwen3.5-9b",
+      "seed": 2083950871,
+      "villager_model": "qwen/qwen3.5-9b",
+      "werewolf_model": "qwen/qwen3.5-9b",
+      "winner": "werewolves"
+    },
+    {
+      "game_id": "g0107-qwen_qwen3.5-9b-vs-qwen_qwen3.5-9b",
+      "seed": 1029480056,
+      "villager_model": "qwen/qwen3.5-9b",
+      "werewolf_model": "qwen/qwen3.5-9b",
+      "winner": "werewolves"
+    },
+    {
+      "game_id": "g0108-qwen_qwen3.5-9b-vs-qwen_qwen3.5-9b",
+      "seed": 219750181,
+      "villager_model": "qwen/qwen3.5-9b",
+      "werewolf_model": "qwen/qwen3.5-9b",
+      "winner": "villagers"
+    },
+    {
+      "game_id": "g0109-qwen_qwen3.5-9b-vs-qwen_qwen3.5-9b",
+      "seed": 671558313,
+      "villager_model": "qwen/qwen3.5-9b",
+      "werewolf_model": "qwen/qwen3.5-9b",
+      "winner": "werewolves"
+    },
+    {
+      "game_id": "g0110-qwen_qwen3.5-9b-vs-qwen_qwen3.5-9b",
+      "seed": 396586835,
+      "villager_model": "qwen/qwen3.5-9b",
+      "werewolf_model": "qwen/qwen3.5-9b",
+      "winner": "werewolves"
+    },
+    {
+      "game_id": "g0111-qwen_qwen3.5-9b-vs-qwen_qwen3.5-9b",
+      "seed": 1238677414,
+      "villager_model": "qwen/qwen3.5-9b",
+      "werewolf_model": "qwen/qwen3.5-9b",
+      "winner": "werewolves"
+    },
+    {
+      "game_id": "g0112-qwen_qwen3.5-9b-vs-qwen_qwen3.6-27b",
+      "seed": 29429156,
+      "villager_model": "qwen/qwen3.6-27b",
+      "werewolf_model": "qwen/qwen3.5-9b",
+      "winner": "villagers"
+    },
+    {
+      "game_id": "g0113-qwen_qwen3.6-27b-vs-qwen_qwen3.5-9b",
+      "seed": 317500439,
+      "villager_model": "qwen/qwen3.5-9b",
+      "werewolf_model": "qwen/qwen3.6-27b",
+      "winner": "werewolves"
+    },
+    {
+      "game_id": "g0114-qwen_qwen3.5-9b-vs-qwen_qwen3.6-27b",
+      "seed": 581182900,
+      "villager_model": "qwen/qwen3.6-27b",
+      "werewolf_model": "qwen/qwen3.5-9b",
+      "winner": "villagers"
+    },
+    {
+      "game_id": "g0115-qwen_qwen3.6-27b-vs-qwen_qwen3.5-9b",
+      "seed": 1188986821,
+      "villager_model": "qwen/qwen3.5-9b",
+      "werewolf_model": "qwen/qwen3.6-27b",
+      "winner": "werewolves"
+    },
+    {
+      "game_id": "g0116-qwen_qwen3.5-9b-vs-qwen_qwen3.6-27b",
+      "seed": 809651371,
+      "villager_model": "qwen/qwen3.6-27b",
+      "werewolf_model": "qwen/qwen3.5-9b",
+      "winner": "villagers"
+    },
+    {
+      "game_id": "g0117-qwen_qwen3.6-27b-vs-qwen_qwen3.5-9b",
+      "seed": 475357867,
+      "villager_model": "qwen/qwen3.5-9b",
+      "werewolf_model": "qwen/qwen3.6-27b",
+      "winner": "werewolves"
+    },
+    {
+      "game_id": "g0118-qwen_qwen3.5-9b-vs-qwen_qwen3.6-27b",
+      "seed": 1254336923,
+      "villager_model": "qwen/qwen3.6-27b",
+      "werewolf_model": "qwen/qwen3.5-9b",
+      "winner": "werewolves"
+    },
+    {
+      "game_id": "g0119-qwen_qwen3.5-9b-vs-qwen_qwen3.6-35b-a3b",
+      "seed": 888274724,
+      "villager_model": "qwen/qwen3.6-35b-a3b",
+      "werewolf_model": "qwen/qwen3.5-9b",
+      "winner": "villagers"
+    },
+    {
+      "game_id": "g0120-qwen_qwen3.6-35b-a3b-vs-qwen_qwen3.5-9b",
+      "seed": 1572988830,
+      "villager_model": "qwen/qwen3.5-9b",
+      "werewolf_model": "qwen/qwen3.6-35b-a3b",
+      "winner": "werewolves"
+    },
+    {
+      "game_id": "g0121-qwen_qwen3.5-9b-vs-qwen_qwen3.6-35b-a3b",
+      "seed": 22896702,
+      "villager_model": "qwen/qwen3.6-35b-a3b",
+      "werewolf_model": "qwen/qwen3.5-9b",
+      "winner": "villagers"
+    },
+    {
+      "game_id": "g0122-qwen_qwen3.6-35b-a3b-vs-qwen_qwen3.5-9b",
+      "seed": 2081949544,
+      "villager_model": "qwen/qwen3.5-9b",
+      "werewolf_model": "qwen/qwen3.6-35b-a3b",
+      "winner": "werewolves"
+    },
+    {
+      "game_id": "g0123-qwen_qwen3.5-9b-vs-qwen_qwen3.6-35b-a3b",
+      "seed": 466195533,
+      "villager_model": "qwen/qwen3.6-35b-a3b",
+      "werewolf_model": "qwen/qwen3.5-9b",
+      "winner": "werewolves"
+    },
+    {
+      "game_id": "g0124-qwen_qwen3.6-35b-a3b-vs-qwen_qwen3.5-9b",
+      "seed": 1332225199,
+      "villager_model": "qwen/qwen3.5-9b",
+      "werewolf_model": "qwen/qwen3.6-35b-a3b",
+      "winner": "werewolves"
+    },
+    {
+      "game_id": "g0125-qwen_qwen3.5-9b-vs-qwen_qwen3.6-35b-a3b",
+      "seed": 1583131957,
+      "villager_model": "qwen/qwen3.6-35b-a3b",
+      "werewolf_model": "qwen/qwen3.5-9b",
+      "winner": "villagers"
+    },
+    {
+      "game_id": "g0126-qwen_qwen3.6-27b-vs-qwen_qwen3.6-27b",
+      "seed": 53135487,
+      "villager_model": "qwen/qwen3.6-27b",
+      "werewolf_model": "qwen/qwen3.6-27b",
+      "winner": "villagers"
+    },
+    {
+      "game_id": "g0127-qwen_qwen3.6-27b-vs-qwen_qwen3.6-27b",
+      "seed": 514249349,
+      "villager_model": "qwen/qwen3.6-27b",
+      "werewolf_model": "qwen/qwen3.6-27b",
+      "winner": "villagers"
+    },
+    {
+      "game_id": "g0128-qwen_qwen3.6-27b-vs-qwen_qwen3.6-27b",
+      "seed": 1731743774,
+      "villager_model": "qwen/qwen3.6-27b",
+      "werewolf_model": "qwen/qwen3.6-27b",
+      "winner": "villagers"
+    },
+    {
+      "game_id": "g0129-qwen_qwen3.6-27b-vs-qwen_qwen3.6-27b",
+      "seed": 1256978319,
+      "villager_model": "qwen/qwen3.6-27b",
+      "werewolf_model": "qwen/qwen3.6-27b",
+      "winner": "werewolves"
+    },
+    {
+      "game_id": "g0130-qwen_qwen3.6-27b-vs-qwen_qwen3.6-27b",
+      "seed": 1341050746,
+      "villager_model": "qwen/qwen3.6-27b",
+      "werewolf_model": "qwen/qwen3.6-27b",
+      "winner": "werewolves"
+    },
+    {
+      "game_id": "g0131-qwen_qwen3.6-27b-vs-qwen_qwen3.6-27b",
+      "seed": 1665444115,
+      "villager_model": "qwen/qwen3.6-27b",
+      "werewolf_model": "qwen/qwen3.6-27b",
+      "winner": "werewolves"
+    },
+    {
+      "game_id": "g0132-qwen_qwen3.6-27b-vs-qwen_qwen3.6-27b",
+      "seed": 1137372487,
+      "villager_model": "qwen/qwen3.6-27b",
+      "werewolf_model": "qwen/qwen3.6-27b",
+      "winner": "werewolves"
+    },
+    {
+      "game_id": "g0133-qwen_qwen3.6-27b-vs-qwen_qwen3.6-35b-a3b",
+      "seed": 2054837075,
+      "villager_model": "qwen/qwen3.6-35b-a3b",
+      "werewolf_model": "qwen/qwen3.6-27b",
+      "winner": "werewolves"
+    },
+    {
+      "game_id": "g0134-qwen_qwen3.6-35b-a3b-vs-qwen_qwen3.6-27b",
+      "seed": 1682749833,
+      "villager_model": "qwen/qwen3.6-27b",
+      "werewolf_model": "qwen/qwen3.6-35b-a3b",
+      "winner": "villagers"
+    },
+    {
+      "game_id": "g0135-qwen_qwen3.6-27b-vs-qwen_qwen3.6-35b-a3b",
+      "seed": 46347924,
+      "villager_model": "qwen/qwen3.6-35b-a3b",
+      "werewolf_model": "qwen/qwen3.6-27b",
+      "winner": "werewolves"
+    },
+    {
+      "game_id": "g0136-qwen_qwen3.6-35b-a3b-vs-qwen_qwen3.6-27b",
+      "seed": 2120120235,
+      "villager_model": "qwen/qwen3.6-27b",
+      "werewolf_model": "qwen/qwen3.6-35b-a3b",
+      "winner": "villagers"
+    },
+    {
+      "game_id": "g0137-qwen_qwen3.6-27b-vs-qwen_qwen3.6-35b-a3b",
+      "seed": 697558280,
+      "villager_model": "qwen/qwen3.6-35b-a3b",
+      "werewolf_model": "qwen/qwen3.6-27b",
+      "winner": "werewolves"
+    },
+    {
+      "game_id": "g0138-qwen_qwen3.6-35b-a3b-vs-qwen_qwen3.6-27b",
+      "seed": 177814366,
+      "villager_model": "qwen/qwen3.6-27b",
+      "werewolf_model": "qwen/qwen3.6-35b-a3b",
+      "winner": "villagers"
+    },
+    {
+      "game_id": "g0139-qwen_qwen3.6-27b-vs-qwen_qwen3.6-35b-a3b",
+      "seed": 647500716,
+      "villager_model": "qwen/qwen3.6-35b-a3b",
+      "werewolf_model": "qwen/qwen3.6-27b",
+      "winner": "villagers"
+    },
+    {
+      "game_id": "g0140-qwen_qwen3.6-35b-a3b-vs-qwen_qwen3.6-35b-a3b",
+      "seed": 1414327360,
+      "villager_model": "qwen/qwen3.6-35b-a3b",
+      "werewolf_model": "qwen/qwen3.6-35b-a3b",
+      "winner": "villagers"
+    },
+    {
+      "game_id": "g0141-qwen_qwen3.6-35b-a3b-vs-qwen_qwen3.6-35b-a3b",
+      "seed": 904640066,
+      "villager_model": "qwen/qwen3.6-35b-a3b",
+      "werewolf_model": "qwen/qwen3.6-35b-a3b",
+      "winner": "werewolves"
+    },
+    {
+      "game_id": "g0142-qwen_qwen3.6-35b-a3b-vs-qwen_qwen3.6-35b-a3b",
+      "seed": 1971176503,
+      "villager_model": "qwen/qwen3.6-35b-a3b",
+      "werewolf_model": "qwen/qwen3.6-35b-a3b",
+      "winner": "villagers"
+    },
+    {
+      "game_id": "g0143-qwen_qwen3.6-35b-a3b-vs-qwen_qwen3.6-35b-a3b",
+      "seed": 1498359596,
+      "villager_model": "qwen/qwen3.6-35b-a3b",
+      "werewolf_model": "qwen/qwen3.6-35b-a3b",
+      "winner": "werewolves"
+    },
+    {
+      "game_id": "g0144-qwen_qwen3.6-35b-a3b-vs-qwen_qwen3.6-35b-a3b",
+      "seed": 1664924465,
+      "villager_model": "qwen/qwen3.6-35b-a3b",
+      "werewolf_model": "qwen/qwen3.6-35b-a3b",
+      "winner": "werewolves"
+    },
+    {
+      "game_id": "g0145-qwen_qwen3.6-35b-a3b-vs-qwen_qwen3.6-35b-a3b",
+      "seed": 1406991184,
+      "villager_model": "qwen/qwen3.6-35b-a3b",
+      "werewolf_model": "qwen/qwen3.6-35b-a3b",
+      "winner": "werewolves"
+    },
+    {
+      "game_id": "g0146-qwen_qwen3.6-35b-a3b-vs-qwen_qwen3.6-35b-a3b",
+      "seed": 1314437119,
+      "villager_model": "qwen/qwen3.6-35b-a3b",
+      "werewolf_model": "qwen/qwen3.6-35b-a3b",
+      "winner": "werewolves"
+    }
+  ],
+  "leaderboard": [
+    {
+      "games": 35,
+      "losses": 7,
+      "model": "google/gemma-4-31b-it",
+      "mu": 29.75339847583625,
+      "sigma": 1.5710119473447424,
+      "skill": 25.040362633802022,
+      "wins": 28
+    },
+    {
+      "games": 35,
+      "losses": 14,
+      "model": "deepseek/deepseek-v4-flash",
+      "mu": 29.041200769310507,
+      "sigma": 1.647814614101231,
+      "skill": 24.097756927006813,
+      "wins": 21
+    },
+    {
+      "games": 35,
+      "losses": 13,
+      "model": "qwen/qwen3.6-27b",
+      "mu": 26.948366154847722,
+      "sigma": 1.4303247403022572,
+      "skill": 22.65739193394095,
+      "wins": 22
+    },
+    {
+      "games": 35,
+      "losses": 21,
+      "model": "google/gemma-4-26b-a4b-it",
+      "mu": 23.79421265889672,
+      "sigma": 1.4826760975859314,
+      "skill": 19.346184366138925,
+      "wins": 14
+    },
+    {
+      "games": 35,
+      "losses": 21,
+      "model": "qwen/qwen3.6-35b-a3b",
+      "mu": 23.4571300344076,
+      "sigma": 1.462457438237579,
+      "skill": 19.069757719694863,
+      "wins": 14
+    },
+    {
+      "games": 35,
+      "losses": 29,
+      "model": "qwen/qwen3.5-9b",
+      "mu": 19.41826460858292,
+      "sigma": 1.5646063775625596,
+      "skill": 14.72444547589524,
+      "wins": 6
+    }
+  ],
+  "n_failed": 0,
+  "n_games": 105,
+  "n_skipped": 42,
+  "split": {
+    "exile_accuracy": 0.5228215767634855,
+    "models": [
+      {
+        "exile_accuracy": 0.5,
+        "model": "deepseek/deepseek-v4-flash",
+        "village_correct_exiles": 16,
+        "village_exiles": 32,
+        "wolf_games": 27,
+        "wolf_win_rate": 0.7407407407407407,
+        "wolf_wins": 20
+      },
+      {
+        "exile_accuracy": 0.39285714285714285,
+        "model": "google/gemma-4-26b-a4b-it",
+        "village_correct_exiles": 11,
+        "village_exiles": 28,
+        "wolf_games": 26,
+        "wolf_win_rate": 0.6153846153846154,
+        "wolf_wins": 16
+      },
+      {
+        "exile_accuracy": 0.782608695652174,
+        "model": "google/gemma-4-31b-it",
+        "village_correct_exiles": 36,
+        "village_exiles": 46,
+        "wolf_games": 25,
+        "wolf_win_rate": 0.68,
+        "wolf_wins": 17
+      },
+      {
+        "exile_accuracy": 0.2564102564102564,
+        "model": "qwen/qwen3.5-9b",
+        "village_correct_exiles": 10,
+        "village_exiles": 39,
+        "wolf_games": 24,
+        "wolf_win_rate": 0.4166666666666667,
+        "wolf_wins": 10
+      },
+      {
+        "exile_accuracy": 0.6382978723404256,
+        "model": "qwen/qwen3.6-27b",
+        "village_correct_exiles": 30,
+        "village_exiles": 47,
+        "wolf_games": 23,
+        "wolf_win_rate": 0.6521739130434783,
+        "wolf_wins": 15
+      },
+      {
+        "exile_accuracy": 0.46938775510204084,
+        "model": "qwen/qwen3.6-35b-a3b",
+        "village_correct_exiles": 23,
+        "village_exiles": 49,
+        "wolf_games": 22,
+        "wolf_win_rate": 0.5,
+        "wolf_wins": 11
+      }
+    ],
+    "n_games": 147,
+    "total_correct_exiles": 126,
+    "total_exiles": 241,
+    "wolf_win_rate": 0.6054421768707483
+  }
+}

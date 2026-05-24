@@ -1,0 +1,73 @@
+{
+  "created_at": "2026-05-23T12:33:21.072721+00:00",
+  "game_id": "g0017-google_gemma-4-31b-it-vs-deepseek_deepseek-v4-flash",
+  "git_sha": "b89b65d3befee13a032fa590f63f7d4e06d4e17a",
+  "max_iters": 9,
+  "max_tokens": 8000,
+  "model_arg": "tournament",
+  "models": [
+    [
+      "Alice",
+      "deepseek/deepseek-v4-flash"
+    ],
+    [
+      "Bob",
+      "deepseek/deepseek-v4-flash"
+    ],
+    [
+      "Carol",
+      "google/gemma-4-31b-it"
+    ],
+    [
+      "Dave",
+      "deepseek/deepseek-v4-flash"
+    ],
+    [
+      "Eve",
+      "deepseek/deepseek-v4-flash"
+    ],
+    [
+      "Frank",
+      "google/gemma-4-31b-it"
+    ],
+    [
+      "Grace",
+      "deepseek/deepseek-v4-flash"
+    ]
+  ],
+  "players": [
+    [
+      "Alice",
+      "villager"
+    ],
+    [
+      "Bob",
+      "villager"
+    ],
+    [
+      "Carol",
+      "werewolf"
+    ],
+    [
+      "Dave",
+      "doctor"
+    ],
+    [
+      "Eve",
+      "villager"
+    ],
+    [
+      "Frank",
+      "werewolf"
+    ],
+    [
+      "Grace",
+      "seer"
+    ]
+  ],
+  "reasoning": false,
+  "rounds": 3,
+  "seed": 1228982502,
+  "temperature": 1.0,
+  "winner": "werewolves"
+}

@@ -1,0 +1,266 @@
+{
+  "game_id": "g0109-qwen_qwen3.5-9b-vs-qwen_qwen3.5-9b",
+  "memories": {
+    "Alice": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night, no information. Protecting Bob arbitrarily to save a life."
+        }
+      ],
+      "plan": ""
+    },
+    "Bob": {
+      "beliefs": {
+        "Frank": {
+          "confidence": "low",
+          "evidence": "Frank is aggressively pushing the Seer to come out immediately without any concrete hint that the Seer is missing or dead. This urgency often stems from a fear of their own role being exposed or a wolfish tactic to panic the village into voting out a protector (Seer/Doctor) before they can function.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Aligning with Carol's suggestion from Night R1 pack chat to kill a common target efficiently."
+        },
+        {
+          "round": 1,
+          "text": "Plan: Next, I will listen to others to identify the Seer or any conflicting info. If Carol's suggestion of Alice was just a standard kill, I need to find the Seer to derail our wins. If anyone raises Alice suspiciously after Alice is dead, they might be a good target. I'll pass the day, then listen."
+        },
+        {
+          "round": 1,
+          "text": "Bob speaks first to set the stage. Must emphasize seer to force agenda. Support Alice's death to stabilize Carol's position. If seer comes out, ensure vote matches my pack. If not, push further."
+        },
+        {
+          "round": 1,
+          "text": "Disrupt village cohesion by attacking the person leading the Seer push; coordinate with Carol to back this up later or vote him out if he becomes prime suspect."
+        },
+        {
+          "round": 1,
+          "text": "Suspect Frank is a wolf. Evidence: Pushing for the Seer without concrete information to panic the village and disrupt our momentum. Aligned with pack's warning against such tactics."
+        }
+      ],
+      "plan": "Coordinate with Carol to disrupt the village's momentum regarding the Seer and Doctor. If Frank continues to demand answers without leading to concrete info, he may be a wolf trying to panic the village. We should vote to remove high-suspicion players like Frank if he persists in baseless accusations, while ensuring we do not unanimously vote each other out."
+    },
+    "Carol": {
+      "beliefs": {
+        "Bob": {
+          "confidence": "high",
+          "evidence": "Bob is aggressively pushing for the Seer and immediately calling out Frank (a villager) for requesting Seer info, which is a classic panic tactic to flush out the Doctor or manipulate the vote. This behavior aligns perfectly with covert operations to weaken the village's information advantage.",
+          "guess": "werewolf"
+        },
+        "Dave": {
+          "confidence": "high",
+          "evidence": "Dave claimed he inspected me and found me to be a werewolf without first identifying himself as the Seer. This is uncharacteristic of a real Seer who would claim their role first before giving a read. This is likely an attempt to project suspicion as a werewolf, or a desperate guess by a villager. Removing him is the best move given my isolation.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Agreeing with Bob after private coordination. Targeting Alice as discussed to reduce village numbers."
+        },
+        {
+          "round": 1,
+          "text": "Coordinating with Bob. Using speaking slot to ensure we can guide the village against the doctor in the next day or night discussed."
+        },
+        {
+          "round": 1,
+          "text": "Validating Bob's call for the seer to maintain pack unity. No direct accusation made yet."
+        },
+        {
+          "round": 1,
+          "text": "I am the second wolf. Supporting Bob's accusation to push Frank out. Frank's defense was weak against a clear wolf signal."
+        },
+        {
+          "round": 1,
+          "text": "Aligning with my ally Bob's accusation. His push for the seer is a classic panic tactic."
+        },
+        {
+          "round": 2,
+          "text": "Frank defended himself and Eve aggressively, appearing aligned as a protector. They excluded Bob (the other wolf) by voting him out together. Removing Frank disrupts this duo."
+        },
+        {
+          "round": 2,
+          "text": "Budget is 0, bid maximum possible (0). Successfully killed Frank. Waiting for village reaction or next night."
+        },
+        {
+          "round": 2,
+          "text": "Defending against Dave's bluff. Attacking Bob and Grace to sow discord. Hope the village doubts Dave's Seer claim even more if I defend so aggressively yet claim to be villager."
+        },
+        {
+          "round": 2,
+          "text": "I am the lone wolf and cannot vote to kill myself, but I must vote to keep the party chaotic or hope for a tie/if the villager majority is split. Removing Dave who falsely accused me is the best play to avoid being lynched."
+        },
+        {
+          "round": 3,
+          "text": "I am the lone wolf. With 3 players total (me, Eve, Grace), I need to reduce the village count to 1 or 0 to satisfy the win condition (Werewolves = Villagers or > Villagers). 1 Wolf = 1 Villager is a win. I will target Eve without hesitation to secure victory tonight."
+        }
+      ],
+      "plan": ""
+    },
+    "Dave": {
+      "beliefs": {
+        "Carol": {
+          "confidence": "high",
+          "evidence": "Night R2 inspection confirmed Carol is a werewolf. She survived Night 1 kill and acted aggressively in Day 1 voting.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Bidding 0 to observe who speaks first and how the town reacts to Alice's death before committing resources."
+        },
+        {
+          "round": 1,
+          "text": "Adhering to plan: do not reveal identity yet. Observing Bob and Carol's pressure to gauge if the wolves will flip on them or if there is internal discord in the town pushers."
+        },
+        {
+          "round": 1,
+          "text": "Bob aggressively accused Frank for asking about the Seer, despite the Seer not yet needing to reveal under pressure. Bob implies the Seer is a safety net which is true, but his accusation of Frank was baseless. This 'witch hunt' style of voting immediately after a kill is typical werewolf behavior to frame others."
+        },
+        {
+          "round": 2,
+          "text": "Carol was very aggressive in pushing for the Seer and accusing Frank. Bob (exiled wolf) also accused Frank, but Carol's behavior might be a wolf pretending to be active to manipulate the game or frame the Seer. Also, the wolves are targeting villagers, and she might be a wolf targeting the Seer."
+        },
+        {
+          "round": 2,
+          "text": "Need to speak to reveal Carol is a werewolf based on Night 2 inspection. Urgent after Frank's death."
+        },
+        {
+          "round": 2,
+          "text": "Carol was identified as a werewolf via seer power. Immediate vote alignment needed."
+        },
+        {
+          "round": 2,
+          "text": "Carol is a wolf. She shifted to denying being a wolf to frame herself as pure. Grace is likely attacking because she failed the day 1 vote logic or is a wolf herself. Need to maintain cover."
+        },
+        {
+          "round": 2,
+          "text": "Carol is a werewolf confirmed by my Seer power last night. Exiling her immediately is necessary to save the village, especially with only 4 players left."
+        }
+      ],
+      "plan": "On Day 1, we have lost Alice (Villager) to the wolves. The wolves are actively targeting villagers. Strategy: Start with low bids to observe the town dynamic. In future nights, prioritize inspecting players who had connections to Alice or were not protected. Do not reveal my identity or loyalty early. If anyone acts suspiciously in speaking slots later, record high suspicion. Once I am certain of a werewolf, prioritize their exile or coordinate with the doctor to protect them if they are still in play as a spy/waiting strategy."
+    },
+    "Eve": {
+      "beliefs": {
+        "Bob": {
+          "confidence": "high",
+          "evidence": "Bob pushed aggressively for the Seer immediately after the first kill, then immediately accused Frank (who requested info) of being a wolf tactic. His behavior suggests an attempt to create division and panic the village, typical of a wolf protecting their numbers by pushing an extreme agenda.",
+          "guess": "werewolf"
+        },
+        "Dave": {
+          "confidence": "high",
+          "evidence": "Dave claimed he inspected Carol and found her to be a werewolf but refused to identify himself as the Seer. Seers must publicly claim their role to use their ability. This non-identification suggests he is lying about inspecting her or is disguising a werewolf's accusation to sow chaos. Grace correctly noted this flaw.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Bidding max to speak first on Day 1 after Alice's death to gather initial intel."
+        },
+        {
+          "round": 1,
+          "text": "Bob called the first wolf urge prematurely to paint Frank as a wolf."
+        },
+        {
+          "round": 1,
+          "text": "Bob is accusing Frank immediately based only on asking about the Seer, which is a standard village move. His aggression suggests he might be wolf, or just acting out of fear. While Frank is a likely villager, I will vote Bob to keep the pressure off the accused and test his stamina."
+        },
+        {
+          "round": 2,
+          "text": "Frank was killed after Bob accused him. Bob was exiled. Carol supported the accusation of Frank. Pattern suggests either Frank is a wolf (and Carol/Bob were right) or Frank is a villager (and Carol/Bob are wolves). Carol's aggression stands out. I need to speak to analyze this."
+        },
+        {
+          "round": 2,
+          "text": "Bob is my primary suspect. Using speaking slot to call Seer and vilify Bob."
+        },
+        {
+          "round": 2,
+          "text": "While I suspect Bob was wolf, he is dead. Now the major suspect is Dave for playing the Seer role without claiming it, to guess Carol. If Dave is the only wolf, we lose 2-2. Must vote Dave out."
+        },
+        {
+          "round": 2,
+          "text": "Voting out Dave for not identifying as Seer while claiming inspection ability; high suspicion based on 'set_belief' of him being a werewolf."
+        }
+      ],
+      "plan": ""
+    },
+    "Frank": {
+      "beliefs": {
+        "Bob": {
+          "confidence": "medium",
+          "evidence": "Accused me of a 'wolf tactic' for requesting Seer info, which is a standard villager move to identify the dead wolf.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First day, no info yet. Need to speak first to make an opening statement and gather intel."
+        },
+        {
+          "round": 1,
+          "text": "No specific targets yet. Preventing panic while prompting for info."
+        },
+        {
+          "round": 1,
+          "text": "Bob accused me based on a misunderstanding of standard wolf-prevention tactics. Eve validated my actions. No one else is clear about roles yet. Best to stay silent and observe further."
+        },
+        {
+          "round": 1,
+          "text": "Bob and Carol are coordinating to silence the seer strategy. Need to see role reveal or more proof before exiling a potential reactor. Eve seemed loyal with defense."
+        }
+      ],
+      "plan": ""
+    },
+    "Grace": {
+      "beliefs": {
+        "Bob": {
+          "confidence": "medium",
+          "evidence": "Bob aggressively pushed a 'wolf tactic' narrative against Frank for requesting standard post-kill Seer info, while Carol immediately aligned with him. Both have 0 bid budgets, suggesting high intensity spending typical of wolves trying to shift the narrative before the Seer can speak.",
+          "guess": "werewolf"
+        },
+        "Dave": {
+          "confidence": "medium",
+          "evidence": "Accused Carol of being a werewolf but refused to identify as the Seer, which is a standard tactic for wolves to spread confusion without verification.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Starting the game with a low 10 to ensure a speaking slot for Day 1 analysis without depleting budget. Plan: focus on listening and gathering info before making strong suspicions."
+        },
+        {
+          "round": 1,
+          "text": "Bob and Carol are pressuring hard for the Seer without specific targets; waiting to see if others accuse the aggressors or if anyone steps forward as the Seer before I commit to defending a specific individual."
+        },
+        {
+          "round": 1,
+          "text": "Voting out the primary aggressor of the 'bob and carol alliance' who pushed the controversial execution of Frank for standard safety protocol."
+        },
+        {
+          "round": 2,
+          "text": "Frank died unexpectedly after Bob's exit. Need to speak to identify the remaining threat among Carol, Dave, or Eve. Budget 100, bidding 50 to secure turn."
+        },
+        {
+          "round": 2,
+          "text": "Dave made a Seer-style claim without identifying as Seer. Suspicious behavior in a 4-player endgame."
+        },
+        {
+          "round": 2,
+          "text": "Carol aligned with Bob against Frank. After Bob's exile, she protected Dave who claimed to be a seer. Her defense of Dave implies complicity. If 2 wolves, C and D are likely."
+        },
+        {
+          "round": 2,
+          "text": "Dave claimed to inspect Carol but refused to identify as the Seer, using fake info to disrupt. His aggressive, unverified accusations and denial of standard role mechanics (claiming inspection without verification) are classic wolf tactics."
+        }
+      ],
+      "plan": ""
+    }
+  }
+}

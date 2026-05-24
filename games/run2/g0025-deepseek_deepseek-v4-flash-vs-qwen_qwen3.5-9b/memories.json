@@ -1,0 +1,259 @@
+{
+  "game_id": "g0025-deepseek_deepseek-v4-flash-vs-qwen_qwen3.5-9b",
+  "memories": {
+    "Alice": {
+      "beliefs": {
+        "Bob": {
+          "confidence": "high",
+          "evidence": "Bob's statement on Day 2 was internally contradictory and illogical, claiming Alice and Grace swapped identities in a confusing manner to create a 'snake duck' pattern despite no evidence of such a swap. He is the only one aggressively attacking Alice/Grace while others defended them, likely attempting to distract from his own lack of contribution or create a divide. His logic contained obvious truth-evidence errors indicating a wolf trying to stir chaos.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Day 1 opening: Carol killed by wolves. Need to collect reports (seer/doctor) and identify targets."
+        },
+        {
+          "round": 1,
+          "text": "Eve claimed Bob confirmed her night check on Alice, but Bob spoke after Eve. This chronological impossibility is a clear lie adopted by wolves to build a false defense and clear allies."
+        },
+        {
+          "round": 2,
+          "text": "Bidding high to secure a speaking slot on Day 2. The recent night had no deaths, which is suspicious. I need to frame a discussion on who to investigate next, especially given Eve's lie."
+        },
+        {
+          "round": 2,
+          "text": "Eve was a wolf due to lying about chronology. Night 2 safe = Doctor active. Need to find 1 more wolf."
+        },
+        {
+          "round": 2,
+          "text": "Exposed Bob's game-breaking lie to protect Alice."
+        },
+        {
+          "round": 2,
+          "text": "Voting out Bob due to his contradictory 'snake duck' accusation which was likely a wolf tactic to confuse and divide the village."
+        }
+      ],
+      "plan": ""
+    },
+    "Bob": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "high",
+          "evidence": "Initial suspension of disbelief due to Eve's false accusation against her regarding Bob's confirmation of a night check (which actually happened). In response to the chaos Bob introduced yesterday, Alice provided a rational defense of the timeline. While Bob's own accusation was foolish and damaged his reputation, Alice's reaction and behavior suggest she is correctly identifying the reality of the game state. The fact that she was not cleared immediately in round 1 and has been involved in the defense of the timeline suggests she may be part of the wolf team trying to manage a specific vote distribution or simply surviving a bad night. I also have a high suspicion from the start based on the flow of information.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Trying to speak cheaply to hear everyone's opening statements and gather clues."
+        },
+        {
+          "round": 1,
+          "text": "High confidence based on speaking order contradiction. Eve is likely a wolf using false authority."
+        },
+        {
+          "round": 1,
+          "text": "Eve claimed Bob confirmed her check of Alice, but Bob speaks after her. This time-travel lie proves she is a wolf attempting to frame/clear Alice."
+        },
+        {
+          "round": 2,
+          "text": "Eve was unanimously voted out for a clear timeline lie. Need to speak in upcoming round to guide suspicion on remaining trio (Alice, Dave, Frank/Grace) and assess who defended whom too aggressively."
+        },
+        {
+          "round": 2,
+          "text": "Exposing the Alice-Grace coordination. Alice claimed to be a villager when everyone else declared her a wolf, but she is trying to spin. Must vote against them next."
+        },
+        {
+          "round": 2,
+          "text": "Grace defended Alice effectively, countering my accusation of suspicious behavior. The Discord between Bob and Grace suggests complexity. I will pause to observe further before committing to an accusation against Alice in this cycle."
+        },
+        {
+          "round": 2,
+          "text": "Following my high-confidence suspicion that Alice is a werewolf, despite the risk of being exiled myself due to the wolves (possibly Dave or Frank) targeting my speech. I hope the other villagers can see through the chaos and vote out Alice."
+        }
+      ],
+      "plan": "My strategy as a villager: Initially, I will listen and observe. I will wait for the first night's resolution and the subsequent discussion before forming strong accusations. If a player makes a suspicious argument or vote, I will mark them with low confidence. If I find clear evidence, I will upgrade my confidence. I will not lead the accusation until I have heard the full spectrum of evidence."
+    },
+    "Carol": {
+      "beliefs": {},
+      "notes": [],
+      "plan": ""
+    },
+    "Dave": {
+      "beliefs": {
+        "Bob": {
+          "confidence": "high",
+          "evidence": "Bob accused Alice and Grace of coordinating based on impossible claims, trying to create confusion.",
+          "guess": "werewolf"
+        },
+        "Eve": {
+          "confidence": "high",
+          "evidence": "Eve claimed a night check on Alice as villager but contradicted herself saying Bob confirmed it when Bob spoke after her. Multiple players caught this lie. Most likely a wolf trying to establish false credibility.",
+          "guess": "wolf (likely seer trying to protect Alice)"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Frank suggested Carol; cooperating with packmate."
+        },
+        {
+          "round": 1,
+          "text": "Moderate bid to speak early and gauge the room without overspending"
+        },
+        {
+          "round": 1,
+          "text": "Publicly casting doubt on Eve's claim to create confusion and avoid Alice being fully trusted. Frank will back me up if needed."
+        },
+        {
+          "round": 1,
+          "text": "Voting Eve due to her contradictory claim; aligns with village suspicion and removes a player who might be seer."
+        },
+        {
+          "round": 2,
+          "text": "Killing Alice to achieve parity and hopefully win tonight."
+        },
+        {
+          "round": 2,
+          "text": "Bidding conservatively to save budget for future rounds. Alice was protected last night - likely the doctor saved her, making her a potential seer or key village role. Might want to target her again tonight."
+        },
+        {
+          "round": 2,
+          "text": "Targeting Bob as a villager to get him exiled. This aligns with our win condition."
+        },
+        {
+          "round": 2,
+          "text": "Bob's baseless accusations against Alice and Grace are classic wolf behavior\u2014spreading confusion to divide the village."
+        }
+      ],
+      "plan": ""
+    },
+    "Eve": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "First turn as Seer. Alice confirmed good. Suspect pool: Bob, Dave, Frank, Grace. Need to speak to share insight and vote."
+        },
+        {
+          "round": 1,
+          "text": "Night 1: Read Alice (Villager). Carol killed. No immediate red flags for Alice."
+        },
+        {
+          "round": 1,
+          "text": "Alice is trying to frame me. She admitted she is a wolf by lying about Bob's timeline. I need the village to see through this immediately."
+        },
+        {
+          "round": 1,
+          "text": "Alice led the accusation frenzy, potentially to protect a wolf or because she is anxious. Voting her to exile to break the tribe, even if it costs me dearly."
+        }
+      ],
+      "plan": ""
+    },
+    "Frank": {
+      "beliefs": {
+        "Bob": {
+          "confidence": "medium",
+          "evidence": "Bob made baseless accusations against Alice and Grace, trying to divide the village with contradictory logic.",
+          "guess": "werewolf"
+        },
+        "Eve": {
+          "confidence": "high",
+          "evidence": "Eve claimed Bob confirmed her night check, but Bob spoke after her - chronological impossibility proves she's lying.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Proposed Alice in pack chat as a compromise; Dave previously suggested Alice or Eve, so likely agreeable."
+        },
+        {
+          "round": 1,
+          "text": "Moderate bid to speak early but not waste budget."
+        },
+        {
+          "round": 1,
+          "text": "Casting doubt on Eve's seer claim while appearing reasonable. Supporting Dave's skepticism without being too obvious."
+        },
+        {
+          "round": 1,
+          "text": "Piling on Eve who contradicted herself, good way to eliminate a potential threat without targeting Dave or drawing suspicion to myself."
+        },
+        {
+          "round": 1,
+          "text": "Eve's claim that Bob confirmed her night check is chronologically impossible, confirming she is lying. Voting to exile her."
+        },
+        {
+          "round": 2,
+          "text": "Kill Alice - she was cleared by wolf Eve, so village may trust her. Removing a potential threat."
+        },
+        {
+          "round": 2,
+          "text": "Bid 40 to get a speaking slot; want to influence discussion against Alice and others, but save budget for future days."
+        },
+        {
+          "round": 2,
+          "text": "Building on Dave's accusation to create a common enemy while protecting our wolf pack."
+        },
+        {
+          "round": 2,
+          "text": "Bob's accusations were baseless and divisive, classic werewolf behavior."
+        }
+      ],
+      "plan": "Day 1: Blend in, don't defend Carol's death too much. Coordinate with Dave via werewolf chat when possible. Target villagers for elimination. Use speaking slots to cast suspicion on others, not on Dave."
+    },
+    "Grace": {
+      "beliefs": {
+        "Bob": {
+          "confidence": "high",
+          "evidence": "Bob accused both Alice and Grace of being wolves with contradictory logic ('snake duck' pattern), claiming they coordinated when records show no such interaction. This two-pronged attack with fabricated narratives about coordination is a classic wolf distraction tactic intended to split the vote. His behavior is inconsistent with a logical villager.",
+          "guess": "werewolf"
+        },
+        "Eve": {
+          "confidence": "high",
+          "evidence": "Eve claimed Bob confirmed Eve's check of Alice, but Bob spoke after Eve in the turn order. This is a chronologically impossible claim fabricated by her to build credibility and falsely validate Alice, a common wolf tactic to prevent the doctor or seer from being voted.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Randomly selected Alice to protect since no threats are known yet. Will reassess once day phase provides clues."
+        },
+        {
+          "round": 1,
+          "text": "Bidding to speak and explain my role/protection strategy."
+        },
+        {
+          "round": 1,
+          "text": "Eve claimed Bob confirmed her check before he spoke. This lies to clear Alice."
+        },
+        {
+          "round": 2,
+          "text": "Protecting Alice because she was the subject of Eve's suspicious false night check. Eve has since been exiled, but keeping the potential target of the deception alive is standard strategy. Alice appears to be a villager who correctly identified the lie during the day."
+        },
+        {
+          "round": 2,
+          "text": "Alice survived twice (guarded). Seer identity unknown; potentially Alice is the seer or we have another survivor who didn't check. Need to figure out the Seer."
+        },
+        {
+          "round": 2,
+          "text": "Confirmed Alice is villager via survival. Eve exiled correctly. Need to find potential 2nd wolf. Asking Alice for her perspective."
+        },
+        {
+          "round": 2,
+          "text": "Bob's logic about 'panicking when the game started' refers to bids, not his claim Alice spoke. Classic deflection."
+        },
+        {
+          "round": 2,
+          "text": "Bob attempted to split the village by accusing both Alice and Grace of being wolves using false chronology ('snake duck' plan). His behavior is a classic diversionary tactic from a werewolf."
+        }
+      ],
+      "plan": ""
+    }
+  }
+}

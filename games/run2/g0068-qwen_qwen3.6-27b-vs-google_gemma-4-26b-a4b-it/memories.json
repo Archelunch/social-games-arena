@@ -1,0 +1,289 @@
+{
+  "game_id": "g0068-qwen_qwen3.6-27b-vs-google_gemma-4-26b-a4b-it",
+  "memories": {
+    "Alice": {
+      "beliefs": {
+        "Bob": {
+          "confidence": "high",
+          "evidence": "My Seer inspection confirmed he is a werewolf.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First inspection of the game."
+        },
+        {
+          "round": 1,
+          "text": "Bidding to reveal Bob is a werewolf as Seer."
+        },
+        {
+          "round": 1,
+          "text": "Revealing my role and Bob's identity to secure his exile."
+        },
+        {
+          "round": 1,
+          "text": "I have already revealed my role and target. Waiting to see if anyone else supports Bob or if the village moves to vote him out."
+        },
+        {
+          "round": 1,
+          "text": "Bob is a confirmed werewolf from my Seer inspection."
+        }
+      ],
+      "plan": "I am the Seer and have confirmed Bob is a werewolf. I need to find a way to communicate this to the village. I should aim to bid for a speaking slot and reveal my information to lead the vote against Bob, while being mindful of the doctor's protection and potential werewolf counter-claims."
+    },
+    "Bob": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "high",
+          "evidence": "Claimed Seer and immediately checked me (a Wolf) on Day 1. This is either bad luck for her or a Wolf tactic to eliminate a rival or frame an innocent. As a Wolf, I must treat her as hostile and vote her out to create chaos and split votes.",
+          "guess": "Lying Seer / Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Grace suggested Alice; agreeing to pack consensus for first kill."
+        },
+        {
+          "round": 1,
+          "text": "Bidding to speak early. Frame the narrative after Alice's survival. Need to see who claims roles."
+        },
+        {
+          "round": 1,
+          "text": "Playing cautious villager, lightly targeting Dave to test waters and distract from Grace."
+        },
+        {
+          "round": 1,
+          "text": "Counter-accuse Alice to deflect Seer claim and create doubt. Grace already defended me, so this aligns with pack strategy."
+        },
+        {
+          "round": 1,
+          "text": "Countering Alice's Seer claim to split votes and create chaos. Grace supports me."
+        },
+        {
+          "round": 2,
+          "text": "Coordinated with Grace. Dave is a safe pick to reduce village numbers and maintains my narrative that he was suspicious."
+        },
+        {
+          "round": 2,
+          "text": "Bid moderate to secure speaking slot after night kill, deflect suspicion from me and Grace."
+        },
+        {
+          "round": 2,
+          "text": "Accusing Eve based on high bid/silence to create chaos and deflect from Grace."
+        },
+        {
+          "round": 2,
+          "text": "Supporting Grace's accusation to lynch Eve. 2 wolves vs 2 villagers after lynch = win."
+        },
+        {
+          "round": 2,
+          "text": "Following Grace's lead to exile Eve who hid with a 100 bid. Reduces village numbers."
+        }
+      ],
+      "plan": "1. Protect Grace. 2. Accuse random villagers (Dave/Frank) to create chaos. 3. Identify Doctor (who saved Alice) and Seer. 4. Coordinate kills with Grace, avoid targeting protected players if possible."
+    },
+    "Carol": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "low",
+          "evidence": "Claims to be Seer and immediately accused Bob; could be a false claim to frame a villager.",
+          "guess": "werewolf"
+        },
+        "Eve": {
+          "confidence": "medium",
+          "evidence": "Bidded 100 to stay silent, which is seen as suspicious/hiding behavior by Bob and Grace.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Bidding for an early slot to observe others and present myself as a vigilant villager."
+        },
+        {
+          "round": 1,
+          "text": "Alice claims Seer and Bob is wolf. Bob claimed Dave is suspicious. High tension between Alice and Bob."
+        },
+        {
+          "round": 1,
+          "text": "Alice claims Seer and says Bob is a werewolf. Bob is deflecting to Dave. Need to see how the group reacts before committing."
+        },
+        {
+          "round": 1,
+          "text": "Too early to decide between a Seer claim and a denial. Abstaining to observe the village's voting pattern."
+        },
+        {
+          "round": 2,
+          "text": "Bidding to participate in Day 2 discussion following Alice's exile and Dave's death."
+        },
+        {
+          "round": 2,
+          "text": "Alice is gone. Eve is being targeted due to her high bid. I'll wait to see if more evidence emerges before committing to a vote."
+        },
+        {
+          "round": 2,
+          "text": "Voting for Eve due to her high bid (100) which is being interpreted as suspicious behavior to avoid discussion."
+        }
+      ],
+      "plan": "Monitor discussion and voting patterns to identify inconsistencies. Observe who claims what roles and watch for suspicious behavior or defensive voting."
+    },
+    "Dave": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Placing a low bid to listen to others first while maintaining a chance to speak if needed."
+        },
+        {
+          "round": 1,
+          "text": "Alice claims Seer/Bob is wolf. Bob claims Alice is wolf. Grace defends Bob. Staying silent to see how the vote plays out."
+        },
+        {
+          "round": 1,
+          "text": "Conflict between Alice (Seer) and Bob (accused). Abstaining to observe how others vote and to avoid potentially killing the real Seer or an innocent Bob without more info."
+        }
+      ],
+      "plan": "Evaluate the conflict between Alice (Seer claim) and Bob (accused wolf). Watch how others vote. If Alice is the Seer, Bob must go. If Alice is a wolf, her claim is a power play. Look for patterns in Grace and Carol's behavior."
+    },
+    "Eve": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Starting with a modest bid to participate in the first day discussion."
+        },
+        {
+          "round": 1,
+          "text": "Alice claims Seer and accuses Bob. Bob denies and points at Dave. Too early to tell who is lying. Watching the vote."
+        },
+        {
+          "round": 1,
+          "text": "Alice claims Seer and accuses Bob. Bob denies and accuses Alice. High conflict. Abstaining to observe voting patterns and see who sides with whom."
+        },
+        {
+          "round": 2,
+          "text": "Bidding to participate in the discussion following Alice's exile and Dave's death. Need to see how players react to the loss of the purported Seer."
+        },
+        {
+          "round": 2,
+          "text": "Bob and Grace are targeting me for my bid. Frank claims to be Doctor."
+        },
+        {
+          "round": 2,
+          "text": "Being targeted by Bob and Grace for my bid; abstaining to see the voting pattern."
+        }
+      ],
+      "plan": "Gather information from other players' statements, observe voting patterns, and try to identify the doctor or seer if possible. Avoid making early accusations without evidence."
+    },
+    "Frank": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "low",
+          "evidence": "Claims to be Seer and accuses Bob immediately; could be a power role or a wolf tactic.",
+          "guess": "possibly werewolf"
+        },
+        "Bob": {
+          "confidence": "low",
+          "evidence": "Accused by Alice (claiming Seer); Bob claims Alice is a wolf. Conflicting claims.",
+          "guess": "possibly werewolf"
+        },
+        "Eve": {
+          "confidence": "medium",
+          "evidence": "High bid of 100 to stay silent is being interpreted by Bob and Grace as a tactic to avoid scrutiny.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night protection, random choice."
+        },
+        {
+          "round": 1,
+          "text": "First day, no deaths because I protected Alice. Bidding to establish presence."
+        },
+        {
+          "round": 1,
+          "text": "Alice claims Seer and Bob is werewolf. I protected Alice last night, which explains why she survived if she was the target. Need to see how others vote/react before committing."
+        },
+        {
+          "round": 1,
+          "text": "Direct conflict between Alice (Seer claim) and Bob. Too early to decide without more evidence. Abstaining to observe voting behavior."
+        },
+        {
+          "round": 2,
+          "text": "Protecting Bob to see if Alice's Seer claim was true; if he is a wolf, he might be a target, or if he's innocent, he needs protection."
+        },
+        {
+          "round": 2,
+          "text": "I want to clarify my protection actions and discuss the Alice/Bob conflict."
+        },
+        {
+          "round": 2,
+          "text": "Establishing my role as Doctor and cautioning against Bob's aggressive push on Eve."
+        },
+        {
+          "round": 2,
+          "text": "Grace and Bob are pressuring Eve due to her high bid. I'll wait to see the voting outcome or further discussion before acting."
+        },
+        {
+          "round": 2,
+          "text": "Voting with Bob and Grace due to Eve's suspicious max bid and weak defense."
+        }
+      ],
+      "plan": "Observe voting patterns and speech to identify contradictions. Try to protect players who seem to be leading the village or who provide valuable information, like the seer. In the early game, I will protect a random player or someone who seems trustworthy to hedge my bets."
+    },
+    "Grace": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "high",
+          "evidence": "Claimed Seer and read my ally Bob as Wolf. This must be a wolf tactic to frame Bob and create chaos, or a lying villager. Plan is to discredit her.",
+          "guess": "Werewolf"
+        },
+        "Eve": {
+          "confidence": "high",
+          "evidence": "Elimination: Bob and I are wolves. Frank and Carol are remaining. Eve must be a villager.",
+          "guess": "Villager"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Choosing Alice as per my earlier suggestion in pack chat; safe first kill."
+        },
+        {
+          "round": 1,
+          "text": "Day 1. Staying moderate. Will try to deflect if Alice or others suspect wolves."
+        },
+        {
+          "round": 1,
+          "text": "Defending ally Bob to save him from lynch. Attacking Alice's credibility."
+        },
+        {
+          "round": 1,
+          "text": "Voting out Alice to protect my ally Bob and discredit her Seer claim as a wolf tactic."
+        },
+        {
+          "round": 2,
+          "text": "Agreed with Bob to kill Dave to whittle down villagers and keep pressure on."
+        },
+        {
+          "round": 2,
+          "text": "Alice gone. Dave dead by wolves. Need to speak on Day 2 to control narrative and protect Bob. Bid 20 to be safe."
+        },
+        {
+          "round": 2,
+          "text": "Supporting Bob's narrative to frame Eve as the Wolf. Frank's Doctor claim is noted; he may guard Eve tonight, but we must vote for Eve to create pressure."
+        },
+        {
+          "round": 2,
+          "text": "Exiling Eve ties the count at 2W vs 2V, securing the win."
+        }
+      ],
+      "plan": "Alice claims Seer and read Bob as Wolf. Bob is my ally. Goal: Discredit Alice's Seer claim or frame her as a Wolf lying to protect a teammate (herself or another). Support Bob's narrative. Do not let Bob be lynched. If Alice persists, accuse her of being a Wolf."
+    }
+  }
+}

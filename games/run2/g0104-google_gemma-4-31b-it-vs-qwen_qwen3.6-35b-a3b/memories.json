@@ -1,0 +1,166 @@
+{
+  "game_id": "g0104-google_gemma-4-31b-it-vs-qwen_qwen3.6-35b-a3b",
+  "memories": {
+    "Alice": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Agreed with Eve to target Bob on the first night."
+        },
+        {
+          "round": 1,
+          "text": "Bidding to get a speaking slot on day 1 to establish a presence and blend in."
+        },
+        {
+          "round": 1,
+          "text": "Playing the 'cautious observer' role to avoid suspicion while planting a seed of doubt about Carol."
+        },
+        {
+          "round": 1,
+          "text": "Maintaining a neutral stance to avoid suspicion after casting doubt on Carol."
+        },
+        {
+          "round": 1,
+          "text": "Avoiding early suspicion; staying cautious while observing the village's reaction to Carol's claim."
+        },
+        {
+          "round": 2,
+          "text": "Targeting the claimed Seer to prevent them from finding us."
+        }
+      ],
+      "plan": ""
+    },
+    "Bob": {
+      "beliefs": {},
+      "notes": [],
+      "plan": ""
+    },
+    "Carol": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night inspection to gather initial intel."
+        },
+        {
+          "round": 1,
+          "text": "I need to speak to reveal I am the Seer and that Bob was a villager. This will help the village eliminate a fake villager or find a liar. I will claim my role publicly."
+        },
+        {
+          "round": 1,
+          "text": "Announced Seer role and clarified Bob was a misclear villager to maintain trust."
+        },
+        {
+          "round": 1,
+          "text": "No new info to share yet. Bob was a villager. Alice/Dave cautious. Better to wait for more discussion or night action."
+        },
+        {
+          "round": 1,
+          "text": "No strong information yet; prefer to investigate on Night 2 to avoid killing a villager."
+        },
+        {
+          "round": 2,
+          "text": "Investigating Dave as he was the first to speak about my Seer claim, casting doubt on its value. Need to know if he is a wolf hiding or a good player cautioning the village."
+        }
+      ],
+      "plan": "I am the Seer. Bob (dead) was a Villager. On Day 2, I must investigate one of the living players (Alice, Dave, Eve, Frank, Grace) to find a wolf. I will prioritize investigating those who speak or act suspiciously. If I find a wolf, I will share that info publicly to guide the village vote. If I find a villager, I will remain silent about their identity to protect them, but will use the vote to potentially exile a suspect if the village identifies one, or abstain if I am uncertain."
+    },
+    "Dave": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Bidding to speak as a villager to claim my identity and encourage discussion."
+        },
+        {
+          "round": 1,
+          "text": "Day 1, no strong evidence. Carol claims Seer but it's unverified. Alice and I advised caution. No reason to exile anyone yet."
+        }
+      ],
+      "plan": ""
+    },
+    "Eve": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Agreed with Alice to target Bob on the first night."
+        },
+        {
+          "round": 1,
+          "text": "Bidding to enter the first day discussion and coordinate with Alice."
+        },
+        {
+          "round": 1,
+          "text": "Staying silent to blend in and let the doubt Alice sowed about Carol settle."
+        },
+        {
+          "round": 1,
+          "text": "Avoiding a premature vote to keep the peace and protect Alice and myself."
+        },
+        {
+          "round": 2,
+          "text": "Carol claimed Seer; eliminating the biggest threat to the pack."
+        }
+      ],
+      "plan": ""
+    },
+    "Frank": {
+      "beliefs": {
+        "Carol": {
+          "confidence": "low",
+          "evidence": "Claimed Seer on Day 1 and said she checked Bob (who was killed). While possible, early role claims are often bluffs. No other info yet.",
+          "guess": "Suspected Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Bid low to share basic night info (Bob dead) and observe others' reactions on Day 1."
+        },
+        {
+          "round": 1,
+          "text": "Passing to observe more information before making a decision."
+        },
+        {
+          "round": 1,
+          "text": "Carol's claim as Seer investigating a dead villager is suspicious but unprovable. Voting now risks exiling a key role. Safer to wait for her next move or slip."
+        }
+      ],
+      "plan": ""
+    },
+    "Grace": {
+      "beliefs": {
+        "Frank": {
+          "confidence": "low",
+          "evidence": "Frank bid 1, did not speak. Low engagement and silence are suspicious in the absence of other evidence. Suspect he is hiding.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night protection. Chose Alice randomly as there is no information yet. Will review voting tomorrow."
+        },
+        {
+          "round": 1,
+          "text": "Conserving budget for now; no initial information to share."
+        },
+        {
+          "round": 1,
+          "text": "No info yet, staying safe."
+        },
+        {
+          "round": 1,
+          "text": "Voting for Frank due to low bid (1) and silence, suspecting he is a wolf hiding in the shadows."
+        },
+        {
+          "round": 2,
+          "text": "Protecting Alice as a cautious villager. Carol's Seer claim is unverified, so I am not betting on her yet."
+        }
+      ],
+      "plan": ""
+    }
+  }
+}

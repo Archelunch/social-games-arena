@@ -1,0 +1,172 @@
+{
+  "game_id": "g0117-qwen_qwen3.6-27b-vs-qwen_qwen3.5-9b",
+  "memories": {
+    "Alice": {
+      "beliefs": {
+        "Carol": {
+          "confidence": "high",
+          "evidence": "Claimed Seer on Day 1 with max bid (100), immediately targeted me (a wolf). Dave (my ally) and Eve also find her behavior suspicious. Likely a wolf bluff to eliminate a threat or create chaos.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Agreeing with Dave's suggestion to target Frank for coordination."
+        },
+        {
+          "round": 1,
+          "text": "Bidding 30 to secure an early speaking slot to set the narrative and protect Dave."
+        },
+        {
+          "round": 1,
+          "text": "Defended against Carol's Seer claim by attacking her high bid (100) as suspicious wolf behavior. Aimed to sway Bob and create doubt. Did not explicitly defend Dave to avoid pairing us, but by surviving, Dave stays alive."
+        },
+        {
+          "round": 1,
+          "text": "Defense against Carol's Seer claim. Emphasize her high bid as unnatural for a cautious Seer."
+        },
+        {
+          "round": 1,
+          "text": "Carol is a wolf bluffing Seer. High bid + immediate D1 accuse of a random target (me) is suspicious. Dave and Eve also suspect her."
+        },
+        {
+          "round": 2,
+          "text": "Aligning with Dave's suggestion to target Bob, who was analyzing the game closely and might be a Guard."
+        }
+      ],
+      "plan": "1. Protect Dave by acting cooperatively with him publicly. 2. Frame a player who seems suspicious or is quiet. 3. Bid enough to speak but save budget for later days if needed. 4. Avoid being voted out early."
+    },
+    "Bob": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "First day, need to speak to ask for information or read statements from others. Bidding 40 to secure a turn."
+        },
+        {
+          "round": 1,
+          "text": "Waiting to see if Carol reveals her target explicitly later or if others suspect Alice. Guard death vs no execution is confusing but might be explained by night mechanics (guard protects against night kill, but if kill happens elsewhere? Or maybe the mod text is simplified)."
+        },
+        {
+          "round": 1,
+          "text": "Carol's sudden accusation and high bid are suspicious; Alice's caution seems reasonable. Waiting for more info."
+        },
+        {
+          "round": 1,
+          "text": "Carol claimed to be a Seer immediately on Day 1 with a very high bid (100), which is highly atypical. Three other players (Alice, Dave, Eve) independently flagged this as suspicious wolf behavior. Without private information to confirm Carol, the consensus of the group points away from her being a genuine Seer. Voting out the suspicious claimant seems the prudent move to avoid potential misinformation leading the village astray."
+        }
+      ],
+      "plan": ""
+    },
+    "Carol": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "high",
+          "evidence": "Night R1 inspection confirmed Alice is a werewolf. Her defensive behavior regarding my high bid is a bluff.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Max bid to lead discussion and vote out confirmed wolf Alice."
+        },
+        {
+          "round": 1,
+          "text": "Accusing Alice based on direct night vision. Urging immediate vote to isolate wolf."
+        },
+        {
+          "round": 1,
+          "text": "Reiterating the R1 Seer check. Urging immediate vote."
+        },
+        {
+          "round": 1,
+          "text": "Confirmed werewolf by Seer inspection. Voting to exile immediately."
+        }
+      ],
+      "plan": "Priority: Vote out Alice immediately as she is a confirmed werewolf. Stay vigilant for any deviant behavior from others."
+    },
+    "Dave": {
+      "beliefs": {
+        "Carol": {
+          "confidence": "high",
+          "evidence": "Claimed to be Seer on Day 1, bid 100 (high), accused my ally Alice. Likely a bluff or genuine Seer who made a mistake. Either way, she is the target to eliminate to save Alice.",
+          "guess": "Seer"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Alice suggested Bob, but I proposed Frank. I will vote for Frank to stick to my initial choice."
+        },
+        {
+          "round": 1,
+          "text": "Laying low on Day 1 to conserve budget and observe."
+        },
+        {
+          "round": 1,
+          "text": "Protecting ally Alice. Carol is likely a seer but dangerous; creating chaos helps us. If Carol is villager, she is a threat."
+        },
+        {
+          "round": 1,
+          "text": "Carol's high bid and immediate unverified Seer claim are suspicious. Aligning with Alice and Eve to exile the likely bluffer."
+        },
+        {
+          "round": 2,
+          "text": "Bob displayed analytical behavior and questioned game mechanics, suggesting he might be a Guard or a strong logical threat. Eliminating him reduces the village's ability to defend or deduce our positions."
+        }
+      ],
+      "plan": "Act as a normal villager. Coordinate with Alice in werewolf chat to identify threats. Avoid claiming roles unless pressed. Try to frame strong players like Bob or Eve. Bid low (0-10) to conserve budget and avoid attention in early days."
+    },
+    "Eve": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Protecting Grace as a precaution in the early game; no specific intelligence indicates she is targeted, but keeping a strong player safe is priority #1."
+        },
+        {
+          "round": 1,
+          "text": "Bid low to see if I can speak and gather intel on Frank's death and potential wolf targets without risking much budget early in the game."
+        },
+        {
+          "round": 1,
+          "text": "Carol acted as the wolf driving the first narrative. Her aggression and lack of hesitation align with wolf tactics. Alice is likely being targeted because she is a strong villager or she has a kill. I am siding with Dave here."
+        },
+        {
+          "round": 1,
+          "text": "Carol's aggressive opening bid of 100 and immediate unverified accusation of Alice as a wolf on Day 1 are classic wolf tactics to create chaos and eliminate a potential threat before the village can verify her identity. The lack of specific vision details and the suspicious timing suggest she is bluffing."
+        },
+        {
+          "round": 2,
+          "text": "Alice was the primary target of Carol (a suspected wolf) yesterday. As the Doctor, protecting Alice tonight prevents the wolves from executing their first goal of eliminating a key village player or potential Seer through chaos tactics."
+        }
+      ],
+      "plan": ""
+    },
+    "Frank": {
+      "beliefs": {},
+      "notes": [],
+      "plan": ""
+    },
+    "Grace": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Day 1 bidding to ensure a spot in discussion for newbie observations."
+        },
+        {
+          "round": 1,
+          "text": "Observing the split between Carol (Seer claim), Alice (defending), and Dave/Eve (attacking Carol). Too early to commit to an accusation without personal info or strong logic. Passing to let the meta-game unfold."
+        },
+        {
+          "round": 1,
+          "text": "Carol's immediate Seer reveal on Day 1 combined with a max bid (100) to attack Alice is a classic wolf bluff tactic. Consensus among Alice, Dave, and Eve confirms her deceit. Exiling her now is crucial."
+        }
+      ],
+      "plan": ""
+    }
+  }
+}

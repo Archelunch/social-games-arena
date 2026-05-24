@@ -1,0 +1,73 @@
+{
+  "created_at": "2026-05-23T20:22:12.166577+00:00",
+  "game_id": "g0133-qwen_qwen3.6-27b-vs-qwen_qwen3.6-35b-a3b",
+  "git_sha": "4f8662f13aac11f60a04f79f659f4cb810d4d79f",
+  "max_iters": 9,
+  "max_tokens": 8000,
+  "model_arg": "tournament",
+  "models": [
+    [
+      "Alice",
+      "qwen/qwen3.6-35b-a3b"
+    ],
+    [
+      "Bob",
+      "qwen/qwen3.6-35b-a3b"
+    ],
+    [
+      "Carol",
+      "qwen/qwen3.6-27b"
+    ],
+    [
+      "Dave",
+      "qwen/qwen3.6-35b-a3b"
+    ],
+    [
+      "Eve",
+      "qwen/qwen3.6-27b"
+    ],
+    [
+      "Frank",
+      "qwen/qwen3.6-35b-a3b"
+    ],
+    [
+      "Grace",
+      "qwen/qwen3.6-35b-a3b"
+    ]
+  ],
+  "players": [
+    [
+      "Alice",
+      "villager"
+    ],
+    [
+      "Bob",
+      "villager"
+    ],
+    [
+      "Carol",
+      "werewolf"
+    ],
+    [
+      "Dave",
+      "seer"
+    ],
+    [
+      "Eve",
+      "werewolf"
+    ],
+    [
+      "Frank",
+      "villager"
+    ],
+    [
+      "Grace",
+      "doctor"
+    ]
+  ],
+  "reasoning": false,
+  "rounds": 2,
+  "seed": 2054837075,
+  "temperature": 1.0,
+  "winner": "werewolves"
+}

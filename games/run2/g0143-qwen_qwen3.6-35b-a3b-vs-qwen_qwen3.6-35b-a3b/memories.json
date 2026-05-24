@@ -1,0 +1,160 @@
+{
+  "game_id": "g0143-qwen_qwen3.6-35b-a3b-vs-qwen_qwen3.6-35b-a3b",
+  "memories": {
+    "Alice": {
+      "beliefs": {
+        "Dave": {
+          "confidence": "high",
+          "evidence": "Dave claimed to be the Doctor but his defense was aggressive and illogical. He implied he tried to guard but Bob still died, which either means he failed (unlikely for Doctor mechanics usually imply survival if targeted) or he is lying about being the Doctor. Lying about a special role to deflect is a classic wolf tactic. His bidding pattern (high initial) fits a role player, but the lie disqualifies him as honest Special Role. Villagers rarely lie about being Doctor this specifically without cause.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Conserving budget on Day 1 with no information."
+        },
+        {
+          "round": 1,
+          "text": "Suspecting Dave based on his claim of guarding and aggressive defense against Carol/Eve."
+        },
+        {
+          "round": 1,
+          "text": "Exiling Dave due to his suspicious Doctor claim and aggressive, defensive behavior which is characteristic of a werewolf trying to deflect suspicion."
+        }
+      ],
+      "plan": ""
+    },
+    "Bob": {
+      "beliefs": {},
+      "notes": [],
+      "plan": ""
+    },
+    "Carol": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Agreed with Eve to kill Bob in Night R1 chat."
+        },
+        {
+          "round": 1,
+          "text": "Ensure I can speak on Day 1 to set the tone and deflect suspicion from Eve."
+        },
+        {
+          "round": 1,
+          "text": "Throwing suspicion on Dave to deflect attention from Eve and me."
+        },
+        {
+          "round": 1,
+          "text": "Dave claims to be Doctor but failed to save Bob. Eve is pushing him. I should avoid being the second voice accusing him to prevent looking like a coordinated wolf pack. Let the village analyze his failed claim."
+        },
+        {
+          "round": 1,
+          "text": "Village consensus is strong against Dave. Alice and Frank are vocal. Voting with the herd maximizes our chance of exile and keeps us clean."
+        },
+        {
+          "round": 2,
+          "text": "Agreed with Eve's plan to kill Grace to reach 2 vs 3, keeping pressure on Alice/Frank."
+        }
+      ],
+      "plan": ""
+    },
+    "Dave": {
+      "beliefs": {
+        "Carol": {
+          "confidence": "medium",
+          "evidence": "Carol initiated the attack on me (the Doctor) based on weak bidding logic. Wolves often target the Doctor early to remove the village's protection. Her aggressive stance without factual basis is suspicious.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night guard. Protecting Alice to start the game."
+        },
+        {
+          "round": 1,
+          "text": "Bid to speak as Doctor to report night actions and gather info."
+        },
+        {
+          "round": 1,
+          "text": "Defending against Carol and Eve's false claims about bidding and Doctor behavior. Shift focus back to the game state."
+        }
+      ],
+      "plan": "As the Doctor, I protected Alice last night. Bob died. Since I guarded Alice and she survived, the wolves attacked Bob. I have no information on who the wolves are. I will listen to players' claims and voting patterns to identify suspicious behavior."
+    },
+    "Eve": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "I suggested Bob in the previous turn. Sticking with my initial suggestion to minimize confusion or delay, assuming Carol might agree or it's a tie-breaking choice favoring my initial input."
+        },
+        {
+          "round": 1,
+          "text": "Bid 50 to speak mid-order. Plan: Act innocent, deflect from Carol."
+        },
+        {
+          "round": 1,
+          "text": "Reinforcing suspicion on Dave as suggested by Carol. This keeps the focus off our pack."
+        },
+        {
+          "round": 1,
+          "text": "Defending Dave to break the 'Carol-Eve' attack pattern and appear rational. Dave is innocent/villager, so saving him is strategically sound if it preserves my cover."
+        },
+        {
+          "round": 1,
+          "text": "Alice's behavior (bid 0 but aggressive accusation) is suspicious. If she is the Seer, she likely saw me or Carol. Removing an aggressive accuser helps protect Dave if he is the Doctor, and potentially kills a Seer if she is one. If she is a villager, she is expendable. Carol is pushing for Dave, so I avoid Carol. Frank is similar to Alice but bid 10, slightly more active. Grace is silent. I target Alice."
+        },
+        {
+          "round": 2,
+          "text": "Aligning with Carol's suggestion to kill Alice. Since the win condition is met by reaching 2 vs 2, any kill works. Alice is a vocal accuser, potentially distracting the village from us. Killing her keeps Frank and Grace alive, but reduces village to 2. If Alice is the Doctor, she is likely not guarding herself. If the Doctor guards someone else, Alice dies. If Alice is a villager, she dies. Proceeding with Alice."
+        }
+      ],
+      "plan": ""
+    },
+    "Frank": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Bidding 10 to secure a speaking slot without spending too much budget. Waiting for others to speak before forming suspicions."
+        },
+        {
+          "round": 1,
+          "text": "Dave claimed to be Doctor. Attackers: Carol, Eve, Alice. Dave's defense was weak/aggressive. Likely wolf faking Doctor."
+        },
+        {
+          "round": 1,
+          "text": "Dave claimed to be the Doctor but acted aggressively and defensively, which is common wolf behavior to deflect. Eve's defense of him suggests they might be aligned. I suspect Dave is a werewolf pretending to be the Doctor."
+        }
+      ],
+      "plan": ""
+    },
+    "Grace": {
+      "beliefs": {
+        "Dave": {
+          "confidence": "high",
+          "evidence": "Dave publicly claimed to be the Doctor ('While I was guarding someone...'). As a Villager, he has no reason to make this claim. A Doctor claiming to be Doctor is also unusual behavior but less likely than a Wolf falsely claiming the role to deflect. Given his aggressive defense and the lack of any prior accusation of his role, this is a strong tell.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Bidding 10 to secure a speaking slot on Day 1 to establish I am a villager and encourage discussion."
+        },
+        {
+          "round": 1,
+          "text": "Dave is suspected by many, but I lack definitive proof. I will observe further before committing."
+        },
+        {
+          "round": 1,
+          "text": "Dave falsely claimed to be the Doctor, a strong indicator of being a werewolf. His aggressive behavior supports this suspicion."
+        }
+      ],
+      "plan": ""
+    }
+  }
+}

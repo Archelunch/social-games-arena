@@ -1,0 +1,285 @@
+{
+  "game_id": "g0061-qwen_qwen3.5-9b-vs-google_gemma-4-26b-a4b-it",
+  "memories": {
+    "Alice": {
+      "beliefs": {
+        "Carol": {
+          "confidence": "high",
+          "evidence": "Dave (Seer) inspected her as a werewolf. She also aligned with Eve (exiled werewolf) on Day 1 and accused me for no clear reason.",
+          "guess": "werewolf"
+        },
+        "Eve": {
+          "confidence": "medium",
+          "evidence": "Claimed to know the Doctor protected Alice without any information, suggesting she is trying to steer the narrative or is a werewolf.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Initial bid to establish presence in Day 1 discussion."
+        },
+        {
+          "round": 1,
+          "text": "Dave claims Seer and confirmed me as villager. Eve and Carol both assumed a Doctor saved me. Passing to observe."
+        },
+        {
+          "round": 1,
+          "text": "Eve and Carol made suspicious claims about knowing the Doctor protected me without any evidence."
+        },
+        {
+          "round": 2,
+          "text": "Highlighting Carol's suspicious alignment with the exiled Eve and her aggression toward me."
+        },
+        {
+          "round": 2,
+          "text": "Supporting Dave's Seer claim against Carol."
+        },
+        {
+          "round": 2,
+          "text": "Supporting the Seer's claim to get a werewolf out."
+        },
+        {
+          "round": 2,
+          "text": "Dave the Seer identified her as a werewolf, and her behavior on Day 1 was suspicious."
+        }
+      ],
+      "plan": "Observe the bidding and speaking patterns of other players. Note who claims which role and look for inconsistencies in their logic or voting behavior."
+    },
+    "Bob": {
+      "beliefs": {
+        "Eve": {
+          "confidence": "medium",
+          "evidence": "Aggressively targeting Alice despite Seer claim and Doctor's protection; rhetoric about breaking village hope.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night protection. Random target since no information is available yet."
+        },
+        {
+          "round": 1,
+          "text": "Bidding to speak on Day 1 to establish presence and observe reactions to the successful protection."
+        },
+        {
+          "round": 1,
+          "text": "Eve and Carol's comments were slightly suspicious regarding Alice, but I'll wait to see if anyone challenges Dave's Seer claim."
+        },
+        {
+          "round": 1,
+          "text": "Eve's rhetoric about breaking the village's hope and her aggressive targeting of Alice (a potentially confirmed villager) makes her a high-priority suspect."
+        },
+        {
+          "round": 2,
+          "text": "Protecting Dave because he claimed Seer and provided useful info about Alice."
+        },
+        {
+          "round": 2,
+          "text": "Frank died. Need to discuss the implications and check for other claims/suspicions."
+        },
+        {
+          "round": 2,
+          "text": "Supporting Dave's claim to thin out werewolves."
+        },
+        {
+          "round": 2,
+          "text": "Dave the Seer identified Carol as a werewolf. Carol's Day 1 alignment with Eve also makes her suspicious."
+        }
+      ],
+      "plan": "Observe the reactions to the first night's survival. If I can speak, I will mention that no one died and see if anyone claims a role. Try to protect players who seem like villagers."
+    },
+    "Carol": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night, no specific intel on villagers. Targeting Alice arbitrarily to make a move."
+        },
+        {
+          "round": 1,
+          "text": "Bidding to secure a speaking slot to coordinate with Eve and discuss the target (Frank) while avoiding early detection."
+        },
+        {
+          "round": 1,
+          "text": "Supporting Eve to maintain pack cohesion. Validating her reading of the night event to show we are on the same page. Not raising suspicion against self."
+        },
+        {
+          "round": 1,
+          "text": "Voting for Alice to keep the focus off the Seer (Dave) and consistent with our pack's attempt to eliminate the villager we targeted last night."
+        },
+        {
+          "round": 2,
+          "text": "Lone wolf with Eve dead. Thevillagers are focused on Alice or investigating us. Targeting Frank, who is quiet, might confuse them. If they think we are coordinated on Alice, a vote for Frank is a trap."
+        },
+        {
+          "round": 2,
+          "text": "I need to speak to influence the vibe or defend against accusations since Bob is a potential target."
+        },
+        {
+          "round": 2,
+          "text": "Defeating myself is inevitable at this moment; the village knows my identity. Remaining silent aligns with the plan to survive the day without making new accusations that could lead to immediate exile if the vote passes."
+        },
+        {
+          "round": 2,
+          "text": "Bob accused me directly. Voting for him is a futile attempt to disrupt the village's consensus, though I will likely be exiled before night falls. The game is over."
+        }
+      ],
+      "plan": "Coordinate with Eve to eliminate targeted villagers at night. We will start by targeting Frank tonight. In the day, remain silent to avoid raising suspicion. Vote carefully to deflect suspicion from any key players."
+    },
+    "Dave": {
+      "beliefs": {
+        "Carol": {
+          "confidence": "high",
+          "evidence": "Direct Seer inspection result from Night R2.",
+          "guess": "werewolf"
+        },
+        "Eve": {
+          "confidence": "medium",
+          "evidence": "Aggressively pushing to target Alice despite Seer's confirmation that Alice is a villager. Her logic about the Doctor's intervention is being used to manufacture suspicion against a confirmed villager.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Initial inspection to start gathering information."
+        },
+        {
+          "round": 1,
+          "text": "I want to share my inspection of Alice (villager) to establish my role and provide useful info early."
+        },
+        {
+          "round": 1,
+          "text": "Revealing Seer role and Alice's status to establish credibility."
+        },
+        {
+          "round": 1,
+          "text": "Eve and Carol both attacked Alice right after I revealed her status. They might be werewolves trying to sow confusion or discredit the Seer."
+        },
+        {
+          "round": 1,
+          "text": "Eve is driving the suspicious rhetoric against Alice despite my Seer confirmation."
+        },
+        {
+          "round": 2,
+          "text": "Carol aligned with Eve and was suspicious of Alice despite my Seer claim."
+        },
+        {
+          "round": 2,
+          "text": "Carol is a confirmed werewolf from my inspection. Need to reveal this to save the village."
+        },
+        {
+          "round": 2,
+          "text": "Confirmed Carol is a werewolf via Seer inspection. Goal: Get Carol exiled."
+        },
+        {
+          "round": 2,
+          "text": "Already made my accusation against Carol during the speaking phase."
+        },
+        {
+          "round": 2,
+          "text": "Carol is a confirmed werewolf per my Night R2 inspection."
+        }
+      ],
+      "plan": "As the seer, I will share my information about Alice to establish credibility. I will monitor voting patterns and discussions to identify inconsistencies that might point to the werewolves. I will try to protect myself while guiding the village towards the correct exiles."
+    },
+    "Eve": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Random selection among living players as no specific threats identified in previous game state."
+        },
+        {
+          "round": 1,
+          "text": "Bid max to speak first. Goal: Fleetem Alice is alive, but a Doctor protected them. We need to avoid killing Alice now to preserve her for later if needed, or at least control the narrative so we aren't rushed. Use my silence to let others bleed suspicion."
+        },
+        {
+          "round": 1,
+          "text": "Carol and I targeted Alice. She wasn't even killed. The doctor is working well for the village now."
+        },
+        {
+          "round": 1,
+          "text": "I voted with Eve last night; she saw the guard. I must kill Alice again to align with the outcome or test if Eve is bluffing, assuming the Doctor was indeed Alice's guard."
+        },
+        {
+          "round": 1,
+          "text": "Abstaining to avoid directing village votes toward my pack or creating a false narrative. As a werewolf with dwindling speaking budget (0), I can only vote. The village suspects Carol and me for attacking Alice. Voting for Alice reinforces the attack pattern which might backfire. Voting for Carol endangers my ally. Abstaining is the safest neutral move to let the natural suspicion play out."
+        }
+      ],
+      "plan": ""
+    },
+    "Frank": {
+      "beliefs": {
+        "Carol": {
+          "confidence": "medium",
+          "evidence": "Coordinated with Eve to make unverified claims about the Doctor's target being Alice, and pushed to target Alice despite Dave's Seer claim.",
+          "guess": "werewolf"
+        },
+        "Eve": {
+          "confidence": "medium",
+          "evidence": "Coordinated with Carol to claim Alice was protected by the Doctor without proof, and pushed to target Alice despite Dave's Seer claim.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Modest opening bid to establish presence on Day 1."
+        },
+        {
+          "round": 1,
+          "text": "Observing reactions to Dave's Seer claim and Carol's aggressive stance toward Alice."
+        },
+        {
+          "round": 1,
+          "text": "Aggressive behavior and unsubstantiated claims about the Doctor's protection of Alice, coordinating with Carol to discredit a confirmed villager (per Dave's Seer claim)."
+        }
+      ],
+      "plan": "Observe the bidding amounts for speaking slots to gauge player confidence. Watch for inconsistencies in player claims and track voting patterns. Aim to identify potential werewolves by looking for defensive or deflective behavior."
+    },
+    "Grace": {
+      "beliefs": {
+        "Carol": {
+          "confidence": "low",
+          "evidence": "Accused Alice despite Dave's Seer claim and Eve's comment about the Doctor saving Alice.",
+          "guess": "werewolf"
+        },
+        "Eve": {
+          "confidence": "low",
+          "evidence": "Argued for targeting Alice to 'test her logic' after suggesting Alice was protected, which is suspicious behavior towards a potentially confirmed villager.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Bidding moderately to ensure a voice in the initial discussion regarding the Night 1 survival."
+        },
+        {
+          "round": 1,
+          "text": "Observing reactions to Dave's Seer claim and the conflicting views on Alice."
+        },
+        {
+          "round": 1,
+          "text": "Abstaining to see how the village reacts to Dave's Seer claim and the accusations by Carol and Eve."
+        },
+        {
+          "round": 2,
+          "text": "Carol aligned with Eve's suspicious targeting of Alice, even after Dave claimed Seer. Need to voice suspicion of Carol."
+        },
+        {
+          "round": 2,
+          "text": "Supporting Dave's Seer claim to exile Carol based on Day 1 behavior and Dave's inspection."
+        },
+        {
+          "round": 2,
+          "text": "Dave claimed Seer and identified Carol as a werewolf. Carol's Day 1 behavior was suspicious."
+        }
+      ],
+      "plan": "Observe initial discussions and voting patterns. Since no one died on Night 1, someone was protected. Monitor players for suspicious claims or inconsistent logic regarding the protection."
+    }
+  }
+}

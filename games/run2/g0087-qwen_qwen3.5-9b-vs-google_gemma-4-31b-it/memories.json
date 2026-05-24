@@ -1,0 +1,260 @@
+{
+  "game_id": "g0087-qwen_qwen3.5-9b-vs-google_gemma-4-31b-it",
+  "memories": {
+    "Alice": {
+      "beliefs": {
+        "Carol": {
+          "confidence": "high",
+          "evidence": "Carol falsely claimed to be the Seer to accuse Alice, attempting to shift suspicion and protect the werewolf win condition.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Following Bob's suggestion from night R1 pack chat to eliminate a villager early."
+        },
+        {
+          "round": 1,
+          "text": "Bid max to speak first and propose new target. Eve is dead. Pack coordination needs a new vote."
+        },
+        {
+          "round": 1,
+          "text": "Played safe, shown shock, invited discussion, no specific accusations yet."
+        },
+        {
+          "round": 1,
+          "text": "I defended myself as a villager, even though I am actually a werewolf. This is necessary to avoid suspicion."
+        },
+        {
+          "round": 1,
+          "text": "False seer claim to shift suspicion. Suspect is a werewolf."
+        }
+      ],
+      "plan": ""
+    },
+    "Bob": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Agreed with the suggestion to start by eliminating Eve to reduce villager numbers."
+        },
+        {
+          "round": 1,
+          "text": "Silent to blend in; waiting for votes."
+        },
+        {
+          "round": 1,
+          "text": "Protect my ally Alice while maintaining the illusion that I am a supportive villager. Carol is the target, so I must not support his claim. By defending Alice, I shift focus away from Carol's false accusations about her."
+        },
+        {
+          "round": 1,
+          "text": "Carol falsely claimed to be the Seer and identified Alice as a werewolf. If she were the real Seer, she wouldn't falsely accuse Alice unless Alice was a werewolf, but then she would be telling the truth. However, a common strategy for a false Seer is to make a bold, specific claim to gain authority. Given that Alice is a werewolf, if Carol is the real Seer, she is telling the truth. If Carol is a lying villager, she is lying. The safest assumption in early game is that a false claim of Seer is the most obvious red flag. I will vote out Carol to remove a potential source of deception."
+        },
+        {
+          "round": 2,
+          "text": "Carol claimed to be the Seer, which is highly suspicious for a lone villager. We need to reduce the count as much as possible. Alice is dead, so acting alone, targeting the most vocal role-claim misfit is the best shot at reducing villager numbers or finding a hidden wolf (if any logic holds)."
+        },
+        {
+          "round": 2,
+          "text": "Bid high to speak first and expose Carol's false Seer claim. She was my target last night and must be eliminated to reach the win condition."
+        },
+        {
+          "round": 2,
+          "text": "Playing as a villager, sowing doubt in Grace to attempt a lynching. If she dies, village count drops, bringing us closer to win condition."
+        },
+        {
+          "round": 2,
+          "text": "Need to survive. Carol and Frank are my ultimate targets if I make it to pack chat or win the vote. Must deflect suspicion onto them."
+        },
+        {
+          "round": 2,
+          "text": "Need to reach 2W vs 2V to win. Grace is the best villager target to increase chances of being exiled. Carol is already identified as a werewolf. If we lose, we survive until next night to switch targets if needed."
+        }
+      ],
+      "plan": "Our immediate goal is to eliminate two more villagers to ensure the kill. Alice and I will coordinate our targets based on prior Prosecutor guesses and voting patterns. We must avoid the Seer's target if possible. I need to maintain my identity as a villager while guiding votes, ensuring Alice and I survive long enough to meet our win condition (equaling or outnumbering villagers). If we get to a 3v3 or 4v2 state, we can push harder. Surviving the next night is critical."
+    },
+    "Carol": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "high",
+          "evidence": "Seer inspection result",
+          "guess": "werewolf"
+        },
+        "Bob": {
+          "confidence": "high",
+          "evidence": "Seer inspection confirmed he is a werewolf.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night inspection to start identifying factions."
+        },
+        {
+          "round": 1,
+          "text": "Secure a slot to call out Alice as a werewolf"
+        },
+        {
+          "round": 1,
+          "text": "Revealing Alice as a werewolf based on my Seer inspection."
+        },
+        {
+          "round": 1,
+          "text": "Confirmed werewolf via Seer inspection."
+        },
+        {
+          "round": 2,
+          "text": "Bob defended Alice, who was confirmed to be a werewolf."
+        },
+        {
+          "round": 2,
+          "text": "Accuse Bob of being a werewolf based on Night R2 inspection."
+        },
+        {
+          "round": 2,
+          "text": "Exposing Bob after my Night 2 inspection."
+        },
+        {
+          "round": 2,
+          "text": "Confirmed werewolf via Seer inspection."
+        }
+      ],
+      "plan": ""
+    },
+    "Dave": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "medium",
+          "evidence": "Carol claimed Seer and identified her as werewolf.",
+          "guess": "werewolf"
+        },
+        "Bob": {
+          "confidence": "high",
+          "evidence": "Carol identified him as a werewolf, and my protection of Carol resulted in no one dying, confirming Carol's role as the Seer.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night protection; random choice."
+        },
+        {
+          "round": 1,
+          "text": "Bidding moderately to get a speaking slot in the first round to gather information."
+        },
+        {
+          "round": 1,
+          "text": "Checking for counter-claims to Carol's Seer claim."
+        },
+        {
+          "round": 1,
+          "text": "Observing the conflict between Carol and Alice; no evidence yet to side with either."
+        },
+        {
+          "round": 1,
+          "text": "Voting based on Carol's Seer claim."
+        },
+        {
+          "round": 2,
+          "text": "Protecting the claimed Seer."
+        },
+        {
+          "round": 2,
+          "text": "Trying to secure a speaking slot to support Carol's validity based on the successful save."
+        },
+        {
+          "round": 2,
+          "text": "Carol is confirmed Seer; Bob is identified as werewolf."
+        }
+      ],
+      "plan": ""
+    },
+    "Eve": {
+      "beliefs": {},
+      "notes": [],
+      "plan": ""
+    },
+    "Frank": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "medium",
+          "evidence": "Carol claimed to be the Seer and identified her as a werewolf.",
+          "guess": "werewolf"
+        },
+        "Bob": {
+          "confidence": "high",
+          "evidence": "Carol (Seer) identified him as a werewolf, and Dave (Doctor) protected Carol, which likely confirms Carol's role since the werewolves would target the Seer.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Bid for a slot in Day 1 discussion to gather information."
+        },
+        {
+          "round": 1,
+          "text": "Following the Seer's claim for now."
+        },
+        {
+          "round": 1,
+          "text": "Voting based on Carol's Seer claim."
+        },
+        {
+          "round": 2,
+          "text": "Analyze the no-death night and check for other role claims."
+        },
+        {
+          "round": 2,
+          "text": "Carol identifies Bob as a werewolf and Dave's protection of Carol confirms Carol's role."
+        }
+      ],
+      "plan": ""
+    },
+    "Grace": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "medium",
+          "evidence": "Carol claimed to be the Seer and identified Alice as a werewolf.",
+          "guess": "werewolf"
+        },
+        "Bob": {
+          "confidence": "high",
+          "evidence": "Carol (Seer) identified him; Dave (Doctor) confirmed Carol was attacked, validating Carol's role.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Bidding to get a speaking slot in the first discussion round."
+        },
+        {
+          "round": 1,
+          "text": "Waiting to see if there are any other Seer claims before committing to Carol's accusation of Alice."
+        },
+        {
+          "round": 1,
+          "text": "Voting for Alice based on Carol's Seer claim."
+        },
+        {
+          "round": 2,
+          "text": "Discuss the Night 2 survival and Bob's defense of Alice."
+        },
+        {
+          "round": 2,
+          "text": "Supporting Carol's claim that Bob is the werewolf because Bob attacked me without evidence."
+        },
+        {
+          "round": 2,
+          "text": "Carol identified Bob as a werewolf and Dave confirmed Carol was attacked, validating the Seer's role."
+        }
+      ],
+      "plan": ""
+    }
+  }
+}

@@ -1,0 +1,410 @@
+{
+  "game_id": "g0079-google_gemma-4-31b-it-vs-google_gemma-4-31b-it",
+  "memories": {
+    "Alice": {
+      "beliefs": {
+        "Carol": {
+          "confidence": "low",
+          "evidence": "Dave claimed to be Seer and identified her as a werewolf, though he could be lying.",
+          "guess": "werewolf"
+        },
+        "Grace": {
+          "confidence": "medium",
+          "evidence": "Grace opposed Dave's Seer claim and is now attempting to divert suspicion toward me for being quiet.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Bidding moderately to participate in the first day's discussion."
+        },
+        {
+          "round": 1,
+          "text": "Introduced myself as cooperative and encouraged information flow."
+        },
+        {
+          "round": 1,
+          "text": "No information available yet to make an accusation or defense."
+        },
+        {
+          "round": 1,
+          "text": "No evidence against anyone yet; avoiding random exiles."
+        },
+        {
+          "round": 2,
+          "text": "Trying to secure a speaking slot for Day 2 to analyze players after Bob's death."
+        },
+        {
+          "round": 2,
+          "text": "Trying to prompt the Seer to speak or gather information on voting behavior."
+        },
+        {
+          "round": 2,
+          "text": "No clear evidence or accusations to respond to yet."
+        },
+        {
+          "round": 2,
+          "text": "No clear evidence against any player yet. Better to abstain than to exile a villager randomly."
+        },
+        {
+          "round": 3,
+          "text": "Trying to get a speaking slot to push for Seer info or voting analysis."
+        },
+        {
+          "round": 3,
+          "text": "Dave and Carol are in a direct conflict. I'm undecided on who is lying and will observe further."
+        },
+        {
+          "round": 3,
+          "text": "Voting based on Dave's Seer claim. If Dave is lying, he becomes the primary suspect for the next round."
+        },
+        {
+          "round": 4,
+          "text": "Dave was killed by wolves, confirming he was likely the Seer and Carol was a werewolf. Now I need to figure out if Eve or Grace is the other werewolf."
+        },
+        {
+          "round": 4,
+          "text": "Defending myself against Grace and aligning with Eve's logic about Dave."
+        },
+        {
+          "round": 4,
+          "text": "Grace's behavior is consistent with a werewolf trying to protect her teammate (Carol) and divert attention from herself."
+        }
+      ],
+      "plan": ""
+    },
+    "Bob": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night, random protection."
+        },
+        {
+          "round": 1,
+          "text": "I know Alice was targeted because I protected her and no one died. I need to speak to gather info."
+        },
+        {
+          "round": 1,
+          "text": "Observing others' reactions; no evidence yet to accuse or defend anyone."
+        },
+        {
+          "round": 1,
+          "text": "No information available yet to make an informed vote. I know the werewolves targeted Alice, but that doesn't help identify who the werewolves are."
+        },
+        {
+          "round": 2,
+          "text": "Alice was targeted last night; protecting her again."
+        }
+      ],
+      "plan": ""
+    },
+    "Carol": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Coordinated with Grace to kill Alice on the first night."
+        },
+        {
+          "round": 1,
+          "text": "Bidding moderately to enter the conversation and deflect suspicion."
+        },
+        {
+          "round": 1,
+          "text": "Staying neutral to avoid early suspicion since no one has made an accusation."
+        },
+        {
+          "round": 1,
+          "text": "No clear target; avoiding suspicion by not pushing for an exile without evidence."
+        },
+        {
+          "round": 2,
+          "text": "Coordinating with Grace to pivot from Alice."
+        },
+        {
+          "round": 2,
+          "text": "Bidding to participate in the Day 2 discussion and maintain a neutral presence."
+        },
+        {
+          "round": 2,
+          "text": "Blending in by acting as a curious villager and prompting the Seer to reveal themselves or create confusion."
+        },
+        {
+          "round": 2,
+          "text": "No one has a lead yet; staying silent to avoid suspicion."
+        },
+        {
+          "round": 2,
+          "text": "No clear target; avoiding suspicion by not leading a premature attack."
+        },
+        {
+          "round": 3,
+          "text": "Targeting Frank as suggested by Grace to potentially remove a power role or a vocal leader."
+        },
+        {
+          "round": 3,
+          "text": "Bidding moderately to keep a presence in the discussion and protect the pack."
+        },
+        {
+          "round": 3,
+          "text": "Defending myself against Dave's Seer claim by counter-accusing him of lying."
+        },
+        {
+          "round": 3,
+          "text": "Dave claimed to be the Seer and identified me as a werewolf. I must exile him to survive and discredit his claim."
+        }
+      ],
+      "plan": ""
+    },
+    "Dave": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "high",
+          "evidence": "Seer inspection returned villagers.",
+          "guess": "villager"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Starting inspection with Alice to find a werewolf or confirm a villager early."
+        },
+        {
+          "round": 1,
+          "text": "Moderate bid for the first day to observe and steer without revealing identity immediately."
+        },
+        {
+          "round": 1,
+          "text": "Avoided revealing Seer role for now. Confirmed Alice is safe."
+        },
+        {
+          "round": 1,
+          "text": "No accusations yet; keeping Seer identity secret for now."
+        },
+        {
+          "round": 1,
+          "text": "No evidence against anyone yet; Alice is confirmed villager."
+        },
+        {
+          "round": 2,
+          "text": "Inspecting Bob to find werewolves."
+        },
+        {
+          "round": 2,
+          "text": "Trying to get a speaking slot to steer the conversation."
+        },
+        {
+          "round": 2,
+          "text": "No one has shown suspicious behavior yet; waiting for more information."
+        },
+        {
+          "round": 2,
+          "text": "No evidence against anyone yet; Alice and Bob are confirmed villagers."
+        },
+        {
+          "round": 3,
+          "text": "Checking Carol to narrow down the pool of potential werewolves."
+        },
+        {
+          "round": 3,
+          "text": "I need to speak early to expose Carol as a werewolf."
+        },
+        {
+          "round": 3,
+          "text": "Revealing my role and identifying Carol as a werewolf to ensure she is exiled."
+        },
+        {
+          "round": 3,
+          "text": "Confirmed werewolf via Seer inspection."
+        },
+        {
+          "round": 4,
+          "text": "Grace was very quick to accuse me and defend Carol; checking if she is a werewolf."
+        }
+      ],
+      "plan": ""
+    },
+    "Eve": {
+      "beliefs": {
+        "Grace": {
+          "confidence": "medium",
+          "evidence": "Grace questioned Dave (who was likely the Seer) and is now aggressively targeting Alice for being quiet, which looks like a diversion tactic.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Bidding moderately to get a speaking slot on Day 1 to observe and participate."
+        },
+        {
+          "round": 1,
+          "text": "No information available yet to make an informed accusation or defense."
+        },
+        {
+          "round": 1,
+          "text": "No information available to make an informed vote; avoiding random exiles."
+        },
+        {
+          "round": 2,
+          "text": "Trying to secure a speaking slot to analyze the conversation after Bob's death."
+        },
+        {
+          "round": 2,
+          "text": "No clear evidence against any player yet; waiting for more information or the Seer to reveal themselves."
+        },
+        {
+          "round": 2,
+          "text": "No one has provided any suspicious information yet; all speakers are being generic."
+        },
+        {
+          "round": 3,
+          "text": "Trying to get a slot to push for Seer info or analyze patterns."
+        },
+        {
+          "round": 3,
+          "text": "Acknowledging the Seer claim and asking for Carol's response to see how she reacts."
+        },
+        {
+          "round": 3,
+          "text": "Dave and Carol are in a direct conflict; I'll observe for more clues before committing to an accusation."
+        },
+        {
+          "round": 3,
+          "text": "Voting Carol based on Dave's claim to be the Seer."
+        },
+        {
+          "round": 4,
+          "text": "Dave's death suggests he was the Seer and Carol was a werewolf. Now trying to find the last werewolf among Alice and Grace."
+        },
+        {
+          "round": 4,
+          "text": "Dave's death validates his Seer claim and Carol's werewolf status."
+        },
+        {
+          "round": 4,
+          "text": "Observing the dynamic between Alice and Grace; Dave's death confirms Carol was a werewolf."
+        },
+        {
+          "round": 4,
+          "text": "Grace's pattern of doubting the Seer and then attacking the quietest player suggests she is the remaining werewolf."
+        }
+      ],
+      "plan": ""
+    },
+    "Frank": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Initial bid to participate in Day 1 discussion."
+        },
+        {
+          "round": 1,
+          "text": "Starting the conversation to see how others respond."
+        },
+        {
+          "round": 1,
+          "text": "No one has provided any actionable information yet; staying silent to see others' reactions."
+        },
+        {
+          "round": 1,
+          "text": "No evidence against any player yet."
+        },
+        {
+          "round": 2,
+          "text": "Bidding slightly higher than R1 to get an earlier slot and observe others."
+        },
+        {
+          "round": 2,
+          "text": "Encouraging the Seer to provide guidance."
+        },
+        {
+          "round": 2,
+          "text": "No information available to make an accusation or defense; waiting for more evidence or a Seer to speak."
+        },
+        {
+          "round": 2,
+          "text": "No one has shown suspicious behavior yet; voting randomly is too risky."
+        }
+      ],
+      "plan": ""
+    },
+    "Grace": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Agreed with Carol in pack chat to target Alice."
+        },
+        {
+          "round": 1,
+          "text": "Bidding to get a speaking slot and steer the conversation."
+        },
+        {
+          "round": 1,
+          "text": "Staying silent to avoid suspicion on the first day since the discussion is currently neutral."
+        },
+        {
+          "round": 1,
+          "text": "No clear targets on Day 1; playing it safe to avoid suspicion."
+        },
+        {
+          "round": 2,
+          "text": "Coordinating with Carol to pivot from Alice, who was protected in R1."
+        },
+        {
+          "round": 2,
+          "text": "Trying to get a speaking slot to blend in and gauge the room."
+        },
+        {
+          "round": 2,
+          "text": "Staying silent as there are no active accusations to respond to and no clear target to frame without evidence."
+        },
+        {
+          "round": 2,
+          "text": "Maintaining a low profile while the village is undecided."
+        },
+        {
+          "round": 3,
+          "text": "Targeting Eve as suggested by Carol; she has been quiet and could be a cautious Seer/Doctor."
+        },
+        {
+          "round": 3,
+          "text": "Bidding to participate in the Day 3 discussion and coordinate with Carol to divert suspicion."
+        },
+        {
+          "round": 3,
+          "text": "Defending Carol by questioning Dave's Seer claim."
+        },
+        {
+          "round": 3,
+          "text": "Dave claimed to be the Seer and identified Carol. I must vote him out to save my ally and discredit his claim."
+        },
+        {
+          "round": 4,
+          "text": "Dave is the Seer and correctly identified Carol; he is the biggest threat."
+        },
+        {
+          "round": 4,
+          "text": "Bidding to ensure I can manipulate the conversation to avoid being exiled and try to get Alice or Eve exiled."
+        },
+        {
+          "round": 4,
+          "text": "Trying to shift suspicion toward Alice to create a tie or an exile of a human."
+        },
+        {
+          "round": 4,
+          "text": "Defending myself against Alice's accusation of diversion to maintain cover."
+        },
+        {
+          "round": 4,
+          "text": "Maintaining my suspicion of Alice to avoid appearing inconsistent, despite her accusations."
+        }
+      ],
+      "plan": ""
+    }
+  }
+}

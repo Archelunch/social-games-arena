@@ -1,0 +1,309 @@
+{
+  "game_id": "g0085-qwen_qwen3.5-9b-vs-google_gemma-4-31b-it",
+  "memories": {
+    "Alice": {
+      "beliefs": {
+        "Bob": {
+          "confidence": "high",
+          "evidence": "Inspected by me (the Seer) on Night 1.",
+          "guess": "villager"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night inspection to start narrowing down the werewolves."
+        },
+        {
+          "round": 1,
+          "text": "Bid to participate in the first day discussion; Bob is confirmed villager."
+        },
+        {
+          "round": 1,
+          "text": "Staying silent to avoid exposing my role as Seer too early, while observing others."
+        },
+        {
+          "round": 1,
+          "text": "No clear suspect yet; following the general consensus to be cautious on Day 1."
+        }
+      ],
+      "plan": ""
+    },
+    "Bob": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Moderate bid for Day 1 to participate in discussion."
+        },
+        {
+          "round": 1,
+          "text": "No evidence yet; following the cautious approach suggested by the first speakers."
+        },
+        {
+          "round": 1,
+          "text": "No evidence yet to suspect anyone; following the general consensus of caution."
+        }
+      ],
+      "plan": ""
+    },
+    "Carol": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Eve suggested targeting Alice in the pack chat as the strongest candidate (possibly the Seer). I agree and vote to eliminate her."
+        },
+        {
+          "round": 1,
+          "text": "Bidding high early to ensure early speaking time with Eve and the pack. This helps us organize our defense and potentially identify threats before the village votes hit their stride."
+        },
+        {
+          "round": 1,
+          "text": "No suspicious behavior yet. Blending in is key until I can verify Eve's influence or find a liar."
+        },
+        {
+          "round": 2,
+          "text": "Suspect Dave is a Seer; need to speak to argue against village vote."
+        },
+        {
+          "round": 2,
+          "text": "Bob is dead. We have 2 wolves vs 3 villagers. Morale check: keep high. Alignment with Eve confirmed via mutual vote."
+        },
+        {
+          "round": 2,
+          "text": "Voting myself out to prevent being exiled by a split vote or to try to target a other potential threat if my vote doesn't count due to being first."
+        }
+      ],
+      "plan": "Survive the day by blending in with the villagers. Coordinate closely with Eve without drawing redundant suspicion. Use the day discussion to identify the Seer/Doctor through their defensive arguments. Vote strategically against probable threats once we gather enough evidence. Ensure Eve survives to the next night much better than we started."
+    },
+    "Dave": {
+      "beliefs": {
+        "Carol": {
+          "confidence": "high",
+          "evidence": "Openly praised Eve for Bob's death and referred to 'our numbers' being dangerous to villagers.",
+          "guess": "werewolf"
+        },
+        "Eve": {
+          "confidence": "high",
+          "evidence": "Openly confessed in Round 2 to being part of a pack and having a plan to kill Bob.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Trying to get an early speaking slot to observe the group."
+        },
+        {
+          "round": 1,
+          "text": "No evidence yet to accuse or defend; following the cautious consensus of the first speakers."
+        },
+        {
+          "round": 1,
+          "text": "No clear evidence against anyone yet; following the general consensus to be cautious."
+        },
+        {
+          "round": 2,
+          "text": "Bidding to get a speaking slot to analyze the remaining players after Bob's death."
+        },
+        {
+          "round": 2,
+          "text": "Carol and Eve both made statements admitting to being in a 'pack' and coordinating kills."
+        },
+        {
+          "round": 3,
+          "text": "Push to exile Eve after her confession."
+        },
+        {
+          "round": 3,
+          "text": "Reinforcing the case against Eve based on her public confession."
+        },
+        {
+          "round": 3,
+          "text": "Eve openly confessed to being a werewolf in Round 2."
+        }
+      ],
+      "plan": ""
+    },
+    "Eve": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "high",
+          "evidence": "Our pack target led to the player using a Seer ability to protect themselves at Night 1, indicating they are part of the antagonicing faction (Village).",
+          "guess": "Villager"
+        },
+        "Dave": {
+          "confidence": "high",
+          "evidence": "Panic-induced accusation regarding the pack's alleged confession and public voting to exile a participant immediately.",
+          "guess": "Villager"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Confirmed target as discussed with Carol; Alice is suspected of being the Seer."
+        },
+        {
+          "round": 1,
+          "text": "Want to speak on Day 1 to coordinate with Carol and manage the narrative."
+        },
+        {
+          "round": 1,
+          "text": "Alice remains high suspicion. Carol's speech was neutral/good for wolves. Plan: Target next night. Don't speak too much. Let village worry."
+        },
+        {
+          "round": 1,
+          "text": "Premature to vote. Alice is safe tonight. Wait for more speakers to reveal lies or inconsistencies."
+        },
+        {
+          "round": 1,
+          "text": "Alice survived our attack and is likely the Seer. Voting her out will reveal her role and prevent her from revealing villagers or other Seers. This is a strategic move to reduce the village's knowledge and protect our pack."
+        },
+        {
+          "round": 2,
+          "text": "Alice was exiled in Day R1, so she cannot be the target. Choosing Bob as a random valid living villager from the current roster to commit the werewolf kill."
+        },
+        {
+          "round": 2,
+          "text": "I want to speak to urge the village to vote randomly to reach our win condition (2v2). Grind the numbers."
+        },
+        {
+          "round": 2,
+          "text": "Maintain ambiguity. Villagers might not understand the role dynamics yet. Goal is to keep them guessing about our strength and internal dynamics."
+        },
+        {
+          "round": 2,
+          "text": "Attempt to split the village vote. If Dave votes for Carol, we die anyway, but dispersing the 3 votes against us is our only shot. We need a split to survive."
+        },
+        {
+          "round": 3,
+          "text": "Carol is dead. I am the last wolf. To win (2 vs 2 or better), I must kill a villager. My prior high suspicion on Dave makes him my top target. He voted against Carol aggressively."
+        },
+        {
+          "round": 3,
+          "text": "Must speak to ensure survival tonight. Need to sow discord or confuse the remaining villagers (Dave, Frank, Grace) to delay their vote on me, allowing me to potentially kill one of them tonight if the targeting works out, or simply buy time."
+        },
+        {
+          "round": 3,
+          "text": "All villagers (Dave, Frank, Grace) have publicly accused me based on my use of pack jargon ('our plan', 'our numbers'). No effective defense is possible without confirming my role. Waiting for the vote."
+        },
+        {
+          "round": 3,
+          "text": "Voting for the most vocal accuser in a desperate attempt to fragment the village's consensus, even if survival is unlikely given they know I am a werewolf."
+        }
+      ],
+      "plan": "My goal is to survive as long as possible by inducing disagreement among the villagers. Since the village knows I am a werewolf, I should not run for votes. Instead, I will use my actions to target the most vocal accusers (Dave and Frank) to force them to argue about who to vote next, hoping to split the vote or waste time. I will vote to exile Dave immediately to create chaos."
+    },
+    "Frank": {
+      "beliefs": {
+        "Carol": {
+          "confidence": "high",
+          "evidence": "Openly admitted to being part of a pack and praised Eve for the kill of Bob.",
+          "guess": "werewolf"
+        },
+        "Eve": {
+          "confidence": "high",
+          "evidence": "Openly spoke about 'our plan' and 'our numbers' in Day R2, effectively confessing to being a werewolf alongside Carol.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night, protecting Alice randomly."
+        },
+        {
+          "round": 1,
+          "text": "First day discussion, want to hear others first but be able to speak."
+        },
+        {
+          "round": 1,
+          "text": "I am confirming the Doctor's success without revealing I am the Doctor. I'm tracking the reactions to Alice's survival."
+        },
+        {
+          "round": 1,
+          "text": "No clear suspects yet on Day 1; staying silent to observe others."
+        },
+        {
+          "round": 1,
+          "text": "No clear suspect yet. I know Alice was the target, so she is likely not a werewolf."
+        },
+        {
+          "round": 2,
+          "text": "Protecting Carol as she was vocal during Day 1 and may be a target."
+        },
+        {
+          "round": 2,
+          "text": "Bidding moderately to participate in the discussion and observe others."
+        },
+        {
+          "round": 2,
+          "text": "Voting to exile Carol due to her explicit admission of being in a pack and praising Eve for the kill."
+        },
+        {
+          "round": 3,
+          "text": "Eve basically confessed to being a werewolf; protecting Dave to preserve village numbers."
+        },
+        {
+          "round": 3,
+          "text": "I need to tell the group that my protection of Dave worked, meaning the werewolves targeted him, and Eve is the only suspect left."
+        },
+        {
+          "round": 3,
+          "text": "Eve confessed to being a werewolf in Day R2 by speaking about 'our plan' and 'our numbers' with Carol."
+        }
+      ],
+      "plan": ""
+    },
+    "Grace": {
+      "beliefs": {
+        "Carol": {
+          "confidence": "high",
+          "evidence": "Openly spoke about 'our numbers' being dangerous to villagers and praised Eve for the kill; Eve referred to their 'pack'.",
+          "guess": "werewolf"
+        },
+        "Eve": {
+          "confidence": "high",
+          "evidence": "Openly confessed in Round 2 by discussing 'our plan' and 'our numbers' in a werewolf context.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Initial bid to get a feel for the room and hear other players' claims."
+        },
+        {
+          "round": 1,
+          "text": "No one has provided suspicious information yet; staying neutral for now."
+        },
+        {
+          "round": 1,
+          "text": "Following the consensus of the speakers to avoid a reckless vote in the first round."
+        },
+        {
+          "round": 2,
+          "text": "Trying to get a speaking slot to analyze Day 1 statements and Bob's death."
+        },
+        {
+          "round": 2,
+          "text": "Voting for Carol due to her explicit admissions of coordination and praising the kill of Bob."
+        },
+        {
+          "round": 3,
+          "text": "Urge the village to exile Eve based on her previous admissions."
+        },
+        {
+          "round": 3,
+          "text": "Urging the village to exile Eve after her public admission."
+        },
+        {
+          "round": 3,
+          "text": "Eve confessed to being a werewolf in Round 2."
+        }
+      ],
+      "plan": ""
+    }
+  }
+}

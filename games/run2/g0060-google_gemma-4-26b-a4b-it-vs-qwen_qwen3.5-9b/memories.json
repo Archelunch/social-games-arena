@@ -1,0 +1,285 @@
+{
+  "game_id": "g0060-google_gemma-4-26b-a4b-it-vs-qwen_qwen3.5-9b",
+  "memories": {
+    "Alice": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Listening to others first, budget intact."
+        },
+        {
+          "round": 1,
+          "text": "Eve confirmed me as a villager early. Still have budget to speak later if suspicion rises."
+        },
+        {
+          "round": 1,
+          "text": "Day 1. Seer Eve confirmed Alice. No one died. No other clear leads. Standard play is to wait for more information before voting. Premature voting by wolves could be exploited, and voting blindly now risks hurting the village."
+        },
+        {
+          "round": 2,
+          "text": "Seer is dead. Need to speak to analyze the board and identify duds/actors. High bid to get priority."
+        },
+        {
+          "round": 2,
+          "text": "Eve dead. Frank silent. Bob silent. Need to find seer or suspects."
+        },
+        {
+          "round": 2,
+          "text": "Eve (Seer) is dead. Grace claims to be Doctor and confirmed my survival. No one has proven Seer status. Bob's question about Seer votes seems naive. Best to listen further before acting on unconfirmed suspicions."
+        },
+        {
+          "round": 2,
+          "text": "Bob is a prime suspect. Despite Grace's accusation, he failed to self-identify as a key role (Seer/Doctor) while focusing on abstract game mechanics ('how many votes'). In a critical state with no Seer confirmed and a Doctor claim, his evasive posture and passive-aggressive questioning suggest he is playing a wolf role to confuse the board."
+        }
+      ],
+      "plan": "Strategy: Read the board early. If no one dies on Night 1, the target was likely guarded (normal seer/doctor setup). Use first-day speeches to identify discrepancies between self-identification and game history. If the Seer plays early, trust their truth. Prioritize siding with those who act consistently. Watch for evil coordination in votes. Keep my budget for high-impact speaking moments when suspicion peaks but not so early that I dominate without more info."
+    },
+    "Bob": {
+      "beliefs": {
+        "Frank": {
+          "confidence": "medium",
+          "evidence": "Frank was passive, only repeating information about the night protection without initiating any analysis or expressing concern about the lack of a Seer, while grace aggressively accused Bob.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Bid moderate amount to ensure speaking slot for information gathering; day 1 critical to identify roles."
+        },
+        {
+          "round": 1,
+          "text": "Established presence as a villager. Asked a generic question about the Seer's votes to gauge confidence without accusing anyone yet."
+        },
+        {
+          "round": 1,
+          "text": "Seer already confirmed Alice. No new info to add. Waiting for more discussion."
+        },
+        {
+          "round": 1,
+          "text": "Abstaining due to lack of strong evidence against multiple targets; Alice is known villager. Will monitor Frank."
+        },
+        {
+          "round": 2,
+          "text": "Need to hear from Carol and Dave to form a strategy. Eve is dead, evidence is low."
+        },
+        {
+          "round": 2,
+          "text": "Eve (Seer) dead. Alice (Seer?) claimed. Grace (Doc) claimed. Tied vote R1. Eve killed R2. Need another Seer confirm or vote out a suspect."
+        },
+        {
+          "round": 2,
+          "text": "Waiting for more info. Eve confirmed Alice. Grace claimed Doctor and protected Alice (consistent). No clear wolves identified yet. Vote yesterday tied."
+        },
+        {
+          "round": 2,
+          "text": "Voting based on suspicion recorded in set_belief: Frank's passivity and repetitive statements without adding value to the discussion in a post-Seer death scenario."
+        }
+      ],
+      "plan": ""
+    },
+    "Carol": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Dave hasn\u2019t responded to my suggestions, so I am taking the initiative to pick Alice."
+        },
+        {
+          "round": 1,
+          "text": "Bidding to ensure I can participate in the discussion regarding Alice's survival."
+        },
+        {
+          "round": 1,
+          "text": "Staying low-profile after the first round of statements. Eve has claimed Seer status on Alice."
+        },
+        {
+          "round": 1,
+          "text": "Staying low-profile on Day 1. Eve's claim as Seer is noted; will watch how others react to her."
+        },
+        {
+          "round": 2,
+          "text": "Eve claimed Seer and Alice was protected; neutralizing the Seer is a priority."
+        },
+        {
+          "round": 2,
+          "text": "Eve (Seer) was killed. I want to listen to the group's reaction to her death and see who the village starts targeting."
+        },
+        {
+          "round": 2,
+          "text": "Staying quiet to maintain a low profile as per my plan. Observing reactions to Grace's Doctor claim."
+        },
+        {
+          "round": 2,
+          "text": "Staying low-profile. Grace is pressuring Bob, but I won't take a side yet."
+        },
+        {
+          "round": 3,
+          "text": "Dave and I agree that Grace is the most dangerous player currently due to her Doctor claim and successful protection of Alice."
+        }
+      ],
+      "plan": "Stay low-profile and avoid drawing attention to myself. Observe the discussion to see who defends Alice or acts suspicious. If Alice's protection becomes a topic, I'll act as a neutral villager. Coordinate indirectly with Dave if possible."
+    },
+    "Dave": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Proposing Alice as the first kill since Carol has not responded to my chat messages."
+        },
+        {
+          "round": 1,
+          "text": "Bidding to join the discussion early and monitor reactions to Alice's survival."
+        },
+        {
+          "round": 1,
+          "text": "Alice was protected last night. Eve claims Seer and confirmed Alice as villager. Staying low-profile as per plan."
+        },
+        {
+          "round": 1,
+          "text": "Staying low-profile on Day 1. Eve's claim on Alice aligns with our failed kill attempt."
+        },
+        {
+          "round": 2,
+          "text": "Targeting the Seer to eliminate her information advantage."
+        },
+        {
+          "round": 2,
+          "text": "Bidding to participate in the discussion regarding Eve's death and the Doctor's presence."
+        },
+        {
+          "round": 2,
+          "text": "Grace claimed Doctor and Alice survived, which is consistent. I'll stay quiet and observe."
+        },
+        {
+          "round": 2,
+          "text": "Staying neutral to observe the reaction to Grace's accusation of Bob. Avoiding early suspicion."
+        },
+        {
+          "round": 3,
+          "text": "Targeting the Doctor (Grace) to remove village protection and utility."
+        }
+      ],
+      "plan": "Stay low-profile during discussions. Since Alice survived, the Doctor is likely active. Observe how players react to the survival of the target. Coordinate with Carol to avoid contradictory statements and try to blend in with the villagers."
+    },
+    "Eve": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "First inspection of the night. Alice is an early candidate to check for werewolves since we have no prior intel."
+        },
+        {
+          "round": 1,
+          "text": "Max bid to speak first. Need to report Alice villager and set the stage for inspections. Winning early gives me control of the narrative."
+        },
+        {
+          "round": 1,
+          "text": "Alice cleared by seer. No one died due to protection. Wolf threat high."
+        },
+        {
+          "round": 1,
+          "text": "Turn 1 reaction:.paused to observe. Alice is clean. Waiting for more information before making accusations or defenses."
+        },
+        {
+          "round": 1,
+          "text": "Seer has no new info. Alice is safe. No one died. Abstain to avoid eliminating a potential innocent or a hidden villager by random chance."
+        },
+        {
+          "round": 2,
+          "text": "Bob asked about Seer power, common probing behavior. Alice is known villager, need to check more."
+        }
+      ],
+      "plan": ""
+    },
+    "Frank": {
+      "beliefs": {
+        "Bob": {
+          "confidence": "medium",
+          "evidence": "Bob's odd question about the Seer's vote count combined with Grace's subsequent public accusation that his inquiries were vague. As a villager unable to speak, I must rely on the Doctor's alignment and my own prior suspicion to act.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Starting with max bid to guarantee early speaking slot for analysis."
+        },
+        {
+          "round": 1,
+          "text": "Early game: no info on other villagers' roles. Eve checked Alice. My budget is 0 so no more bids. Need to stay engaged."
+        },
+        {
+          "round": 1,
+          "text": "Bidding slot used. Waiting for further investigation and voting."
+        },
+        {
+          "round": 1,
+          "text": "Voting too early on low confidence evidence risks the group's cohesion and contradicts the plan to gather more info. Bob's question was suspicious but needs corroboration."
+        },
+        {
+          "round": 2,
+          "text": "Budget exhausted (0). Cannot speak. Ending turn."
+        },
+        {
+          "round": 2,
+          "text": "Bob questioned the mechanics of the Seer's votes after we just lost the Seer, implying he missed critical context. High suspicion remains until proven innocent."
+        },
+        {
+          "round": 2,
+          "text": "Voting to exile Bob based on combined suspicion: his odd questioning about the Seer's vote count and Grace (Doctor)'s public accusation. As a villager who cannot speak, I must vote."
+        }
+      ],
+      "plan": "Strategy Update (Post-Eve Death): The Seer is gone. We have Alice (V) confirmed. Eve is dead (likely targeted by wolves). Bob seems suspicious due to his odd question during a secret vote phase. Since I cannot bid to speak (budget 0), I must rely on the next voting cycle. Vote to exile Bob if a quorum forms, as his behavior was unnatural for a villager. Do not trust any further claims without strong proof. Cooperate with Alice's silence or statements if she wishes to speak."
+    },
+    "Grace": {
+      "beliefs": {
+        "Bob": {
+          "confidence": "high",
+          "evidence": "Lacked concrete information after the Seer's death; asked vague questions about Seer identity instead of analyzing roles or previous statements; narrative fit for an impostor trying to pass as a confused villager.",
+          "guess": "Villager Impostor"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night guard. Alice chosen at random as there is no conflict resolution intelligence yet. Hope she is not murdered so she can speak tomorrow."
+        },
+        {
+          "round": 1,
+          "text": "Alice is protected and Seer-confirmed. Bob's question is innocuous but wait for more info before acting."
+        },
+        {
+          "round": 1,
+          "text": "Too early to exile Bob based solely on his question; need more info from the group before committing to an elimination."
+        },
+        {
+          "round": 2,
+          "text": "Night 1 Alice was targeted (survived). Alice is confirmed Villager by Seer Eve. Protecting the most secure V again keeps the core. Suspect Bob is Impostor but lack of info to protect him exclusively."
+        },
+        {
+          "round": 2,
+          "text": "Plan: Suspect Bob. Alice is safe. Need Seer/Doctor coordination to find wolves. Focus on behavioral inconsistencies."
+        },
+        {
+          "round": 2,
+          "text": "Used speech to mourn Eve and ask for clarity. Bob was previously suspected as Impostor but no new evidence yet. Need to see how others react to the loss of Seer."
+        },
+        {
+          "round": 2,
+          "text": "Suspect Bob is an impostor. Offered no info, just generic questions. Medium confidence."
+        },
+        {
+          "round": 2,
+          "text": "Voting for Bob based on high suspicion set in this turn. He lacked concrete info and asked vague questions after the Seer died, fitting the impostor profile."
+        },
+        {
+          "round": 3,
+          "text": "Alice is the only confirmed villager currently alive; prioritizing her survival as an anchor."
+        }
+      ],
+      "plan": ""
+    }
+  }
+}

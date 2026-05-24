@@ -1,0 +1,293 @@
+{
+  "game_id": "g0118-qwen_qwen3.5-9b-vs-qwen_qwen3.6-27b",
+  "memories": {
+    "Alice": {
+      "beliefs": {
+        "Frank": {
+          "confidence": "high",
+          "evidence": "Led exile of Grace (likely Seer). Bob (cleared by Grace) killed next night. Classic Wolf pattern: kill Seer to blind village, then kill Seer's meat to punish/demonstrate power. Deflection to Eve is distraction.",
+          "guess": "Werewolf"
+        },
+        "Grace": {
+          "confidence": "high",
+          "evidence": "Claimed to verify Bob via 'private role abilities' rather than stating 'I am Seer'. Classic wolf fake-seer bluff to protect Bob. Frank correctly identified this as suspicious.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Dave thinks I was the target. I will neither confirm nor deny strongly, but I note he voted against me. Need to build rapport before declaring him a wolf."
+        },
+        {
+          "round": 1,
+          "text": "Holding off on accusation. Grace's Seer claim is pivotal; need to see if Bob reacts or if more info emerges before taking sides."
+        },
+        {
+          "round": 1,
+          "text": "Grace's vague 'private role ability' claim to shield Bob is a classic fake Seer bluff. Frank correctly identified this. Voting out the source of the misinformation."
+        },
+        {
+          "round": 2,
+          "text": "Seeking to speak after high-bidders (Frank, Eve, Carol) to assess their claims before Dave (low budget) speaks. Need to gauge Frank's reaction to Bob's death and Dave's defense of Eve."
+        },
+        {
+          "round": 2,
+          "text": "Aligning with Carol's theory. Frank targeted the likely Seer. Bob's death supports Grace's innocence claim."
+        },
+        {
+          "round": 2,
+          "text": "Exiling Frank as he pushed for the Seer's exile, and the Seer's 'meat' (Bob) was killed immediately after, confirming his Werewolf alignment."
+        }
+      ],
+      "plan": "As a villager, prioritize gathering info. Listen for logical inconsistencies. Support identified Seer if they seem credible. Do not randomly accuse until patterns emerge. Bid moderately to speak but conserve budget for later days."
+    },
+    "Bob": {
+      "beliefs": {
+        "Grace": {
+          "confidence": "high",
+          "evidence": "Grace claimed to 'confirm' my innocence using vague 'private role abilities' rather than a clear Seer claim. She is likely a Wolf bluffing to shield a teammate (me). Frank correctly identified this as a shield tactic.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Day 1. No deaths. Listening mode. Bid low to save budget and hear stronger claims first."
+        },
+        {
+          "round": 1,
+          "text": "Grace defended me. I am a villager. Waiting for more info from Carol, Eve, and Grace before accusing."
+        },
+        {
+          "round": 1,
+          "text": "Voting Grace out due to her vague, suspicious claim of 'private role abilities' to shield me. Frank's analysis is correct; this is likely a wolf bluff to create a safety shield. She fails to claim Seer/Doctor clearly."
+        }
+      ],
+      "plan": ""
+    },
+    "Carol": {
+      "beliefs": {
+        "Frank": {
+          "confidence": "high",
+          "evidence": "Pushed for exile of Grace (likely Seer who cleared Bob). Bob died immediately after, confirming Grace's claim. Frank's Doctor claim is likely a bluff to survive.",
+          "guess": "Werewolf"
+        },
+        "Grace": {
+          "confidence": "high",
+          "evidence": "Made vague claim of 'private role abilities' to vouch for Bob, which Frank identified as a classic wolf bluff. Real seers usually declare their role clearly. Evolving from medium to high confidence.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Day 1 bid. Moderate bid to possibly speak and state villager role without wasting budget."
+        },
+        {
+          "round": 1,
+          "text": "Observing Grace's bold Seer claim before acting. Need to hear from others first."
+        },
+        {
+          "round": 1,
+          "text": "Grace's vague claim of 'private role abilities' to shield Bob is a classic wolf bluff. Following Frank's logic and my own suspicion, she is the most likely werewolf."
+        },
+        {
+          "round": 2,
+          "text": "Frank is high suspicion Wolf. Grace likely Seer. Bob likely Villager. Alice (survived N1) might be Doctor or just lucky target. Dave defended Eve. Eve high budget? Eve 100, Frank 50. Frank low budget? No, Frank 50. Eve has 100 left. Frank has 50. I have 60. Alice 20. Dave 20. Frank used budget to speak yesterday. I need to vote out Frank."
+        },
+        {
+          "round": 2,
+          "text": "Reinforcing accusation against Frank as primary wolf suspect."
+        },
+        {
+          "round": 2,
+          "text": "Frank pushed out Seer Grace who cleared Bob. Bob died next night, proving Grace was real. Frank is the Wolf."
+        }
+      ],
+      "plan": "Bid to speak. Question Frank on Grace's death. If Grace was Seer, Frank is Wolf. If Grace was Wolf, check if Frank is a Wolf faking a good move. Investigate Alice (survived N1) and Dave (defended Eve). Determine Doctor role."
+    },
+    "Dave": {
+      "beliefs": {
+        "Grace": {
+          "confidence": "high",
+          "evidence": "Grace claimed to have \"confirmed Bob is innocent through my private role abilities.\" This is a classic wolf bluff; the Seer role simply identifies factions, this garment of \"vague abilities\" suggests a false claim to protect Bob from Frank's accusation. If Grace were a villager Seer, she would likely introduce herself directly or use standard phrasing. Protecting Bob this aggressively with a suspicious narrative marks her as a wolf.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Night 1, no specific intel. Alice is the first name in the list, selecting randomly among villagers as no one expressed suspicion."
+        },
+        {
+          "round": 1,
+          "text": "Need to speak to discuss Alice's protection and spread confusion. High bid guarantees a turn to start my game plan."
+        },
+        {
+          "round": 1,
+          "text": "Alice survived despite wolf votes. Likely Doctor guard or Seer. Next logical step for wolves is to find who had the power."
+        },
+        {
+          "round": 1,
+          "text": "Defending Eve to preemptively address Frank's call for her to speak and solidify my pack bond."
+        },
+        {
+          "round": 1,
+          "text": "Grace is using a wolf bluff about 'private abilities' to shield Bob. Removing her prevents her coordination with other wolves."
+        },
+        {
+          "round": 2,
+          "text": "Alice survived my was targeted last night, indicating she has the Doctor's power. We are 2 wolves vs 4 villagers; we need to reduce voters or expose powers. Targeting the Doctor is a logical step to prevent her from saving others or to force a reveal. If she saves herself again, we confirm her role; if she dies (unlikely if Doctor), we win. Given the ambiguity of the 6-player starting line and 2 wolves (or perhaps 3 if unlisted), taking down a power player is the highest priority."
+        },
+        {
+          "round": 2,
+          "text": "Save full budget to speak first and propose killing Alice as the Doctor who survived the targeted vote."
+        },
+        {
+          "round": 2,
+          "text": "Protecting Eve. Carol focused on Frank, but his attack targets our pair. Need to keep Frank off balance."
+        },
+        {
+          "round": 2,
+          "text": "Frank likely defended himself to shift blame, but his voting against Grace (who was likely a wolf) suggests he was a villager acting correctly. Voting for him ensures we kill a villager (Alice or Carol) or at least reduce the village count to 2 survivors, putting us at parity. Since Eve is my ally and safe, targeting Frank maximizes the chance of removing a villager if he is one."
+        }
+      ],
+      "plan": ""
+    },
+    "Eve": {
+      "beliefs": {
+        "Grace": {
+          "confidence": "high",
+          "evidence": "Grace claimed to have confirmed Bob is innocent using 'private role abilities', which violates standard werewolf rules (Seers must identify targets, not just claim innocence of others via private means). This is a known wolf tactic to protect a teammate.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night, targeting an unknown villager. Dave and I must coordinate. Picking Alice arbitrarily as a starting point for the kill."
+        },
+        {
+          "round": 1,
+          "text": "Securing a speaking slot is important early to coordinate with the pack and assess the day's vibe."
+        },
+        {
+          "round": 1,
+          "text": "Villagers are pushing for quiet players to speak. I'll stay silent to build suspense and avoid revealing my role as a werewolf. I'll focus on voting in the killing phase later."
+        },
+        {
+          "round": 1,
+          "text": "Grace is suspected of being a werewolf because she falsely claimed to have used private role abilities to confirm Bob is innocent, which contradicts standard game mechanics."
+        },
+        {
+          "round": 2,
+          "text": "Grace is dead. Frank accused Bob to protect Grace. Since Grace is gone, framing Bob as a wolf is suspicious. Bob is the prime suspect now."
+        },
+        {
+          "round": 2,
+          "text": "Need to speak again about Bob's death and the Seer/Doctor dynamic before night 2 closes."
+        },
+        {
+          "round": 2,
+          "text": "If I say 'Wolf strategy', they vote me out. Must play innocent villager. Frank is likely the real wolf."
+        },
+        {
+          "round": 2,
+          "text": "Frank attacked the Seer Grace and then facilitated the death of Bob (who Grace cleared). This pattern strongly suggests Frank is a werewolf eliminating the Seer and then cleaning up. Also, he is trying to deflect blame to us."
+        }
+      ],
+      "plan": ""
+    },
+    "Frank": {
+      "beliefs": {
+        "Eve": {
+          "confidence": "high",
+          "evidence": "Dave defends her unprompted; she hoards bid budget (100) and stays silent to avoid scrutiny. Classic wolf pack behavior.",
+          "guess": "Werewolf"
+        },
+        "Grace": {
+          "confidence": "medium",
+          "evidence": "Made vague claim of 'private role abilities' to shield Bob instead of clearly identifying as Seer. Classic wolf bluff tactic to create a movable shield without committing to a verifiable role. Avoided speaking in the main order, only appending defense.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night, random protection strategy to prevent early village destabilization."
+        },
+        {
+          "round": 1,
+          "text": "Day 1. Protected Alice last night. She survived. Bidding moderately to speak early but save budget."
+        },
+        {
+          "round": 1,
+          "text": "I am the Doctor. I saved Alice. Dave voted for Alice. Need to hear from Bob, Carol, Eve, Grace. Don't reveal role."
+        },
+        {
+          "round": 1,
+          "text": "Grace is also suspicious, possibly the fake Seer. Bob is the target she is protecting."
+        },
+        {
+          "round": 1,
+          "text": "Grace's vague claim of 'private role abilities' to shield Bob is a classic Wolf bluff. She avoids identifying as Seer to remain flexible or lie. Voting her out to expose the bluff or remove a Wolf."
+        },
+        {
+          "round": 2,
+          "text": "Switching from Alice. Bob is suspect due to Grace's vouch. Carol is silent and unproven, likely a villager hiding or just quiet. Better to protect an unknown than a potential wolf (Bob) or the previous target (Alice)."
+        },
+        {
+          "round": 2,
+          "text": "Trying to secure a speaking slot to press Eve on her silence and discuss remaining Wolf threats after Grace/Bob removal."
+        },
+        {
+          "round": 2,
+          "text": "Pivot to Eve/Dave to break Alice/Carol alliance. Claiming Doctor is too risky, stick to logic about Grace's vague claim."
+        },
+        {
+          "round": 2,
+          "text": "Pivoting blame back to Eve/Dave while establishing my Doc role."
+        },
+        {
+          "round": 2,
+          "text": "Continuing my stance: Eve's silence and Dave's defensive coordination are wolf-like. Alice and Carol are deceived by the 'Bob was not a wolf' narrative, but Eve remains the most suspicious active player."
+        }
+      ],
+      "plan": "Monitor Eve and Dave for inconsistencies. If I speak, highlight that Grace (exiled) and Bob (dead) removed likely wolf threats, but one may remain. Press on why Eve has stayed silent."
+    },
+    "Grace": {
+      "beliefs": {
+        "Bob": {
+          "confidence": "high",
+          "evidence": "N1 Seer check confirmed Villager",
+          "guess": "Villager"
+        },
+        "Frank": {
+          "confidence": "medium",
+          "evidence": "Attacked Bob (verified villager) and discredited my Seer claim as a bluff. Trying to create chaos.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Random first night inspection to establish a baseline of truth."
+        },
+        {
+          "round": 1,
+          "text": "Seer here. Bob is verified Villager. Ready to share info."
+        },
+        {
+          "round": 1,
+          "text": "Defending Bob to establish trust and hint at my Seer role without fully revealing it yet. Bob is my confirmed village ally."
+        },
+        {
+          "round": 1,
+          "text": "Frank attacked a verified villager (Bob) and discredited my Seer claim. Highly suspicious behavior."
+        }
+      ],
+      "plan": ""
+    }
+  }
+}

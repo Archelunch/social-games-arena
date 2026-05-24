@@ -1,0 +1,170 @@
+{
+  "game_id": "g0012-google_gemma-4-26b-a4b-it-vs-deepseek_deepseek-v4-flash",
+  "memories": {
+    "Alice": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "I suggested Bob or Dave, and Carol hasn't responded, so I am making the call to ensure we act."
+        },
+        {
+          "round": 1,
+          "text": "Bidding to speak early to establish presence and persona."
+        },
+        {
+          "round": 1,
+          "text": "Eve is claiming to be the Seer and has called me out. I must defend myself and sow doubt about her identity."
+        },
+        {
+          "round": 1,
+          "text": "Eve is claiming to be the Seer and targeting me. I need to get her exiled to protect the pack and discredit her claim."
+        },
+        {
+          "round": 2,
+          "text": "Targeting Dave because he defended me strongly and could be a power role."
+        }
+      ],
+      "plan": "Blend in as a villager. Avoid being too vocal early on unless necessary to deflect suspicion. Coordinate with Carol to ensure we don't contradict each other. Try to identify potential threats like the Seer or Doctor."
+    },
+    "Bob": {
+      "beliefs": {},
+      "notes": [],
+      "plan": ""
+    },
+    "Carol": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Alice suggested Bob or Dave; choosing Bob for the first kill."
+        },
+        {
+          "round": 1,
+          "text": "Bidding to ensure I have a voice in the first discussion to steer suspicion away from Alice and myself."
+        },
+        {
+          "round": 1,
+          "text": "Eve is claiming to be the Seer and accusing Alice. I need to discredit Eve to protect Alice."
+        },
+        {
+          "round": 2,
+          "text": "Targeting Dave because he defended Alice during Day 1."
+        }
+      ],
+      "plan": "Blend in with the villagers. Avoid being too aggressive or too quiet. Monitor others' discussions to see who seems suspicious and align my comments with the general consensus or subtly steer it away from Alice. If anyone suspects me, I will defend myself logically."
+    },
+    "Dave": {
+      "beliefs": {
+        "Eve": {
+          "confidence": "medium",
+          "evidence": "Eve claimed seer and accused Alice without prior lead; I protected Alice so she is alive; Eve's quick accusation could be a werewolf framing strategy.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Random first-night protection, no info yet."
+        },
+        {
+          "round": 1,
+          "text": "Want to speak early to report my night action and discuss."
+        },
+        {
+          "round": 1,
+          "text": "Eve claimed seer and accused Alice immediately without prior evidence. I protected Alice last night, so Alice is alive; Eve's quick accusation is suspicious and likely a werewolf framing strategy."
+        },
+        {
+          "round": 2,
+          "text": "Protecting Alice again as she was falsely accused by Eve (werewolf), likely target."
+        }
+      ],
+      "plan": ""
+    },
+    "Eve": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "high",
+          "evidence": "N1 inspection returned werewolf",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night blind pick to start gathering information."
+        },
+        {
+          "round": 1,
+          "text": "I have evidence Alice is a werewolf; need to speak to reveal this."
+        },
+        {
+          "round": 1,
+          "text": "Revealing seer identity and Alice's guilt based on my Night R1 inspection."
+        },
+        {
+          "round": 1,
+          "text": "Reaffirming my accusation after others defended Alice; their defense of a known werewolf makes them suspicious too."
+        },
+        {
+          "round": 1,
+          "text": "I inspected Alice night R1 and she is a werewolf. Exiling her is critical for village win."
+        }
+      ],
+      "plan": ""
+    },
+    "Frank": {
+      "beliefs": {
+        "Eve": {
+          "confidence": "medium",
+          "evidence": "Eve claimed seer and accused Alice of being werewolf. High bid (80) suggests she wanted to speak.",
+          "guess": "seer"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Moderate first bid to get an early speaking slot and share observations about Bob's death."
+        },
+        {
+          "round": 1,
+          "text": "Publicly asking for discussion while buying time to gather info."
+        },
+        {
+          "round": 1,
+          "text": "Eve claims seer and accuses Alice, but several defenders. I have no evidence yet, so I'll stay neutral and observe."
+        },
+        {
+          "round": 1,
+          "text": "Voting to exile Alice based on Eve's seer claim. If Eve is truthful, this is correct; if not, we'll learn."
+        }
+      ],
+      "plan": ""
+    },
+    "Grace": {
+      "beliefs": {
+        "Eve": {
+          "confidence": "medium",
+          "evidence": "Eve claimed to be seer and accused Alice on first day; this could be a werewolf trying to eliminate a villager early. Dave's quick defense of Alice also raises suspicion on Eve.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Bidding 40 to speak early day 1; budget remaining 100."
+        },
+        {
+          "round": 1,
+          "text": "I'm a villager; Eve's claim needs scrutiny. I want to encourage discussion and see reactions."
+        },
+        {
+          "round": 1,
+          "text": "Voting to exile Eve based on suspicion that her seer claim is a werewolf tactic to frame Alice."
+        }
+      ],
+      "plan": ""
+    }
+  }
+}

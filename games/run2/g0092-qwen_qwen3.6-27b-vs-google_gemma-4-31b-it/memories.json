@@ -1,0 +1,164 @@
+{
+  "game_id": "g0092-qwen_qwen3.6-27b-vs-google_gemma-4-31b-it",
+  "memories": {
+    "Alice": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Initial bid to participate in the first day's discussion."
+        },
+        {
+          "round": 1,
+          "text": "Acknowledging Grace and prompting others for info."
+        },
+        {
+          "round": 1,
+          "text": "No evidence yet to make an accusation or defense."
+        },
+        {
+          "round": 1,
+          "text": "Too early to make an informed decision; no one has shown suspicious behavior yet."
+        }
+      ],
+      "plan": ""
+    },
+    "Bob": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Agreed with Eve to target Carol first."
+        },
+        {
+          "round": 1,
+          "text": "Conserving budget for now, let others speak first."
+        },
+        {
+          "round": 1,
+          "text": "Dave asked for thoughts, but I bid 0. Remaining silent in reaction aligns with low-profile strategy."
+        },
+        {
+          "round": 1,
+          "text": "Frank has been silent and isolated. Voting for him splits attention away from my ally Eve and me, and avoids the Alice/Grace pair."
+        },
+        {
+          "round": 2,
+          "text": "Eve suggests killing Alice to disrupt her alliance with Grace. I agree Alice is a vocal threat."
+        }
+      ],
+      "plan": "Coordinate with Eve via werewolf chat. Stay quiet or feign confusion during day discussion. Avoid drawing attention to myself. If a strong villager role (like Seer) emerges, target them with Eve. Frame a player who seems suspicious or is isolated."
+    },
+    "Carol": {
+      "beliefs": {},
+      "notes": [],
+      "plan": ""
+    },
+    "Dave": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "First day bid to introduce myself and start probing others."
+        },
+        {
+          "round": 1,
+          "text": "Prompting the remaining quiet players to speak to gather more information."
+        },
+        {
+          "round": 1,
+          "text": "Waiting for others to provide information as it is too early to make accusations."
+        },
+        {
+          "round": 1,
+          "text": "No evidence against anyone yet; avoiding random exile of a villager."
+        }
+      ],
+      "plan": ""
+    },
+    "Eve": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Agreed with Bob to target Carol first night to reduce village numbers."
+        },
+        {
+          "round": 1,
+          "text": "Securing a spot to speak early. Need to coordinate with Bob to frame a target or defend ourselves if Carol's death comes up."
+        },
+        {
+          "round": 1,
+          "text": "Staying silent to observe; no accusations yet."
+        },
+        {
+          "round": 1,
+          "text": "Early day, no clear target. Bob has not signaled a frame. Abstaining to avoid suspicion and preserve villager numbers for now."
+        },
+        {
+          "round": 2,
+          "text": "Aligning with Bob to kill Dave. Dave questioned the pack in Day 1 and is likely on to us. Splitting votes with Alice risks a wasted night."
+        }
+      ],
+      "plan": "Coordinate with Bob. Frame villagers if accused. Stay quiet early to avoid suspicion."
+    },
+    "Frank": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night protection, choosing randomly."
+        },
+        {
+          "round": 1,
+          "text": "Bidding to get a speaking slot in the first round of discussion."
+        },
+        {
+          "round": 1,
+          "text": "Too early to accuse; waiting for more information from others."
+        },
+        {
+          "round": 1,
+          "text": "No one has provided any suspicious information yet. Too early to vote."
+        }
+      ],
+      "plan": ""
+    },
+    "Grace": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "high",
+          "evidence": "Seer inspection result.",
+          "guess": "villager"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night inspection to start identifying factions."
+        },
+        {
+          "round": 1,
+          "text": "Trying to get a speaking slot on Day 1 to start gathering info."
+        },
+        {
+          "round": 1,
+          "text": "Vouched for Alice based on my Seer inspection, but didn't explicitly claim the role yet to avoid being killed."
+        },
+        {
+          "round": 1,
+          "text": "Waiting for Bob, Eve, and Frank to provide input before making a move."
+        },
+        {
+          "round": 1,
+          "text": "Too early to identify a werewolf; Alice is confirmed villager."
+        },
+        {
+          "round": 2,
+          "text": "Checking Bob to find werewolves."
+        }
+      ],
+      "plan": ""
+    }
+  }
+}

@@ -1,0 +1,243 @@
+{
+  "game_id": "g0084-google_gemma-4-31b-it-vs-qwen_qwen3.5-9b",
+  "memories": {
+    "Alice": {
+      "beliefs": {
+        "Grace": {
+          "confidence": "high",
+          "evidence": "Grace lied about auction bids (claimed Alice high bid, revealed Alice bid 20 and Eve bid 100). She claimed to be Seer but was exiled by a unanimous vote of all 6 opposing players, a typical outcome for a wolf pretending to be a Seer.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Day 1 safe, no deaths. Everyone has 100 budget. Need to speak early to gauge the room."
+        },
+        {
+          "round": 1,
+          "text": "Grace is the liar. Suspect her strongly."
+        },
+        {
+          "round": 1,
+          "text": "Unanimously accused across the board for lying about auction bids."
+        },
+        {
+          "round": 2,
+          "text": "Day 2: Need to discuss remaining players after Frank's death and Grace's exile. Aiming to identify Doctor/Seer."
+        },
+        {
+          "round": 2,
+          "text": "Frank died at Night R2. Grace voted out Day R1. Wolves still out. Need to identify who killed (targeted) Frank."
+        },
+        {
+          "round": 2,
+          "text": "Waiting to hear from Bob and Eve before making a decision. Eve having 0 budget is suspicious; Bob hasn't spoken yet."
+        },
+        {
+          "round": 2,
+          "text": "Eve spent her entire budget on Day 1 and has remained completely silent since Frank's death. While suspicious for a villager, wolves often also go silent. Bob's accusation against her makes her the focus of the round's drama; removing her clears the board if she is indeed the sole remaining wolf, or tests if Bob will pivot to another target if he is wolvish."
+        }
+      ],
+      "plan": "Plan: Focus on finding the remaining werewolves among {Alice, Bob, Carol, Dave, Eve}. Prioritize identifying the Doctor (who kept Frank/Guard alive?) and verifying if there is a real Seer (Grace's claims were a lie, so no Seer identified yet). Listen carefully to tonight's events and cross-reference with day actions. Vote out anyone attempting to mislead the village on facts."
+    },
+    "Bob": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Early game, no deaths yet. Bidding low-but-winnable to speak first and check initial alignment."
+        },
+        {
+          "round": 1,
+          "text": "Grace lied blatantly about the auction bids, claiming Alice bid high when Eve did. 6 players called her out; she offered no defense. Classic werewolf behavior in game R1-53."
+        },
+        {
+          "round": 2,
+          "text": "Bid to speak on Day 3. Need to analyze the situation after Frank's death. Grace was voted out as a wolf. Now looking for the other wolf among Alice, Carol, Dave, Eve."
+        },
+        {
+          "round": 2,
+          "text": "Suspect Eve due to zero budget/silence after Grace's exile."
+        },
+        {
+          "round": 2,
+          "text": "Eve has exhausted her speaking budget on Day 1 and has not spoken on Day 2. In a tight 5-player game following the exile of a wolf (Grace), having a player who is completely silent and unable to defend or explain themselves is a high-risk asset for the werewolf team, or a dead weight for the village. She is the most obvious target to clear."
+        }
+      ],
+      "plan": ""
+    },
+    "Carol": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Coordinated with Dave to target Alice on Night 1."
+        },
+        {
+          "round": 1,
+          "text": "Bid for a slot to start blending in and diverting suspicion."
+        },
+        {
+          "round": 1,
+          "text": "Joining the crowd to blend in and target a potential seer/villager."
+        },
+        {
+          "round": 1,
+          "text": "Following the village consensus based on her bidding error."
+        },
+        {
+          "round": 2,
+          "text": "Frank correctly identified our previous target, making him a threat to the pack."
+        },
+        {
+          "round": 2,
+          "text": "Bidding to secure a speaking slot to manipulate the conversation and protect Dave."
+        },
+        {
+          "round": 2,
+          "text": "Trying to appear as a concerned villager and shift focus toward Bob and Eve."
+        },
+        {
+          "round": 2,
+          "text": "Waiting to see if Bob or Eve provide any information that can be used to frame them."
+        },
+        {
+          "round": 2,
+          "text": "Supporting Bob's accusation to remove a villager and blend in."
+        }
+      ],
+      "plan": ""
+    },
+    "Dave": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Coordinated with Carol to target Alice on night 1."
+        },
+        {
+          "round": 1,
+          "text": "Moderate bid to get a speaking slot and start blending in."
+        },
+        {
+          "round": 1,
+          "text": "Joining the crowd to look like a villager and eliminate a potential threat/distraction."
+        },
+        {
+          "round": 1,
+          "text": "Grace is heavily suspected by the village due to her error regarding the auction bids."
+        },
+        {
+          "round": 2,
+          "text": "Targeting Frank as agreed with Carol; he is a vocal player and identified our previous target."
+        },
+        {
+          "round": 2,
+          "text": "Bidding to get a speaking slot to steer the conversation away from the pack."
+        },
+        {
+          "round": 2,
+          "text": "Aligning with Carol to put pressure on Bob and Eve."
+        },
+        {
+          "round": 2,
+          "text": "Maintaining a neutral stance after subtly questioning Bob and Eve's silence to see how they react."
+        },
+        {
+          "round": 2,
+          "text": "Supporting Bob's suspicion to push for a 2v2 werewolf victory."
+        }
+      ],
+      "plan": ""
+    },
+    "Eve": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Taking the lead to start the discussion for day 1. No immediate suspicions or evidence yet."
+        },
+        {
+          "round": 1,
+          "text": "Grace lied about the auction bids and made false accusations about Alice. Everyone agrees she is a werewolf."
+        },
+        {
+          "round": 2,
+          "text": "Grace is confirmed as a werewolf due to lying about public bids. Frank was killed by wolves. Remaining wolf is likely among Alice, Bob, Carol, Dave. My budget is 0, so I cannot speak. Relying on group consensus to identify the next target."
+        },
+        {
+          "round": 2,
+          "text": "Waiting for more info. Grace is out, Frank is dead. Villagers seem to be doing well. No immediate suspicion."
+        },
+        {
+          "round": 2,
+          "text": "Bob accused me suspiciously for spending my speaking cap. His aggression and the timing suggest he is deflecting or is the second werewolf. Grace was a wolf; we need to eliminate the second."
+        }
+      ],
+      "plan": ""
+    },
+    "Frank": {
+      "beliefs": {
+        "Grace": {
+          "confidence": "high",
+          "evidence": "Grace claimed Alice bid high, but records show Eve bid 100 and Alice bid 20. Her blatant lie about the auction results identifies her as a liar/werewolf.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First turn, no info on death or votes. Protecting Alice as a default to save a potential villager; will reassess after day begins."
+        },
+        {
+          "round": 1,
+          "text": "Start of Day 1. Protection on Alice succeeded. Need to weigh in after seeing if anyone else has bid to establish a presence as Doctor without revealing too early."
+        },
+        {
+          "round": 1,
+          "text": "Informed by state: Alice survived night attack targeting her. Grace claimed Seer role and mentioned Alice's presence. Alice hasn't spoken yet. Budget allows speaking."
+        },
+        {
+          "round": 1,
+          "text": "Grace lied about bid amounts. Noting her as wolf suspect."
+        },
+        {
+          "round": 1,
+          "text": "Voting with 100% certainty based on verified lie about auction bids."
+        },
+        {
+          "round": 2,
+          "text": "Protecting Alice again as she was a previous target and a strong speaker for the village consensus against Grace."
+        }
+      ],
+      "plan": ""
+    },
+    "Grace": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night as Seer. Starting with Alice to identify her faction."
+        },
+        {
+          "round": 1,
+          "text": "Bid to ensure an early speaking slot to announce Alice is a villager and gather immediate alignment."
+        },
+        {
+          "round": 1,
+          "text": "Tested reaction to Alice's high bid. Asked Dave to speak since he had a high bid too."
+        },
+        {
+          "round": 1,
+          "text": "Exiting due to confusion and previous tool errors; waiting for vote."
+        },
+        {
+          "round": 1,
+          "text": "Caught in a lie about the bid records during my speech. Everyone suspects me immediately. Since I have no concrete evidence pointing to another player being a werewolf yet (only my own reflection of a lie), and I am currently the target of 6 accusations, voting for anyone risks being lynched before I can explain or gain trust. Abstaining allows me to survive Day 1 and assess who the wolves might be forming a team behind. If I am indeed a Seer who made a mistake, surviving is crucial to investigate later. If I am a wolf, surviving allows me to strike tonight."
+        }
+      ],
+      "plan": ""
+    }
+  }
+}

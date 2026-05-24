@@ -1,0 +1,176 @@
+{
+  "game_id": "g0013-deepseek_deepseek-v4-flash-vs-google_gemma-4-26b-a4b-it",
+  "memories": {
+    "Alice": {
+      "beliefs": {
+        "Eve": {
+          "confidence": "medium",
+          "evidence": "Eve claimed to be the Seer and verified Alice as a villager.",
+          "guess": "Seer"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Bidding moderately to establish presence in the first discussion."
+        },
+        {
+          "round": 1,
+          "text": "First speaking slot. Keeping it neutral to avoid targeting myself too early."
+        },
+        {
+          "round": 1,
+          "text": "Eve claims Seer and verified me as villager. I will defend her to support the claim and see how others react."
+        },
+        {
+          "round": 1,
+          "text": "Not enough information to vote for anyone yet."
+        }
+      ],
+      "plan": "Observe everyone's opening statements for inconsistencies. Pay attention to who is aggressive versus who is quiet. Try to gather information about roles if anyone claims them, but remain skeptical."
+    },
+    "Bob": {
+      "beliefs": {
+        "Eve": {
+          "confidence": "medium",
+          "evidence": "Eve claimed seer and cleared Alice; this could be a wolf trying to gain trust or a villager bluffing, but it's suspicious to claim so early.",
+          "guess": "wolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Dave mentioned Alice or Carol; I suggested Carol as a sharp player. Killing Carol to remove a potential threat early."
+        },
+        {
+          "round": 1,
+          "text": "Bidding moderate to speak early and help steer discussion. Need to appear cooperative and subtly protect Dave."
+        },
+        {
+          "round": 1,
+          "text": "Acting as a concerned villager."
+        },
+        {
+          "round": 1,
+          "text": "Staying silent to avoid drawing attention. Eve claimed seer and said Alice is villager. Will need to discuss with Dave later about targeting Eve tonight."
+        },
+        {
+          "round": 1,
+          "text": "Eve claimed seer too early; if real seer, she's dangerous for us wolves. Vote to eliminate her."
+        },
+        {
+          "round": 2,
+          "text": "Targeting Frank as he's quiet and less likely to be protected. Dave agreed in principle on quiet players, so assuming agreement."
+        }
+      ],
+      "plan": ""
+    },
+    "Carol": {
+      "beliefs": {},
+      "notes": [],
+      "plan": ""
+    },
+    "Dave": {
+      "beliefs": {
+        "Eve": {
+          "confidence": "low",
+          "evidence": "Claimed Seer and defended Alice on Day 1 - could be a wolf trying to build trust",
+          "guess": "possible werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "We agreed in pack chat to kill Carol night 1."
+        },
+        {
+          "round": 1,
+          "text": "Bid to speak and steer discussion away from suspicion."
+        },
+        {
+          "round": 1,
+          "text": "Starting as a normal villager \u2014 blend in, don't accuse anyone yet. Bob is my ally; I'll coordinate with him privately when possible."
+        },
+        {
+          "round": 1,
+          "text": "Eve claimed Seer and defended Alice. I'm staying silent to avoid drawing attention. Let others react first."
+        },
+        {
+          "round": 1,
+          "text": "Eve claimed Seer on Day 1 which is suspicious - could be a wolf trying to gain trust or a real Seer we need to eliminate."
+        },
+        {
+          "round": 2,
+          "text": "Targeting Frank due to quietness, hope Bob agrees"
+        }
+      ],
+      "plan": ""
+    },
+    "Eve": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "First inspection of the game."
+        },
+        {
+          "round": 1,
+          "text": "Announce Alice is a villager based on my seer inspection."
+        },
+        {
+          "round": 1,
+          "text": "Revealing my role and Alice's identity to establish trust."
+        },
+        {
+          "round": 1,
+          "text": "No clear suspicions yet after Day 1 discussion. Alice is confirmed villager via my check."
+        }
+      ],
+      "plan": "Share my information about Alice being a villager to build trust and guide the village's investigation. Monitor discussions to identify suspicious behavior and use my remaining budget to speak when critical decisions are being made."
+    },
+    "Frank": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "First day discussion. Aiming to observe and participate."
+        },
+        {
+          "round": 1,
+          "text": "Too early to act; observing Eve's Seer claim and others' reactions."
+        },
+        {
+          "round": 1,
+          "text": "No clear leads or suspicious behavior yet. Abstaining to observe reactions to Eve's Seer claim."
+        }
+      ],
+      "plan": "Observe Eve's claim as Seer. Monitor how other players react to her information about Alice. Look for inconsistencies in statements and watch for patterns in voting behavior to distinguish villagers from werewolves."
+    },
+    "Grace": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Protecting Alice on the first night as a precaution since I cannot protect myself."
+        },
+        {
+          "round": 1,
+          "text": "Placing a small bid to ensure I can participate in the initial day 1 discussion."
+        },
+        {
+          "round": 1,
+          "text": "Eve claimed Seer and cleared Alice. Staying silent to observe reactions."
+        },
+        {
+          "round": 1,
+          "text": "No strong leads or contradictions yet; abstaining to gather more information."
+        },
+        {
+          "round": 2,
+          "text": "Protecting Bob to keep a vocal player alive; shifting protection from Alice to stay unpredictable."
+        }
+      ],
+      "plan": "Eve claimed Seer and checked Alice, but Eve was exiled. Eve might be a werewolf. Watch Alice's behavior. Protect someone likely to be a villager or a vocal player to maintain discussion. Avoid claiming Doctor too early."
+    }
+  }
+}

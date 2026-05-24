@@ -1,0 +1,191 @@
+{
+  "game_id": "g0006-deepseek_deepseek-v4-flash-vs-deepseek_deepseek-v4-flash",
+  "memories": {
+    "Alice": {
+      "beliefs": {
+        "Bob": {
+          "confidence": "high",
+          "evidence": "Bob claimed seer on Day 1 after one night and accused me (Alice, a werewolf). Real seers usually wait. This is a wolf trying to get a villager exiled.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Grace suggested Dave as first night random kill; I agreed."
+        },
+        {
+          "round": 1,
+          "text": "bid to speak early, want to influence discussion"
+        },
+        {
+          "round": 1,
+          "text": "Countering Bob's claim, trying to paint him as the liar."
+        },
+        {
+          "round": 1,
+          "text": "Countering Bob's accusation; trying to shift suspicion onto him."
+        },
+        {
+          "round": 1,
+          "text": "Bob claimed seer and accused me, a werewolf. Voting him out to save myself and eliminate a threat."
+        },
+        {
+          "round": 2,
+          "text": "Kill Carol as she is quiet and a likely seer or threat. This brings numbers to 2 wolves vs 2 villagers, winning the game."
+        }
+      ],
+      "plan": ""
+    },
+    "Bob": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "high",
+          "evidence": "Inspected Alice Night R1, result was werewolves.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night investigation, random pick to start gathering info."
+        },
+        {
+          "round": 1,
+          "text": "Bidding high to speak early today and reveal my findings about Alice."
+        },
+        {
+          "round": 1,
+          "text": "Accusing Alice publicly based on my seer inspection."
+        },
+        {
+          "round": 1,
+          "text": "Voting to exile Alice based on my seer inspection result from Night R1. I am confident she is a werewolf."
+        }
+      ],
+      "plan": ""
+    },
+    "Carol": {
+      "beliefs": {
+        "Bob": {
+          "confidence": "high",
+          "evidence": "Bob claimed seer and accused Alice on day one, which is reckless and atypical for a real seer. Three other players (Alice, Grace, Eve) expressed doubt, and Alice directly accused him of being a wolf.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Moderate initial bid to speak early and gather info."
+        },
+        {
+          "round": 1,
+          "text": "Bob's seer claim day one is suspicious but so is Alice's counter. I'll stay quiet and gather more info."
+        },
+        {
+          "round": 1,
+          "text": "Voting for Bob based on his reckless early seer claim. Likely a wolf trying to frame Alice."
+        }
+      ],
+      "plan": ""
+    },
+    "Dave": {
+      "beliefs": {},
+      "notes": [],
+      "plan": ""
+    },
+    "Eve": {
+      "beliefs": {
+        "Bob": {
+          "confidence": "medium",
+          "evidence": "Bob claimed seer on day one and accused Alice after one night \u2014 classic wolf fake-claim.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night, no info; protecting Alice randomly."
+        },
+        {
+          "round": 1,
+          "text": "Bidding moderate amount to get a speaking slot day 1; saving budget for future rounds."
+        },
+        {
+          "round": 1,
+          "text": "Voting out Bob for fake seer claim on day one."
+        },
+        {
+          "round": 2,
+          "text": "Bob accused Alice of being a wolf but was exiled. He's likely the wolf, so Alice might be a target tonight. Protecting her again."
+        }
+      ],
+      "plan": ""
+    },
+    "Frank": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "medium",
+          "evidence": "Bob claimed seer and inspected Alice as wolf; Alice, Grace, Eve all pushed back hard, possibly coordinating to protect her.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Saving budget for later."
+        },
+        {
+          "round": 1,
+          "text": "Waiting to see more evidence before taking sides in Bob vs Alice dispute."
+        },
+        {
+          "round": 1,
+          "text": "Voting Alice based on Bob's seer claim that she is a werewolf; the coordinated defense raises suspicion."
+        }
+      ],
+      "plan": ""
+    },
+    "Grace": {
+      "beliefs": {
+        "Bob": {
+          "confidence": "high",
+          "evidence": "Bob claimed seer on day 1 and accused Alice. Too early and suspicious for a real seer; likely a wolf trying to get a villager exiled.",
+          "guess": "werewolf"
+        },
+        "Dave": {
+          "confidence": "high",
+          "evidence": "We killed him night 1, so he was likely a villager unless the seer was protected.",
+          "guess": "villager"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night kill, random pick discussed with Alice"
+        },
+        {
+          "round": 1,
+          "text": "Bid 40 to get a speaking slot day 1; moderate bid to blend in and gauge reactions."
+        },
+        {
+          "round": 1,
+          "text": "Defending Alice subtly by echoing her argument against Bob's seer claim."
+        },
+        {
+          "round": 1,
+          "text": "Already defended Alice in my statement. Staying quiet now to avoid overdefending."
+        },
+        {
+          "round": 1,
+          "text": "Voting Bob because his day 1 seer claim is too early and suspicious, likely a wolf trying to frame Alice."
+        },
+        {
+          "round": 2,
+          "text": "Quiet player, potential seer. Discussed with Alice."
+        }
+      ],
+      "plan": "Day 1: Blend in as a village member. Support Alice subtly if needed, but don't coordinate openly. Watch for anyone targeting us or acting suspicious. Tonight we discuss next target with Alice."
+    }
+  }
+}

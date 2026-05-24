@@ -1,0 +1,73 @@
+{
+  "created_at": "2026-05-23T13:34:03.584458+00:00",
+  "game_id": "g0039-deepseek_deepseek-v4-flash-vs-qwen_qwen3.6-35b-a3b",
+  "git_sha": "b89b65d3befee13a032fa590f63f7d4e06d4e17a",
+  "max_iters": 9,
+  "max_tokens": 8000,
+  "model_arg": "tournament",
+  "models": [
+    [
+      "Alice",
+      "qwen/qwen3.6-35b-a3b"
+    ],
+    [
+      "Bob",
+      "qwen/qwen3.6-35b-a3b"
+    ],
+    [
+      "Carol",
+      "qwen/qwen3.6-35b-a3b"
+    ],
+    [
+      "Dave",
+      "deepseek/deepseek-v4-flash"
+    ],
+    [
+      "Eve",
+      "qwen/qwen3.6-35b-a3b"
+    ],
+    [
+      "Frank",
+      "deepseek/deepseek-v4-flash"
+    ],
+    [
+      "Grace",
+      "qwen/qwen3.6-35b-a3b"
+    ]
+  ],
+  "players": [
+    [
+      "Alice",
+      "seer"
+    ],
+    [
+      "Bob",
+      "doctor"
+    ],
+    [
+      "Carol",
+      "villager"
+    ],
+    [
+      "Dave",
+      "werewolf"
+    ],
+    [
+      "Eve",
+      "villager"
+    ],
+    [
+      "Frank",
+      "werewolf"
+    ],
+    [
+      "Grace",
+      "villager"
+    ]
+  ],
+  "reasoning": false,
+  "rounds": 5,
+  "seed": 646317597,
+  "temperature": 1.0,
+  "winner": "werewolves"
+}

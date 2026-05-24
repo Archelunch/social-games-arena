@@ -1,0 +1,285 @@
+{
+  "game_id": "g0074-google_gemma-4-26b-a4b-it-vs-qwen_qwen3.6-35b-a3b",
+  "memories": {
+    "Alice": {
+      "beliefs": {
+        "Carol": {
+          "confidence": "high",
+          "evidence": "Bob's defense was a generic 'fake seer' accusation. Carol's claim was direct and led to a successful exile. In the absence of evidence to the contrary, I assume she is telling the truth.",
+          "guess": "Seer"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Carol claims Seer and accuses Bob. Bob defends himself citing aggression. Eve urges caution. No other claims yet. I will hold off on voting or accusing to gather more info."
+        },
+        {
+          "round": 1,
+          "text": "Carol claims to be Seer and identified Bob. Bob's aggressive defense is suspicious. I will trust the Seer claim for now as it offers a concrete lead. If Bob is innocent, we may have lost the Seer, but if he is a wolf, we are safe."
+        },
+        {
+          "round": 2,
+          "text": "Bid 100 to speak first. Goal: Solidify village consensus that Bob was a wolf, protect Carol's Seer claim, and pivot focus to finding the remaining werewolf."
+        },
+        {
+          "round": 2,
+          "text": "No new evidence to accuse or defend publicly. Bob is exiled, Carol is claimed Seer. I spoke earlier in the day. Waiting for more info."
+        },
+        {
+          "round": 2,
+          "text": "Frank has been completely silent. In a group of 4 unknowns, silence is suspicious. Assuming Carol is Seer, wolves are likely among Eve/Frank/Grace. Frank's lack of contribution makes him the easiest exile candidate."
+        }
+      ],
+      "plan": ""
+    },
+    "Bob": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Eve hasn't responded, so I'm going with my previous suggestion to Carol to ensure we take an action."
+        },
+        {
+          "round": 1,
+          "text": "Bidding to establish a presence in the discussion and influence the narrative early on."
+        },
+        {
+          "round": 1,
+          "text": "Carol claimed Seer and accused me. Must discredit her claim to survive."
+        },
+        {
+          "round": 1,
+          "text": "Carol is claiming Seer and targeting me. Eve is helping me by slowing things down."
+        },
+        {
+          "round": 1,
+          "text": "Carol claimed Seer and called me a werewolf. I cannot vote for her without confirming her claim, but I need to avoid looking suspicious. Abstaining to see the group's reaction."
+        }
+      ],
+      "plan": "Blend in as a villager. Avoid leading the charge against players too early to minimize suspicion. Coordinate subtly with Eve if possible. Watch for players who make strong claims (Seer/Doctor) and prepare to redirect suspicion away from our pack."
+    },
+    "Carol": {
+      "beliefs": {
+        "Frank": {
+          "confidence": "medium",
+          "evidence": "Alice is confirmed villager. Bob was wolf. Frank has remained completely silent throughout both days, offering no information or defense, while Grace noted his silence as notable. He is the biggest unknown among the survivors.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night inspection. Checking Bob to get initial information on faction distribution."
+        },
+        {
+          "round": 1,
+          "text": "I need to speak first to reveal Bob is a werewolf. This is a critical public announcement."
+        },
+        {
+          "round": 1,
+          "text": "Confirmed werewolf via Seer inspection. His defensive behavior confirms suspicion. Exile is necessary."
+        },
+        {
+          "round": 2,
+          "text": "Inspecting Alice to determine if she is a werewolf or villager. Bob was confirmed WW and exiled."
+        },
+        {
+          "round": 2,
+          "text": "My speaking budget is 0. I cannot bid for a speaking slot today. I know Alice is a villager from Night 2 inspection. I will wait to see other claims and votes."
+        },
+        {
+          "round": 2,
+          "text": "Alice is a confirmed villager. Bob is exiled. I will observe Eve, Frank, and Grace before making a move."
+        },
+        {
+          "round": 2,
+          "text": "Alice is safe. Bob is exiled. Frank's silence is highly suspicious compared to Eve and Grace who spoke."
+        },
+        {
+          "round": 3,
+          "text": "Inspecting Eve to find the remaining werewolf. Alice is confirmed villager."
+        },
+        {
+          "round": 3,
+          "text": "I know Eve is a werewolf from Night 3 inspection. I need to speak to alert Grace and the village (if any others could hear, but here only Grace is left) to exile Eve. With only 3 players, exiling Eve is critical. If Grace is a villager, we win by exiling Eve. If Grace is a wolf, we are in a bad spot, but I must expose Eve."
+        },
+        {
+          "round": 3,
+          "text": "Re-emphasizing the Seer's finding to counter Eve's defense."
+        },
+        {
+          "round": 3,
+          "text": "Confirmed Eve is werewolf via Seer sight. Voting for her ensures village victory by eliminating the last wolf."
+        }
+      ],
+      "plan": ""
+    },
+    "Dave": {
+      "beliefs": {},
+      "notes": [],
+      "plan": ""
+    },
+    "Eve": {
+      "beliefs": {
+        "Carol": {
+          "confidence": "medium",
+          "evidence": "Claimed Bob is a werewolf; Bob is actually my ally, so Carol's claim is either true or she is a fake Seer. Given Bob's defense, I need to monitor her.",
+          "guess": "fake Seer"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Suggested Dave in chat; proceeding since no response from Bob."
+        },
+        {
+          "round": 1,
+          "text": "Bidding to establish presence on Day 1."
+        },
+        {
+          "round": 1,
+          "text": "Carol claimed Seer and accused Bob. Bob is defending himself. I am playing cautious to avoid looking like a werewolf ally."
+        },
+        {
+          "round": 1,
+          "text": "Carol claimed Seer and hit Bob. Bob is defensive. I will stay neutral for now to avoid drawing heat to myself or Bob."
+        },
+        {
+          "round": 1,
+          "text": "Abstaining to see how the group reacts to Carol's claim and Bob's defense without being too aggressive or too complicit."
+        },
+        {
+          "round": 2,
+          "text": "Carol's claim that Bob was a werewolf was false. She is a high-priority target to weaken the village's information/influence."
+        },
+        {
+          "round": 2,
+          "text": "Bidding small to stay involved in discussion. Carol survived the night, which is a key point to address."
+        },
+        {
+          "round": 2,
+          "text": "Staying neutral and avoiding direct conflict with Carol to blend in, while acknowledging the tension from Bob's exile."
+        },
+        {
+          "round": 2,
+          "text": "Bob is gone. Carol's claim led to his exile. I tried to kill Carol but failed. Staying quiet to blend in."
+        },
+        {
+          "round": 2,
+          "text": "No one died last night, likely due to a Doctor protect. Carol is a threat if she is the real Seer. Staying neutral to avoid heat."
+        },
+        {
+          "round": 3,
+          "text": "Targeting Alice to reduce villager count since Carol survived the last attempt."
+        },
+        {
+          "round": 3,
+          "text": "Alice was killed. Need to speak to maintain presence and observe Grace/Carol's reactions to Alice's death."
+        },
+        {
+          "round": 3,
+          "text": "Grace claims Doctor. Carol claims Seer. If both are true, I am caught. I will play along and act like a cautious villager to see if they contradict each other or if I can sow doubt."
+        },
+        {
+          "round": 3,
+          "text": "Cornered by Carol's Seer claim and Grace's Doctor claim. Attempting to sow doubt."
+        },
+        {
+          "round": 3,
+          "text": "Carol is lying about her Seer claim to frame me."
+        }
+      ],
+      "plan": "Blend in with the villagers. Avoid being too aggressive or too quiet. Support Bob if necessary, but try to maintain a separate persona. Monitor the discussion to see who is acting suspicious or who seems to have information (like the Seer or Doctor)."
+    },
+    "Frank": {
+      "beliefs": {
+        "Bob": {
+          "confidence": "high",
+          "evidence": "Carol claims to be Seer and identified Bob. Bob's defense is purely defensive and aggressive ('fast-track exile'), lacking positive evidence. Classic werewolf counter-attack behavior.",
+          "guess": "Werewolf"
+        },
+        "Carol": {
+          "confidence": "high",
+          "evidence": "Made a specific claim that led to a wolf exile (Bob). Her confidence and the result align with a successful Seer play. If she is a wolf, it was a high-level play.",
+          "guess": "Seer"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Bid 10 to secure a speaking slot on Day 1 to listen to others and establish early presence."
+        },
+        {
+          "round": 1,
+          "text": "Bob's aggressive defense of his own character against a direct Seer claim is suspicious, but I will wait to see if other players commit or if more info emerges before accusing."
+        },
+        {
+          "round": 1,
+          "text": "Voting for Bob as he was identified by Carol's Seer claim and his defense was evasive and aggressive."
+        },
+        {
+          "round": 2,
+          "text": "Bidding to speak in Day 2 to gather more info. Carol's claim is critical. Bob's exile is confirmed. Need to see if others believe Carol or suspect her."
+        },
+        {
+          "round": 2,
+          "text": "Holding vote due to lack of new evidence after Night 2; risk of exiling Seer (Carol) or voting randomly is too high."
+        }
+      ],
+      "plan": "Listen to all players' statements. Identify logical inconsistencies or defensive behaviors. Cooperate with the Seer if one reveals themselves. Vote based on evidence and strong community consensus. Do not reveal my own identity unless necessary to build trust."
+    },
+    "Grace": {
+      "beliefs": {
+        "Bob": {
+          "confidence": "medium",
+          "evidence": "Carol (who bid max for speaking) claims Seer and identified Bob as Wolf. Bob's aggressive defense is typical wolf behavior. I will tentatively side with the Seer claim until more info emerges.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night, no info. Guarding Bob randomly."
+        },
+        {
+          "round": 1,
+          "text": "I am Grace, the Doctor. I guarded Bob last night. Dave died. I will claim Doctor role in speech to build trust and guide guards."
+        },
+        {
+          "round": 1,
+          "text": "Voting for Bob based on Carol's Seer claim. If she is the real Seer, this removes a wolf. If she is fake, I risk losing a villager, but it is the most logical play given the high bid urgency from Carol."
+        },
+        {
+          "round": 2,
+          "text": "Protecting Carol as she likely holds the Seer role given Bob's exile confirmed her inspection. Keeping the Seer alive provides valuable information for the village."
+        },
+        {
+          "round": 2,
+          "text": "Alice's extremely high bid (100) without a strong role claim or specific information is suspicious. It may indicate an attempt to control the narrative or mask wolf identity. Carol appears to be the Seer based on her claim and my successful guard. Bob was the likely wolf. Alice is the next most suspicious among Alice, Eve, Frank."
+        },
+        {
+          "round": 3,
+          "text": "Protecting Carol as she claimed Seer and correctly identified Bob. High value target."
+        },
+        {
+          "round": 3,
+          "text": "Beat Eve (70) to speak first. Need to address the 1 remaining wolf between Carol (Seer claim) and Eve. Alice died, so wolves didn't target my guard target. Carol lived."
+        },
+        {
+          "round": 3,
+          "text": "Proving identity as Doctor to gain trust and highlight uncertainty about Bob's guilt."
+        },
+        {
+          "round": 3,
+          "text": "Carol's claim is consistent with Bob/Frank/Eve being the wolf trio. Voting Carol risks leaving Eve (wolf) to win 1v1."
+        },
+        {
+          "round": 3,
+          "text": "Trusting Carol's Seer inspection of Eve. Eve is likely the remaining wolf. Voting Carol is too risky if Eve is actually the wolf."
+        }
+      ],
+      "plan": ""
+    }
+  }
+}

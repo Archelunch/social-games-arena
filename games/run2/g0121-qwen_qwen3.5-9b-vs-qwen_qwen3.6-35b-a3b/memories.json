@@ -1,0 +1,229 @@
+{
+  "game_id": "g0121-qwen_qwen3.5-9b-vs-qwen_qwen3.6-35b-a3b",
+  "memories": {
+    "Alice": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "As proposed in R1, Frank is a reasonable blindside target given lack of other intel."
+        },
+        {
+          "round": 1,
+          "text": "Day 1, Frank dead. Need to speak to gauge Seer and Doctor activity. High bid to secure speaker slot for initial intel gathering."
+        },
+        {
+          "round": 1,
+          "text": "Trying to pivot focus to Bob subtly while acknowledging Eve's kill without revealing my alignment. Basic strategy: keep it vague but suspicious."
+        },
+        {
+          "round": 1,
+          "text": "Grace is likely the false seer or a villager trying to remove me because I know Eve. Need to prove Eve is fake or stall."
+        },
+        {
+          "round": 1,
+          "text": "Grace claims to be Seer and found me as Wolf. I must vote to avoid immediate lynch. Bob is already suspicious due to Eve (my ally) and my previous remarks; voting him may split attention or align with a perceived Seer priority if she doesn't see him, though risky. Primary goal: survive the vote."
+        }
+      ],
+      "plan": ""
+    },
+    "Bob": {
+      "beliefs": {
+        "Eve": {
+          "confidence": "high",
+          "evidence": "Eve immediately aligned with the 'Seer' (Grace) on Day 1 to target Bob, acting as a coordinated distractor/attack. Now that the Seer is dead, Eve is the only one facing unified suspicion from Bob, Carol, and Dave. Her deflection onto Carol is weak. The pattern fits a Wolf helping a Wolf-killer (if Grace was fake) or a Wolf protecting the remaining Wolf pack (if Grace was real but Eve was misled/partner). Voting Eve aligns with majority sentiment.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Bidding 10 to secure a speaking slot on Day 1. Plan: Gather info from initial speeches before making accusations."
+        },
+        {
+          "round": 1,
+          "text": "Supporting Grace's Seer claim against Alice. Eve is suspicious for defending Alice's frame job."
+        },
+        {
+          "round": 1,
+          "text": "Grace claimed Seer and inspected Alice as a Werewolf. Eve backed the narrative but tried to distract with Bob. Alice is the primary target of the Seer claim. Without proof Grace is lying, we must exile the accused Werewolf to prevent a 2W vs 4V or 3W vs 3V dynamic. Dave and I already voiced suspicion on Alice."
+        },
+        {
+          "round": 2,
+          "text": "Grace (Seer) is dead, likely killed by wolves. Alice was voted out correctly. Eve and Dave are now the primary suspects for being wolves or wolf-aligned. I need to speak to warn the village about Eve and Dave."
+        },
+        {
+          "round": 2,
+          "text": "Eve supported Grace (Seer) and attacked Bob. Grace is dead. Eve's behavior suggests she is a Werewolf partner."
+        },
+        {
+          "round": 2,
+          "text": "Voting Eve because she is the primary target of Carol and Dave too. Consistency is key."
+        },
+        {
+          "round": 2,
+          "text": "Eve coordinated with the dead Seer Grace to target me on Day 1 and is now deflecting. Majority consensus points to her as the Werewolf."
+        }
+      ],
+      "plan": ""
+    },
+    "Carol": {
+      "beliefs": {
+        "Eve": {
+          "confidence": "high",
+          "evidence": "Eve immediately coordinated with Grace (the Seer) on Day 1 to attack Bob. When Grace died, Eve failed to question Grace's validity or pivot, instead continuing to attack Bob and then aggressively deflecting by attacking me (Carol). This 'distractor' behavior is consistent with a werewolf protecting their position or confusing the village.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Bid low to conserve budget for when information is clearer. I am a villager and need to listen first."
+        },
+        {
+          "round": 1,
+          "text": "Grace claims Seer and accuses Alice. Alice spoke first and was vague/deflective. Eve backed off Bob. Need to hear Alice's defense before committing to vote or accuse. No direct evidence against anyone yet."
+        },
+        {
+          "round": 1,
+          "text": "Grace claims Seer and inspected Alice as Wolf. Alice's defense is weak. Eve's initial ambiguity is concerning but Grace's specific claim drives the vote. If Grace is fake, Alice is likely innocent, but following the Seer is the safest village play to avoid letting a confirmed Wolf go free. High risk if Grace is fake, but Alice is the only one accused by a special role."
+        },
+        {
+          "round": 2,
+          "text": "Grace is dead. Eve aligned with her. I need to speak to highlight Eve's suspicious behavior and the lack of verified info."
+        },
+        {
+          "round": 2,
+          "text": "Suspect Eve due to immediate coordination with Grace (Seer) to exile Alice. Bob is deflecting. If Grace was fake, Eve is Wolf."
+        }
+      ],
+      "plan": "Day 1: Frank was killed. I am a villager. I will listen to others' arguments first, note who speaks defensively or aggressively, and look for inconsistencies. I will save my budget for Day 2 when more info is available."
+    },
+    "Dave": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "high",
+          "evidence": "Grace (Seer) inspected her as a Werewolf. Her counter-attack on Bob seems like a coordinated distraction with Eve. Bob supported the vote based on the inspection. No strong evidence against Grace's claim.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Conserving budget for Day 2. Need to hear others' statements first to identify werewolves."
+        },
+        {
+          "round": 1,
+          "text": "Siding with Grace's inspection. Eve's support for Grace is suspicious, but Alice's lack of direct rebuttal to the inspection is concerning."
+        },
+        {
+          "round": 1,
+          "text": "Voting Alice based on Grace's Seer inspection and to counter the Alice-Eve distraction tactic."
+        },
+        {
+          "round": 2,
+          "text": "Need to speak to identify the remaining werewolf among Bob, Carol, Eve now that Grace (Seer) is dead. Alice is confirmed exiled."
+        },
+        {
+          "round": 2,
+          "text": "Suspect Eve based on Day 1 alignment with Grace and Day 2 deflection against Carol."
+        },
+        {
+          "round": 2,
+          "text": "Eve coordinated with Grace on Day 1 and showed no ability to defend herself on Day 2. Consensus is on Eve."
+        }
+      ],
+      "plan": ""
+    },
+    "Eve": {
+      "beliefs": {
+        "Grace": {
+          "confidence": "high",
+          "evidence": "Grace declared the Seer role and immediately identified Alice as a Werewolf, yet her aggression and refusal to inspect other key players (like Eve) without hesitation suggest deceptive behavior typical of a player attempting to manipulate the vote against my ally.",
+          "guess": "Seer"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Following Alice's suggestion to blindside Frank without prior intel to disrupt the village."
+        },
+        {
+          "round": 1,
+          "text": "Secure first speaking slot to confirm Frank's death in public and potentially coordinate with Alice or mislead villagers."
+        },
+        {
+          "round": 1,
+          "text": "Aligned with Alice's hint about Bob. Tried to steer public suspicion away from Alice while confirming Bob as a potential target. Public channel only, private info hidden by implying general observation rather than explicit pack knowledge."
+        },
+        {
+          "round": 1,
+          "text": "Grace is a liar; she is not the Seer. Alice is my ally. My speak budget is 0, so I cannot add another statement."
+        },
+        {
+          "round": 1,
+          "text": "Voting Grace out to neutralize the threat she poses to our pack as the Seer. If she is a fake, we remove a liar. If she is real, we remove the seer who identified our ally."
+        },
+        {
+          "round": 2,
+          "text": "Grace claims to be the Seer and just voted out my ally Alice. As a lone wolf, she is the biggest threat. Killing her denies the village their special ability, hoping this forces a split or mistakes by the villagers who might fear she is lying or that another action will benefit us if we survive the night. Wait, if I kill the only wolf, I lose. I AM the only wolf. If I kill Grace, I survive the night. However, the kill happens at night. So I will die? No, werewolves kill at night. I am a werewolf. I must kill someone. If I kill Grace, I am still alive until dawn. Then the next day starts. If I kill Grace, villagers have 7 vs 1 wolf? No, 4 villagers left + 1 me = 5 players. 1 wolf vs 4 villagers. Game continues. Villagers will still hunt me. I need to survive. Killing the Seer is the best chance because she provides the most info to the village."
+        },
+        {
+          "round": 2,
+          "text": "Budget exhausted. No choice but to bid 0. My kill last night removed Grace, narrowing the village. Next night I must kill to win or ensure the village numbers drop."
+        },
+        {
+          "round": 2,
+          "text": "Trying to turn the boat against Bob or cause a split. Carol is the most active accuser right now."
+        },
+        {
+          "round": 2,
+          "text": "Final turn as lone wolf. All three villagers (Bob, Carol, Dave) are unanimously targeting me for exile. Survival is mathematically impossible in a 2/3 majority vote without a night kill that reduces the villager count to 1. Casting no vote (abstain) is the only dignified end game, though it does not stop the inevitable exile. Win condition unmet."
+        }
+      ],
+      "plan": "Primary Goal: Keep Alice (wolf ally) safe from exile. Secondary Goal: Eliminate Grace, who claims to be Seer but displays suspicious patterns typical of a liar attempting to manipulate the vote against Alice. If Grace is indeed the Seer, removing her is beneficial to our pack."
+    },
+    "Frank": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Night 1: No info yet. Protecting Alice to start safe."
+        }
+      ],
+      "plan": ""
+    },
+    "Grace": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "high",
+          "evidence": "Seer inspection on Night R1 confirmed Alice is a werewolf.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night inspection. Checking Alice to establish an initial baseline of trust or suspicion."
+        },
+        {
+          "round": 1,
+          "text": "Need to speak to expose Alice (confirmed werewolf)."
+        },
+        {
+          "round": 1,
+          "text": "Claiming Seer to expose Alice (confirmed wolf) and counter Alice/Eve's anti-Bob narrative."
+        },
+        {
+          "round": 1,
+          "text": "Confirmed Seer read: Alice is a werewolf. Voting to exile her immediately."
+        },
+        {
+          "round": 2,
+          "text": "Inspecting Eve because she coordinated with Alice (confirmed werewolf) and tried to frame Bob. If she is a werewolf, Bob or Carol/Dave are likely villagers. If she is a villager, Bob becomes the prime suspect for the second werewolf."
+        }
+      ],
+      "plan": ""
+    }
+  }
+}

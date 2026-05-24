@@ -1,0 +1,407 @@
+{
+  "game_id": "g0014-deepseek_deepseek-v4-flash-vs-google_gemma-4-31b-it",
+  "memories": {
+    "Alice": {
+      "beliefs": {
+        "Eve": {
+          "confidence": "medium",
+          "evidence": "Aggressively pushes accusations against quiet or analytical players (Dave, then Alice) to steer the vote.",
+          "guess": "werewolf"
+        },
+        "Frank": {
+          "confidence": "high",
+          "evidence": "Used flawed logic to frame me for surviving a hit that the doctor confirmed he blocked; attempted to divert suspicion from himself after Eve's exile.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Bidding moderately to secure a speaking slot for early game observation."
+        },
+        {
+          "round": 1,
+          "text": "Not enough information to make a meaningful accusation or defense in the first round."
+        },
+        {
+          "round": 1,
+          "text": "Too early to tell; avoiding a random exile of a fellow villager."
+        },
+        {
+          "round": 2,
+          "text": "Want to discuss the no-kill night and evaluate Eve and Frank's behavior from R1."
+        },
+        {
+          "round": 2,
+          "text": "Acknowledging the no-kill night and gently questioning Eve's aggressive play style from Day 1."
+        },
+        {
+          "round": 2,
+          "text": "Observing other players' reactions to my questioning of Eve's behavior."
+        },
+        {
+          "round": 2,
+          "text": "Eve is aggressively targeting villagers who are quiet or analytical to manipulate the vote."
+        },
+        {
+          "round": 3,
+          "text": "Bidding to speak early and counter Eve's suspicion."
+        },
+        {
+          "round": 3,
+          "text": "Countering Eve's accusations by highlighting her pattern of targeting others."
+        },
+        {
+          "round": 3,
+          "text": "Bob (Doctor) confirmed he saved me and agrees that Eve is targeting innocent players. Carol also suspects Eve."
+        },
+        {
+          "round": 4,
+          "text": "Trying to lead the discussion against Frank since he defended Eve."
+        },
+        {
+          "round": 4,
+          "text": "Calling out Frank's logic and aligning with Carol to ensure the werewolf is exiled."
+        },
+        {
+          "round": 4,
+          "text": "Frank is using illogical arguments to frame me after the doctor's death; he is the likely remaining werewolf."
+        }
+      ],
+      "plan": ""
+    },
+    "Bob": {
+      "beliefs": {
+        "Eve": {
+          "confidence": "high",
+          "evidence": "Repeatedly targeted Alice and Bob without evidence; targeted Alice who I know was the werewolf target on Night 3.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night protection, random choice."
+        },
+        {
+          "round": 1,
+          "text": "Bidding to get a speaking slot on the first day to gather information."
+        },
+        {
+          "round": 1,
+          "text": "Keeping my doctor role secret for now to stay alive and protect others."
+        },
+        {
+          "round": 1,
+          "text": "No concrete evidence yet; staying silent to observe other players' reactions."
+        },
+        {
+          "round": 1,
+          "text": "No strong evidence against any player in Round 1."
+        },
+        {
+          "round": 2,
+          "text": "Protecting Carol to diversify protection after protecting Alice in N1."
+        },
+        {
+          "round": 2,
+          "text": "No one died Night 2; I protected Carol, so she was the target."
+        },
+        {
+          "round": 2,
+          "text": "I saved Carol last night, so she is likely a villager. Eve and Frank are acting as a pair, which is slightly suspicious, but I'll wait for more information before acting."
+        },
+        {
+          "round": 2,
+          "text": "Eve has been aggressively accusing quiet or analytical players since Day 1. I know Carol was targeted last night, and Eve is currently pushing against Alice."
+        },
+        {
+          "round": 3,
+          "text": "Protecting Alice as she is being accused by Eve and might be the next target."
+        },
+        {
+          "round": 3,
+          "text": "Want to speak to potentially defend Alice since I know she was targeted and saved."
+        },
+        {
+          "round": 3,
+          "text": "Eve targeted Alice, who I protected last night. This makes Eve's accusations look like a werewolf strategy."
+        },
+        {
+          "round": 3,
+          "text": "Eve consistently targeted Alice, who I know was a werewolf target."
+        },
+        {
+          "round": 4,
+          "text": "Alice is a strong villager and a likely target."
+        }
+      ],
+      "plan": ""
+    },
+    "Carol": {
+      "beliefs": {
+        "Eve": {
+          "confidence": "high",
+          "evidence": "Bob claimed to be doctor and saved Alice; Eve has consistently targeted both Alice and Bob without evidence.",
+          "guess": "werewolf"
+        },
+        "Frank": {
+          "confidence": "high",
+          "evidence": "Attempted to frame Alice for surviving a hit the doctor explicitly blocked; used illogical reasoning to divert suspicion.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Secure a speaking slot for Day 1 to start gathering information."
+        },
+        {
+          "round": 1,
+          "text": "No clear leads yet; waiting for more information."
+        },
+        {
+          "round": 1,
+          "text": "No strong evidence to exile anyone yet; Eve's accusation of Dave is weak."
+        },
+        {
+          "round": 2,
+          "text": "Bidding to discuss the fact that no one died last night and evaluate player behavior."
+        },
+        {
+          "round": 2,
+          "text": "Observing the interaction between Alice and Eve."
+        },
+        {
+          "round": 2,
+          "text": "No clear target yet; Eve is aggressive, but I want to observe more."
+        },
+        {
+          "round": 3,
+          "text": "Bidding to discuss the double no-kill and probe Bob's silence."
+        },
+        {
+          "round": 3,
+          "text": "Calling out Eve's narrative-pushing to see if she can justify her suspicions or if she deflects further."
+        },
+        {
+          "round": 3,
+          "text": "Supporting Alice's observation that Eve is pushing a narrative too hard."
+        },
+        {
+          "round": 3,
+          "text": "Bob claimed doctor and saved Alice; Eve consistently targeted them without evidence."
+        },
+        {
+          "round": 4,
+          "text": "Push for Frank's exile because he defended Eve."
+        },
+        {
+          "round": 4,
+          "text": "Calling out Frank for his flawed logic and potential attempt to frame Alice."
+        },
+        {
+          "round": 4,
+          "text": "Frank used illogical reasoning to frame Alice for surviving a protected hit, indicating he is the werewolf."
+        }
+      ],
+      "plan": ""
+    },
+    "Dave": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Bidding to get a chance to speak in the first round to assess other players."
+        },
+        {
+          "round": 1,
+          "text": "Defending myself against Eve's baseless accusation."
+        },
+        {
+          "round": 1,
+          "text": "No strong evidence yet. Eve's accusation was weak, but not enough to justify a vote."
+        }
+      ],
+      "plan": ""
+    },
+    "Eve": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "medium",
+          "evidence": "Alice was very analytical in her statement, trying to steer the conversation and question others' motives, which could be a werewolf tactic to appear helpful while gathering information.",
+          "guess": "werewolf"
+        },
+        "Bob": {
+          "confidence": "high",
+          "evidence": "Bob claimed to be doctor and saved Alice, but this is likely a werewolf ploy to frame me and protect Alice, who is also suspicious.",
+          "guess": "werewolf (lying about being doctor)"
+        },
+        "Dave": {
+          "confidence": "medium",
+          "evidence": "Dave was quiet in first round and is trying to stay under the radar.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night kill. Alice is vocal and could be a threat. I suggested her in pack chat; Frank was considering Grace but hasn't responded yet. Going with this."
+        },
+        {
+          "round": 1,
+          "text": "First day bid, moderate to appear normal but not waste budget."
+        },
+        {
+          "round": 1,
+          "text": "Public statement to blend in as a villager."
+        },
+        {
+          "round": 1,
+          "text": "Mild accusation to look like I'm hunting, while not targeting anyone important."
+        },
+        {
+          "round": 1,
+          "text": "Casting suspicion on Dave to create a mis-exile. He was quiet, which is weak evidence but plausible."
+        },
+        {
+          "round": 2,
+          "text": "Kill Carol, an active player who could be a threat as seer or influential villager."
+        },
+        {
+          "round": 2,
+          "text": "Bidding to speak early and steer conversation away from me and Frank, possibly targeting Alice or Carol."
+        },
+        {
+          "round": 2,
+          "text": "Casting suspicion on Alice and Bob while appearing to investigate the no-kill situation."
+        },
+        {
+          "round": 2,
+          "text": "Deflecting attention from myself and Frank; Alice is a good target since she's active and might get voted out."
+        },
+        {
+          "round": 2,
+          "text": "Voting for Alice based on her analytical behavior that seemed like a werewolf trying to appear helpful. This also aligns with my earlier accusation and helps deflect suspicion from Frank and myself."
+        },
+        {
+          "round": 3,
+          "text": "Coordinated with Frank. Alice is analytical and likely the seer; doctor may not guard her again."
+        },
+        {
+          "round": 3,
+          "text": "Bidding max remaining budget to secure a speaking slot and deflect suspicion after two nights of no kills."
+        },
+        {
+          "round": 3,
+          "text": "Defending myself while subtly pointing at Alice as the potential seer or werewolf."
+        },
+        {
+          "round": 3,
+          "text": "Bob's claim as doctor is suspicious - he could be a werewolf trying to frame me and protect Alice. Voting to exile Bob."
+        }
+      ],
+      "plan": "Continue blending in as a villager. Deflect suspicion onto other players like Alice or Bob. Coordinate with Frank in werewolf chat. Aim to get a speaking slot to voice suspicions and avoid being targeted for exile."
+    },
+    "Frank": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "medium",
+          "evidence": "Bob protected her (so she was a werewolf target), but she's been analytical and could be the seer; Carol is now suspicious of me.",
+          "guess": "Seer or dangerous villager"
+        },
+        "Bob": {
+          "confidence": "medium",
+          "evidence": "Bob claimed to be the doctor who saved Alice night R3. Could be truth or lie to protect seer/divert suspicion.",
+          "guess": "doctor"
+        },
+        "Dave": {
+          "confidence": "low",
+          "evidence": "Eve accused him of being quiet, but he defended himself. Voting for him to blend in as a villager while protecting Eve.",
+          "guess": "villager"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Suggested to Eve as first kill; Grace is quiet and less likely to be a threat early."
+        },
+        {
+          "round": 1,
+          "text": "Moderate bid to get speaking slot early; avoid over-investing budget."
+        },
+        {
+          "round": 1,
+          "text": "Playing as a concerned villager, keeping it generic to avoid suspicion."
+        },
+        {
+          "round": 1,
+          "text": "Supporting my packmate to build trust and avoid early conflict."
+        },
+        {
+          "round": 1,
+          "text": "Voting for Dave based on Eve's earlier suspicion about his quietness. This supports my packmate's narrative while maintaining plausible deniability as a villager."
+        },
+        {
+          "round": 2,
+          "text": "Carol is an active player; removing her reduces village threat level."
+        },
+        {
+          "round": 2,
+          "text": "Bidding moderately to get a chance to speak and deflect suspicion, while saving some budget for later rounds."
+        },
+        {
+          "round": 2,
+          "text": "Defending Carol to appear pro-village and deflect attention from Eve and me."
+        },
+        {
+          "round": 2,
+          "text": "Supporting Eve's suspicion on Alice to remove a possible seer."
+        },
+        {
+          "round": 3,
+          "text": "Alice is the most analytical and likely the seer. Eve agreed to target her last round. Doctor may guard Carol again, so Alice is a good choice."
+        },
+        {
+          "round": 3,
+          "text": "Bidding moderately to speak and influence discussion. Doctor protected Alice and Carol on consecutive nights \u2014 need to shift pressure elsewhere."
+        },
+        {
+          "round": 3,
+          "text": "Supporting packmate Eve while casting doubt on Alice."
+        },
+        {
+          "round": 3,
+          "text": "Bob claimed doctor\u2014if true, removing him helps wolves; if false, he's a distraction. Either way, useful exile."
+        },
+        {
+          "round": 4,
+          "text": "Bob claimed doctor and likely saved Alice. Removing the doctor ensures my future kills succeed."
+        },
+        {
+          "round": 4,
+          "text": "Bidding high to secure speaking slot and steer suspicion away from me."
+        },
+        {
+          "round": 4,
+          "text": "Repeating accusation to pressure Alice; hopefully Carol will reconsider."
+        },
+        {
+          "round": 4,
+          "text": "Voting Alice to get down to 2 players; werewolf win condition tie tomorrow with Carol."
+        }
+      ],
+      "plan": "As a werewolf, I will act like a villager, avoid early suspicion, and subtly shift blame onto others. I will support my packmate Eve if needed. I will bid moderately to get a speaking slot and influence discussion."
+    },
+    "Grace": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night inspection to start identifying roles."
+        }
+      ],
+      "plan": ""
+    }
+  }
+}

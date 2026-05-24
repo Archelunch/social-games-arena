@@ -1,0 +1,185 @@
+{
+  "game_id": "g0131-qwen_qwen3.6-27b-vs-qwen_qwen3.6-27b",
+  "memories": {
+    "Alice": {
+      "beliefs": {
+        "Eve": {
+          "confidence": "medium",
+          "evidence": "Claimed Doctor role. Stated she guarded Alice. Outcome consistent: Bob (target) died, Alice (guard target) survived. Could be real Doctor or fake claimant taking credit.",
+          "guess": "Doctor"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Bidding to secure early speaking slot on Day 1 to influence narrative after killing Bob."
+        },
+        {
+          "round": 1,
+          "text": "Claimed Villager. Neutral stance. Encouraging others to claim roles. Grace is silent (bid 0), which keeps her hidden. Bob is dead."
+        },
+        {
+          "round": 1,
+          "text": "Eve claimed Doctor and guarded me. No accusations against me yet. Staying silent to avoid drawing attention and to gather more info. Grace is silent too."
+        },
+        {
+          "round": 1,
+          "text": "Frank has low bid (20) and hasn't spoken. Suspecting he might be hiding Seer. Keeping profile low by not attacking the Doctor claim directly."
+        },
+        {
+          "round": 2,
+          "text": "Grace and I agreed to kill Eve (Doctor claim) to remove the primary threat to our pack."
+        }
+      ],
+      "plan": "Day 1: I am Alice (Werewolf), ally is Grace. Bob is dead. I will claim Villager. I will avoid accusing Grace. I will watch for Seer claims. If a Seer claims a role, I must decide if I can pressure them or if Grace should kill them next night if they threaten us. Keep low profile until more info is available."
+    },
+    "Bob": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night inspection."
+        }
+      ],
+      "plan": ""
+    },
+    "Carol": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Day 1, no info yet. Saving budget. Listening to others first."
+        },
+        {
+          "round": 1,
+          "text": "Supporting E's Doc claim to encourage Seer."
+        },
+        {
+          "round": 1,
+          "text": "Lack of strong evidence against any specific player. Waiting for Seer to share information. Eve's Doctor claim is consistent."
+        }
+      ],
+      "plan": "Support Eve (Doctor claim consistent with Alice surviving). Await Seer to identify wolves. Be wary of Frank and Grace who have not clearly established roles yet. Abstain today to gather more information before eliminating a player."
+    },
+    "Dave": {
+      "beliefs": {
+        "Eve": {
+          "confidence": "medium",
+          "evidence": "Claimed Doctor, guarded Alice (who survived). Consistent with Bob's death.",
+          "guess": "Doctor"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Day 1. Bidding to speak and analyze Bob's death. I am a villager."
+        },
+        {
+          "round": 1,
+          "text": "First turn, no specific info. Establishing myself as a villager and inviting discussion."
+        },
+        {
+          "round": 1,
+          "text": "Eve claimed Doctor. Need to verify. No accusations yet."
+        },
+        {
+          "round": 1,
+          "text": "No strong evidence yet. Waiting for Seer claim."
+        }
+      ],
+      "plan": "Wait for Seer to claim and provide information. Trust Eve as Doctor for now (medium confidence). Do not vote for any specific player unless Seer points to someone or new evidence emerges. Abstain if vote is required without strong evidence."
+    },
+    "Eve": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night, no info. Random save to prevent early loss of a villager."
+        },
+        {
+          "round": 1,
+          "text": "Day 1: Gambled on Alice for guard, Bob died. Need to speak to start investigating."
+        },
+        {
+          "round": 1,
+          "text": "Revealed Doctor role. Guarded Alice successfully. Looking for Seer to align with."
+        },
+        {
+          "round": 1,
+          "text": "I have stated my role and action. Waiting for the Seer to speak or for others to make claims before acting further."
+        },
+        {
+          "round": 1,
+          "text": "No Seer claim yet, insufficient evidence to exile anyone. Waiting for more information."
+        },
+        {
+          "round": 2,
+          "text": "No Seer claimed yet. Alice is a verified survivor/villager from last night. Guarding her again ensures a known good player survives if she is targeted, or protects the Seer if she is claiming Villager falsely."
+        }
+      ],
+      "plan": "Wait for Seer claim. Guard Seer or trusted villager next night based on claims. Do not vote to exile until we have strong evidence."
+    },
+    "Frank": {
+      "beliefs": {
+        "Carol": {
+          "confidence": "medium",
+          "evidence": "Defended Eve's claim of Doctor. If Eve is wolf, Carol is likely an ally. Eve's claim is suspicious as it avoids targeting the dead player and creates a protected narrative.",
+          "guess": "werewolf"
+        },
+        "Eve": {
+          "confidence": "medium",
+          "evidence": "Claimed Doctor role and immediately revealed guard target (Alice), which is risky and atypical for a genuine Doctor trying to protect the village without giving Werewolves info on who to switch targets to or confirming she is real.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Bid 20 to secure a speaking slot on day 1 without overcommitting budget."
+        },
+        {
+          "round": 1,
+          "text": "Waiting for Seer claim or more discussion before accusing Eve. Her doctor claim and immediate disclosure of guard target is suspicious but needs corroboration."
+        },
+        {
+          "round": 1,
+          "text": "Suspect Eve of faking Doctor role to misdirect. Carol's defense suggests collusion. Need to pressure this narrative to find the real Seer/Doctor or eliminate a wolf."
+        }
+      ],
+      "plan": ""
+    },
+    "Grace": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "high",
+          "evidence": "Packmate. Coordinated Night 1 kill with me.",
+          "guess": "Werewolf"
+        },
+        "Eve": {
+          "confidence": "high",
+          "evidence": "Claimed Doctor. Guarded Alice (wolf) who survived. Bob died. Claim is consistent with night outcome and protects our ally.",
+          "guess": "Doctor"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Agreed with Alice to kill Bob on night 1 as a safe starter target."
+        },
+        {
+          "round": 1,
+          "text": "Staying silent to remain low-key. Eve's Doc claim is strong (saved Alice). No one accused Alice yet, so no need to defend. Waiting to identify Seer."
+        },
+        {
+          "round": 1,
+          "text": "Frank hasn't spoken or provided info. Throwing a tentative vote at a passive player while listening for more info."
+        },
+        {
+          "round": 2,
+          "text": "Removing confirmed Doctor as agreed with Alice."
+        }
+      ],
+      "plan": "Stay low-key on Day 1. Support Alice's narrative if she speaks. Avoid drawing attention. Identify potential Seer/Doctor from their behavior. Conserve speaking budget for critical defense/exile votes later."
+    }
+  }
+}

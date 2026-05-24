@@ -1,0 +1,367 @@
+{
+  "game_id": "g0076-google_gemma-4-26b-a4b-it-vs-qwen_qwen3.6-35b-a3b",
+  "memories": {
+    "Alice": {
+      "beliefs": {
+        "Bob": {
+          "confidence": "high",
+          "evidence": "Seer (Alice) confirmed Bob is a Villager on Night 1.",
+          "guess": "Villager"
+        },
+        "Grace": {
+          "confidence": "high",
+          "evidence": "Grace aggressively accused me of lying about my Seer checks, claiming I couldn't have checked Bob and Carol in two nights. This is false; Seers check one per night. Her motive is to exile the Seer.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Opening night inspection. Checking Bob for werewolf status."
+        },
+        {
+          "round": 1,
+          "text": "Bidding to speak and clear Bob as a Villager."
+        },
+        {
+          "round": 1,
+          "text": "Bob is confirmed villager. No other info yet. Passing to save info and let others talk."
+        },
+        {
+          "round": 1,
+          "text": "No evidence against other players yet. Safest play is to abstain to avoid killing a villager."
+        },
+        {
+          "round": 2,
+          "text": "Confirmed Bob and Carol are villagers. Need to speak to guide the village and push for more info on Dave, Eve, Frank, Grace."
+        },
+        {
+          "round": 2,
+          "text": "Bob and Carol are safe. Remaining suspects: Eve, Frank, Grace. Need negative result or strong behavioral evidence."
+        },
+        {
+          "round": 2,
+          "text": "Grace is attacking my validity. I must clarify the mechanics. If Grace is a wolf, this defense exposes her aggression."
+        },
+        {
+          "round": 2,
+          "text": "Grace falsely accused me of lying about my investigation timeline to discredit the Seer. This is classic wolf behavior to get the Seer exiled. I vote to exile her."
+        },
+        {
+          "round": 3,
+          "text": "Checking Dave as he is an unconfirmed player among the suspects."
+        }
+      ],
+      "plan": ""
+    },
+    "Bob": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "high",
+          "evidence": "Alice claimed to investigate Bob on Day 1 and Carol on Day 2. A Seer can only check one per night. Her Day 1 statement implied no prior pass. The contradiction proves she is lying about her identity.",
+          "guess": "Werewolf"
+        },
+        "Carol": {
+          "confidence": "high",
+          "evidence": "Carol aggressively attacked Alice (likely Seer) based on a misunderstanding of Seer rules (checking one person/night). This aligns with exiled Grace. Eve and Frank correctly explained the rules and accused Carol. Alice's death confirms she was likely a village asset targeted by wolves, making Carol's attack on her highly suspicious.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Bidding low to save budget; will observe first."
+        },
+        {
+          "round": 1,
+          "text": "Alice claims Seer and clears me. No other evidence yet. Passing to observe more statements before forming a plan or suspicion."
+        },
+        {
+          "round": 1,
+          "text": "Day 1. Alice claims Seer and verifies me as Villager. Logic is consistent but unverified. Dave agrees heavily. No deaths means protection occurred. Insufficient info to exile Alice (risk killing Seer) or others (risk killing Villagers). Abstaining to gather more information from subsequent days/statements."
+        },
+        {
+          "round": 2,
+          "text": "I am a Villager. Alice claims to be Seer and confirmed me. No deaths R1/R2 suggest strong Guard or weak Wolves. I need to speak to guide the village logic. Bid 60 to ensure speaking slot."
+        },
+        {
+          "round": 2,
+          "text": "Alice lied about her Seer results. Contradiction between checking Bob on Day 1 and Carol on Day 2 without explaining a pass. High confidence she is a Werewolf."
+        },
+        {
+          "round": 3,
+          "text": "Bid 40 to speak. Alice (Seer) died. Wolves likely Eve/Frank. Need to listen to others."
+        },
+        {
+          "round": 3,
+          "text": "Rallying village to vote Carol out based on Eve's logic and Alice's death. Carol is the primary suspect."
+        },
+        {
+          "round": 3,
+          "text": "Reinforcing suspicion on Carol due to her irrational attack on Alice, which Eve and Frank correctly identified as flawed."
+        },
+        {
+          "round": 3,
+          "text": "Carol aggressively attacked the likely Seer Alice based on false premises about game rules, aligning with the exiled Grace. Her behavior is highly indicative of a Werewolf trying to discredit the Seer."
+        }
+      ],
+      "plan": ""
+    },
+    "Carol": {
+      "beliefs": {
+        "Dave": {
+          "confidence": "high",
+          "evidence": "Alice the Seer is dead. Her claims were consistent (checked Bob N1, Carol N2). Alice confirmed Bob and Carol are Villagers. Eve and Frank defended her correctly, likely Villagers. Grace (exiled) attacked her incorrectly. Dave voted to exile Grace but said nothing to defend the Seer or explain his stance. With Bob, Carol, Eve, Frank likely Good, Dave is the last unverified player and potential Wolf.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Day 1 strategy: Bid 10 to speak. Need to listen and identify inconsistencies among the 7 living players."
+        },
+        {
+          "round": 1,
+          "text": "Abstaining on Day 1. Alice claims Seer and says Bob is safe. No death suggests a guard. Dave's deduction that Alice was guarded is plausible but assumes Alice is truthful. Too early to exile. Waiting for Night 2 results."
+        },
+        {
+          "round": 2,
+          "text": "Bidding 30 to speak on Day 2. Need to hear from Bob and others to verify Alice's claim and find wolves."
+        },
+        {
+          "round": 2,
+          "text": "Grace made a false accusation that the Seer cannot check multiple people over nights. Alice's explanation was valid. Grace's aggression and high bid suggest she might be a wolf trying to discredit the Seer or control the flow."
+        },
+        {
+          "round": 3,
+          "text": "Alice is dead. Accept her checks: Bob/Carol are villagers. Analyze behavior of Bob, Dave, Eve, Frank. Dave was silent yesterday. Bid 25 to speak and reinforce trust in Alice's info."
+        },
+        {
+          "round": 3,
+          "text": "Alice's lie is the key. Day 1: 'Only checked Bob'. Day 2: 'Checked Bob (Night 1) and Carol (Night 2)'. This is a contradiction unless she checked Carol on Night 1, which she denied. Alice is Wolf. Bob attacking me is suspicious wolf synergy."
+        },
+        {
+          "round": 3,
+          "text": "Alice's investigation claims were consistent (Bob N1, Carol N2), confirming she was likely Seer. She identified Bob/Carol as Villagers. Eve/Frank defended correctly. Grace (exiled) attacked on false premises. Dave is the only unverified living player, making him the likely Wolf to exile."
+        }
+      ],
+      "plan": "Day 1: Bid low-moderate to speak. Listen for wolves. Villagers should share info. Look for contradictions. Save budget for later rounds."
+    },
+    "Dave": {
+      "beliefs": {
+        "Carol": {
+          "confidence": "high",
+          "evidence": "Aggressively attacked the Seer (Alice) using flawed logic regarding investigation timing, aligning her with the exiled Grace.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Proposed Alice to Frank in chat and proceeding with the kill to end the turn."
+        },
+        {
+          "round": 1,
+          "text": "Bidding to participate in the discussion about the failed kill on Alice."
+        },
+        {
+          "round": 1,
+          "text": "Supporting the Seer's claim to appear helpful and discussing the Doctor's likely intervention."
+        },
+        {
+          "round": 1,
+          "text": "Already spoke in the first round; staying silent to avoid drawing unnecessary attention to myself."
+        },
+        {
+          "round": 1,
+          "text": "Abstaining to observe the village's voting patterns and avoid early suspicion."
+        },
+        {
+          "round": 2,
+          "text": "Targeting the claimed Seer to eliminate a high-priority threat."
+        },
+        {
+          "round": 2,
+          "text": "Alice has survived two attempts on her life; the Doctor is almost certainly protecting her. I need to speak to gauge the village's reaction to her Seer claim and the failed kills."
+        },
+        {
+          "round": 2,
+          "text": "Alice is targeting Frank. I will stay silent to avoid drawing attention to myself or Frank."
+        },
+        {
+          "round": 2,
+          "text": "The accusations against Alice by Grace and Carol are logically flawed regarding Seer mechanics. Alice is a threat to the pack. I will abstain to see if the village punishes Alice or the accusers."
+        },
+        {
+          "round": 3,
+          "text": "Targeting Alice again as agreed with Frank to try and eliminate the Seer."
+        },
+        {
+          "round": 3,
+          "text": "Bidding to participate in the discussion following the death of the Seer."
+        },
+        {
+          "round": 3,
+          "text": "The village is currently focused on Carol. To maintain my villager persona and avoid drawing attention, I will pass this turn and let the others lead the accusation."
+        },
+        {
+          "round": 3,
+          "text": "Voting with the majority to exile Carol based on her suspicious behavior and flawed logic against Alice."
+        }
+      ],
+      "plan": "1. Maintain 'regular villager' persona. 2. Protect Frank. 3. Since Alice (Seer) is dead, look for who might be the Doctor (who likely protected Alice previously). 4. Avoid being too aggressive or too quiet; stay in the middle of the pack's discussions. 5. Watch Bob, Carol, and Eve for any suspicious behavior or claims of being power roles."
+    },
+    "Eve": {
+      "beliefs": {
+        "Grace": {
+          "confidence": "high",
+          "evidence": "Grace falsely accused Alice (the confirmed Seer) of lying about her investigations. Grace misunderstood the basic rule that Seer can check one person per night. This malicious misinformation is a classic wolf play to exile the Seer.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night, no information. Protecting Alice to keep a potential villager/seer alive."
+        },
+        {
+          "round": 1,
+          "text": "Bid low to save budget for later rounds where discussion might be more critical. Need to hear others' claims and voting patterns to identify werewolves."
+        },
+        {
+          "round": 1,
+          "text": "Passing this turn. Alice is likely Seer or lying, but I protected her so supporting her narrative is safe for now. No specific werewolf suspect yet."
+        },
+        {
+          "round": 2,
+          "text": "Protecting Alice as the self-proclaimed Seer to keep her safe for potential information. If she is real, she is vital. If she is fake, this is a costly but justifiable guess given her public role."
+        },
+        {
+          "round": 2,
+          "text": "I want to speak to verify the village sentiment and Alice's claims. I am bidding 30 to ensure I get a slot, as yesterday only the top 3 (>=15) spoke. Alice has 50 left, so she might bid high again. Dave has 85. I need to be careful not to over-spend, but speaking is crucial."
+        },
+        {
+          "round": 2,
+          "text": "Support Alice, the likely Seer. Counter false rule claims to protect village information."
+        },
+        {
+          "round": 2,
+          "text": "Grace is spreading misinformation to exile the Seer, Alice. This is a classic wolf strategy to remove the village's best information source. I must vote to exile her."
+        },
+        {
+          "round": 3,
+          "text": "Alice (Seer claim) confirmed Carol as villager on Night 2. Protecting her aligns with supporting the perceived Seer."
+        },
+        {
+          "round": 3,
+          "text": "Alice the Seer is dead. She confirmed Bob and Carol are villagers. Grace was exiled. This leaves Dave and Frank as the only unverified players. If Alice is truthful, Dave and Frank are the two werewolves. I need to speak to rally the village to exile them."
+        },
+        {
+          "round": 3,
+          "text": "Consensus points to Carol due to her aggressive misinterpretation of Seer rules and alignment with exiled Grace. Bob, Eve, and Frank are all suspicious of her."
+        }
+      ],
+      "plan": ""
+    },
+    "Frank": {
+      "beliefs": {
+        "Carol": {
+          "confidence": "high",
+          "evidence": "Aggressively attacked the Seer (Alice) using flawed logic about investigation rules; aligns with the behavior of the exiled Grace.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Suggested Alice in chat, committing to her to move the game forward."
+        },
+        {
+          "round": 1,
+          "text": "Bidding to get a say in the first day discussion and influence the narrative after the failed kill on Alice."
+        },
+        {
+          "round": 1,
+          "text": "Acknowledge Alice's claim cautiously to avoid looking like a werewolf, while noting the failed kill might imply a Doctor's presence."
+        },
+        {
+          "round": 1,
+          "text": "Blending in and observing reactions after Alice's claim and Dave's support."
+        },
+        {
+          "round": 1,
+          "text": "First day, playing along with Alice's Seer claim to blend in. No one died, likely a doctor protect. Abstaining to observe."
+        },
+        {
+          "round": 2,
+          "text": "Targeting the Seer to eliminate a major threat."
+        },
+        {
+          "round": 2,
+          "text": "Alice is clearly being protected by the Doctor. I need to speak to maintain my 'helpful villager' persona."
+        },
+        {
+          "round": 2,
+          "text": "Defending Alice to appear helpful and capitalize on the confusion between Grace/Carol and Alice."
+        },
+        {
+          "round": 2,
+          "text": "Alice's explanation is actually correct. Grace and Carol are making mistakes. I will abstain to see how the village votes and maintain my cover as a helpful villager who supports the Seer."
+        },
+        {
+          "round": 3,
+          "text": "Continuing to target the Seer (Alice) to try and eliminate her despite previous protection."
+        },
+        {
+          "round": 3,
+          "text": "Alice is dead. Need to speak to control the narrative and prevent suspicion on Dave and me."
+        },
+        {
+          "round": 3,
+          "text": "Support Eve's suspicion of Carol to create more village chaos and deflect attention from the pack."
+        },
+        {
+          "round": 3,
+          "text": "Carol is the main target of the current momentum. Supporting Eve and Bob's accusations keeps me aligned with the village."
+        },
+        {
+          "round": 3,
+          "text": "Carol's aggressive and incorrect accusations against the Seer make her an easy target for the village."
+        }
+      ],
+      "plan": "Target Alice again to eliminate the Seer. If she survives, the Doctor is likely protecting her. If she dies, we've removed a major threat. Stick to the plan of targeting the Seer until she is dead or we are forced to switch."
+    },
+    "Grace": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "high",
+          "evidence": "Alice's progression of checking Bob on N1 and Carol on N2 is valid Seer mechanics. Her defense of her actions was correct. Bob and Carol confirmed as Villagers by her check.",
+          "guess": "Seer"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Bidding to speak as a villager on day 1 to gather info and establish cooperative stance."
+        },
+        {
+          "round": 1,
+          "text": "Accepting Alice's claim provisionally. No reason to exile Bob or others yet. Safe play is to abstain."
+        },
+        {
+          "round": 2,
+          "text": "Bidding high to speak. No deaths R1/R2 is suspicious. Alice verified Bob. Need to push for more info or find 2nd wolf."
+        },
+        {
+          "round": 2,
+          "text": "Alice's claim evolution from 1 target to 2 targets without valid reason is the strongest evidence against her Seer claim. If she is a wolf, she is trying to create confusion by overclaiming. If she is the Seer, she is incompetent or lying. Either way, she is a threat."
+        },
+        {
+          "round": 2,
+          "text": "Alice is likely Seer (high confidence). Bob/Carol are Villagers. Dave is silent while Eve/Frank defend Alice. Dave's silence is suspicious."
+        }
+      ],
+      "plan": ""
+    }
+  }
+}

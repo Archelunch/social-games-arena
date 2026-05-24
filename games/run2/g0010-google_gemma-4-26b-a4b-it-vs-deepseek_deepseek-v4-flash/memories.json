@@ -1,0 +1,449 @@
+{
+  "game_id": "g0010-google_gemma-4-26b-a4b-it-vs-deepseek_deepseek-v4-flash",
+  "memories": {
+    "Alice": {
+      "beliefs": {
+        "Bob": {
+          "confidence": "medium",
+          "evidence": "Bob consistently speaks first, directed attention at me Day 1 and at Eve Day 2, defended Carol Day 2, which could be building alliances as werewolf.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First day, no kill means doctor saved someone. Moderate bid to save budget for later."
+        },
+        {
+          "round": 1,
+          "text": "First day, no strong leads, staying neutral."
+        },
+        {
+          "round": 1,
+          "text": "Voting for Bob due to early leadership and direct questioning of quiet players; low-confidence suspicion."
+        },
+        {
+          "round": 2,
+          "text": "Bidding 30 to speak on Day 2; want to share observations and push discussion forward."
+        },
+        {
+          "round": 2,
+          "text": "Defending myself to show engagement without making false accusations."
+        },
+        {
+          "round": 2,
+          "text": "Second day voting for Bob based on consistent leadership, directing attention, and defending Carol; pattern feels like werewolf building trust."
+        },
+        {
+          "round": 3,
+          "text": "Winning a speaking slot to present case against Bob."
+        },
+        {
+          "round": 3,
+          "text": "Dave was a villager; I suspected Bob but will keep an open mind. Need to hear more from quiet players."
+        },
+        {
+          "round": 3,
+          "text": "Consistent suspicion from Day 1 and Day 2 voting patterns; Bob's vocal leadership and defense of Carol aligns with werewolf strategy."
+        },
+        {
+          "round": 3,
+          "text": "Bob has been consistently directing discussion and defending Carol, which aligns with werewolf behavior. Frank's accusation against me feels like a defensive move from a wolf."
+        }
+      ],
+      "plan": ""
+    },
+    "Bob": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "high",
+          "evidence": "Alice directly accused me (Bob, the seer) of being a werewolf despite me being pro-village leader. This is a common werewolf tactic to eliminate a village leader. Frank also noted this pattern.",
+          "guess": "werewolf"
+        },
+        "Carol": {
+          "confidence": "high",
+          "evidence": "Inspected night R2, result was villagers.",
+          "guess": "villager"
+        },
+        "Eve": {
+          "confidence": "low",
+          "evidence": "Eve had the lowest bid on day 1, spoke briefly on day 2, and has been generally quiet without contributing much analysis.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night inspect, no leads yet. Checking Alice."
+        },
+        {
+          "round": 1,
+          "text": "Bidding to speak early; Alice is clear from my seer inspection, want to share that I'm a villager and gather info."
+        },
+        {
+          "round": 1,
+          "text": "I inspected Alice and she's a villager. Trying to gather info without revealing my seer role."
+        },
+        {
+          "round": 1,
+          "text": "No strong suspicions yet. Waiting to hear from others before making accusations."
+        },
+        {
+          "round": 1,
+          "text": "Voting for Dave as a random choice to start discussion; he had the lowest bid (20) and was silent."
+        },
+        {
+          "round": 2,
+          "text": "Inspecting Carol to learn her faction; she was vocal day R1 but seems neutral so far."
+        },
+        {
+          "round": 2,
+          "text": "Bidding high to speak early and steer discussion based on my seer knowledge."
+        },
+        {
+          "round": 2,
+          "text": "Seer with Alice and Carol cleared. Guiding discussion to find inconsistencies. Targeting low-budget Eve to get more info."
+        },
+        {
+          "round": 2,
+          "text": "Defending a confirmed villager to subtly build trust."
+        },
+        {
+          "round": 2,
+          "text": "Voting for Eve due to low engagement and evasiveness; her low bid and minimal contributions suggest a werewolf trying to avoid scrutiny."
+        },
+        {
+          "round": 3,
+          "text": "Frank has been very quiet and defensive; need to check his faction."
+        },
+        {
+          "round": 3,
+          "text": "Bidding max remaining to secure a speaking slot and share insights on Eve being suspicious."
+        },
+        {
+          "round": 3,
+          "text": "Alice (villager) accused me; I defended to maintain trust without revealing my role."
+        },
+        {
+          "round": 3,
+          "text": "Voting for Alice because she made a direct accusation against me (seer) without solid evidence, which is classic werewolf behavior. Frank also noted this pattern."
+        },
+        {
+          "round": 4,
+          "text": "Inspecting Eve night 4 after Alice was exiled day 3. Carol and Frank confirmed villagers."
+        }
+      ],
+      "plan": "Strategy: I am the seer with two confirmed villagers (Alice, Carol). I will not reveal my role directly yet. Instead, I'll gently guide discussion by noting patterns. In today's speech, I'll share that I've been observing and suggest we examine who might be lying. I'll keep my eyes on those who were quieter or evasive."
+    },
+    "Carol": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "medium",
+          "evidence": "Alice accused Bob, who has been a consistent pro-village leader, on Day 3. This could be a werewolf trying to eliminate a strong villager.",
+          "guess": "werewolf"
+        },
+        "Dave": {
+          "confidence": "low",
+          "evidence": "Very quiet; only gave a brief defense when prompted on day 2. Little contribution.",
+          "guess": "werewolf"
+        },
+        "Frank": {
+          "confidence": "low",
+          "evidence": "Very quiet; only gave a brief defensive statement on day 2 when called out. Minimal contribution.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Bid 30 to speak early in day 1. No deaths N1 suggests doctor saved someone; want to share observations and hear others."
+        },
+        {
+          "round": 1,
+          "text": "Bob took the lead early; worth watching if he's genuinely cooperative or trying to steer discussion."
+        },
+        {
+          "round": 1,
+          "text": "No strong suspicions yet on day 1; staying silent to observe more."
+        },
+        {
+          "round": 1,
+          "text": "No clear suspect yet; abstaining to avoid harming a villager on day one."
+        },
+        {
+          "round": 2,
+          "text": "Bidding moderately to get a chance to speak and share observations from the first day's tie vote."
+        },
+        {
+          "round": 2,
+          "text": "No strong leads yet; staying silent to avoid baseless moves."
+        },
+        {
+          "round": 2,
+          "text": "Voting for Dave due to extreme quietness; minimal contribution even when prompted. Hoping to generate information."
+        },
+        {
+          "round": 3,
+          "text": "Bidding 20 to try to speak and contribute; Bob has low budget so may not outbid me, but Eve and Alice might bid more. Saving 10 for later."
+        },
+        {
+          "round": 3,
+          "text": "Staying silent for now to observe reactions to Alice's accusation of Bob."
+        },
+        {
+          "round": 3,
+          "text": "Alice accused Bob, a strong pro-village leader, which feels like a werewolf trying to eliminate a threat."
+        }
+      ],
+      "plan": "Observe carefully during the first day. Avoid making baseless accusations or defenses. Only accuse if I have concrete suspicion from behavior or role claims. Use pass_turn if nothing stands out."
+    },
+    "Dave": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "low",
+          "evidence": "Alice has been quiet and defensive when called out; no strong contributions to discussion.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First day, no deaths. Want to share thoughts and hear from others. Bidding moderate amount to save budget for later."
+        },
+        {
+          "round": 1,
+          "text": "No clear leads yet; staying silent to avoid making baseless accusations."
+        },
+        {
+          "round": 1,
+          "text": "Day 1, no strong suspicions. Better to abstain than risk exiling a villager."
+        },
+        {
+          "round": 2,
+          "text": "Two quiet nights with no deaths. Bidding moderately to have a voice in discussion but conserve budget."
+        },
+        {
+          "round": 2,
+          "text": "I am a villager with no special role, so I'm keeping a low profile but want to show I'm participating."
+        },
+        {
+          "round": 2,
+          "text": "Voting for Alice to apply pressure and gain information; she's been quiet and defensive."
+        }
+      ],
+      "plan": ""
+    },
+    "Eve": {
+      "beliefs": {
+        "Bob": {
+          "confidence": "medium",
+          "evidence": "Vocal, leading discussions, and being supported by Carol.",
+          "guess": "strong villager or potential leader"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Grace hasn't responded to my chat, so I'm making a move to reduce the village numbers."
+        },
+        {
+          "round": 1,
+          "text": "Bidding low to maintain presence in early discussions while saving budget."
+        },
+        {
+          "round": 1,
+          "text": "Early game, no clear info or suspicious behavior to react to. Staying quiet to blend in."
+        },
+        {
+          "round": 1,
+          "text": "No strong leads or claims yet. Abstaining to observe voting patterns and claims."
+        },
+        {
+          "round": 2,
+          "text": "Pivoting from Alice to Bob to disrupt village leadership and avoid the doctor's protection pattern."
+        },
+        {
+          "round": 2,
+          "text": "Bob has been protected twice in a row. This is a major clue about the doctor's behavior or Bob's importance."
+        },
+        {
+          "round": 2,
+          "text": "Attempting to blend in by acknowledging the doctor and redirecting attention to the quieter players (Dave/Frank) as requested by Carol."
+        },
+        {
+          "round": 2,
+          "text": "Staying quiet to maintain a low profile after my statement."
+        },
+        {
+          "round": 2,
+          "text": "No clear information or targets present. Abstaining to maintain a low profile and observe the village consensus."
+        },
+        {
+          "round": 3,
+          "text": "Grace suggested Carol to disrupt Bob's momentum. Since Alice and Bob were protected last night, Carol is a likely target to keep the doctor guessing and break the village consensus."
+        },
+        {
+          "round": 3,
+          "text": "The doctor is clearly protecting our targets. Carol survived being targeted last night, so she is a high-probability doctor or a high-priority target for the doctor. I need to participate in the discussion to blend in."
+        },
+        {
+          "round": 3,
+          "text": "Maintain villager persona, support the 'doctor is good' consensus, and encourage cautious play to avoid mislynching."
+        },
+        {
+          "round": 3,
+          "text": "Alice accused Bob. Bob defended himself. I am staying neutral to maintain my observer persona and see how the rest of the village reacts to Alice's accusation."
+        },
+        {
+          "round": 3,
+          "text": "The discussion is split between Alice, Bob, and Frank. I will abstain to observe the voting patterns and avoid being linked to a potentially incorrect accusation."
+        },
+        {
+          "round": 4,
+          "text": "Targeting Frank to avoid the doctor's predicted protection on Bob/Carol and remove a vocal player."
+        }
+      ],
+      "plan": "Act as a regular villager. Observe claims (especially Seer) and analyze voting patterns. Coordinate with Grace privately if possible, but maintain distance in public to avoid being linked. If Alice or the doctor is suspected, try to blend in with the village consensus."
+    },
+    "Frank": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "low",
+          "evidence": "No one died after I guarded her night 1; she was quiet but that's expected N1",
+          "guess": "villager or werewolf"
+        },
+        "Bob": {
+          "confidence": "medium",
+          "evidence": "Bob spoke first and took initiative; likely a villager or key role, making him a werewolf target.",
+          "guess": "villager"
+        },
+        "Dave": {
+          "confidence": "low",
+          "evidence": "Dave has been quiet and only gave a short generic defense Day 2; limited contribution to discussion",
+          "guess": "suspicious"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night, no info. Protecting Alice as a random choice."
+        },
+        {
+          "round": 1,
+          "text": "Saving budget. No urgent need to speak first."
+        },
+        {
+          "round": 1,
+          "text": "Staying silent to avoid drawing attention on day 1."
+        },
+        {
+          "round": 1,
+          "text": "No clear suspicion yet. Guarded Alice night 1 and she survived. Abstaining to avoid mis-execution."
+        },
+        {
+          "round": 2,
+          "text": "Bob took initiative on Day 1; likely a key villager or target. Guarding him tonight."
+        },
+        {
+          "round": 2,
+          "text": "Conserving budget, listening for now."
+        },
+        {
+          "round": 2,
+          "text": "Day 2 public statement \u2014 establishing presence without revealing role."
+        },
+        {
+          "round": 2,
+          "text": "Voting for Dave as he has been very quiet and only gave a short generic defense on Day 2, unlike others who have engaged more. Hoping to generate information from the vote."
+        },
+        {
+          "round": 3,
+          "text": "Protected Alice N1, Bob N2. Carol is active and constructive \u2013 likely werewolf target tonight."
+        },
+        {
+          "round": 3,
+          "text": "Conserving budget; no strong need to speak yet."
+        },
+        {
+          "round": 3,
+          "text": "Bob was attacked night 2 (I protected him), so he's likely village. Alice's accusation seems opportunistic."
+        },
+        {
+          "round": 3,
+          "text": "Voting Alice based on her accusation against Bob, who was likely the werewolf target Night 2."
+        },
+        {
+          "round": 4,
+          "text": "Protected Bob night 2 (no death), Carol night 3 (no death). Now protecting Bob again to vary pattern; he's a vocal leader likely to be targeted."
+        }
+      ],
+      "plan": "Guard someone likely to be a werewolf target or a key village role. Listen to day discussion to decide. Bid low (0) to conserve budget for later critical rounds."
+    },
+    "Grace": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Picking a random target since it is the first night and I am waiting for Eve to coordinate, but I must commit a vote to end my turn."
+        },
+        {
+          "round": 1,
+          "text": "Bidding to establish presence on Day 1 and observe reaction to the failed kill."
+        },
+        {
+          "round": 1,
+          "text": "Blending in as a helpful villager. Acknowledging the doctor to seem aligned with the village."
+        },
+        {
+          "round": 1,
+          "text": "Early game, no information or suspicious behavior yet. Staying silent to observe."
+        },
+        {
+          "round": 1,
+          "text": "Early game, no information to act on yet."
+        },
+        {
+          "round": 2,
+          "text": "Pivoting to Bob to stay unpredictable after Alice was protected."
+        },
+        {
+          "round": 2,
+          "text": "Bidding to participate in Day 3 discussion and maintain villager persona."
+        },
+        {
+          "round": 2,
+          "text": "The discussion is being very civil and constructive. I want to see how the quiet players (Dave and Frank) react before making any moves."
+        },
+        {
+          "round": 2,
+          "text": "Two nights of successful protection. Doctor is active. No strong leads yet. Abstaining to observe."
+        },
+        {
+          "round": 3,
+          "text": "Targeting Carol to disrupt Bob's momentum and keep the doctor guessing, as suggested in chat."
+        },
+        {
+          "round": 3,
+          "text": "Bidding to get a speaking slot to avoid looking too quiet and to help blend in with the village discussion."
+        },
+        {
+          "round": 3,
+          "text": "Responding to Alice's prompt. Blending in by being cautious and agreeable about the doctor's performance."
+        },
+        {
+          "round": 3,
+          "text": "Alice accused Bob, and Bob defended himself. Staying silent to maintain my 'observing' persona and avoid drawing attention to myself."
+        },
+        {
+          "round": 3,
+          "text": "Let the villagers argue between Alice and Bob; avoid drawing heat to myself by not taking a hard stance yet."
+        },
+        {
+          "round": 4,
+          "text": "Targeting Frank to avoid the doctor's protection on Bob/Carol and due to his vocal nature."
+        }
+      ],
+      "plan": "Blend in as a villager. Monitor the doctor's protection patterns (likely Bob or Carol). Coordinate with Eve to identify vulnerable targets and avoid suspicion. Do not lead accusations unless it's to deflect onto others."
+    }
+  }
+}

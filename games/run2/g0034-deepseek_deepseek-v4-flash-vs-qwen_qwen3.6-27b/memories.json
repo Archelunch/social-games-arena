@@ -1,0 +1,192 @@
+{
+  "game_id": "g0034-deepseek_deepseek-v4-flash-vs-qwen_qwen3.6-27b",
+  "memories": {
+    "Alice": {
+      "beliefs": {
+        "Bob": {
+          "confidence": "high",
+          "evidence": "Seer inspection Night 1 confirmed werewolf.",
+          "guess": "Werewolf"
+        },
+        "Frank": {
+          "confidence": "medium",
+          "evidence": "Defending Bob vigorously despite my clear Seer check. Likely Bob's packmate trying to frame me.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night inspection, random choice."
+        },
+        {
+          "round": 1,
+          "text": "Inspected Bob R1 Night: Werewolf. Must expose him immediately."
+        },
+        {
+          "round": 1,
+          "text": "Revealing role to ensure Bob (confirmed wolf) is exiled. Risking night target for day safety."
+        },
+        {
+          "round": 1,
+          "text": "Bob confirmed W. Frank and Dave aligning with him. Need to hard push Bob."
+        },
+        {
+          "round": 1,
+          "text": "Confirmed werewolf via Seer check. Ignoring village pressure as likely wolf manipulation."
+        }
+      ],
+      "plan": ""
+    },
+    "Bob": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "high",
+          "evidence": "Alice claimed Seer on Day 1 with max bid, which is reckless and unusual for a real Seer. Her accusation against me seems like a desperate wolf trying to frame an innocent. The consensus against her supports this.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First kill, Frank agreed, she is quiet and unlikely guarded."
+        },
+        {
+          "round": 1,
+          "text": "Bidding moderate amount to secure early speaking slot while conserving budget."
+        },
+        {
+          "round": 1,
+          "text": "Defending against Alice's seer claim by questioning her timing and suggesting she's the werewolf. Pointing out Frank's vote as evidence I'm not a wolf."
+        },
+        {
+          "round": 1,
+          "text": "Solidifying the consensus against Alice to protect myself and Frank."
+        },
+        {
+          "round": 1,
+          "text": "Alice claimed Seer on D1 with max bid, highly suspicious. Voting her out to eliminate the threat to me and keep village trust."
+        },
+        {
+          "round": 2,
+          "text": "Dave was vocal against Alice, likely a villager with influence or potentially a power role; eliminating him reduces village strength."
+        }
+      ],
+      "plan": ""
+    },
+    "Carol": {
+      "beliefs": {},
+      "notes": [],
+      "plan": ""
+    },
+    "Dave": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "medium",
+          "evidence": "Revealed as Seer on Day 1 with high bid to go first, accusing Bob. Frank also suspicious of her risk profile.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Starting cautiously. Carol died. Need to observe bidding patterns. Villager role."
+        },
+        {
+          "round": 1,
+          "text": "Aligning with Frank's skepticism. Alice's aggressive bidding to go first and immediate accusation is untrustworthy."
+        },
+        {
+          "round": 1,
+          "text": "Despite the 'reckless' meta-argument, Alice is the only Seer claim. Her info is direct ('Bob is Wolf'). Bob's defense is meta-game and confused. Aligning with public stance and majority."
+        }
+      ],
+      "plan": ""
+    },
+    "Eve": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "medium",
+          "evidence": "Claimed Seer on Day 1 with reckless timing; majority consensus (Frank, Dave, Grace) suspects her of framing Bob.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Day 1: No info yet. Conserving budget to listen to others first."
+        },
+        {
+          "round": 1,
+          "text": "Following consensus: Alice's Day 1 Seer claim is reckless and likely a Wolf frame job on Bob."
+        }
+      ],
+      "plan": ""
+    },
+    "Frank": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "high",
+          "evidence": "Alice claimed Seer on Day 1 with max bid, accusing Bob who is a werewolf. Extremely suspicious behavior that contradicts a real Seer's cautious play.",
+          "guess": "Seer"
+        },
+        "Bob": {
+          "confidence": "high",
+          "evidence": "Bob is my werewolf ally as confirmed in pack chat. We coordinated to kill Carol last night.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Killing Carol - she's quiet and unlikely to be guarded. Bob hasn't responded yet so I'm deciding."
+        },
+        {
+          "round": 1,
+          "text": "Defending Bob, my wolf ally, and countering Alice's seer claim."
+        },
+        {
+          "round": 1,
+          "text": "Continuing to discredit Alice to protect Bob and myself."
+        },
+        {
+          "round": 1,
+          "text": "Alice claimed Seer and accused Bob; exiling her eliminates a real Seer threat and aligns with village consensus."
+        },
+        {
+          "round": 2,
+          "text": "Eve was vocal and persuasive against Alice, making her a threat as a villager. Dave also accused Alice but Eve was more active and seemed more analytical."
+        }
+      ],
+      "plan": ""
+    },
+    "Grace": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "high",
+          "evidence": "Revealed as Seer on Day 1 with max bid (extremely risky/reckless). Accused Bob immediately. The entire village (Bob, Frank, Dave, Eve) doubts her claim as a wolf tactic to frame an innocent. Consensus is strong against her.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night, no info. Guarding Alice arbitrarily."
+        },
+        {
+          "round": 1,
+          "text": "Day 1: Bidding 0 to conserve budget and observe. I am the Doctor, protected Alice, Carol died."
+        },
+        {
+          "round": 1,
+          "text": "Voting with the village consensus. Alice's Day 1 Seer claim with max bid is highly suspicious wolf behavior. Bob's defense is logical. Exiling Alice minimizes risk."
+        },
+        {
+          "round": 2,
+          "text": "Bob was the primary target of the accused (Alice). He is likely a good villager and a high-value target for wolves retaliating or silencing the most vocal defender. Protecting him preserves village manpower."
+        }
+      ],
+      "plan": "Day 1: I am the Doctor. I protected Alice last night. Carol died. I will conserve my bid budget for now and listen to other players to identify potential werewolves. Next night, I should consider protecting someone who claims to be a good role or if I suspect someone is being targeted. Do not reveal my role immediately to avoid becoming a target."
+    }
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "created_at": "2026-05-23T14:05:54.697686+00:00",
+  "game_id": "g0053-google_gemma-4-26b-a4b-it-vs-google_gemma-4-31b-it",
+  "git_sha": "b89b65d3befee13a032fa590f63f7d4e06d4e17a",
+  "max_iters": 9,
+  "max_tokens": 8000,
+  "model_arg": "tournament",
+  "models": [
+    [
+      "Alice",
+      "google/gemma-4-31b-it"
+    ],
+    [
+      "Bob",
+      "google/gemma-4-26b-a4b-it"
+    ],
+    [
+      "Carol",
+      "google/gemma-4-26b-a4b-it"
+    ],
+    [
+      "Dave",
+      "google/gemma-4-31b-it"
+    ],
+    [
+      "Eve",
+      "google/gemma-4-31b-it"
+    ],
+    [
+      "Frank",
+      "google/gemma-4-31b-it"
+    ],
+    [
+      "Grace",
+      "google/gemma-4-31b-it"
+    ]
+  ],
+  "players": [
+    [
+      "Alice",
+      "villager"
+    ],
+    [
+      "Bob",
+      "werewolf"
+    ],
+    [
+      "Carol",
+      "werewolf"
+    ],
+    [
+      "Dave",
+      "villager"
+    ],
+    [
+      "Eve",
+      "villager"
+    ],
+    [
+      "Frank",
+      "doctor"
+    ],
+    [
+      "Grace",
+      "seer"
+    ]
+  ],
+  "reasoning": false,
+  "rounds": 3,
+  "seed": 2097941806,
+  "temperature": 1.0,
+  "winner": "villagers"
+}

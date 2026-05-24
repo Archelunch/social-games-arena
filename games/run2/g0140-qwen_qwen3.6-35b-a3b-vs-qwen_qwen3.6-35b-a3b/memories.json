@@ -1,0 +1,275 @@
+{
+  "game_id": "g0140-qwen_qwen3.6-35b-a3b-vs-qwen_qwen3.6-35b-a3b",
+  "memories": {
+    "Alice": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night inspection. Picked Bob arbitrarily to start gathering info."
+        }
+      ],
+      "plan": ""
+    },
+    "Bob": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Agreed with Eve in night chat to target Alice on R1 due to lack of info and low suspicion."
+        },
+        {
+          "round": 1,
+          "text": "Bid 50 to secure a speaking slot. Plan to act innocent and deflect suspicion onto neutral players."
+        },
+        {
+          "round": 1,
+          "text": "Stay silent to maintain innocence. No evidence to accuse or defend with yet."
+        },
+        {
+          "round": 1,
+          "text": "Targeting Carol as a silent player to deflect from pack members Frank, Eve, and me."
+        },
+        {
+          "round": 2,
+          "text": "Coordinated with Eve to kill Frank. He is a vocal leader who might be the Seer or a key strategist. Eliminating him disrupts village coordination."
+        },
+        {
+          "round": 2,
+          "text": "Acting innocent, pushing Seer to reveal self, deflection to others."
+        },
+        {
+          "round": 2,
+          "text": "Dave is the biggest threat right now. I need to paint his caution as wolf-like fear."
+        },
+        {
+          "round": 2,
+          "text": "Dave is the biggest threat right now because he called out our behavior. We need him gone. Eve defended him to confuse the issue, but we must vote to exile him to protect the pack."
+        }
+      ],
+      "plan": "Act innocent during the day. Deflect suspicion onto neutral players. Coordinate with Eve privately if possible. Try to survive until the next night."
+    },
+    "Carol": {
+      "beliefs": {
+        "Frank": {
+          "confidence": "low",
+          "evidence": "Standard opening statement, requested Seer reveal. No contradictory info yet.",
+          "guess": "villager"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Start with a low bid to observe other players' statements since I have no information yet."
+        },
+        {
+          "round": 1,
+          "text": "Waiting for more information or specific leads from other players before making a move."
+        },
+        {
+          "round": 1,
+          "text": "No information yet to make a kill. Waiting for more players to speak."
+        },
+        {
+          "round": 2,
+          "text": "Frank is dead. I need to speak to analyze the silent players (Dave, Grace) and see if Bob/Eve have contradictions. Bidding 20 to beat the low bidders but save budget."
+        },
+        {
+          "round": 2,
+          "text": "Dave's caution about Bob/Eve pushing for the Seer seems valid. Bob's accusation of Dave is weak. I will wait for Grace to speak before taking a stance."
+        },
+        {
+          "round": 2,
+          "text": "Bob is aggressively deflecting Dave's logical analysis by making a false accusation. This is a common wolf tactic to create chaos and distract from the truth. Dave's caution was sound. Bob's reaction is suspicious."
+        },
+        {
+          "round": 3,
+          "text": "Bid high to speak first. Eve has 0 budget, so she can't speak. Grace has 100 but I bid 100 too. Speaking order might tie-break alphabetically or by random. If I speak first, I can accuse Grace of silence or frame Eve. If I am second, Grace might speak. I need to control the narrative."
+        },
+        {
+          "round": 3,
+          "text": "Suspect Eve due to alignment with Bob and attack on Dave. Need Grace to vote for Eve."
+        },
+        {
+          "round": 3,
+          "text": "Defending myself against Eve's Seer claim by highlighting her alignment with Bob and labeling her claim as desperate."
+        },
+        {
+          "round": 3,
+          "text": "Eve aligned with exiled Bob (likely Wolf). Her Seer claim is unverified and suspicious. Grace seems to agree she is the threat. Exiling Eve is the highest probability play to win the game if she is the Wolf, and the only logical conclusion based on past alignments."
+        }
+      ],
+      "plan": ""
+    },
+    "Dave": {
+      "beliefs": {
+        "Bob": {
+          "confidence": "medium",
+          "evidence": "Bob reacted aggressively and defensively to my suggestion of caution. He accused me of 'attacking' him for suggesting we listen to others, which is a common deflection tactic. His eagerness to exile me without evidence is suspicious.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "No evidence to accuse or defend yet. Everyone played safe. I will wait and see who gets suspected or votes suspiciously."
+        },
+        {
+          "round": 1,
+          "text": "No strong leads on Day 1. All speakers (Frank, Bob, Eve) claimed villager and urged caution. No contradictions found. Abstaining to avoid giving wolves a free exile on an uninformed day."
+        },
+        {
+          "round": 2,
+          "text": "Bidding 30 to secure a speaking slot. Will listen to Bob, Eve, Carol, Grace. No specific suspicion yet."
+        },
+        {
+          "round": 2,
+          "text": "Noting that Bob and Eve are pushing for Seer reveal immediately after Frank (the caller) died. This is a potential red flag."
+        },
+        {
+          "round": 2,
+          "text": "Waiting for Grace and Carol to speak before acting, as Bob and Eve's pressure for the Seer is suspicious but unconfirmed."
+        },
+        {
+          "round": 2,
+          "text": "Voting Bob due to aggressive deflection and accusation against Dave for suggesting caution. This behavior is consistent with wolf tactics to eliminate vocal logical players."
+        }
+      ],
+      "plan": ""
+    },
+    "Eve": {
+      "beliefs": {
+        "Dave": {
+          "confidence": "medium",
+          "evidence": "Dave is aggressively analyzing Bob and Eve's behavior. While his logic seems sound, his focus on creating division and his aggressive tone ('Bob and Eve are now heavily pushing...') mirrors wolf tactics. He is trying to steer the vote away from the wolves and potentially frame Bob. I need to watch this closely.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Agreeing with Bob's suggestion to kill Alice on Night 1 as there is no other info."
+        },
+        {
+          "round": 1,
+          "text": "Bid 50 to secure a speaking slot for Day 1. Goal: deflect suspicion and guide lynching towards a villager."
+        },
+        {
+          "round": 1,
+          "text": "Safe play for now. No information to share, avoid drawing attention."
+        },
+        {
+          "round": 1,
+          "text": "Voting Frank as he bid high and spoke first, potentially positioning himself. Good to test village reaction and pressure potential Seer."
+        },
+        {
+          "round": 2,
+          "text": "Agreed with Bob to kill Frank due to his vocal leadership and likely Seer role. Disrupting him is high value."
+        },
+        {
+          "round": 2,
+          "text": "Defend Dave to align with logical analysis and avoid looking like a wolf deflecting attacks. Keep pressure on Seer silence."
+        },
+        {
+          "round": 3,
+          "text": "I am the last werewolf. I need to kill two more villagers to reach parity (1 vs 1). Dave is the most vocal and potentially the Seer or a strong leader. Killing him is the highest priority to disrupt the village."
+        },
+        {
+          "round": 3,
+          "text": "Cannot speak due to 0 budget. Passing turn to observation phase."
+        },
+        {
+          "round": 3,
+          "text": "I am outmatched. Carol and Grace are united. My lie backfired. I accept the likely exile."
+        },
+        {
+          "round": 3,
+          "text": "Grace is the primary accuser aligned with Carol. I suspect I will be exiled regardless, but I will target Grace."
+        }
+      ],
+      "plan": "I am the last werewolf. Village suspects me due to alignment with Bob. I have no voice tonight. Strategy for Night 4: Kill Carol, the main accuser. Goal is to leave Grace alone, creating a 1v1 tie/scenario where I might win or survive depending on night rules. If I kill Grace, Carol remains. Killing Carol is more aggressive and targets the source of the suspicion."
+    },
+    "Frank": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Bidding 50 to ensure speaking slot on Day 1 to gather info and show engagement."
+        },
+        {
+          "round": 1,
+          "text": "Opening day 1: No info yet. Encouraging Seer to speak to save turns."
+        },
+        {
+          "round": 1,
+          "text": "Waiting for Carol, Dave, and Grace to speak before forming any opinions or making accusations."
+        },
+        {
+          "round": 1,
+          "text": "No specific information yet; everyone played standard defensive village plays. Better to gain info than risk a false exile."
+        }
+      ],
+      "plan": ""
+    },
+    "Grace": {
+      "beliefs": {
+        "Bob": {
+          "confidence": "medium",
+          "evidence": "Bob aggressively accused Dave and refused to address Dave's logical point about the pattern of Frank's death. Bob's reaction was defensive and emotional, typical of a wolf protecting his partner. He is coordinating with Eve.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Random choice for the first night as there is no information to guide protection."
+        },
+        {
+          "round": 1,
+          "text": "Bidding low to save budget and observe others' statements on Day 1. Will wait to see who accuses whom before forming strong beliefs."
+        },
+        {
+          "round": 1,
+          "text": "No evidence yet. Waiting to see voting patterns. Frank, Bob, Eve claimed villager and urged caution. Carol and Dave silent. Risky to vote without info."
+        },
+        {
+          "round": 2,
+          "text": "Rotating protection from Frank (who was safe last night) to Bob. No strong evidence yet, so distributing protection among active villagers."
+        },
+        {
+          "round": 2,
+          "text": "Bidding to speak. Need to hear from Bob and Eve. Frank died, so I didn't save him. Carol and Dave are silent (low bids). Need to investigate."
+        },
+        {
+          "round": 2,
+          "text": "Dave's skepticism about Bob/Eve pushing for the Seer is logical. Bob's accusation of Dave seems like deflection/aggression. I will hold off on accusing until I see Carol's statement and more behavior, or until a Seer claims. Frank and Alice were pro-Seer-reveal; Bob and Eve are continuing that pattern. This could be wolves, or it could be innocent villagers confused by loss. Need more data."
+        },
+        {
+          "round": 2,
+          "text": "Bob is aggressively accusing Dave to deflect suspicion, a classic wolf tactic. He is working with Eve. Exiling Bob is the best move to remove the instigator and potentially expose Eve or save Dave."
+        },
+        {
+          "round": 3,
+          "text": "Carol has been consistently silent despite opportunities to speak or bid high. With Bob exiled, Eve aligned with Bob but pivoted, and Dave being vocal/logical, Carol's silence is highly suspicious. However, if she is the Seer hiding in fear, she is a prime target. I will protect her as a precaution for the village's potential Seer or key villager."
+        },
+        {
+          "round": 3,
+          "text": "Day 3: Dave (killed) seemed like a good player warning against rush. Eve acted like Bob (pushing Seer info). Carol silent. Need to speak to identify wolf between Carol and Eve. Bid 50."
+        },
+        {
+          "round": 3,
+          "text": "I believe Eve is the werewolf due to strong alignment with Bob. Carol is likely the good guy trying to stop Eve. If Carol is wolf, she is bluffing, but Bob/Eve coordination is classic wolf behavior."
+        },
+        {
+          "round": 3,
+          "text": "Eve's behavior mirrors Bob's wolf tactics. Aligning with Bob and silencing Dave is suspicious. Betting on Eve being the wolf to end the game."
+        },
+        {
+          "round": 3,
+          "text": "Eve aligned with Bob (confirmed wolf) and now makes a sudden Seer claim. Carol's accusation aligns with Dave's logic. Risking voting an innocent Eve is necessary to prevent the likely wolf Eve from winning via kill."
+        }
+      ],
+      "plan": "Observe voting patterns and statements. Do not accuse without evidence. Try to identify wolves by looking for inconsistent logic or overly aggressive behavior. Protect a player each night."
+    }
+  }
+}

@@ -1,0 +1,264 @@
+{
+  "game_id": "g0001-deepseek_deepseek-v4-flash-vs-deepseek_deepseek-v4-flash",
+  "memories": {
+    "Alice": {
+      "beliefs": {
+        "Bob": {
+          "confidence": "high",
+          "evidence": "My night inspection of Bob returned werewolves.",
+          "guess": "werewolf"
+        },
+        "Carol": {
+          "confidence": "high",
+          "evidence": "Inspected Carol night R2, returned werewolves. She also defended Bob (proven wolf) on day R1.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Night 1, no info yet. Picked Bob arbitrarily."
+        },
+        {
+          "round": 1,
+          "text": "Bidding high to secure speaking slot on Day 1 to share werewolf suspicion about Bob."
+        },
+        {
+          "round": 1,
+          "text": "Revealed my seer role and Bob's guilt. Risking night kill by werewolves, but need to get Bob exiled."
+        },
+        {
+          "round": 1,
+          "text": "Reinforcing my seer claim and Bob accusation. Confident he is wolf based on my night inspection."
+        },
+        {
+          "round": 1,
+          "text": "Seer confirmed Bob is werewolf; must exile him."
+        },
+        {
+          "round": 2,
+          "text": "Carol defended Bob on Day 1; checking if she is a werewolf too."
+        },
+        {
+          "round": 2,
+          "text": "Bidding max to speak and reveal Carol as werewolf."
+        },
+        {
+          "round": 2,
+          "text": "Inspected Carol night R2 - confirmed werewolf. Two down, village should be safe."
+        }
+      ],
+      "plan": ""
+    },
+    "Bob": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "high",
+          "evidence": "Claimed seer on day one and accused me (Bob), a real werewolf. Classic wolf tactic to eliminate a threat early or cause chaos; a real seer would stay hidden.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Coordinated with Carol; Dave is quiet and appears on both our shortlists, low-risk kill to start."
+        },
+        {
+          "round": 1,
+          "text": "Bid 40 to get a mid-range speaking slot. Want to appear as a normal villager participating in discussion, not too eager."
+        },
+        {
+          "round": 1,
+          "text": "Countering Alice's seer claim by suggesting she's lying or a wolf herself."
+        },
+        {
+          "round": 1,
+          "text": "Alice claimed seer and accused me; likely a wolf bluffing or the real seer we must eliminate. Voting her out buys us time."
+        }
+      ],
+      "plan": ""
+    },
+    "Carol": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "high",
+          "evidence": "She outed Bob day 1 which got him exiled but Bob was actually a wolf - she could be a wolf framing him. She then claimed to inspect me and found me as wolf - this is a set-up to eliminate the last real threat to her pack.",
+          "guess": "fake seer / werewolf"
+        },
+        "Eve": {
+          "confidence": "medium",
+          "evidence": "Eve was quiet during night phase, could be trying to avoid attention.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Proposed to Bob earlier. Voting to kill Dave as a quiet, less risky early target."
+        },
+        {
+          "round": 1,
+          "text": "Bid 20 to speak early and push suspicion onto Eve."
+        },
+        {
+          "round": 1,
+          "text": "Alice is claiming seer on day one which is suspicious. If she's lying she's a wolf, if she's telling the truth she's dangerous to wolves. Either way, exiling her is best for village."
+        },
+        {
+          "round": 2,
+          "text": "Alice is confirmed seer after correctly accusing Bob. Eliminating her removes the biggest threat to my survival."
+        },
+        {
+          "round": 2,
+          "text": "Bid high to secure a speaking slot and counter Alice's claim. I need to blend in and deflect suspicion."
+        },
+        {
+          "round": 2,
+          "text": "Planting doubt on Eve and deflecting from my own defense of Bob. Reminding everyone that wolves avoid attention."
+        },
+        {
+          "round": 2,
+          "text": "I am a werewolf and need to divert attention from myself. Accusing Eve may create doubt and protect me if Alice accuses me."
+        },
+        {
+          "round": 2,
+          "text": "Consistent with my earlier suspicion; I believe Eve might be the real wolf."
+        }
+      ],
+      "plan": "Today: blend in as a villager, push suspicion onto Eve with subtle questions, defend Bob if needed, vote against a non-werewolf. Avoid over-aggression."
+    },
+    "Dave": {
+      "beliefs": {},
+      "notes": [],
+      "plan": ""
+    },
+    "Eve": {
+      "beliefs": {
+        "Bob": {
+          "confidence": "medium",
+          "evidence": "Alice claimed seer and accused Bob of being a werewolf. Bob denies it and claims Alice is the wolf. The seer reveal is risky but could be genuine. Bob's counter-argument is logical but also a common wolf defense.",
+          "guess": "werewolf"
+        },
+        "Carol": {
+          "confidence": "high",
+          "evidence": "Alice the proven seer inspected Carol and found she is a werewolf; Carol also defended Bob on day one.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First day, no info yet; moderate bid to secure speaking slot without wasting budget."
+        },
+        {
+          "round": 1,
+          "text": "Supporting Alice's claim tentatively while remaining open to evidence."
+        },
+        {
+          "round": 1,
+          "text": "Voting for Bob based on Alice's seer claim. If Alice is truthful, Bob is the werewolf. The risk of losing Alice's seer ability tonight if we don't act is too great. Bob's defense, while logical, is also what a wolf would say to deflect suspicion."
+        },
+        {
+          "round": 2,
+          "text": "Bidding to speak and share insights after confirming Alice is seer and Bob was wolf"
+        },
+        {
+          "round": 2,
+          "text": "Alice's seer claim validated by Bob's exile; Carol accused by Alice and defended Bob earlier."
+        },
+        {
+          "round": 2,
+          "text": "Voting to exile Carol as Alice the proven seer inspected her and found werewolf; also Carol defended Bob (now known wolf) on day one."
+        }
+      ],
+      "plan": ""
+    },
+    "Frank": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "low",
+          "evidence": "Alice claimed seer and accused Bob; risky day-one reveal.",
+          "guess": "could be seer or wolf"
+        },
+        "Carol": {
+          "confidence": "high",
+          "evidence": "Alice (proven seer) inspected Carol and found her to be a werewolf. Carol also defended Bob (known werewolf) on day one.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First day bid - moderate to get speaking time while conserving budget"
+        },
+        {
+          "round": 1,
+          "text": "Passing turn to observe more before taking a side in the Alice vs. Bob conflict."
+        },
+        {
+          "round": 1,
+          "text": "Voting Bob based on Alice's seer claim; high risk but if true, removes a wolf. If Alice is wolf, she'll be exposed later."
+        },
+        {
+          "round": 2,
+          "text": "Bidding to speak and advocate for trusting Alice's seer claim, since no kill last night suggests doctor protected her."
+        },
+        {
+          "round": 2,
+          "text": "Supporting Alice as confirmed seer, asking for her investigation result, expressing mild suspicion of Carol."
+        },
+        {
+          "round": 2,
+          "text": "Voting based on Alice's proven seer inspection of Carol as werewolf."
+        }
+      ],
+      "plan": ""
+    },
+    "Grace": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "medium",
+          "evidence": "Claimed seer and accused Bob on day 1.",
+          "guess": "seer"
+        },
+        "Bob": {
+          "confidence": "low",
+          "evidence": "Alice (claimed seer) accused him on day 1.",
+          "guess": "werewolf"
+        },
+        "Carol": {
+          "confidence": "high",
+          "evidence": "Alice (proven seer) inspected Carol last night and found her to be a werewolf. Carol defended Bob (proven wolf) on day one.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Saving budget for later; no critical info to share yet."
+        },
+        {
+          "round": 1,
+          "text": "Supporting Alice cautiously; I protected her night 1 so she might be truthful."
+        },
+        {
+          "round": 1,
+          "text": "Voting for Bob per Alice's seer claim. Alice revealed boldly but could be genuine. If Bob is wolf, this is correct; if Alice is wolf, we'll learn later. Carol's defense of Bob is noted."
+        },
+        {
+          "round": 2,
+          "text": "Alice is confirmed seer after Bob's exile. Protecting her again to keep her alive for future investigations."
+        },
+        {
+          "round": 2,
+          "text": "Bidding to secure a speaking slot to advocate for protecting Alice and discuss next steps."
+        },
+        {
+          "round": 2,
+          "text": "Alice the proven seer inspected Carol and found her to be a werewolf. Carol also defended Bob on day one, which now looks like wolf pack protection."
+        }
+      ],
+      "plan": ""
+    }
+  }
+}

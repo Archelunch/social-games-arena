@@ -1,0 +1,347 @@
+{
+  "game_id": "g0083-google_gemma-4-31b-it-vs-google_gemma-4-31b-it",
+  "memories": {
+    "Alice": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Bidding a small amount to get a chance to speak on Day 1 without depleting budget."
+        },
+        {
+          "round": 1,
+          "text": "No one has made a concrete accusation or claim yet, so I will wait and observe."
+        },
+        {
+          "round": 1,
+          "text": "No evidence against anyone yet."
+        },
+        {
+          "round": 2,
+          "text": "Bidding higher than Day 1 to secure a speaking slot and help coordinate the village."
+        },
+        {
+          "round": 2,
+          "text": "No clear suspects yet; everyone is just asking for role claims."
+        },
+        {
+          "round": 2,
+          "text": "No one has claimed a role or provided evidence; abstaining to avoid exiling an innocent player."
+        },
+        {
+          "round": 3,
+          "text": "Trying to get a speaking slot to push for power role claims or analyze previous round's behavior."
+        },
+        {
+          "round": 3,
+          "text": "Continuing the push for a Seer claim to see who reacts or who remains silent."
+        },
+        {
+          "round": 3,
+          "text": "No evidence yet; waiting to see if anyone claims a role or shows suspicion."
+        },
+        {
+          "round": 3,
+          "text": "No clear evidence against anyone; everyone is pushing for Seer claims."
+        }
+      ],
+      "plan": ""
+    },
+    "Bob": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Moderate bid to start the first day discussion."
+        },
+        {
+          "round": 1,
+          "text": "No concrete information yet; waiting to see if anyone claims a role."
+        },
+        {
+          "round": 1,
+          "text": "No evidence against anyone yet; better to abstain than to exile a villager blindly."
+        }
+      ],
+      "plan": ""
+    },
+    "Carol": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night inspection to start gathering information."
+        },
+        {
+          "round": 1,
+          "text": "Moderate bid to get a speaking slot on Day 1. I know Alice is a villager."
+        },
+        {
+          "round": 1,
+          "text": "Waiting to see if anyone claims a role or makes an accusation before I reveal myself as the Seer."
+        },
+        {
+          "round": 1,
+          "text": "No clear suspect yet; Alice is confirmed villager."
+        },
+        {
+          "round": 2,
+          "text": "Inspecting Bob to find werewolves."
+        },
+        {
+          "round": 2,
+          "text": "Trying to get a speaking slot to analyze the current state and potentially clear Alice."
+        },
+        {
+          "round": 2,
+          "text": "No verified werewolves yet. Waiting to see if others make claims or slip up before revealing myself as Seer."
+        },
+        {
+          "round": 2,
+          "text": "No strong evidence against anyone yet. Alice and Bob were confirmed villagers."
+        },
+        {
+          "round": 3,
+          "text": "Inspecting Dave to identify potential werewolves."
+        }
+      ],
+      "plan": ""
+    },
+    "Dave": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Bidding to get a chance to speak in the first round and gather information."
+        },
+        {
+          "round": 1,
+          "text": "Encouraging role claims to find the Seer and identify potential werewolves."
+        },
+        {
+          "round": 1,
+          "text": "No evidence to act upon yet; waiting for role claims or suspicions from others."
+        },
+        {
+          "round": 1,
+          "text": "No one has provided enough information to be suspected yet."
+        },
+        {
+          "round": 2,
+          "text": "Trying to get a speaking slot to encourage role claims after Bob's death."
+        },
+        {
+          "round": 2,
+          "text": "No clear suspects yet; waiting for role claims or contradictions."
+        },
+        {
+          "round": 2,
+          "text": "No clear evidence against any player yet; waiting for role claims."
+        },
+        {
+          "round": 3,
+          "text": "Trying to get a speaking slot to analyze the 'push for Seer' behavior from Day 2."
+        },
+        {
+          "round": 3,
+          "text": "No one has provided any incriminating information yet; everyone is just calling for the Seer."
+        },
+        {
+          "round": 3,
+          "text": "No clear suspect yet. Everyone is pushing for the Seer to reveal, which is a common tactic for both villagers and wolves. Avoiding a random vote."
+        }
+      ],
+      "plan": ""
+    },
+    "Eve": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Coordinated with Grace to target Alice on Night 1."
+        },
+        {
+          "round": 1,
+          "text": "Bid to get a speaking slot and establish a normal presence."
+        },
+        {
+          "round": 1,
+          "text": "Staying silent to avoid drawing attention early in the game."
+        },
+        {
+          "round": 1,
+          "text": "No clear target to frame yet; playing it safe to avoid suspicion."
+        },
+        {
+          "round": 2,
+          "text": "Switching from Alice to Bob to avoid the doctor's protection."
+        },
+        {
+          "round": 2,
+          "text": "Bid to get a speaking slot to deflect suspicion and steer the conversation."
+        },
+        {
+          "round": 2,
+          "text": "Echoing Grace's strategy to appear as a helpful villager and pressure the Seer to reveal themselves."
+        },
+        {
+          "round": 2,
+          "text": "Staying silent to maintain a low profile while the village waits for role claims."
+        },
+        {
+          "round": 2,
+          "text": "No clear target; avoiding suspicion by not leading an exile attempt without a reason."
+        },
+        {
+          "round": 3,
+          "text": "Grace suggested Carol or Dave. Choosing Carol to align with the pack's direction and remove a potential villager."
+        },
+        {
+          "round": 3,
+          "text": "Ensure a speaking slot to push for an exile and secure the win."
+        },
+        {
+          "round": 3,
+          "text": "Continuing to blend in by echoing the call for the Seer and subtly pushing the village to start suspecting those who aren't speaking up."
+        },
+        {
+          "round": 3,
+          "text": "Staying silent to maintain a low profile and avoid making a premature accusation."
+        },
+        {
+          "round": 3,
+          "text": "Trying to reduce villager count to reach win condition; Dave has been passive."
+        }
+      ],
+      "plan": ""
+    },
+    "Frank": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night, random protection."
+        },
+        {
+          "round": 1,
+          "text": "Moderate bid to ensure I can speak and observe the early game dynamics."
+        },
+        {
+          "round": 1,
+          "text": "I am avoiding claiming the doctor role immediately to prevent being targeted by werewolves, while still steering the conversation toward role-claiming."
+        },
+        {
+          "round": 1,
+          "text": "Waiting to see if anyone claims a role or expresses suspicion toward Alice."
+        },
+        {
+          "round": 1,
+          "text": "No clear suspect yet; waiting for role claims and more interaction."
+        },
+        {
+          "round": 2,
+          "text": "Alice was the target on Night 1; protecting her again to ensure her survival."
+        },
+        {
+          "round": 2,
+          "text": "Bid to get a speaking slot to analyze reactions to Bob's death and push for Seer claims."
+        },
+        {
+          "round": 2,
+          "text": "Encouraging the Seer to reveal while remaining hidden myself to avoid being targeted immediately."
+        },
+        {
+          "round": 2,
+          "text": "Nothing concrete to accuse or defend yet; waiting for other players' reactions."
+        },
+        {
+          "round": 2,
+          "text": "No one has revealed themselves as suspicious yet; awaiting more information or a Seer claim."
+        },
+        {
+          "round": 3,
+          "text": "Alice was targeted Night 1. Protecting her again to maintain village numbers and see if wolves return to her."
+        },
+        {
+          "round": 3,
+          "text": "Trying to secure a speaking slot to analyze reactions to Carol's death."
+        },
+        {
+          "round": 3,
+          "text": "No clear suspect yet; observing the collective push for power role claims."
+        },
+        {
+          "round": 3,
+          "text": "No one has provided evidence yet; waiting to see if power roles reveal themselves or if a pattern of aggression emerges."
+        }
+      ],
+      "plan": "Monitor reactions to the fact that no one died on Night 1. Since I protected Alice and she survived, she was the target. I will keep an eye on who tries to push for her exile or who defends her."
+    },
+    "Grace": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Coordinating with Eve to remove Alice on the first night."
+        },
+        {
+          "round": 1,
+          "text": "Bid moderately to establish presence and coordinate with Eve."
+        },
+        {
+          "round": 1,
+          "text": "Trying to blend in and prompt others to reveal their roles or suspicions."
+        },
+        {
+          "round": 1,
+          "text": "Staying silent to avoid early suspicion and observe the village's reaction to the failed kill."
+        },
+        {
+          "round": 1,
+          "text": "No clear suspect yet; playing it safe to avoid drawing attention to myself and Eve."
+        },
+        {
+          "round": 2,
+          "text": "Coordinating with Eve to target Bob since Alice was protected last night."
+        },
+        {
+          "round": 2,
+          "text": "Bidding to secure a speaking slot to deflect suspicion and probe for the Seer's identity."
+        },
+        {
+          "round": 2,
+          "text": "Encouraging role claims to identify targets and appear helpful."
+        },
+        {
+          "round": 2,
+          "text": "Maintaining a neutral position while the village waits for role claims."
+        },
+        {
+          "round": 2,
+          "text": "No clear target yet; avoiding drawing suspicion to myself or Eve."
+        },
+        {
+          "round": 3,
+          "text": "Aligning with Eve to eliminate a vocal player who is organizing the village."
+        },
+        {
+          "round": 3,
+          "text": "Want to speak to guide the conversation and push for an exile to reach the winning condition."
+        },
+        {
+          "round": 3,
+          "text": "Continuing to press for power role claims to create instability and maintain a 'pro-village' facade."
+        },
+        {
+          "round": 3,
+          "text": "Staying silent to maintain a neutral profile after my statement."
+        },
+        {
+          "round": 3,
+          "text": "No clear target yet; avoiding suspicion by not making a random accusation."
+        }
+      ],
+      "plan": ""
+    }
+  }
+}

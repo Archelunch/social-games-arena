@@ -1,0 +1,175 @@
+{
+  "game_id": "g0037-deepseek_deepseek-v4-flash-vs-qwen_qwen3.6-35b-a3b",
+  "memories": {
+    "Alice": {
+      "beliefs": {
+        "Grace": {
+          "confidence": "medium",
+          "evidence": "Grace claimed doctor on day one, a risky move that can be either genuine or a werewolf tactic. I accused her and so did Eve, so she's a target.",
+          "guess": "doctor (possibly real, or werewolf bluff)"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Eve suggested Bob as a dangerous villager. Coordinating with pack."
+        },
+        {
+          "round": 1,
+          "text": "Bidding modestly to speak early round 1 discussion."
+        },
+        {
+          "round": 1,
+          "text": "Grace claims doctor but that seems like a risky play. As a wolf, I'll pretend to be a cautious villager while subtly undermining her credibility. Noted: Eve suggested Bob as first kill target - that could be useful info if Bob gets suspicious."
+        },
+        {
+          "round": 1,
+          "text": "sowing doubt on Grace's doctor claim to protect my wolf side"
+        },
+        {
+          "round": 1,
+          "text": "Grace's early doctor claim is suspicious; both Eve and I called her out."
+        },
+        {
+          "round": 2,
+          "text": "Eve and I agreed on Bob. Grace was exiled (probably real doctor). Killing Bob removes a potential villager threat."
+        }
+      ],
+      "plan": ""
+    },
+    "Bob": {
+      "beliefs": {
+        "Grace": {
+          "confidence": "medium",
+          "evidence": "Day 1 Doctor claim is bold and easily verifiable. Alice and Eve are skeptical. High risk of wolf pretending to be doctor to gain trust.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Grace claimed Doctor and guarded Alice, but Carol died. This implies either Grace mis-see'd or is bluffing. Alice and Eve were cautious. No clear werewolf identified yet. I will wait for more input before committing suspicion."
+        },
+        {
+          "round": 1,
+          "text": "Voting Grace based on Day 1 Doctor claim skepticism from Alice and Eve. Testing if she is a wolf pretending to build trust."
+        }
+      ],
+      "plan": ""
+    },
+    "Carol": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night inspection. Testing Alice to see if she is a werewolf or villager."
+        }
+      ],
+      "plan": ""
+    },
+    "Dave": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Bidding low to secure a speaking slot early on Day 1 to start the discussion and gather information."
+        },
+        {
+          "round": 1,
+          "text": "No strong evidence yet. Alice is suspicious of Grace, but I will wait for more statements before forming a firm belief or accusation."
+        },
+        {
+          "round": 1,
+          "text": "Day 1 information is limited. Grace's Doctor claim is unproven but consistent with Carol's death. Eve's skepticism is standard but could be wolf play. Alice is passive. Exiling Grace risks losing the Doctor. Exiling Eve risks losing a good reader. I will abstain to gather more info."
+        }
+      ],
+      "plan": ""
+    },
+    "Eve": {
+      "beliefs": {
+        "Grace": {
+          "confidence": "medium",
+          "evidence": "Claimed doctor early, common wolf tactic to gain trust.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Alice suggested Carol first, and I agree she's a safe kill for the first night."
+        },
+        {
+          "round": 1,
+          "text": "Day 1, secure a speaking slot to help steer discussion away from the pack."
+        },
+        {
+          "round": 1,
+          "text": "Playing as a cautious villager. Alice and I are wolves; I subtly supported Alice's skepticism of Grace without outright accusing Grace."
+        },
+        {
+          "round": 1,
+          "text": "Supporting Alice's accusation to build pressure on a potential threat."
+        },
+        {
+          "round": 1,
+          "text": "Voting Grace to align with my public accusation; if she's the real doctor, removing her helps us."
+        },
+        {
+          "round": 2,
+          "text": "Agreeing with Alice's suggestion; Bob may be a vocal villager."
+        }
+      ],
+      "plan": ""
+    },
+    "Frank": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Low bid to gather info first on Day 1."
+        },
+        {
+          "round": 1,
+          "text": "Day 1, early stage. Grace claimed Doctor, Alice and Eve responded cautiously. No immediate werewolf evidence identified. Waiting for more statements/discussion before forming strong suspicions or accusing."
+        },
+        {
+          "round": 1,
+          "text": "Abstaining because I lack strong evidence to exile Grace (Doctor claim) or Alice/Eve (attackers). Exiling a Doctor on Day 1 is risky, and the accusations against Grace are weak. I want to preserve votes for later rounds."
+        }
+      ],
+      "plan": "Grace claims Doctor. Alice and Eve attack Grace. I suspect Grace might be a Wolf trying to build trust, or Alice/Eve might be Wolves deflecting. I need to see who defends Alice or Eve next. I will abstain this round to avoid exiling a potential God role or a good player based on weak arguments."
+    },
+    "Grace": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "high",
+          "evidence": "Alice aggressively accused the confirmed Doctor (me) of being a wolf on Day 1. This is a common werewolf tactic to discredit the healer and redirect village suspicion. Her behavior is coordinated with Eve's skepticism, forming a wolf pack narrative.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Random initial choice as I have no information."
+        },
+        {
+          "round": 1,
+          "text": "Announcing role to establish trust and coordinate, despite the risk of becoming a target."
+        },
+        {
+          "round": 1,
+          "text": "I revealed my role as Doctor. I guarded Alice randomly/as a hunch. Alice is not the target of wolves last night. I am looking for a Seer to provide solid leads."
+        },
+        {
+          "round": 1,
+          "text": "No new info to act on; staying silent to observe."
+        },
+        {
+          "round": 1,
+          "text": "Voting Alice based on her aggressive accusation of the Doctor, which is a common werewolf tactic to deflect suspicion."
+        }
+      ],
+      "plan": ""
+    }
+  }
+}

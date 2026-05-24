@@ -1,0 +1,365 @@
+{
+  "game_id": "g0045-google_gemma-4-26b-a4b-it-vs-google_gemma-4-26b-a4b-it",
+  "memories": {
+    "Alice": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Bidding to get a voice in the first round of discussion."
+        },
+        {
+          "round": 1,
+          "text": "First speaking slot used to probe for info/role claims."
+        },
+        {
+          "round": 1,
+          "text": "Initial discussion completed with no major info. Passing to observe subsequent reactions and voting patterns."
+        },
+        {
+          "round": 1,
+          "text": "Too early to vote without information. Observing behavior."
+        },
+        {
+          "round": 2,
+          "text": "Bob died. Moving into Day 2 discussion."
+        },
+        {
+          "round": 2,
+          "text": "Dave claimed Doctor and said he protected me on Night 1. Aligning with no deaths on Night 1. Will observe reactions."
+        },
+        {
+          "round": 2,
+          "text": "Dave claimed Doctor and protected me on Night 1. No evidence to contradict him yet. Holding my vote."
+        },
+        {
+          "round": 3,
+          "text": "Bidding to participate in Day 3 discussion after Dave's death."
+        },
+        {
+          "round": 3,
+          "text": "Dave's claim of being Doctor is consistent with Night 1 survival. He was killed Night 3."
+        },
+        {
+          "round": 3,
+          "text": "No concrete information or suspicious behavior has surfaced yet. Dave's Doctor claim was plausible, but now that he's dead, I need to watch for how others react to the loss of a potential protector."
+        },
+        {
+          "round": 3,
+          "text": "No clear evidence or suspicious claims yet. Dave's death likely confirms his utility. Avoiding an incorrect vote."
+        }
+      ],
+      "plan": "Observe the first round of discussion and voting. Look for players who are too quiet, players who try to lead the group without evidence, or players who aggressively push for specific targets. Since no one died, the doctor is active; I need to identify who might be the doctor or the seer if they reveal themselves."
+    },
+    "Bob": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "First inspection of the game."
+        },
+        {
+          "round": 1,
+          "text": "Bidding to participate in the first day discussion to observe others."
+        },
+        {
+          "round": 1,
+          "text": "Initial speech to observe player behavior."
+        },
+        {
+          "round": 1,
+          "text": "It is too early to act; observing the group's reactions to the first round of statements."
+        },
+        {
+          "round": 1,
+          "text": "First day, no suspicious behavior yet. Keeping my role quiet for now."
+        },
+        {
+          "round": 2,
+          "text": "Inspecting Carol to gather more confirmed information after Alice was confirmed a villager."
+        }
+      ],
+      "plan": "I am the Seer. Alice is a villager. I will watch for suspicious behavior and try to protect my information until I can safely lead the village or reveal myself to control the narrative."
+    },
+    "Carol": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Initial bid to observe discussion patterns."
+        },
+        {
+          "round": 1,
+          "text": "Initial statements were very general; no actionable information or suspicious behavior yet."
+        },
+        {
+          "round": 1,
+          "text": "No information revealed in the first speaking round. Abstaining to observe behavior."
+        },
+        {
+          "round": 2,
+          "text": "Bob died. Someone protected someone else in Night 1. Need to listen for role claims."
+        },
+        {
+          "round": 2,
+          "text": "Acknowledged Dave's Doctor claim and prompted further discussion."
+        },
+        {
+          "round": 2,
+          "text": "Dave claimed Doctor and protected Alice on Night 1, which matches the lack of deaths. I'll wait for more info."
+        },
+        {
+          "round": 2,
+          "text": "Dave claimed Doctor and protected Alice on N1. Consistent with N1 results. Abstaining to observe reactions to his claim."
+        },
+        {
+          "round": 3,
+          "text": "Dave (Doctor claim) was killed. Need to verify roles and check for other claims."
+        },
+        {
+          "round": 3,
+          "text": "Everyone is currently agreeing with Dave's claim and Alice's corroboration. No suspicions have been raised yet."
+        },
+        {
+          "round": 3,
+          "text": "No clear suspicions yet. Dave's claim was consistent with Night 1, and his death suggests he might have been a real role or a target. I'll watch for more information."
+        }
+      ],
+      "plan": "Monitor claims of power roles (Seer/Doctor). Watch for inconsistencies between people's bidding behavior and their statements. If someone claims a role, cross-reference their information with future deaths or protected nights. Keep track of voting patterns to identify potential wolves or coerced villagers."
+    },
+    "Dave": {
+      "beliefs": {
+        "None": {
+          "confidence": "low",
+          "evidence": "No information has been provided by any players yet.",
+          "guess": "unknown"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Protecting a random player since I cannot protect myself and have no information."
+        },
+        {
+          "round": 1,
+          "text": "Starting the game, bidding moderately to get a chance to speak and observe."
+        },
+        {
+          "round": 1,
+          "text": "Early game, no concrete information yet. Passing to observe."
+        },
+        {
+          "round": 1,
+          "text": "No suspicions or information yet. Waiting for more claims."
+        },
+        {
+          "round": 2,
+          "text": "I protected Alice last night, which likely explains why she survived if the werewolves targeted her. I want to confirm this and establish my role."
+        },
+        {
+          "round": 2,
+          "text": "Claiming Doctor role and explaining Night 1 survival."
+        },
+        {
+          "round": 2,
+          "text": "No suspicious behavior or conflicting claims observed yet."
+        },
+        {
+          "round": 2,
+          "text": "No suspicious behavior or contradictory claims observed yet. Staying observant."
+        },
+        {
+          "round": 3,
+          "text": "Protecting Alice again to see if they target someone else, though I am now a target myself after revealing."
+        }
+      ],
+      "plan": "1. Track player claims (especially Seer). 2. Monitor voting patterns to identify suspicious behavior. 3. Watch for contradictions in statements. 4. Protect players who provide valuable information or seem to be targets of the werewolves."
+    },
+    "Eve": {
+      "beliefs": {
+        "Dave": {
+          "confidence": "medium",
+          "evidence": "Claimed Doctor and explained why no one died on Night 1 (protected Alice).",
+          "guess": "Doctor"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Decided to go with Alice as the first target to avoid hesitation."
+        },
+        {
+          "round": 1,
+          "text": "Bidding early to get a sense of the room and establish a villager persona."
+        },
+        {
+          "round": 1,
+          "text": "First day, no one died. Passing to observe reactions and avoid early suspicion."
+        },
+        {
+          "round": 1,
+          "text": "First day, no one died. Keeping a low profile and observing the conversation."
+        },
+        {
+          "round": 2,
+          "text": "Proposed Bob to Frank after discussing Carol's potential Doctor role. Waiting for coordination but proceeding to ensure a kill."
+        },
+        {
+          "round": 2,
+          "text": "Bidding to get a word in regarding Bob's death and to blend in."
+        },
+        {
+          "round": 2,
+          "text": "Dave claimed Doctor and said he protected Alice. This explains Night 1 survival. I will play along and act as a supportive villager."
+        },
+        {
+          "round": 2,
+          "text": "Dave claimed Doctor and his story matches the Night 1 outcome. Better to stay quiet and observe for now."
+        },
+        {
+          "round": 2,
+          "text": "No clear target yet; abstaining to blend in."
+        },
+        {
+          "round": 3,
+          "text": "Targeting the claimed Doctor to neutralize the village's protection mechanic."
+        },
+        {
+          "round": 3,
+          "text": "Dave is dead. Need to speak to maintain village persona and observe reactions to his death."
+        },
+        {
+          "round": 3,
+          "text": "Maintaining a helpful, concerned villager persona. Steering the conversation to look for inconsistencies."
+        },
+        {
+          "round": 3,
+          "text": "No immediate accusations or defenses needed; waiting for others to reveal information or suspicious behavior."
+        },
+        {
+          "round": 3,
+          "text": "No clear target to exile without risking exposure; staying quiet to blend in."
+        },
+        {
+          "round": 4,
+          "text": "Targeting Alice to potentially eliminate a power role or test her suspicions."
+        }
+      ],
+      "plan": "Blend in with the villagers. Avoid being too aggressive or too quiet. Watch for claims from the Seer or Doctor. If someone claims a role, decide whether to support or discredit them based on what benefits the pack's survival."
+    },
+    "Frank": {
+      "beliefs": {
+        "Carol": {
+          "confidence": "low",
+          "evidence": "She survived the werewolf attack on Night 1, suggesting she may have been guarded.",
+          "guess": "potentially Doctor or protected"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Suggested Carol in chat and proceeding as no response from Eve."
+        },
+        {
+          "round": 1,
+          "text": "Bid to ensure I can participate in the first day discussion and blend in."
+        },
+        {
+          "round": 1,
+          "text": "Trying to sound helpful and neutral to avoid suspicion. Keeping the focus on the protection/power roles."
+        },
+        {
+          "round": 1,
+          "text": "Staying quiet to observe others' reactions to the failed kill."
+        },
+        {
+          "round": 1,
+          "text": "First day, no one died, likely Carol was protected. Staying quiet to blend in."
+        },
+        {
+          "round": 2,
+          "text": "Proposing Alice to Eve in chat; moving forward with her to ensure a kill."
+        },
+        {
+          "round": 2,
+          "text": "Bidding to participate in Day 3 discussion after Bob's death."
+        },
+        {
+          "round": 2,
+          "text": "Dave claimed Doctor and said he protected Alice on Night 1. This aligns with the fact that no one died. Eve supported him. I'll pass to blend in."
+        },
+        {
+          "round": 2,
+          "text": "Dave claimed Doctor and protected Alice on Night 1. No immediate reason to vote anyone out yet; staying low-key."
+        },
+        {
+          "round": 3,
+          "text": "Targeting the claimed Doctor to reduce village protection."
+        },
+        {
+          "round": 3,
+          "text": "Dave is dead. I need to speak to maintain my village persona and potentially steer suspicion away from the pack."
+        },
+        {
+          "round": 3,
+          "text": "Following Eve's lead to appear cooperative and cautious. Acknowledging Dave's death to seem like a concerned villager."
+        },
+        {
+          "round": 3,
+          "text": "Already spoke this round; staying quiet to maintain a low profile and blend in."
+        },
+        {
+          "round": 3,
+          "text": "Maintaining a low profile and blending in after the successful kill of Dave."
+        },
+        {
+          "round": 4,
+          "text": "Eve is leaning towards Alice, potentially to test if she is the Seer. Targeting Alice helps reduce village info."
+        }
+      ],
+      "plan": "1. Blend in with the village. 2. Avoid being the first to accuse someone heavily unless I have a reason to deflect suspicion. 3. Coordinate with Eve in the pack chat. 4. Since Carol was protected, keep an eye on her and anyone who seems suspicious or overly defensive."
+    },
+    "Grace": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Moderate bid for the first day to establish presence without depleting budget."
+        },
+        {
+          "round": 1,
+          "text": "No information has been shared yet; staying silent to observe voting and subsequent reactions."
+        },
+        {
+          "round": 1,
+          "text": "No concrete information or suspicious behavior yet. Abstaining to observe others' voting patterns."
+        },
+        {
+          "round": 2,
+          "text": "Bob is dead. Keeping my bid low to observe reactions to the first kill and save budget for later."
+        },
+        {
+          "round": 2,
+          "text": "Dave claimed Doctor and said he protected Alice on Night 1, which matches the lack of deaths. I'm staying quiet to observe others."
+        },
+        {
+          "round": 2,
+          "text": "Dave claimed Doctor and protected Alice. No reason to doubt him yet. Abstaining to observe voting patterns."
+        },
+        {
+          "round": 3,
+          "text": "Bidding low to observe the reactions to Dave's death and any new claims."
+        },
+        {
+          "round": 3,
+          "text": "No evidence for accusations or defenses yet. Observing patterns."
+        },
+        {
+          "round": 3,
+          "text": "No clear evidence or suspicious behavior yet. Dave's claim was supported by the lack of deaths on Night 1, but we need more data."
+        }
+      ],
+      "plan": "Observe speaking patterns and voting behavior for inconsistencies. Avoid high bids early on, but save budget for when I have solid evidence. Monitor who claims roles and how the village reacts to them."
+    }
+  }
+}

@@ -1,0 +1,158 @@
+{
+  "game_id": "g0135-qwen_qwen3.6-27b-vs-qwen_qwen3.6-35b-a3b",
+  "memories": {
+    "Alice": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Frank suggested Bob, so I agree to coordinate our kill."
+        },
+        {
+          "round": 1,
+          "text": "Aligning with Eve to deflect suspicion from myself. Carol is the threat."
+        },
+        {
+          "round": 1,
+          "text": "Voting with the majority and Frank to eliminate the Seer who identified me as a wolf. This creates consensus against her and hides my wolf status behind the 'innocent' narrative the village is currently pushing."
+        },
+        {
+          "round": 2,
+          "text": "Targeting Eve to remove the strongest logical threat to our village."
+        }
+      ],
+      "plan": "Stay quiet on Day 1 to conserve budget and gather information. Blame an innocent player if forced to speak. Coordinate minimally with Frank through public comments if possible. Avoid claiming strong roles unless necessary."
+    },
+    "Bob": {
+      "beliefs": {},
+      "notes": [],
+      "plan": ""
+    },
+    "Carol": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "high",
+          "evidence": "Seer inspection confirmed Alice is a werewolf on Night 1. Despite the village turning against me (Carol), I have definitive knowledge of her faction. The unified attack against me suggests coordinated werewolf behavior to protect Alice.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night inspection, picking Alice arbitrarily to gather initial information."
+        },
+        {
+          "round": 1,
+          "text": "I am the Seer. Night 1 inspection showed Alice is a Werewolf. I need the village to vote for Alice to prevent her from killing again or framing others."
+        },
+        {
+          "round": 1,
+          "text": "Claiming Seer role and naming Alice as the wolf. This is high risk but high reward. If voted out, game over. If Alice is voted out, we are ahead."
+        },
+        {
+          "round": 1,
+          "text": "The village is blindly voting me out because Grace didn't verify my role. I must emphasize that voting me out helps the wolves."
+        },
+        {
+          "round": 1,
+          "text": "Confirmed Werewolf via Seer inspection. Village is misinformed, but I must vote for the truth to give the best chance of survival if they can recover from this misinformation."
+        }
+      ],
+      "plan": ""
+    },
+    "Dave": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Biding 10 to secure a speaking slot on Day 1. Need to gather information from other players to identify werewolves."
+        },
+        {
+          "round": 1,
+          "text": "Joining the consensus against Carol as she lacks Doctor verification."
+        }
+      ],
+      "plan": ""
+    },
+    "Eve": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Bidding 10 to secure a speaking slot on Day 1 to gather info without spending too much budget."
+        },
+        {
+          "round": 1,
+          "text": "High suspicion on Carol for fake Seer claim with low bid. Alice is likely innocent victim of this frame."
+        },
+        {
+          "round": 1,
+          "text": "Consensus is high that Carol is a wolf. Grace did not verify her Seer claim. Voting Carol is the safest path."
+        }
+      ],
+      "plan": ""
+    },
+    "Frank": {
+      "beliefs": {
+        "Carol": {
+          "confidence": "high",
+          "evidence": "Carol claims Seer and inspected Alice. Alice is my Wolf ally. If Carol were a Wolf, she would likely not frame a specific Wolf ally so boldly unless she knew Alice was Wolf (which she shouldn't). More likely she is the real Seer. Grace (Doc) guarded Alice. I must exile Carol to protect Alice.",
+          "guess": "Villager"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Aligning with my previous chat suggestion to kill Bob."
+        },
+        {
+          "round": 1,
+          "text": "Conserving budget for Day 2+ defense/framing. Will observe first."
+        },
+        {
+          "round": 1,
+          "text": "Supporting Alice's line of attack. Carol is the immediate threat to Alice."
+        },
+        {
+          "round": 1,
+          "text": "Carol is a false Seer trying to eliminate Alice. Voting her out protects our ally and removes a key villager role."
+        },
+        {
+          "round": 2,
+          "text": "Agreeing with Alice to eliminate the most logical village player."
+        }
+      ],
+      "plan": "Coordinate with Alice. Day 1: Observe villager arguments, bid low to save budget. If Alice frames someone, support her. If not, target Dave/Eve. Always vote with Alice except when clearly exposed."
+    },
+    "Grace": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Randomly choosing Alice for Night 1 protection as no information is available yet."
+        },
+        {
+          "round": 1,
+          "text": "I am the Doctor. I guarded Alice last night. She is alive. This confirms my guard was effective (or I was lucky). I want to state this to build trust and verify Alice's status."
+        },
+        {
+          "round": 1,
+          "text": "I am the Doctor. I guarded Alice. I am skeptical of Carol's immediate Seer claim and want to ensure the village doesn't rush to vote out Alice without more consensus or proof. I am signaling my role to establish trust but remaining neutral on Alice's guilt."
+        },
+        {
+          "round": 1,
+          "text": "Alice was guarded by Doctor Grace and survived, proving she is not the wolf target of the night. Carol's attack on Alice is suspicious. Consensus is forming against Carol."
+        },
+        {
+          "round": 1,
+          "text": "Voting Carol based on strong consensus that her Seer claim is a wolf bluff. Alice is the target of the false claim and was guarded, likely innocent."
+        },
+        {
+          "round": 2,
+          "text": "Guarding Alice again. She was the target of the exiled Seer-claim. Continuing protection until I have more info or someone else seems more vulnerable."
+        }
+      ],
+      "plan": ""
+    }
+  }
+}

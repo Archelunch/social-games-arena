@@ -1,0 +1,295 @@
+{
+  "game_id": "g0007-deepseek_deepseek-v4-flash-vs-google_gemma-4-26b-a4b-it",
+  "memories": {
+    "Alice": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Bidding to get an early word in and listen to others' initial assessments."
+        },
+        {
+          "round": 1,
+          "text": "First speaking turn. Keeping it neutral and observant."
+        },
+        {
+          "round": 1,
+          "text": "Early game, no information available yet. Observing others."
+        },
+        {
+          "round": 1,
+          "text": "No suspicions yet; observing voting patterns after the first night's protection."
+        },
+        {
+          "round": 2,
+          "text": "Bob died. Need to speak and observe reactions to the first kill."
+        },
+        {
+          "round": 2,
+          "text": "Carol and Frank are both targeting Dave for being quiet. I want to see if Dave's defense holds weight or if the group pushes for an exile."
+        },
+        {
+          "round": 2,
+          "text": "Early game. Carol and Frank are targeting Dave for being quiet. Not enough evidence to vote yet."
+        }
+      ],
+      "plan": "Observe players' speaking styles and voting patterns to identify inconsistencies or suspicious behavior. Stay cautious and avoid making early, unbacked accusations."
+    },
+    "Bob": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Bidding to participate in the first day discussion and gather info."
+        },
+        {
+          "round": 1,
+          "text": "Initial round of statements completed. No clear targets or suspicious behavior yet. Passing to observe others."
+        },
+        {
+          "round": 1,
+          "text": "No evidence yet to justify a vote; staying cautious."
+        }
+      ],
+      "plan": "Monitor the upcoming voting phase closely. Note who votes for whom to see if any patterns emerge (e.g., werewolves voting together). Watch for players who are being too defensive or too eager to deflect. Try to identify potential Seer/Doctor activity based on who people seem to be protecting."
+    },
+    "Carol": {
+      "beliefs": {
+        "Bob": {
+          "confidence": "medium",
+          "evidence": "Bob was quiet and didn't contribute much during the first day. That could be an attempt to avoid scrutiny.",
+          "guess": "werewolf"
+        },
+        "Dave": {
+          "confidence": "high",
+          "evidence": "Quiet, defensive response, good target to push suspicion onto.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Targeting Alice as discussed with Frank; she could be a vocal threat."
+        },
+        {
+          "round": 1,
+          "text": "First day, moderate bid to get speaking time."
+        },
+        {
+          "round": 1,
+          "text": "Trying to appear as a normal villager and start discussion."
+        },
+        {
+          "round": 1,
+          "text": "Staying quiet to avoid drawing attention early. No strong suspicions to voice yet."
+        },
+        {
+          "round": 1,
+          "text": "Voting for Bob as he was quiet and evasive, typical werewolf behavior. Also protecting Frank and myself."
+        },
+        {
+          "round": 2,
+          "text": "Alice was saved last night by doc; trying Bob as a less-guarded threat."
+        },
+        {
+          "round": 2,
+          "text": "Bidding to speak again and try to steer suspicion away from myself and Frank. Bob's death gives us a chance to blame others."
+        },
+        {
+          "round": 2,
+          "text": "Attempting to sound analytical and collaborative while subtly redirecting suspicion."
+        },
+        {
+          "round": 2,
+          "text": "Accusing a quiet player to appear pro-village while protecting Frank and myself."
+        },
+        {
+          "round": 2,
+          "text": "Dave was quiet and defensive; pushing suspicion away from me and Frank."
+        },
+        {
+          "round": 3,
+          "text": "Targeting Eve as an active player who could be dangerous to us werewolves. Frank agreed she's a good option."
+        }
+      ],
+      "plan": ""
+    },
+    "Dave": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night protection - random choice."
+        },
+        {
+          "round": 1,
+          "text": "Bidding to reveal my role as doctor early and observe others."
+        },
+        {
+          "round": 1,
+          "text": "No one died because I protected Alice. Discussion is currently neutral; passing to observe."
+        },
+        {
+          "round": 1,
+          "text": "No concrete information yet; observing voting patterns after a successful protect."
+        },
+        {
+          "round": 2,
+          "text": "Protecting Alice again in case they target her twice or to ensure she survives as a potential key villager."
+        },
+        {
+          "round": 2,
+          "text": "Bidding to participate in Day 2 discussion after Bob's death."
+        },
+        {
+          "round": 2,
+          "text": "Carol and Frank both accused me of being quiet; I need to monitor if they continue to push this without evidence."
+        },
+        {
+          "round": 2,
+          "text": "Accused of being quiet. No strong evidence against anyone yet. Abstaining to observe voting patterns."
+        }
+      ],
+      "plan": "1. Track voting patterns and speech to identify werewolves. 2. Protect players who seem like reliable villagers or the seer. 3. Since I know Alice was targeted and protected last night, she is a high-value person to monitor or protect if she shows Seer-like behavior. 4. Try to stay under the radar as the doctor."
+    },
+    "Eve": {
+      "beliefs": {
+        "Dave": {
+          "confidence": "low",
+          "evidence": "Being very quiet and targeted by both Carol and Frank.",
+          "guess": "possible werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First inspection of the game."
+        },
+        {
+          "round": 1,
+          "text": "Bidding to get a word in early and observe player behavior."
+        },
+        {
+          "round": 1,
+          "text": "Initial discussion is very general. No clear targets yet. Staying quiet to gather more info."
+        },
+        {
+          "round": 1,
+          "text": "Early game, no suspicious behavior yet. Waiting for more discussion."
+        },
+        {
+          "round": 2,
+          "text": "Checking Bob to see if he is a werewolf or villager."
+        },
+        {
+          "round": 2,
+          "text": "Bob was killed. I know Alice and Bob are villagers. Need to speak to provide info."
+        },
+        {
+          "round": 2,
+          "text": "Keeping my seer role secret for now. Monitoring Carol and Frank's synergy."
+        },
+        {
+          "round": 2,
+          "text": "Dave is being targeted by Carol and Frank for being quiet. He claims it's a survival tactic. I will pass to see if others join the accusation or if Dave's defense gains traction."
+        },
+        {
+          "round": 2,
+          "text": "Dave is being targeted by Carol and Frank for being quiet, but I lack enough evidence to vote for him yet. Abstaining to observe the group consensus."
+        },
+        {
+          "round": 3,
+          "text": "Checking Carol after her active leadership and accusation of Dave."
+        }
+      ],
+      "plan": "I am the seer. Alice is a villager. I will observe the discussion to identify potential werewolves and decide when to reveal my role or my findings to guide the village. I need to monitor who is being defensive or aggressive."
+    },
+    "Frank": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "low",
+          "evidence": "She seemed analytical and might be dangerous; no one died so doctor protected someone, possibly her.",
+          "guess": "werewolf"
+        },
+        "Dave": {
+          "confidence": "medium",
+          "evidence": "Quiet player, Carol and I accused him; he defended himself weakly.",
+          "guess": "possibly a werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Coordinating with Carol; Alice is vocal and potentially a threat early on."
+        },
+        {
+          "round": 1,
+          "text": "Bid moderately to speak early. Alice was likely protected last night; use discussion to cast suspicion elsewhere."
+        },
+        {
+          "round": 1,
+          "text": "Acting natural as a villager, commenting on the lack of death."
+        },
+        {
+          "round": 1,
+          "text": "Voting for Dave as he hasn't contributed much; seems like a reasonable early vote to get discussion going."
+        },
+        {
+          "round": 2,
+          "text": "Agreeing with Carol to target Bob after Alice was saved last night."
+        },
+        {
+          "round": 2,
+          "text": "Bidding to stay involved in discussion and deflect suspicion."
+        },
+        {
+          "round": 2,
+          "text": "Keeping a low profile as a villager; subtly supporting Carol's leadership while suggesting we pressure quieter players like Dave and Grace."
+        },
+        {
+          "round": 2,
+          "text": "Echoing Carol's earlier suspicion to blend in and look like a villager."
+        },
+        {
+          "round": 2,
+          "text": "Voting for Dave as he's been quiet and is the most suspicious based on earlier discussion."
+        },
+        {
+          "round": 3,
+          "text": "Targeting quiet player who might be a power role; Carol and I agreed."
+        }
+      ],
+      "plan": "Blend in as a normal villager. Defend Carol subtly if needed. Vote for a neutral player to avoid suspicion."
+    },
+    "Grace": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Starting the game. Bidding low to save budget for later, but ensuring I have a presence in the first discussion."
+        },
+        {
+          "round": 1,
+          "text": "Early game, no information available yet. Observing others."
+        },
+        {
+          "round": 1,
+          "text": "Too early to vote without any concrete information or suspicious behavior."
+        },
+        {
+          "round": 2,
+          "text": "Bidding to participate in Day 2 discussion following Bob's death."
+        },
+        {
+          "round": 2,
+          "text": "Dave is being targeted for being quiet; Carol and Frank are both suspicious of him. I'll wait for more interaction before committing."
+        },
+        {
+          "round": 2,
+          "text": "Too early to call. Carol and Frank are targeting Dave for being quiet, which could be a wolf tactic or legitimate suspicion. I will abstain to see how the vote plays out."
+        }
+      ],
+      "plan": "Monitor the upcoming vote. If Dave is exiled, observe if the leaders (Carol/Frank) behave like wolves in the next round. If Dave survives, look for contradictions in his or others' statements."
+    }
+  }
+}

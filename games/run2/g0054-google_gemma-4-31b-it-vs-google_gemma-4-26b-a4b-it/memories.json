@@ -1,0 +1,290 @@
+{
+  "game_id": "g0054-google_gemma-4-31b-it-vs-google_gemma-4-26b-a4b-it",
+  "memories": {
+    "Alice": {
+      "beliefs": {
+        "Eve": {
+          "confidence": "low",
+          "evidence": "Quiet during discussions; accused by Grace and Carol.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Bidding to participate in the first day discussion."
+        },
+        {
+          "round": 1,
+          "text": "First speaking slot. Looking for Seer/Doctor info due to no deaths."
+        },
+        {
+          "round": 1,
+          "text": "Statements are concluded. Frank claims Doctor (protected Alice) and Dave claims to have info on Alice. No immediate suspicions."
+        },
+        {
+          "round": 1,
+          "text": "No strong evidence against any player yet. Frank and Dave have made claims that align with the game state. Will abstain and observe the first round of voting."
+        },
+        {
+          "round": 2,
+          "text": "Frank's death confirms he was likely a power role. Need to discuss Dave's claim and Frank's death."
+        },
+        {
+          "round": 2,
+          "text": "Dave claimed Seer and confirmed Alice and Bob as villagers. Frank (Doctor) is dead. Need to see if the village accepts Dave's claim."
+        },
+        {
+          "round": 2,
+          "text": "Dave claims to be Seer and confirmed Alice and Bob. Frank (Doctor) is dead. Waiting for others to react to Dave's info."
+        },
+        {
+          "round": 2,
+          "text": "Targeting Eve due to her silence and accusations from Grace and Carol, following Dave's Seer info which narrows the suspect pool."
+        }
+      ],
+      "plan": "Monitor the validity of Frank's Doctor claim and Dave's claim about my role. If Dave is the Seer, he should provide more concrete info. If Frank is a werewolf, he might be claiming Doctor to gain trust. Watch voting patterns for inconsistencies."
+    },
+    "Bob": {
+      "beliefs": {
+        "Dave": {
+          "confidence": "medium",
+          "evidence": "Dave claims to have inspected Alice (N1) and Bob (N2), both of whom are villagers. This is consistent with the game state.",
+          "guess": "Seer"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Bidding early to establish presence and observe initial discussion patterns."
+        },
+        {
+          "round": 1,
+          "text": "Observed initial claims: Alice (Villager?), Dave (Seer?), Frank (Doctor). No immediate reason to accuse or defend yet."
+        },
+        {
+          "round": 1,
+          "text": "No clear evidence yet to convict anyone. Frank claims Doctor, Dave's claim implies Seer. Abstaining to observe."
+        },
+        {
+          "round": 2,
+          "text": "Frank's death likely validates his Doctor claim. Dave's claim about Alice needs more scrutiny."
+        },
+        {
+          "round": 2,
+          "text": "Acknowledge Frank's death and probe Dave's claim about Alice's role."
+        },
+        {
+          "round": 2,
+          "text": "Dave claimed to be Seer and confirmed me as a villager on Night 2. His information matches my reality, so he is currently credible."
+        },
+        {
+          "round": 2,
+          "text": "No concrete evidence against Eve yet; Dave's Seer claim is consistent but I want to see if more information comes out before committing to an exile."
+        }
+      ],
+      "plan": "Monitor Frank's (Doctor) and Dave's claims. Watch for any contradictions in roles or suspicious voting behavior. If anyone claims to be Seer, cross-reference their information with the night events."
+    },
+    "Carol": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Agreed with Grace to target Alice randomly for the first night."
+        },
+        {
+          "round": 1,
+          "text": "Moderate bid to enter the conversation and blend in."
+        },
+        {
+          "round": 1,
+          "text": "Staying silent to avoid suspicion while the village processes Frank's Doctor claim."
+        },
+        {
+          "round": 1,
+          "text": "Avoid drawing suspicion on Day 1; Frank's Doctor claim is currently trusted."
+        },
+        {
+          "round": 2,
+          "text": "Frank claimed Doctor and saved Alice; removing the village's main protector."
+        },
+        {
+          "round": 2,
+          "text": "Trying to get a speaking slot to deflect suspicion and probe for the Seer."
+        },
+        {
+          "round": 2,
+          "text": "Following through on the plan with Grace to frame Eve and divert suspicion from the werewolf pack."
+        },
+        {
+          "round": 3,
+          "text": "Eliminating the claimed Seer to stop him from identifying us."
+        }
+      ],
+      "plan": ""
+    },
+    "Dave": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "high",
+          "evidence": "Inspected her as Seer on Night 1.",
+          "guess": "villager"
+        },
+        "Eve": {
+          "confidence": "low",
+          "evidence": "Accused by Grace and Carol for being unusually quiet.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First inspection of the game."
+        },
+        {
+          "round": 1,
+          "text": "Bidding to participate in the first day discussion and share information/observe others."
+        },
+        {
+          "round": 1,
+          "text": "Confirmed Alice is a villager. Keeping my Seer identity slightly guarded but providing useful info."
+        },
+        {
+          "round": 1,
+          "text": "Frank claimed Doctor and said he protected Alice. This matches the fact that Alice is a villager and no one died. I will wait for more info."
+        },
+        {
+          "round": 1,
+          "text": "Frank's claim as Doctor is consistent with Alice being protected and no deaths occurring. No reason to exile anyone yet."
+        },
+        {
+          "round": 2,
+          "text": "Inspecting Bob to gain more information after Alice's confirmation."
+        },
+        {
+          "round": 2,
+          "text": "I have confirmed Alice and Bob as villagers. Frank (Doctor) was killed. Need to share info and stabilize the village."
+        },
+        {
+          "round": 2,
+          "text": "Explicitly claiming Seer role and confirming Alice and Bob as villagers to guide the village."
+        },
+        {
+          "round": 2,
+          "text": "I have confirmed Alice and Bob. Waiting to see how Carol, Eve, and Grace react to my Seer claim."
+        },
+        {
+          "round": 2,
+          "text": "Voting for Eve based on the accusations from Carol and Grace regarding her silence, although I lack direct evidence."
+        },
+        {
+          "round": 3,
+          "text": "Inspecting Carol to see if she is a werewolf after Eve's exile."
+        }
+      ],
+      "plan": "As the Seer, my priority is to identify the werewolves through inspections while protecting my identity if possible, or revealing it if the village needs direction. I will record all inspection results and track player behavior to identify inconsistencies. In discussions, I will aim to lead the village toward the werewolves using my information."
+    },
+    "Eve": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "No information yet to contribute to the discussion."
+        },
+        {
+          "round": 1,
+          "text": "Observing reactions to Frank's Doctor claim and Dave's claim about Alice."
+        },
+        {
+          "round": 1,
+          "text": "Too early to vote. Observing Frank's Doctor claim and Dave's ambiguous information claim."
+        },
+        {
+          "round": 2,
+          "text": "Bidding to hear Dave's clarification on his role and check for any counter-claims or suspicious behavior following Frank's death."
+        },
+        {
+          "round": 2,
+          "text": "Dave claims Seer, identified Alice and Bob as villagers. Consistent with Frank's previous claim. Waiting for more info."
+        },
+        {
+          "round": 2,
+          "text": "Grace and Carol's accusations against me are baseless and based solely on my lack of speaking. I will abstain to observe the voting patterns and see if anyone else provides more information."
+        }
+      ],
+      "plan": "1. Verify Dave's Seer claim by watching his consistency and how others react. 2. Monitor Grace and Carol's behavior; they are targeting me for being quiet, which could be a werewolf tactic to deflect. 3. If Dave is proven wrong, he is the primary target. 4. If the village continues to target me without evidence, I will suspect Grace and Carol of being werewolves."
+    },
+    "Frank": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night protection. No info available, choosing Alice randomly."
+        },
+        {
+          "round": 1,
+          "text": "Bidding to speak first and share that I protected Alice, confirming no one died because of my action."
+        },
+        {
+          "round": 1,
+          "text": "Confirmed my role as Doctor and explained why Alice survived."
+        },
+        {
+          "round": 1,
+          "text": "Statements are complete; observing reactions to my claim and Dave's claim."
+        },
+        {
+          "round": 1,
+          "text": "No strong evidence for a werewolf yet. Monitoring Dave's claim to be Seer."
+        },
+        {
+          "round": 2,
+          "text": "Dave claimed to know Alice is a villager. This makes him a potential Seer or a werewolf acting suspicious. Protecting him to see if he is the Seer."
+        }
+      ],
+      "plan": "As the doctor, I will try to protect players who seem likely to be villagers or the Seer. I will pay close attention to voting patterns and claims during the day to identify potential werewolves."
+    },
+    "Grace": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Agreed with Carol to target Alice on Night 1."
+        },
+        {
+          "round": 1,
+          "text": "Bidding moderately to participate in the first day's discussion and gauge reactions to Alice's survival."
+        },
+        {
+          "round": 1,
+          "text": "Playing it safe to avoid drawing attention to myself or Carol early on."
+        },
+        {
+          "round": 1,
+          "text": "Blending in on Day 1 while observing power role claims."
+        },
+        {
+          "round": 2,
+          "text": "Frank claimed Doctor and saved Alice; removing the village's protection."
+        },
+        {
+          "round": 2,
+          "text": "Bidding moderately to get a speaking slot and observe/influence the group."
+        },
+        {
+          "round": 2,
+          "text": "Attempting to shift suspicion onto Eve to protect Carol and myself."
+        },
+        {
+          "round": 2,
+          "text": "Following the narrative Carol and I started to divert suspicion away from ourselves."
+        },
+        {
+          "round": 3,
+          "text": "Dave claimed Seer and is clearing other players."
+        }
+      ],
+      "plan": ""
+    }
+  }
+}

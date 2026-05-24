@@ -1,0 +1,180 @@
+{
+  "game_id": "g0107-qwen_qwen3.5-9b-vs-qwen_qwen3.5-9b",
+  "memories": {
+    "Alice": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Agreed with Carol in private chat; killing her now reduces village numbers and gains an advantage."
+        },
+        {
+          "round": 1,
+          "text": "Starting Day 1, Eve is dead. Need to hear accusations about my co-wolf Carol and assess who else might be suspicious. Bid low to listen first, then strike later."
+        },
+        {
+          "round": 1,
+          "text": "Vote for Grace as she is a Villager falsely claiming to be Seer to protect Alice. Reducing villager count helps us win."
+        },
+        {
+          "round": 2,
+          "text": "Agreed with Carol to target Bob to reduce villager numbers to 2v2 for a win. Bob is not a suspected werewolf yet."
+        }
+      ],
+      "plan": ""
+    },
+    "Bob": {
+      "beliefs": {
+        "Grace": {
+          "confidence": "medium",
+          "evidence": "Grace claims to be the Seer and knows Eve (the night kill) was targeted, yet she has not inspected anyone and has not produced evidence of a specific inspection. Knowing the victim's name without an official 'I see X died' inspection from a Seer is inconsistent with role mechanics, suggesting she is lying.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Day 1, no info yet. Saving budget to see if anyone wakes up or makes a case in the discussion."
+        },
+        {
+          "round": 1,
+          "text": "Grace's slip-up ('We lost Eve last night') after claiming to be Seer is a huge red flag. Alice is likely a villager defending against a Werewolf's trap."
+        },
+        {
+          "round": 1,
+          "text": "Voting to exile based on her inconsistent Seer behavior: knowing the kill victim's name without inspecting them contradicts the role mechanics, suggesting she is bluffing."
+        }
+      ],
+      "plan": ""
+    },
+    "Carol": {
+      "beliefs": {
+        "Grace": {
+          "confidence": "high",
+          "evidence": "Her claim of being Seer contradicts her aggressive, unverified accusation of Alice. True Seers wouldn't claim knowledge casually without proper context. Multiple players noted her illogical behavior.",
+          "guess": "villager (false seer)"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Agreed with Alice in pack chat to kill Eve tonight to reduce village numbers. Alice is our ally."
+        },
+        {
+          "round": 1,
+          "text": "Bidding high to speak early and coordinate next target with Alice."
+        },
+        {
+          "round": 1,
+          "text": "Feigning sincerity to protect Alice from immediate exile. Claiming innocence to maintain the wolf team count."
+        },
+        {
+          "round": 1,
+          "text": "Grace is a false seer acting aggressively to expose Alice. Removing her protects the wolf team."
+        },
+        {
+          "round": 2,
+          "text": "Following Alice's suggestion in pack chat to target Dave to reach 2v2 parity and secure the win."
+        }
+      ],
+      "plan": "We are the wolves with Alice. We killed Eve last night. Now we have 2 wolves and 3 villagers. We must eliminate one more villager tonight to ensure we survive and win (reaching 3 wolves vs 2 villagers or a clear advantage). Our strategy is to stay silent at night (only voting) and be aggressive later during the day, coordinating on the next target immediately."
+    },
+    "Dave": {
+      "beliefs": {
+        "Grace": {
+          "confidence": "high",
+          "evidence": "Grace claimed to be Seer and identified Alice as a wolf, yet she admitted to 'knowing' Eve's name (the victim) without inspecting Alice or Eve to verify this. A true Seer checks a specific player; claiming knowledge of the kill victim without inspection is a classic Wolf lie. Her urgency and performative style are also suspicious.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Eve was killed at night in R1. Need to speak immediately to gather information and organize the village defense against the werewolves."
+        },
+        {
+          "round": 1,
+          "text": "Using my only speaking slot early to establish a responsible tone. No strong suspects yet since Eve's death is expected. Keeping bid (0) low means I can't be verbose later, so clarity is key."
+        },
+        {
+          "round": 1,
+          "text": "Grace was acting too sure and oddly specific about Eve's name, which breaks Seer logic."
+        },
+        {
+          "round": 1,
+          "text": "Voting to exile Grace based on her impossible claim of knowing the kill victim without inspecting anyone, which contradicts Seer mechanics."
+        }
+      ],
+      "plan": ""
+    },
+    "Eve": {
+      "beliefs": {},
+      "notes": [],
+      "plan": ""
+    },
+    "Frank": {
+      "beliefs": {
+        "Grace": {
+          "confidence": "medium",
+          "evidence": "Grace claims to be the Seer and knew Eve's name from the previous night, yet admitted she did not inspect Eve. A true Seer inspects targets to confirm roles; announcing a dead villager's name without an initial inspection is inconsistent with Seer logic and suggests a frame-up or fabrication to eliminate Alice based on an unsubstantiated charge.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night of the game. Protecting Grace as a precautionary measure to ensure a village member survives if she happens to be targeted by the wolves."
+        },
+        {
+          "round": 1,
+          "text": "Guaranteed top speaking slot to clarify that Grace was protected last night and not Eve."
+        },
+        {
+          "round": 1,
+          "text": "Grace knows Eve died immediately, which is weird if she's a real seer, but more importantly she's pivoting too fast. Protecting Alice is the safe play until we see more seer acts. As Doctor, guard is irrelevant right now, need to boost Alice numbers."
+        },
+        {
+          "round": 1,
+          "text": "Voting based on Mannu website evidence. She claimed to know Eve's death without inspecting her, which is inconsistent with Seer mechanics. Also aggressive accusation without physical proof."
+        },
+        {
+          "round": 2,
+          "text": "Protecting Carol as she defended Alice and seems like a core villager; suspected Alice is the wolf given her lone vote for exile and attack on Grace. Need to keep the village numbers up."
+        }
+      ],
+      "plan": ""
+    },
+    "Grace": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "high",
+          "evidence": "I am the Seer and inspected Alice during Night R1, confirming she is a member of the werewolf faction.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night inspection. Choosing Alice randomly to establish a baseline of information for the village discussion during the day."
+        },
+        {
+          "round": 1,
+          "text": "Alice is a werewolf, revealed by Seer. Urgent to inform the village."
+        },
+        {
+          "round": 1,
+          "text": "Private note: Alice is a werewolf. Priority is immediate exile."
+        },
+        {
+          "round": 1,
+          "text": "Bob is suspicious. He won't admit being a witch immediately, but his outlandish defense of Alice and attack on Seer mechanics is a classic destroyer tactic."
+        },
+        {
+          "round": 1,
+          "text": "Seer vision confirmed Alice is a werewolf. Immediate removal required to prevent further harm."
+        }
+      ],
+      "plan": ""
+    }
+  }
+}

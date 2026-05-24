@@ -1,0 +1,318 @@
+{
+  "game_id": "g0115-qwen_qwen3.6-27b-vs-qwen_qwen3.5-9b",
+  "memories": {
+    "Alice": {
+      "beliefs": {
+        "Bob": {
+          "confidence": "high",
+          "evidence": "Bob claimed to inspect Alice as a Villager (mechanically impossible, only Seers inspect) AND then claimed to publicly announce a private night event (mechanically impossible, Seer results are private). These are two fundamental errors unique to werewolves setting up false role identities.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Bidting 30 on Day 1 to ensure I get to speak soon without blowing my entire 100 budget early."
+        },
+        {
+          "round": 1,
+          "text": "Bob's public inspection of 'Alice' is a tell-tale sign of a non-Villager (Banshee or Jabberwocky). Likely a wolf."
+        },
+        {
+          "round": 1,
+          "text": "Bob is a wolf. The mechanics were used against him. Trust the villagers."
+        },
+        {
+          "round": 1,
+          "text": "Vote to exile Bob. He falsely claimed to inspect as a Villager (impossible) and publicly announced a private Seer inspection (impossible)."
+        },
+        {
+          "round": 2,
+          "text": "Participating in Day R2 bidding to ensure speaking slot. Bob confirmed as likely werewolf via his false Seer claim. Need to discuss Day R2 dynamics and find remaining threats."
+        },
+        {
+          "round": 2,
+          "text": "Voted for Frank. Patricia (alias Dave?) is trying to protect Frank. Alice must vote to draw a line."
+        },
+        {
+          "round": 2,
+          "text": "Defended against Grace's rapid-fire accusation. Need to establish credibility before the next night where Dave guards Frank."
+        },
+        {
+          "round": 2,
+          "text": "Frank is exiled due to the suspicious Dave-Frank alignment. Dave offered protection to Frank, creating a harmonious pair that feels out of place after Bob's chaotic lie. I suspect Frank is either a wolf hiding behind Dave or Dave is a wolf protecting him. Breaking this block is priority."
+        }
+      ],
+      "plan": ""
+    },
+    "Bob": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "high",
+          "evidence": "As the seer, I inspected Alice at night and the result was villagers.",
+          "guess": "villager"
+        },
+        "Frank": {
+          "confidence": "high",
+          "evidence": "Frank correctly identified the mechanical impossibility of publicly announcing night inspections, distinguishing him from others who simply attacked logically without nuance.",
+          "guess": "Villager"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night inspection. Checking Alice to see her faction."
+        },
+        {
+          "round": 1,
+          "text": "Alice is a villager. Need to speak to verify others and align with vetted players."
+        },
+        {
+          "round": 1,
+          "text": "Alice cleared as Villager. No specific suspect identified yet, feel free to listen to others discuss."
+        },
+        {
+          "round": 1,
+          "text": "Frank doubted me first; clarifying my role directly to him should dispel doubts. If he persists after this, I may need to adjust."
+        },
+        {
+          "round": 1,
+          "text": "Abstaining to avoid accidental elimination of a villager in this chaotic phase where all accusations point to me despite my being the Seer with true info on Alice."
+        }
+      ],
+      "plan": ""
+    },
+    "Carol": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "medium",
+          "evidence": "Accusing Frank without clear mechanical basis, using 'Jabberwocky' term. Eve and Grace are turning against her. She is the current village target. Exiling her aligns with my ally Eve and removes a vocal player investigating Frank.",
+          "guess": "Villager (Chaotic) or Seer"
+        },
+        "Bob": {
+          "confidence": "medium",
+          "evidence": "Claimed to be Seer but explained mechanics incorrectly (said Villagers inspect, then claimed Seer role while announcing publicly). Everyone else is accusing him. Voting with the crowd hides my wolf nature.",
+          "guess": "Werewolf"
+        },
+        "Frank": {
+          "confidence": "high",
+          "evidence": "Aggressive yesterday, potential target for night kill. If not lynched, kill next night.",
+          "guess": "Villager/Seer/Doctor"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Eve suggested Alice as a safe opening target. Agreed to thin out villages randomly."
+        },
+        {
+          "round": 1,
+          "text": "Stay silent Day 1 to observe. Need to align with Eve on next target."
+        },
+        {
+          "round": 1,
+          "text": "Aligning with the majority against Bob. He is likely a villager with a bad claim or a confused role. His death benefits the wolves. Eve is safe."
+        },
+        {
+          "round": 1,
+          "text": "Voting Bob because his claims are mechanically impossible and he is the clear focal point of accusation. Aligning with the village to hide my role."
+        },
+        {
+          "round": 2,
+          "text": "Coordinated with Eve to kill Frank, who was aggressive and might be Seer or strong villager."
+        },
+        {
+          "round": 2,
+          "text": "Staying quiet to save budget and observe who claims Doctor/Seer. Previous kill failed, need to identify the guard."
+        },
+        {
+          "round": 2,
+          "text": "Observing the standoff between Alice and Frank. Dave is guarding Frank. Alice wants Frank out. I will stay silent to see who supports whom."
+        },
+        {
+          "round": 2,
+          "text": "Alice's claims are mechanically confused and she is sowing discord against the Dave-Frank defense pact. Following the consensus with Eve and Grace to remove the source of chaos."
+        },
+        {
+          "round": 3,
+          "text": "Synced with Eve. Dave guards Frank, so we target Grace to avoid waste."
+        }
+      ],
+      "plan": "Stay quiet (bid 0) to save budget. Observe claims for Seer/Doctor. Our previous kill failed (Frank/Grace target split/protected). If Frank or Grace is lynched, good. If not, kill the remaining one next night. Alice seems vocal (good villager or tricky). Dave has been quiet. Priority: Kill Frank or Grace."
+    },
+    "Dave": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "high",
+          "evidence": "Alice exhibited erratic behavior by suddenly switching from accusing Frank to defending Grace without a plausible strategic reason. She attempted to dismantle my protective alliance with Frank and called my defensive strategy suspicious without evidence, which is a common wolf tactic to sow discord and confuse the village.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Protecting Alice with no information yet; standard procedure to save a life tonight."
+        },
+        {
+          "round": 1,
+          "text": "Bidding a low amount to get speaking rights early to establish role and read others, without depleting budget unnecessarily."
+        },
+        {
+          "round": 1,
+          "text": "Caught Bob in a logic trap with his inspection claim."
+        },
+        {
+          "round": 1,
+          "text": "Bob claimed Villagers can inspect (false) and Seers broadcast results (impossible). High suspicion of Werewolf."
+        },
+        {
+          "round": 2,
+          "text": "No specific evidence yet on remaining players. Protecting Frank arbitrarily to secure a player for the next round."
+        },
+        {
+          "round": 2,
+          "text": "Frank saved. Bob out."
+        },
+        {
+          "round": 2,
+          "text": "Alice's flip from accusing Bob to attacking Frank immediately after Dave protects Frank suggests she is trying to sow discord. Need to remain loyal to Frank until more evidence appears."
+        },
+        {
+          "round": 2,
+          "text": "Alice showed erratic behavior: attacking Frank, then defending Grace, then calling my defensive play of Frank suspicious without evidence. She used confusing language ('paralogically honest') which indicates she is not sincere. Her attempt to break our village alliance suggests she is a werewolf."
+        },
+        {
+          "round": 3,
+          "text": "Protecting Frank as he has been consistent with mechanics and is a key voice. Recent paranoia might lead wolves to him, but his defense of the vote is valuable."
+        }
+      ],
+      "plan": "Strategy: In the early game, verify information carefully. Vote to remove suspected werewolves based on behavior and inconsistencies. Use my Day heal to save a key player if a discrepancy arises or to protect a Seer/Police if suspected. Collaborate with strong players to form the majority. Speak up to explain my actions andQueryothers."
+    },
+    "Eve": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "medium",
+          "evidence": "Erratic behavior, accusing Frank then defending Grace, creating confusion. Likely a panicking villager or trying to mislead. Not my ally (Carol is).",
+          "guess": "Villager"
+        },
+        "Bob": {
+          "confidence": "medium",
+          "evidence": "Claimed to be Seer, checked Alice. Poor phrasing but unanimous target. Exiling him removes the Seer if real, or a bluffing Villager. Best wolf strategy to ride the wave.",
+          "guess": "Seer"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Voting for Frank to align with Carol's initial suggestion."
+        },
+        {
+          "round": 1,
+          "text": "Bidding moderately to observe the discussion flow and identify potential targets or threats."
+        },
+        {
+          "round": 1,
+          "text": "Observing the fallout from Frank's accusation of Bob. Let them fight; I'll stay silent to avoid suspicion."
+        },
+        {
+          "round": 1,
+          "text": "Riding the wave to exile the likely Seer or bluffing Villager. Aligns with majority and ally Carol."
+        },
+        {
+          "round": 2,
+          "text": "Aligning with Carol to avoid split vote. Grace was vocal and might be a threat or just a villager. Prioritizing a guaranteed kill over Frank for now."
+        },
+        {
+          "round": 2,
+          "text": "Bidding moderately to observe and maintain a neutral villager profile. Waiting to see who takes the high slots and what narratives form regarding last night's blocked kill."
+        },
+        {
+          "round": 2,
+          "text": "Alice is under fire from Grace. Accusing her aligns with Grace and creates pressure on a villager who is speaking confusingly. Carol is safe for now."
+        },
+        {
+          "round": 2,
+          "text": "Alice's erratic accusations and lack of consistent logic make her the most suspicious remaining player. She attacked Frank and Dave baselessly, creating confusion. Exiling her restores order."
+        },
+        {
+          "round": 3,
+          "text": "Coordinated with Carol. Dave guards Frank, so Grace is the safest target."
+        }
+      ],
+      "plan": "Role: Werewolf. Ally: Carol. Goal: Outnumber villagers. Current: 2 Werewolves (Eve, Carol) vs 4 Villagers (Alice, Dave, Frank, Grace). Bob exiled. Night 1 & 2: No kills (protected/split). Day 2: Dave claims guarding Frank. Alice chaotic, attacking Frank/Dave. Grace attacking Alice. Strategy: 1. Vote to exile Alice today; she is vulnerable and chaotic. 2. Tonight, coordinate with Carol to kill Grace (assuming Dave guards Frank, Grace is unprotected) or Dave (to remove potential Doctor). Prioritize killing someone. 3. Maintain cover. Frame Alice as a threat."
+    },
+    "Frank": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "high",
+          "evidence": "Alice is aggressively attacking the village's doctor/Frank alliance, trying to break up the safe defense offered by Dave. Her erratic behavior and attempts to frame Frank as a conspirator without evidence suggest she is trying to disrupt the village to hide her identity.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Initial move to secure a speaking slot for early discussion since no info is known yet."
+        },
+        {
+          "round": 1,
+          "text": "Bob claimed to inspect a villager publicly. Standard Vils don't have this ability. High suspicion of roleplay or fake Seer behavior."
+        },
+        {
+          "round": 1,
+          "text": "Bob claimed to be a Villager who can inspect others, which is mechanically impossible. He then claimed to be a Seer but revealed his results publicly, violating Seer mechanics. Multiple players (Alice, Dave, Grace, Carol) correctly identified this contradiction, making Bob the most likely werewolf."
+        },
+        {
+          "round": 2,
+          "text": "Need to understand why two nights passed with no deaths despite Bob's exile. Did the werewolves target the Doctor? Or is there a hidden mechanic? Need to speak to organize investigation into surviving werewolves."
+        },
+        {
+          "round": 2,
+          "text": "Alice voted for me despite Dave's defense. She might be the Jabberwockie (or wolf) trying to frame me. Dave seems genuine."
+        },
+        {
+          "round": 2,
+          "text": "Alice voted to exile Frank because she claims an alliance exists, but Dave was defending Frank. This is a classic wolf tactic: isolate the defender to remove a threat to the wolves."
+        },
+        {
+          "round": 2,
+          "text": "Targeting Alice because she is aggressively attacking our defensive alliance (Dave and me) and showing erratic behavior inconsistent with a villager protecting a guarded player."
+        }
+      ],
+      "plan": ""
+    },
+    "Grace": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "medium",
+          "evidence": "Alice's sudden shift to accusing Frank of a Jabberwockie connection with Dave seems reactive and paradoxical. After my previous callout on her, she defended herself with a claim of 'strategic' behavior rather than explaining the timeline clearly, which Eve then flagged as confusing/erratic. This suggests she is trying to manufacture a divide or cover for an ally (Frank).",
+          "guess": "Werewolf"
+        },
+        "Bob": {
+          "confidence": "high",
+          "evidence": "Bob claimed to be a Villager but also stated he 'inspected Alice' at night. Villagers cannot inspect, and Seers do not publicly announce private inspection results. This contradiction indicates he is lying to fabricate a false reality, typical of a werewolf.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Bidding low to get a floor without spending budget, as per plan to listen first."
+        },
+        {
+          "round": 1,
+          "text": "Bob claimed villagers can inspect or seers can publicize private info, both mechanically false. The village needs to remove this untrustworthy player immediately."
+        },
+        {
+          "round": 2,
+          "text": "Wolves survived night 2 because the target was protected. Doctor is in the game and effective. Need to hear others' analysis of the vote result and night status to adjust strategy."
+        },
+        {
+          "round": 2,
+          "text": "Alice displayed erratic and defensive behavior yesterday, shifting from accusing Frank to defending herself against my callout. Eve also flagged her as confusing. She seems to be trying to manufacture a fake alliance or hide a lie."
+        }
+      ],
+      "plan": "Day 1: No deaths at night. My strategy is to listen to everyone's initial opening statements to identify any obvious inconsistencies or overly aggressive players. I will focus on gathering information rather than making drastic accusations without evidence. I plan to follow the flow of the debate to build a consensus if possible."
+    }
+  }
+}

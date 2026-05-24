@@ -1,0 +1,251 @@
+{
+  "game_id": "g0040-qwen_qwen3.6-35b-a3b-vs-deepseek_deepseek-v4-flash",
+  "memories": {
+    "Alice": {
+      "beliefs": {
+        "Bob": {
+          "confidence": "high",
+          "evidence": "Frank (seer) inspected Bob as werewolf; Bob's counter-claim is reactive and suspicious.",
+          "guess": "werewolf"
+        },
+        "Dave": {
+          "confidence": "low",
+          "evidence": "Dave suggested random voting, which could be a wolf tactic to avoid scrutiny.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night, no info; protecting Bob randomly."
+        },
+        {
+          "round": 1,
+          "text": "Bidding moderately to speak first; I need to share that I protected Bob and that we should discuss who to suspect."
+        },
+        {
+          "round": 1,
+          "text": "Claimed villager to avoid being targeted. Bob was cautious in his statement, which could be villager-like or werewolf-like. Dave and I also had high speaking bids."
+        },
+        {
+          "round": 1,
+          "text": "Day 1, no strong leads. Pass to observe others."
+        },
+        {
+          "round": 1,
+          "text": "Voting Dave based on his random-voting suggestion, which feels wolfy. Low confidence; will reassess after seeing others' votes."
+        },
+        {
+          "round": 2,
+          "text": "Bob survived; no reason to switch yet; keep protecting confirmed villager."
+        },
+        {
+          "round": 2,
+          "text": "Dave was werewolf, need to share analysis and find remaining wolf."
+        },
+        {
+          "round": 2,
+          "text": "Supporting Frank's inspection of me as villager gives credibility to his accusation of Bob."
+        },
+        {
+          "round": 2,
+          "text": "Frank the claimed seer inspected Bob as werewolf; Bob's counter-claim is reactive and suspicious."
+        }
+      ],
+      "plan": ""
+    },
+    "Bob": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Agreed with Dave to kill Alice on Night 1. No specific reason, just a solid villager to start with."
+        },
+        {
+          "round": 1,
+          "text": "Bid high to secure early speaking slot on Day 1 to control narrative and deflect suspicion."
+        },
+        {
+          "round": 1,
+          "text": "Strategy: Act as a neutral villager. Do not accuse anyone yet. Wait to see who gets blamed or who acts suspiciously. Remember Dave is my partner."
+        },
+        {
+          "round": 1,
+          "text": "No immediate leads. Alice sounded standard villager. Dave is my ally. High bid players haven't spoken much yet. Best to observe."
+        },
+        {
+          "round": 1,
+          "text": "It is Day 1. No special roles have been revealed. My teammate Dave played safe. I have no information on Eve, Frank, or Grace as they did not speak. Abstaining is the safest play to avoid making a mistake or leading the village astray prematurely."
+        },
+        {
+          "round": 2,
+          "text": "I am the last wolf. Dave was exiled. I need to reduce the village count. Alice, Frank, Grace remain. I choose Eve as she had the lowest bid and said little. Even though 1 wolf vs 3 villagers is a losing position mathematically, I must kill to continue the game logic."
+        },
+        {
+          "round": 2,
+          "text": "I am the last wolf. Need to blend in. Will claim villager. Will try to frame Frank or Grace or play confused."
+        },
+        {
+          "round": 2,
+          "text": "Need to survive. Frank claims to be seer. Alice and Grace trust him. Must deny strongly."
+        },
+        {
+          "round": 2,
+          "text": "Frank is the Seer and has identified me as a wolf. This is the hard truth. I must try to split the vote or appeal to Grace that Frank is a wolf framing me, although it's a long shot. Voting for Frank is the only logical move to challenge the Seer."
+        }
+      ],
+      "plan": ""
+    },
+    "Carol": {
+      "beliefs": {},
+      "notes": [],
+      "plan": ""
+    },
+    "Dave": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "low",
+          "evidence": "She claimed villager without evidence, which is standard behavior. No contradictions yet.",
+          "guess": "Villager"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Agreed with Bob's suggestion to kill Carol on night 1. Random early game strategy."
+        },
+        {
+          "round": 1,
+          "text": "Day 1: Need to speak to establish villager cover and guide discussion away from pack members."
+        },
+        {
+          "round": 1,
+          "text": "Adopting a neutral villager stance. Avoiding direct accusations early on. Encouraging others to speak to gather info."
+        },
+        {
+          "round": 1,
+          "text": "Staying silent to maintain cover; Bob and Alice have played safe, so no immediate need to accuse or defend."
+        },
+        {
+          "round": 1,
+          "text": "No clear target on Day 1; safest to wait and observe further."
+        }
+      ],
+      "plan": ""
+    },
+    "Eve": {
+      "beliefs": {
+        "Eve": {
+          "confidence": "high",
+          "evidence": "I know I am a villager.",
+          "guess": "villager"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First day, low bid to save budget for later when I have more info."
+        },
+        {
+          "round": 1,
+          "text": "No strong suspicions yet. Bob, Alice, and Dave all claimed villager with cautious tones. Passing to hear Frank and Grace."
+        },
+        {
+          "round": 1,
+          "text": "No strong evidence yet on Day 1; abstaining to avoid exiling a villager."
+        }
+      ],
+      "plan": ""
+    },
+    "Frank": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "high",
+          "evidence": "seer inspection",
+          "guess": "villager"
+        },
+        "Bob": {
+          "confidence": "high",
+          "evidence": "Inspected Bob night 2, returned werewolf. Bob's counter-claim is typical werewolf behavior.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night, random pick."
+        },
+        {
+          "round": 1,
+          "text": "Bidding to speak day 1 to share my suspicions and gather info; I confirmed Alice as villager, will keep that secret for now."
+        },
+        {
+          "round": 1,
+          "text": "I have no strong accusations yet. Alice is confirmed villager to me, but I'll keep that private for now."
+        },
+        {
+          "round": 1,
+          "text": "No trustworthy accusations yet; keeping my seer role hidden."
+        },
+        {
+          "round": 2,
+          "text": "Inspecting Bob on Night R2 to narrow down werewolf candidates."
+        },
+        {
+          "round": 2,
+          "text": "I know Bob is a werewolf from my seer investigation. Need to speak to reveal this."
+        },
+        {
+          "round": 2,
+          "text": "Revealed as seer with proof that Alice is villager and Bob is werewolf."
+        },
+        {
+          "round": 2,
+          "text": "Reinforcing my accusation after Grace and Alice supported me."
+        },
+        {
+          "round": 2,
+          "text": "Voting to exile Bob based on my seer inspection revealing he is a werewolf."
+        }
+      ],
+      "plan": ""
+    },
+    "Grace": {
+      "beliefs": {
+        "Bob": {
+          "confidence": "high",
+          "evidence": "Frank claimed seer first with Alice as villager (confirmed by Alice). Bob's counter-claim is reactive and defensive, typical werewolf behavior.",
+          "guess": "werewolf"
+        },
+        "unknown": {
+          "confidence": "low",
+          "evidence": "No strong leads from initial statements. All three speakers claimed villager with no info.",
+          "guess": "uncertain"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "No strong leads; abstaining to avoid harming a fellow villager."
+        },
+        {
+          "round": 2,
+          "text": "Bid 60 to try to speak today; want to share my reasoning and gauge others. Budget remaining after this: 40."
+        },
+        {
+          "round": 2,
+          "text": "Keeping notes: Alice, Bob, Frank left. Dave exiled with 1 vote seems random. Need to see who makes accusations today."
+        },
+        {
+          "round": 2,
+          "text": "I suspect Bob is the werewolf based on Frank's credible seer claim."
+        },
+        {
+          "round": 2,
+          "text": "Frank's seer claim with Alice as villager is more credible; Bob's reactive counter-claim is typical werewolf defense."
+        }
+      ],
+      "plan": ""
+    }
+  }
+}

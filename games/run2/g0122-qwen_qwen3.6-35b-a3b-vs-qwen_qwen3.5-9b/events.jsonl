@@ -1,0 +1,24 @@
+{"game_id": "g0122-qwen_qwen3.6-35b-a3b-vs-qwen_qwen3.5-9b", "players": [["Alice", "villager"], ["Bob", "villager"], ["Carol", "villager"], ["Dave", "werewolf"], ["Eve", "doctor"], ["Frank", "seer"], ["Grace", "werewolf"]], "seed": 2081949544}
+{"payload": {"message": "Hi Grace, it's Dave. First night, no info yet. Who should we go for? I'm thinking Alice. Do you agree or have a preference?", "speaker": "Dave"}, "phase": "night", "recipients": ["Dave", "Grace"], "round": 1, "seq": 0, "type": "werewolf_chat"}
+{"payload": {"message": "Hi Dave, it's night 1. We need to pick a target. I suggest we kill Alice. She seems like a potential Seer or strong player. Do you agree, or do you want to target someone else?", "speaker": "Grace"}, "phase": "night", "recipients": ["Dave", "Grace"], "round": 1, "seq": 1, "type": "werewolf_chat"}
+{"payload": {"faction": "villagers", "target": "Alice"}, "phase": "night", "recipients": ["Frank"], "round": 1, "seq": 2, "type": "seer_inspect"}
+{"payload": {"target": "Bob"}, "phase": "night", "recipients": ["Eve"], "round": 1, "seq": 3, "type": "doctor_protect"}
+{"payload": {"ballots": {"Dave": "Alice", "Grace": "Alice"}}, "phase": "night", "recipients": ["Dave", "Grace"], "round": 1, "seq": 4, "type": "kill_ballots"}
+{"payload": {"victim": "Alice"}, "phase": "night", "recipients": [], "round": 1, "seq": 5, "type": "kill_resolved"}
+{"payload": {"amount": 20, "bidder": "Bob"}, "phase": "day", "recipients": ["Bob"], "round": 1, "seq": 6, "type": "bid"}
+{"payload": {"amount": 50, "bidder": "Carol"}, "phase": "day", "recipients": ["Carol"], "round": 1, "seq": 7, "type": "bid"}
+{"payload": {"amount": 50, "bidder": "Dave"}, "phase": "day", "recipients": ["Dave"], "round": 1, "seq": 8, "type": "bid"}
+{"payload": {"amount": 50, "bidder": "Eve"}, "phase": "day", "recipients": ["Eve"], "round": 1, "seq": 9, "type": "bid"}
+{"payload": {"amount": 30, "bidder": "Frank"}, "phase": "day", "recipients": ["Frank"], "round": 1, "seq": 10, "type": "bid"}
+{"payload": {"amount": 20, "bidder": "Grace"}, "phase": "day", "recipients": ["Grace"], "round": 1, "seq": 11, "type": "bid"}
+{"payload": {"bids": {"Bob": 20, "Carol": 50, "Dave": 50, "Eve": 50, "Frank": 30, "Grace": 20}, "speakers": ["Eve", "Dave", "Carol"]}, "phase": "day", "recipients": [], "round": 1, "seq": 12, "type": "discussion_resolved"}
+{"payload": {"message": "I guarded Bob tonight. Unfortunately, Alice was killed by the wolves. The blood matches Alice, not Bob, so my protection either wasn't needed or the target was someone else. I'll listen to the others.", "speaker": "Eve"}, "phase": "day", "recipients": [], "round": 1, "seq": 13, "type": "speech"}
+{"payload": {"message": "Rough start. Alice is gone. Eve said she guarded Bob. That means Alice died unprotected. It's possible Eve guessed wrong, or she missed. I'm worried. Who else has info? I don't want to jump to conclusions but we need to be careful.", "speaker": "Dave"}, "phase": "day", "recipients": [], "round": 1, "seq": 14, "type": "speech"}
+{"payload": {"message": "Alice is dead, and Eve claimed she guarded Bob. If that's true, the wolf hit Alice. I will keep an eye on Eve later; if she is the Seer hiding her role, we need to be careful. Let's hear from the others.", "speaker": "Carol"}, "phase": "day", "recipients": [], "round": 1, "seq": 15, "type": "speech"}
+{"payload": {"ballots": {"Bob": "abstain", "Carol": "Eve", "Dave": "Eve", "Eve": "abstain", "Frank": "abstain", "Grace": "Eve"}, "exiled": "Eve"}, "phase": "day", "recipients": [], "round": 1, "seq": 16, "type": "exile_resolved"}
+{"payload": {"message": "Grace, night 2. Eve is gone. We need to kill one more villager to even the odds. Bob, Carol, Frank remain. Who do you think is the bigger threat? Carol spoke a bit, Frank was silent. I'm leaning towards killing Carol or Frank. What's your pick?", "speaker": "Dave"}, "phase": "night", "recipients": ["Dave", "Grace"], "round": 2, "seq": 17, "type": "werewolf_chat"}
+{"payload": {"message": "Hi Dave, Eve is gone. Good riddance. We need to pick a target for tonight. I suggest we go for Carol. She was quite vocal and might be the Seer or a strong player trying to read us. Let me know if you agree.", "speaker": "Grace"}, "phase": "night", "recipients": ["Dave", "Grace"], "round": 2, "seq": 18, "type": "werewolf_chat"}
+{"payload": {"faction": "villagers", "target": "Bob"}, "phase": "night", "recipients": ["Frank"], "round": 2, "seq": 19, "type": "seer_inspect"}
+{"payload": {"ballots": {"Dave": "Carol", "Grace": "Carol"}}, "phase": "night", "recipients": ["Dave", "Grace"], "round": 2, "seq": 20, "type": "kill_ballots"}
+{"payload": {"victim": "Carol"}, "phase": "night", "recipients": [], "round": 2, "seq": 21, "type": "kill_resolved"}
+{"payload": {"winner": "werewolves"}, "phase": "night", "recipients": [], "round": 2, "seq": 22, "type": "game_over"}

@@ -1,0 +1,182 @@
+{
+  "game_id": "g0002-deepseek_deepseek-v4-flash-vs-deepseek_deepseek-v4-flash",
+  "memories": {
+    "Alice": {
+      "beliefs": {
+        "Bob": {
+          "confidence": "high",
+          "evidence": "Seer scan on night R1 returned werewolf. Bob's defensive and counter-accusatory behavior aligns with a werewolf trying to deflect suspicion.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Random first-night pick; no info yet."
+        },
+        {
+          "round": 1,
+          "text": "Reveal Bob as werewolf (seer inspection last night)"
+        },
+        {
+          "round": 1,
+          "text": "Revealing my identity as seer and Bob's guilt. Risking werewolf attack tonight."
+        },
+        {
+          "round": 1,
+          "text": "Seer-confirmed werewolf. Vote to exile."
+        }
+      ],
+      "plan": ""
+    },
+    "Bob": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "high",
+          "evidence": "Alice claimed seer and accused me without proof \u2014 classic werewolf tactic to get an innocent exiled. I am actually a werewolf, so she's lying or mistaken.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Random pick, suggested originally. Dave wanted Alice but we hadn't agreed; going with my suggestion."
+        },
+        {
+          "round": 1,
+          "text": "Moderate bid to get speaking time - want to help steer conversation away from wolves without overspending budget."
+        },
+        {
+          "round": 1,
+          "text": "Day R1 defense against Alice's seer claim."
+        },
+        {
+          "round": 1,
+          "text": "Alice claimed seer and accused me without proof. I'm voting to exile her as I believe she is a werewolf trying to get an innocent exiled."
+        },
+        {
+          "round": 2,
+          "text": "Carol voted to exile Alice, seems like a villager who could be dangerous. Dave agreed on Carol as a possible target."
+        }
+      ],
+      "plan": ""
+    },
+    "Carol": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "medium",
+          "evidence": "Alice claimed seer and accused Bob with no proof, which is suspicious. Dave and Grace defended Bob, suggesting Alice may be lying.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night, no information. Randomly protecting Alice."
+        },
+        {
+          "round": 1,
+          "text": "Bid to speak in the first round. Want to discuss Eve's death and hear others' thoughts."
+        },
+        {
+          "round": 1,
+          "text": "Alice claims seer and accuses Bob. Bob denies. Dave and Grace defend Bob. I am doctor, need more info before committing publicly."
+        },
+        {
+          "round": 1,
+          "text": "Voting to exile Alice based on suspicion she is a werewolf making a false seer claim to frame Bob."
+        },
+        {
+          "round": 2,
+          "text": "Protecting Bob night 2. Alice was exiled after claiming seer accusing Bob; I protected Alice night 1. Bob might be targeted by remaining werewolves."
+        }
+      ],
+      "plan": "As the doctor, I will protect players who are likely to be targeted by werewolves based on discussion and suspicion. I will avoid protecting myself unless necessary, and try to deduce the seer to keep them alive. I will keep my role hidden unless I need to claim to save someone."
+    },
+    "Dave": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "high",
+          "evidence": "Alice claimed seer with no proof and accused Bob, which is a classic werewolf tactic to eliminate a threat.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Bob suggested Eve; cooperating with packmate for first kill."
+        },
+        {
+          "round": 1,
+          "text": "Bidding moderately to get a speaking slot this round; want to influence discussion without wasting budget."
+        },
+        {
+          "round": 1,
+          "text": "Casting doubt on Alice's seer claim to protect Bob."
+        },
+        {
+          "round": 1,
+          "text": "Defending Bob to counter Alice's accusation and protect pack."
+        },
+        {
+          "round": 1,
+          "text": "Voting for Alice to try to eliminate the seer threat and protect my pack mate Bob."
+        },
+        {
+          "round": 2,
+          "text": "Frank voted for Alice (claimed seer), so likely a villager. Eliminating him reduces village numbers and removes a potential threat."
+        }
+      ],
+      "plan": ""
+    },
+    "Eve": {
+      "beliefs": {},
+      "notes": [],
+      "plan": ""
+    },
+    "Frank": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "high",
+          "evidence": "Alice claimed to be seer with no proof, immediately accusing Bob. This is a common werewolf tactic to frame an innocent. Multiple other players (Bob, Dave, Grace) expressed doubt about her claim.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Modest opening bid to gauge interest and share early thoughts."
+        },
+        {
+          "round": 1,
+          "text": "Day 1 - No strong evidence yet. Alice's seer claim is unverified. Staying silent to gather more info."
+        },
+        {
+          "round": 1,
+          "text": "Voting against Alice because her unsubstantiated seer claim and hasty accusation of Bob is a classic werewolf tactic."
+        }
+      ],
+      "plan": ""
+    },
+    "Grace": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "medium",
+          "evidence": "Alice claimed seer with no proof, accused Bob. Classic wolf move.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Defending Bob to avoid rushing an exile on flimsy evidence. Will reassess if more info emerges."
+        },
+        {
+          "round": 1,
+          "text": "Day 1, no clear evidence. Abstaining to avoid rash exile."
+        }
+      ],
+      "plan": ""
+    }
+  }
+}

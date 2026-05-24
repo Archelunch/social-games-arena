@@ -1,0 +1,189 @@
+{
+  "game_id": "g0031-qwen_qwen3.6-27b-vs-deepseek_deepseek-v4-flash",
+  "memories": {
+    "Alice": {
+      "beliefs": {
+        "Bob": {
+          "confidence": "high",
+          "evidence": "Seer inspection night 1 returned villager.",
+          "guess": "villager"
+        },
+        "Dave": {
+          "confidence": "low",
+          "evidence": "Dave did not speak and had the lowest bid (0). He may be trying to avoid scrutiny.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night inspection; no leads yet, picking arbitrarily."
+        },
+        {
+          "round": 1,
+          "text": "Opening statement. Keep it vague to avoid giving werewolves information. Bob is confirmed villager but I won't reveal that yet."
+        },
+        {
+          "round": 1,
+          "text": "Defend Carol to appear cooperative and start building trust, while not accusing anyone prematurely."
+        },
+        {
+          "round": 1,
+          "text": "Dave was silent with 0 bid \u2014 trying to avoid attention."
+        },
+        {
+          "round": 2,
+          "text": "Inspecting Grace to learn her faction"
+        }
+      ],
+      "plan": "Stay alive to get more inspections. Share only vague observations publicly. Try to identify suspicious behavior without revealing seer status. Vote carefully based on developing evidence."
+    },
+    "Bob": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "low",
+          "evidence": "Alice defended Carol very quickly after Carol's opening, which could be an attempt to build early trust between wolves. No other evidence yet.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First day, modest bid to speak and share initial thoughts."
+        },
+        {
+          "round": 1,
+          "text": "Voting for Alice based on early defense of Carol; low confidence but need to start somewhere."
+        }
+      ],
+      "plan": ""
+    },
+    "Carol": {
+      "beliefs": {
+        "Bob": {
+          "confidence": "medium",
+          "evidence": "Bob accused Alice of building trust with me early, which could be a wolf trying to create suspicion and divide the village.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Bidding moderately to get an early speaking slot and share initial thoughts."
+        },
+        {
+          "round": 1,
+          "text": "Day 1 opening statement as Carol the villager. No info yet, staying neutral."
+        },
+        {
+          "round": 1,
+          "text": "Day 1, no solid info yet. Frank died night 1. Everyone's opening statements were neutral. I'll observe the conversation before making any accusations."
+        },
+        {
+          "round": 1,
+          "text": "Bob's accusation of Alice for defending me seemed like a wolf trying to divide the village."
+        }
+      ],
+      "plan": ""
+    },
+    "Dave": {
+      "beliefs": {
+        "Bob": {
+          "confidence": "low",
+          "evidence": "Accused Alice immediately. Trying to create chaos or genuinely suspicious.",
+          "guess": "Villager (aggressive/seer candidate)"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Following Eve's suggestion to start with a random target."
+        },
+        {
+          "round": 1,
+          "text": "Day 1. Conserving budget. Let's see who volunteers to speak. Alice, Bob, Carol, Grace are the potential targets to frame later."
+        },
+        {
+          "round": 1,
+          "text": "First day, generic statements from others. Staying silent to observe Bob and Eve's behavior before committing to an accusation or defense."
+        },
+        {
+          "round": 1,
+          "text": "Following Bob's accusation to test the narrative. If Alice is a villager leader, removing her helps. If Bob is the seer, this aligns me with him temporarily."
+        },
+        {
+          "round": 2,
+          "text": "Eve suggested Alice; aligning with ally to remove potential seer/trust-builder."
+        }
+      ],
+      "plan": ""
+    },
+    "Eve": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Agreed upon target with Dave; safe random start."
+        },
+        {
+          "round": 1,
+          "text": "Day 1 bid. Conserving budget but seeking opportunity to speak if needed to deflect or blend in."
+        },
+        {
+          "round": 1,
+          "text": "Day 1 reaction phase: No specific accusations yet. Staying silent to blend in and observe villager dynamics. Ally is Dave."
+        },
+        {
+          "round": 1,
+          "text": "Bob is the only one making accusations without a role reveal. Voting for him to create pressure or remove an active villager."
+        },
+        {
+          "round": 2,
+          "text": "Dave and I agreed Alice is suspicious (defended Carol early, potential Seer or Wolf). Targeting her reduces villager numbers and removes a vocal player."
+        }
+      ],
+      "plan": "Ally: Dave. Dead: Frank (Wolf kill). Goal: Hide with Dave. Protect Dave. Vote strategically to split votes or target suspicious villagers. Watch out for Seer (likely someone active like Bob or Alice)."
+    },
+    "Frank": {
+      "beliefs": {},
+      "notes": [],
+      "plan": ""
+    },
+    "Grace": {
+      "beliefs": {
+        "Bob": {
+          "confidence": "low",
+          "evidence": "Bob quickly accused Alice of trying to build trust by defending Carol. Early accusations can be wolfish.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Night 1, no info. Cannot protect self, so choosing Alice arbitrarily."
+        },
+        {
+          "round": 1,
+          "text": "Frank died night 1. I protected Alice. Need to speak to coordinate village."
+        },
+        {
+          "round": 1,
+          "text": "Day 1, first statement. Encouraging discussion to gather info. Protected Alice last night; no reason to suspect anyone yet."
+        },
+        {
+          "round": 1,
+          "text": "Staying silent to observe reactions to Bob's accusation of Alice. Not enough info to accuse or defend yet."
+        },
+        {
+          "round": 1,
+          "text": "Voting Bob because his quick accusation of Alice seems like early wolf aggression. Low confidence."
+        },
+        {
+          "round": 2,
+          "text": "Protecting Carol. Bob was exiled yesterday. Alice defended Carol quickly, which could be werewolf alliance or genuine. Need more info."
+        }
+      ],
+      "plan": ""
+    }
+  }
+}

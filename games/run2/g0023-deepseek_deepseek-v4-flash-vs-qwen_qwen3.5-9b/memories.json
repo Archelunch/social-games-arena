@@ -1,0 +1,291 @@
+{
+  "game_id": "g0023-deepseek_deepseek-v4-flash-vs-qwen_qwen3.5-9b",
+  "memories": {
+    "Alice": {
+      "beliefs": {
+        "Bob": {
+          "confidence": "high",
+          "evidence": "Seer's direct inspection confirmed Bob is a werewolf.",
+          "guess": "Werewolf"
+        },
+        "Grace": {
+          "confidence": "high",
+          "evidence": "Grace claimed she protected Alice, but Bob (suspected werewolf by Seer) survived the night. If Grace protected Alice, Bob was unprotected and should have died if targeted; if Bob wasn't targeted, he wasn't 'guarded' by her. This implies Grace protected Bob (the werewolf) to cover his identity, or she is the Doctor acting confused (low intelligence), but given the voting pressure against me, a Wolf protecting a Wolf is the most likely explanation.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night read for Bob to establish baseline information."
+        },
+        {
+          "round": 1,
+          "text": "Need to speak first to reveal Bob is a wolf. High bid to ensure turn order for day 1 start."
+        },
+        {
+          "round": 1,
+          "text": "Bob is confirmed as a werewolf. He survived Night 1 due to the doctor's guard. Urgent to identify him as a target."
+        },
+        {
+          "round": 1,
+          "text": "Bob's logic 'If I was guarded, I must have been protected; I wasn't, so Alice lies' assumes he keeps officers. He is the wolf."
+        },
+        {
+          "round": 1,
+          "text": "Directly confirmed as a werewolf by Seer inspection. Likely survived because the Doctor (suspected Wolf) protected him despite claiming to protect the Seer."
+        }
+      ],
+      "plan": ""
+    },
+    "Bob": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "medium",
+          "evidence": "Alice claimed I was guarded, but Grace (doctor) guarded herself. Her story contradicts the known facts.",
+          "guess": "likely a villager trying to frame me or possibly a wolf"
+        },
+        "Dave": {
+          "confidence": "medium",
+          "evidence": "Dave immediately called for my exile tomorrow based on Alice's disproven claims, which is wolf-like behavior aimed at eliminating a villager who was falsely accused.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Targeting Alice as she could be a strategic player; Frank suggested Alice or Carol, I'll start with Alice."
+        },
+        {
+          "round": 1,
+          "text": "Bidding a moderate amount to gauge the discussion without overcommitting."
+        },
+        {
+          "round": 1,
+          "text": "Coordinating with Frank later."
+        },
+        {
+          "round": 1,
+          "text": "Alice's claim that I was guarded contradicts the doctor's statement. She is likely lying to frame me."
+        },
+        {
+          "round": 2,
+          "text": "Kill Carol to reduce vocal villager threat. Frank suggested Carol as an option and she was active in day R1."
+        },
+        {
+          "round": 2,
+          "text": "I want to speak to continue discrediting Alice's claims and suggest Carol or Dave as wolf candidates. Bidding 40 to secure a slot while preserving some budget."
+        },
+        {
+          "round": 2,
+          "text": "Deflecting suspicion after Dave's accusation; using Alice's contradiction as proof of my innocence."
+        },
+        {
+          "round": 2,
+          "text": "Dave is pushing hard against me; might be a wolf trying to finish what Alice started."
+        },
+        {
+          "round": 2,
+          "text": "Voting for Dave because he pushed for my exile based on Alice's debunked claim, which is typical wolf behavior \u2014 trying to eliminate a falsely accused villager."
+        },
+        {
+          "round": 3,
+          "text": "Targeting Dave as he's the most vocal against me and likely a key villager. Frank and I discussed and agreed."
+        }
+      ],
+      "plan": "Be cautious; do not attract attention. Vote with the majority unless it threatens Frank. Coordinate with Frank at night. Try to determine who the seer and doctor might be."
+    },
+    "Carol": {
+      "beliefs": {
+        "Bob": {
+          "confidence": "medium",
+          "evidence": "Alice (Seer) claimed Bob was guarded, but Doctor (Grace) claimed she guarded Alice. Only one person can be guarded. If Grace is the Doctor, Bob was targeted and Alice lied, making her a wolf. If Alice is the Seer, Bob should have been protected; but Bob survived Night 1 without being explicitly protected by a known Doctor. Given the plural 'werewolves', with Grace and Alice likely dead wolves, Bob is the leading suspect for the remaining wolf role. He was the center of the contradiction but fled his role.",
+          "guess": "werewolf"
+        },
+        "Grace": {
+          "confidence": "high",
+          "evidence": "Grace was killed by the werewolves on Night 2. Additionally, her testimony during Day 1 was highly inconsistent regarding the night's events; she claimed to guard herself while the log showed she was protected? No, the log showed she was killed. Her confusion about Alice and the guard status of Bob suggests she was not a truthful villager trying to solve the puzzle, but a wolf creating chaos. Being eliminated by the wolf team confirms her role.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Initial move. No info yet. Plan: Listen carefully to night results and any public statements. Avoid voting recklessly. Seek to identify werewolves through contradictions. Do not reveal my role aggressively until necessary. Bid 0 to conserve budget and stay quiet for now."
+        },
+        {
+          "round": 1,
+          "text": "Accusing Grace for her contradictory behavior and lack of clarity on her role as Doctor."
+        },
+        {
+          "round": 1,
+          "text": "Alice made contradictory claims: she is the Seer claiming Bob was guarded last night, but Grace (the Doctor) explicitly stated she guarded Alice. Since only one person can be guarded, if Grace is truthful, Bob was not guarded and thus shouldn't have survived if he were a wolf (implying Alice is lying and framing Bob). Alice's 0 bid remaining despite her 100 bid allocation for a single, logically flawed statement makes her highly suspicious of being a wolf orchestrating confusion."
+        },
+        {
+          "round": 2,
+          "text": "Need to speak first to clarify the situation after Alice's exile and Grace's death. Re-evaluate Bob's status and find the real doctor/wolf mix."
+        },
+        {
+          "round": 2,
+          "text": "Grace died (heightened suspicion of wolves acting). Alice was voted out; Bob survived. Need to verify if Bob is a wolf by next night or if we hunt someone else."
+        },
+        {
+          "round": 2,
+          "text": "Primary suspect based on Alice/Grace contradiction regarding Night 1 protection; center of chaos; likely the second wolf with Grace and Alice dead."
+        }
+      ],
+      "plan": ""
+    },
+    "Dave": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "high",
+          "evidence": "Alice claimed Bob was 'guarded' last night. Grace (Doctor) stated she guarded Alice, not Bob. Since only the Doctor can guard, Bob was not protected, making Alice's statement factually impossible unless she is lying/wolf.",
+          "guess": "werewolf"
+        },
+        "Bob": {
+          "confidence": "high",
+          "evidence": "Target of Alice's debunked lie; suspecting him as the wolf attempting to shift blame onto the town's call for investigation; behavior is contradictory given Alice's death.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Start Day 1 discussion early to voice strong initial stance and listen."
+        },
+        {
+          "round": 1,
+          "text": "Acting on high suspicion derived from the contradiction in Alice's testimony regarding who was guarded last night."
+        },
+        {
+          "round": 2,
+          "text": "Bid to speak and warn the village that Bob votes against his accuser, suggesting he might be the wolf using her to get a low-vote exile."
+        },
+        {
+          "round": 2,
+          "text": "Voting based on previous belief set. Bob failed to address the contradiction in Alice's testimony regarding the guarding event, and is now accusing me of wolf behavior without evidence. He seems to be protecting himself rather than investigating the truth."
+        }
+      ],
+      "plan": ""
+    },
+    "Eve": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "high",
+          "evidence": "Alice claims Bob was guarded last night by the Doctor. Grace claims she is the Doctor and guarded Alice. Since only the Doctor can guard one player, it is impossible for both Alice to speak the truth and her claim about Bob being guarded to be true. She is lying to frame Bob.",
+          "guess": "werewolf"
+        },
+        "Dave": {
+          "confidence": "medium",
+          "evidence": "Accuses Bob of being a wolf immediately after Alice's discredited claims, aligning perfectly with Frank who also calls for Bob's exile. This coordinated attack on an innocent-appearing player suggests wolf behavior to eliminate a potential dissenting villager.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Alice is likely a wolf creating confusion. Bob is framed."
+        },
+        {
+          "round": 1,
+          "text": "Alice lied about Bob being guarded, contradicting Grace (the Doctor). This proves Alice is a wolf trying to frame Bob."
+        },
+        {
+          "round": 2,
+          "text": "Grace died. She claimed to be the Doctor. If she was truthful, she guarded Alice (villager) or herself? No, log said 'you protected Alice'. If she is Doctor and died, she is villager. But her testimony contradicted night logs (she said she guarded Alice, but context implied confusion). If she was a wolf, she might have been the Doctor wolf. Either way, we lost a villager or a wolf? Actually, if Grace was the Doctor villager, the village is now 3 vs 3+ wolves. Alice (Seer) was a wolf. Bob is suspected. Need to speak to clarify and vote."
+        },
+        {
+          "round": 2,
+          "text": "Bob was the target of Alice's impossible claim. Defending him prevents rash voting based on confusion created by a dead player's (Grace) conflicting info."
+        }
+      ],
+      "plan": ""
+    },
+    "Frank": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "high",
+          "evidence": "Alice claimed seer and accused Bob; her statement about Bob being guarded contradicted Grace's doctor claim; she's likely the real seer and a threat to the werewolf pack.",
+          "guess": "seer (village)"
+        },
+        "Dave": {
+          "confidence": "medium",
+          "evidence": "Dave is pushing hard to exile Bob based on Alice's discredited claim; this threatens my pack.",
+          "guess": "villager (or possible seer)"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Targeting Alice as discussed with Bob; she seems strategic and could be a threat."
+        },
+        {
+          "round": 1,
+          "text": "Placing a moderate bid to speak early in the discussion. Need to steer suspicion away from Bob and me."
+        },
+        {
+          "round": 1,
+          "text": "Defending my packmate Bob to keep him alive and sow doubt on Alice."
+        },
+        {
+          "round": 1,
+          "text": "Alice is the likely real seer; removing her protects Bob and our pack."
+        },
+        {
+          "round": 2,
+          "text": "Targeting Grace who claimed Doctor; if true, she's a key village role. Bob suggested her as a priority too."
+        },
+        {
+          "round": 2,
+          "text": "Bidding moderately to get a speaking slot, need to steer suspicion away from Bob and me."
+        },
+        {
+          "round": 2,
+          "text": "Supporting Bob's accusation of Dave to create a common enemy."
+        },
+        {
+          "round": 2,
+          "text": "Dave is aggressively pushing Bob's exile based on flawed reasoning; voting him out protects our pack."
+        },
+        {
+          "round": 3,
+          "text": "Dave was pushing hard for Bob's exile; removing him weakens village coordination and protects Bob from being accused further."
+        }
+      ],
+      "plan": ""
+    },
+    "Grace": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "high",
+          "evidence": "Alice claimed Bob was guarded last night. However, the game log clearly states the Doctor (Grace) protected Alice. Since only the Doctor can guard a player, Bob could not have been guarded. Alice's statement is factually impossible, proving she is lying. Multiple other players have also flagged this contradiction.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night; no info yet. Guarding Alice arbitrarily. Hope she wasn't targeted."
+        },
+        {
+          "round": 1,
+          "text": "Bidding 50 to ensure I get a speaking slot early on to question Alice about her protection strategy and gather intel on others before the werewolves target anyone else."
+        },
+        {
+          "round": 1,
+          "text": "Alice contradicted her own Seer report by claiming Bob was guarded when she is the one who should have known I guarded Alice. Multiple players (Carol, Bob, Dave) already accused her. High probability she is a wolf."
+        },
+        {
+          "round": 1,
+          "text": "Alice claimed Bob was guarded last night, contradicting the Doctor's (myself) action of guarding Alice. This impossibility proves she is lying."
+        },
+        {
+          "round": 2,
+          "text": "Protecting Bob. Alice (the accuser) claimed he was guarded last night, but the log says I guarded Alice and Bob is alive, implying Alice lied or Bob wasn't targeted. Given the confusion and Alice's exile, Bob might be the next target for the wolves trying to create chaos, or he is a key villager defending himself against false allegations. Safest bet to prevent elimination of a confused-looking debater."
+        }
+      ],
+      "plan": "I am the Doctor. I need to gather maximum information in the earliest rounds to identify werewolves before they can eliminate the Doctor. I should prioritize speaking slots aggressively in the next few days to discuss strategy, coordinates the remaining Doctor, and identify potential threats among the remaining players. Once I have a strong lead, I will guide the investigation towards them."
+    }
+  }
+}

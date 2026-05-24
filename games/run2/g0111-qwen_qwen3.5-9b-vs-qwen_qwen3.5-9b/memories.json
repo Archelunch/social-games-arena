@@ -1,0 +1,158 @@
+{
+  "game_id": "g0111-qwen_qwen3.5-9b-vs-qwen_qwen3.5-9b",
+  "memories": {
+    "Alice": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Day 1. Dave died. I have no info. Bidding 80 to secure an early speaking slot to ask questions and gather initial intelligence on player roles and the dead player."
+        },
+        {
+          "round": 1,
+          "text": "Grace's bid for Chris is confusing as Chris is likely dead or not in the current pool (Dave was killed R1). Need to clarify roles."
+        },
+        {
+          "round": 1,
+          "text": "Frank's logic on the night events is flawed. The only victim was Dave. If he protected Grace, she wasn't in danger. If she was in danger, she should be dead (since she wasn't targeted by wolf). His statement tries to confuse the timeline of attacks."
+        },
+        {
+          "round": 1,
+          "text": "Frank claims to be Doctor. While his logic that Grace was untargeted is mechanically possible given only Dave died, he is aggressively defending this against multiple accusers, creating confusion. Suspect as potential Werewolf lying to gaslight, but confidence low due to ambiguity."
+        }
+      ],
+      "plan": ""
+    },
+    "Bob": {
+      "beliefs": {
+        "Frank": {
+          "confidence": "high",
+          "evidence": "Frank claimed 'Grace is alive thanks to my protection, so she wasn't targeted.' This contradicts werewolf mechanics. Protection guarantees survival against a kill, but does not imply the player was not targeted. Asserting that lack of death proves lack of targeting is factually incorrect unless the player died (which she didn't), but the causal link 'thanks to protection, so not targeted' is nonsensical for a Doctor who simply guarded a non-targeted villager or a targeted one. It indicates likelihood of lying.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Securing an early speaking slot on Day 1 to set the tone after Dave's death."
+        },
+        {
+          "round": 1,
+          "text": "Frank is suspicious because the murder report was Dave, yet he fabricated a narrative about protecting Grace which is unnecessary and confusing if she wasn't targeted, or implies a double-target scenario which is impossible for one wolf night."
+        },
+        {
+          "round": 1,
+          "text": "Frank claimed healing Grace meant she wasn't targeted. In the game, healing a non-targeted player is valid and implies nothing about targeting. Stating 'she wasn't targeted' implies protection provided immunity from targeting, which is false. This contradiction suggests he is lying."
+        }
+      ],
+      "plan": "Listen carefully to everyone's statements on Day 1 to identify inconsistencies or suspicious claims about the night kill, rather than jumping to conclusions without evidence."
+    },
+    "Carol": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Following Grace's strategy to target the quiet player who might be a Seer witness."
+        },
+        {
+          "round": 1,
+          "text": "Bidding moderately to speak early in the day and assess the situation after Dave's death."
+        },
+        {
+          "round": 1,
+          "text": "Letting the accusers push Frank further; if he is a wolf, they will excape him. If he is a villager, killing him reduces numbers. No need to act now."
+        },
+        {
+          "round": 1,
+          "text": "Frank's logic regarding the Doctor's protection of a non-targeted player contradicts the actual rules, suggesting a wolf trying to mislead or a confused villager. Alice, Bob, and Eve are all attacking him, which might indicate a wolf pack trying to turn that narrative, but the logical error is strong evidence against him. Voting him risks being a voter error if he is innocent, but trusting the logic error as a wolf tell is safer than ignoring it."
+        },
+        {
+          "round": 2,
+          "text": "Following Grace's strategy to eliminate aggressive players who might bewitchcraft or manipulate the voting. Bob targeted Frank heavily yesterday."
+        }
+      ],
+      "plan": ""
+    },
+    "Dave": {
+      "beliefs": {},
+      "notes": [],
+      "plan": ""
+    },
+    "Eve": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Using first night vision on Alice to establish a baseline for my player pool."
+        },
+        {
+          "round": 1,
+          "text": "Need to claim my info on Alice is vetted and listen to accusations against Dave/Frank/Carol."
+        },
+        {
+          "round": 1,
+          "text": "Suspect Frank is a Wolf. He claimed to be the Doctor and protected Grace, but only Dave died. Bob and Alice correctly noted the logical flaw in assuming protection mattered if the target wasn't hit. Frank's defensiveness and attempt to justify lying about the mechanics suggest he is a wolf trying to pass as the Doctor to avoid being killed or to turn votes."
+        },
+        {
+          "round": 2,
+          "text": "Frank claims to be Doctor protecting Grace. Investigating if she is a wolf to validate or refute the Doctor accusation logic regarding her survival."
+        }
+      ],
+      "plan": ""
+    },
+    "Frank": {
+      "beliefs": {
+        "Bob": {
+          "confidence": "low",
+          "evidence": "No obvious alibi or evidence, and he is an early suspect.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Randomly selected Grace to protect as night one without specific intel. Waiting to see who dies to deduce if the target was Grace or someone else."
+        },
+        {
+          "round": 1,
+          "text": "Need to speak early to explain the kill and safe player, as it is unusual to have a kill early."
+        },
+        {
+          "round": 1,
+          "text": "Playing the Doctor role openly to encourage discussion about the kill and roles. Observing reactions to Grace's safety and the mention of Chris/Dave as Seer candidate."
+        },
+        {
+          "round": 1,
+          "text": "Successful defense against coordinated false accusation by Bob and Alice (likely wolves)."
+        }
+      ],
+      "plan": ""
+    },
+    "Grace": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Reinforcing the earlier decision to target Dave as he appeared quiet and potentially uninvestigated yet during the day. Sticking to the established target to coordinate with Carol."
+        },
+        {
+          "round": 1,
+          "text": "First day, need to speak to coordinate wolf kills and assess remaining players."
+        },
+        {
+          "round": 1,
+          "text": "Frank claimed to be Doctor and protected me. Alice pointed out my bid for Chris didn't work. No clear evidence to accuse yet."
+        },
+        {
+          "round": 1,
+          "text": "Frank lied about Doctor mechanics regarding Grace's survival. He claimed protecting an untargeted player was suspicious, but a real Doctor protects anyone. This error strongly suggests he is the Seer or a savage wolf pretending to be Doctor to spread chaos, but the fact he messed up the Seer/Doctor distinction hints at Seer trying to play Doctor or just a severe bluff. Either way, he is the biggest threat and the least likely to get saved compared to a strong villager. Vote him to exile now."
+        },
+        {
+          "round": 2,
+          "text": "Bob's aggressive accusation of Frank suggests he is trying to discredit all Doctor claims as a strategy. Targeting him helps us thin the herd of potential villagers/seers."
+        }
+      ],
+      "plan": ""
+    }
+  }
+}

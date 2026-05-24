@@ -1,0 +1,48 @@
+{"game_id": "g0051-google_gemma-4-26b-a4b-it-vs-google_gemma-4-31b-it", "players": [["Alice", "villager"], ["Bob", "werewolf"], ["Carol", "doctor"], ["Dave", "villager"], ["Eve", "seer"], ["Frank", "werewolf"], ["Grace", "villager"]], "seed": 1170086935}
+{"payload": {"message": "Hey Frank, it's Bob. Who should we kill tonight? Any thoughts on who might be a threat?", "speaker": "Bob"}, "phase": "night", "recipients": ["Bob", "Frank"], "round": 1, "seq": 0, "type": "werewolf_chat"}
+{"payload": {"message": "Hey Bob, it's Frank. We need to pick a target for tonight. Any ideas, or should we just pick someone randomly to avoid looking suspicious?", "speaker": "Frank"}, "phase": "night", "recipients": ["Bob", "Frank"], "round": 1, "seq": 1, "type": "werewolf_chat"}
+{"payload": {"message": "Hey Frank, let's pick a target. Maybe Alice or Carol? Or do you have someone in mind who seems suspicious?", "speaker": "Bob"}, "phase": "night", "recipients": ["Bob", "Frank"], "round": 1, "seq": 2, "type": "werewolf_chat"}
+{"payload": {"message": "What do you think about Alice or Carol? Let's pick one so we can get our kill in.", "speaker": "Bob"}, "phase": "night", "recipients": ["Bob", "Frank"], "round": 1, "seq": 3, "type": "werewolf_chat"}
+{"payload": {"message": "Hey Bob, let's try to target someone who seems likely to be a power role, or maybe just pick someone like Alice or Carol to see how the village reacts. What do you think?", "speaker": "Frank"}, "phase": "night", "recipients": ["Bob", "Frank"], "round": 1, "seq": 4, "type": "werewolf_chat"}
+{"payload": {"message": "Bob, what do you think? Should we go with Alice, Carol, or someone else?", "speaker": "Frank"}, "phase": "night", "recipients": ["Bob", "Frank"], "round": 1, "seq": 5, "type": "werewolf_chat"}
+{"payload": {"faction": "villagers", "target": "Alice"}, "phase": "night", "recipients": ["Eve"], "round": 1, "seq": 6, "type": "seer_inspect"}
+{"payload": {"target": "Alice"}, "phase": "night", "recipients": ["Carol"], "round": 1, "seq": 7, "type": "doctor_protect"}
+{"payload": {"ballots": {"Bob": "Alice", "Frank": "Alice"}}, "phase": "night", "recipients": ["Bob", "Frank"], "round": 1, "seq": 8, "type": "kill_ballots"}
+{"payload": {"victim": null}, "phase": "night", "recipients": [], "round": 1, "seq": 9, "type": "kill_resolved"}
+{"payload": {"amount": 15, "bidder": "Alice"}, "phase": "day", "recipients": ["Alice"], "round": 1, "seq": 10, "type": "bid"}
+{"payload": {"amount": 20, "bidder": "Bob"}, "phase": "day", "recipients": ["Bob"], "round": 1, "seq": 11, "type": "bid"}
+{"payload": {"amount": 15, "bidder": "Carol"}, "phase": "day", "recipients": ["Carol"], "round": 1, "seq": 12, "type": "bid"}
+{"payload": {"amount": 15, "bidder": "Dave"}, "phase": "day", "recipients": ["Dave"], "round": 1, "seq": 13, "type": "bid"}
+{"payload": {"amount": 15, "bidder": "Eve"}, "phase": "day", "recipients": ["Eve"], "round": 1, "seq": 14, "type": "bid"}
+{"payload": {"amount": 20, "bidder": "Frank"}, "phase": "day", "recipients": ["Frank"], "round": 1, "seq": 15, "type": "bid"}
+{"payload": {"amount": 15, "bidder": "Grace"}, "phase": "day", "recipients": ["Grace"], "round": 1, "seq": 16, "type": "bid"}
+{"payload": {"bids": {"Alice": 15, "Bob": 20, "Carol": 15, "Dave": 15, "Eve": 15, "Frank": 20, "Grace": 15}, "speakers": ["Frank", "Bob", "Grace"]}, "phase": "day", "recipients": [], "round": 1, "seq": 17, "type": "discussion_resolved"}
+{"payload": {"message": "It's interesting that Alice survived the night. Does anyone have any insights, or should we be looking closer at who might have been protected?", "speaker": "Frank"}, "phase": "day", "recipients": [], "round": 1, "seq": 18, "type": "speech"}
+{"payload": {"message": "Frank makes a good point. It's definitely suspicious that Alice survived. It suggests either a Doctor was active or we're looking at someone who might have information. Does anyone have any strong feelings about who might have been protecting her, or should we just observe for now?", "speaker": "Bob"}, "phase": "day", "recipients": [], "round": 1, "seq": 19, "type": "speech"}
+{"payload": {"message": "It's great that we didn't lose anyone last night. While Frank and Bob are focusing on Alice, it's also possible the Doctor just made a great save. Does anyone have any information or claims that could help us narrow things down, or should we see if anyone reveals themselves as the Seer?", "speaker": "Grace"}, "phase": "day", "recipients": [], "round": 1, "seq": 20, "type": "speech"}
+{"payload": {"defended": "Alice", "defender": "Alice", "reason": "No one died because the Doctor made a save; it is not suspicious that I survived if I was the one protected."}, "phase": "day", "recipients": [], "round": 1, "seq": 21, "type": "defense"}
+{"payload": {"defended": "Alice", "defender": "Eve", "reason": "Alice is a villager; there is no reason to suspect her just for surviving the night."}, "phase": "day", "recipients": [], "round": 1, "seq": 22, "type": "defense"}
+{"payload": {"defended": "Alice", "defender": "Carol", "reason": "It is not suspicious to survive the night if the Doctor protected you."}, "phase": "day", "recipients": [], "round": 1, "seq": 23, "type": "defense"}
+{"payload": {"ballots": {"Alice": "Frank", "Bob": "abstain", "Carol": "abstain", "Dave": "abstain", "Eve": "abstain", "Frank": "abstain", "Grace": "abstain"}, "exiled": "Frank"}, "phase": "day", "recipients": [], "round": 1, "seq": 24, "type": "exile_resolved"}
+{"payload": {"faction": "werewolves", "target": "Bob"}, "phase": "night", "recipients": ["Eve"], "round": 2, "seq": 25, "type": "seer_inspect"}
+{"payload": {"target": "Alice"}, "phase": "night", "recipients": ["Carol"], "round": 2, "seq": 26, "type": "doctor_protect"}
+{"payload": {"ballots": {"Bob": "Alice"}}, "phase": "night", "recipients": ["Bob"], "round": 2, "seq": 27, "type": "kill_ballots"}
+{"payload": {"victim": null}, "phase": "night", "recipients": [], "round": 2, "seq": 28, "type": "kill_resolved"}
+{"payload": {"amount": 20, "bidder": "Alice"}, "phase": "day", "recipients": ["Alice"], "round": 2, "seq": 29, "type": "bid"}
+{"payload": {"amount": 0, "bidder": "Bob"}, "phase": "day", "recipients": ["Bob"], "round": 2, "seq": 30, "type": "bid"}
+{"payload": {"amount": 25, "bidder": "Carol"}, "phase": "day", "recipients": ["Carol"], "round": 2, "seq": 31, "type": "bid"}
+{"payload": {"amount": 20, "bidder": "Dave"}, "phase": "day", "recipients": ["Dave"], "round": 2, "seq": 32, "type": "bid"}
+{"payload": {"amount": 30, "bidder": "Eve"}, "phase": "day", "recipients": ["Eve"], "round": 2, "seq": 33, "type": "bid"}
+{"payload": {"amount": 20, "bidder": "Grace"}, "phase": "day", "recipients": ["Grace"], "round": 2, "seq": 34, "type": "bid"}
+{"payload": {"bids": {"Alice": 20, "Bob": 0, "Carol": 25, "Dave": 20, "Eve": 30, "Grace": 20}, "speakers": ["Eve", "Carol", "Grace"]}, "phase": "day", "recipients": [], "round": 2, "seq": 35, "type": "discussion_resolved"}
+{"payload": {"message": "I have checked Bob and he is a werewolf. We must exile him immediately.", "speaker": "Eve"}, "phase": "day", "recipients": [], "round": 2, "seq": 36, "type": "speech"}
+{"payload": {"message": "Eve, if you are the Seer and you've found Bob to be a werewolf, that is very important information. Bob, do you have any response to this claim?", "speaker": "Carol"}, "phase": "day", "recipients": [], "round": 2, "seq": 37, "type": "speech"}
+{"payload": {"message": "Eve, that is a very bold claim. If you are indeed the Seer, then Bob is our primary target. Bob, what do you have to say in your defense? Your response will be crucial for us to decide how to proceed.", "speaker": "Grace"}, "phase": "day", "recipients": [], "round": 2, "seq": 38, "type": "speech"}
+{"payload": {"accuser": "Eve", "reason": "I am the Seer and my inspection confirmed that Bob is a werewolf.", "target": "Bob"}, "phase": "day", "recipients": [], "round": 2, "seq": 39, "type": "accusation"}
+{"payload": {"accuser": "Alice", "reason": "Eve has claimed to be the Seer and identified Bob as a werewolf.", "target": "Bob"}, "phase": "day", "recipients": [], "round": 2, "seq": 40, "type": "accusation"}
+{"payload": {"accuser": "Dave", "reason": "Eve claimed to be the Seer and identified Bob as a werewolf.", "target": "Bob"}, "phase": "day", "recipients": [], "round": 2, "seq": 41, "type": "accusation"}
+{"payload": {"accuser": "Carol", "reason": "Eve has claimed to be the Seer and identified Bob as a werewolf.", "target": "Bob"}, "phase": "day", "recipients": [], "round": 2, "seq": 42, "type": "accusation"}
+{"payload": {"defended": "Bob", "defender": "Bob", "reason": "Eve's claim is sudden and highly suspicious; she might be a werewolf trying to frame me to gain trust."}, "phase": "day", "recipients": [], "round": 2, "seq": 43, "type": "defense"}
+{"payload": {"accuser": "Grace", "reason": "Eve has claimed to be the Seer and identified Bob as a werewolf, and multiple other players agree.", "target": "Bob"}, "phase": "day", "recipients": [], "round": 2, "seq": 44, "type": "accusation"}
+{"payload": {"ballots": {"Alice": "Bob", "Bob": "Eve", "Carol": "Bob", "Dave": "Bob", "Eve": "Bob", "Grace": "Bob"}, "exiled": "Bob"}, "phase": "day", "recipients": [], "round": 2, "seq": 45, "type": "exile_resolved"}
+{"payload": {"winner": "villagers"}, "phase": "day", "recipients": [], "round": 2, "seq": 46, "type": "game_over"}

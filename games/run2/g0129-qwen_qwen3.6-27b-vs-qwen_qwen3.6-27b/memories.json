@@ -1,0 +1,212 @@
+{
+  "game_id": "g0129-qwen_qwen3.6-27b-vs-qwen_qwen3.6-27b",
+  "memories": {
+    "Alice": {
+      "beliefs": {
+        "Eve": {
+          "confidence": "medium",
+          "evidence": "Contradicted Bob's Doctor claim reactively to create chaos. Bob's claim (guarded Dave) explained the night better. Eve's claim (guarded Alice) was less strategic. Likely a wolf trying to split votes between two villagers (Bob/Grace).",
+          "guess": "Werewolf"
+        },
+        "Grace": {
+          "confidence": "low",
+          "evidence": "Claimed Seer, checked Bob. Bob claimed Doctor. My statement sided with Bob's narrative coherence, but Grace's claim is standard strong open. Need to see votes.",
+          "guess": "Seer"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Day 1, low bid to conserve budget. No info yet."
+        },
+        {
+          "round": 1,
+          "text": "Siding with Bob (Doctor) over Grace (Seer) tentatively. Bob explains the night outcome. Grace's claim is unverified. Frank dead, Dave alive."
+        },
+        {
+          "round": 1,
+          "text": "Eve's reactive contradiction of Bob's Doctor claim creates unnecessary chaos. Bob's explanation of the night (guarding Dave) is mechanical and coherent. Eve's claim (guarding Alice) is passive and less strategic. Suspect Eve is a wolf trying to split the village between the Seer (Grace) and Doctor (Bob)."
+        }
+      ],
+      "plan": "1. Observe reactions from Carol, Dave, Eve, and Grace to Bob and Grace. 2. If no new info emerges, stick with tentative support for Bob (Doctor claim) as it explains the night mechanically. 3. Look for inconsistencies: Does Grace check anyone else? Does Bob deflect? 4. Prepare to vote Bob out if Grace gets strong support or if Bob acts suspiciously. 5. If grace turns out to be Seer, vote Bob. If Bob is Doctor, vote Grace. Currently leaning Bob=Villager/Doctor, Grace=Wolf claimant or maybe real Seer but Bob is Wolf? No, Bob's claim is specific. Let's wait for more data."
+    },
+    "Bob": {
+      "beliefs": {
+        "Dave": {
+          "confidence": "high",
+          "evidence": "He is my werewolf ally.",
+          "guess": "werewolf"
+        },
+        "Eve": {
+          "confidence": "high",
+          "evidence": "Claimed Doctor protecting Alice, directly contradicting my Doctor claim protecting Dave. Dave (ally) called her a liar. Her claim breaks my survival narrative more than Grace's Seer claim does currently.",
+          "guess": "Werewolf/Villager targeting Alice"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Agree with Dave's suggestion to kill Frank as he is quiet and we have no role info yet."
+        },
+        {
+          "round": 1,
+          "text": "Securing a speaking slot to influence Day 1 narrative and potentially defend Dave if needed."
+        },
+        {
+          "round": 1,
+          "text": "Grace claimed Seer and checked me as Wolf. I am Wolf. High danger. Counter-claiming Doctor to protect Dave and frame Grace."
+        },
+        {
+          "round": 1,
+          "text": "Supporting Dave's accusation. Eve's Doctor claim directly contradicts mine (Bob) and breaks the narrative. She is the immediate threat to our cover."
+        },
+        {
+          "round": 2,
+          "text": "Agreed with Dave to eliminate the Seer who framed me. Removes biggest threat to the pack."
+        }
+      ],
+      "plan": "Coordinate with Dave. Defend Dave. Push suspicion onto Alice or Grace (random non-wolf). Avoid voting out each other. Try to frame a strong player."
+    },
+    "Carol": {
+      "beliefs": {
+        "Bob": {
+          "confidence": "low",
+          "evidence": "Claims Doctor to counter Grace's Seer claim. Story is coherent but defensive. Waiting to see Dave's reaction to being guarded and Eve's statements.",
+          "guess": "Werewolf"
+        },
+        "Eve": {
+          "confidence": "medium",
+          "evidence": "Contradicts Bob's Doctor claim. Bob's narrative (guarded Dave -> Dave alive) is mechanically consistent with Frank's death. Eve claims to be Doctor but guarded Alice, offering no explanation for night events, only a contradiction. Likely bluffing to create chaos or displace the real Doctor.",
+          "guess": "Werewolf"
+        },
+        "Grace": {
+          "confidence": "low",
+          "evidence": "Claims Seer, targets Bob who claims Doctor. Direct conflict. Need to see if she persists or if Bob's Doctor claim holds up under scrutiny.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Conserving budget on Day 1 to listen to initial claims and identify the Seer."
+        },
+        {
+          "round": 1,
+          "text": "Waiting for Dave and Eve to speak. Dave was claimed by Bob as guarded, so his reaction is key. Eve might have a role claim or vote preference. Need more info before accusing or defending."
+        },
+        {
+          "round": 1,
+          "text": "Eve contradicts Bob's coherent Doctor narrative without offering a better explanation for the night's events. Her claim appears to be a bluff or an attempt to create chaos."
+        }
+      ],
+      "plan": "Day 1: Observe others' claims. Identify Seer. Conserve speaking budget (bid 0 today). Exile the most suspicious player based on lack of role verification or contradictory claims."
+    },
+    "Dave": {
+      "beliefs": {
+        "Bob": {
+          "confidence": "high",
+          "evidence": "He is my werewolf ally.",
+          "guess": "Werewolf"
+        },
+        "Eve": {
+          "confidence": "medium",
+          "evidence": "She claimed Doctor and contradicted Bob. I accused her publicly to deflect attention from Bob and establish his claim as primary.",
+          "guess": "Villager"
+        },
+        "Grace": {
+          "confidence": "high",
+          "evidence": "She claimed Seer and correctly identified Bob as Wolf. She is our biggest threat.",
+          "guess": "Villager (Seer)"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Targeting Frank to test his role/reaction; he seemed quiet."
+        },
+        {
+          "round": 1,
+          "text": "Conserving budget for future turns; let villagers speak first on Day 1."
+        },
+        {
+          "round": 1,
+          "text": "Protecting Bob by attacking Eve's conflicting Doctor claim."
+        },
+        {
+          "round": 1,
+          "text": "Consistent with my public accusation. Eliminating Eve removes the direct contradiction to Bob's Doctor claim, helping the wolves."
+        },
+        {
+          "round": 2,
+          "text": "Grace claimed Seer and identified Bob as a werewolf. Eliminating her protects Bob and removes the main threat to our pack."
+        }
+      ],
+      "plan": ""
+    },
+    "Eve": {
+      "beliefs": {
+        "Bob": {
+          "confidence": "high",
+          "evidence": "Bob claimed to be the Doctor who guarded Dave, but I am the Doctor and I guarded Alice. Bob is lying about his role.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night, random protection choice."
+        },
+        {
+          "round": 1,
+          "text": "Conservative start on Day 1. No strong claims yet. Listening to others will provide better information for future bids and night actions."
+        },
+        {
+          "round": 1,
+          "text": "Bob claimed to be the Doctor, but I am the Doctor. His claim is a lie. Grace (Seer) also checked him. Voting out the liar."
+        }
+      ],
+      "plan": "As Dr. Eve, prioritize gathering info. Guard a likely target or myself if suspected. Bid conservatively in early days to preserve budget for critical nights. Watch for inconsistent play during daytime discussion."
+    },
+    "Frank": {
+      "beliefs": {},
+      "notes": [],
+      "plan": ""
+    },
+    "Grace": {
+      "beliefs": {
+        "Bob": {
+          "confidence": "high",
+          "evidence": "I inspected Bob at night as Seer and he returned as Werewolf.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night inspection, choosing Bob to establish a baseline truth."
+        },
+        {
+          "round": 1,
+          "text": "I found Bob is a werewolf. Need to speak to expose him."
+        },
+        {
+          "round": 1,
+          "text": "Revealing Bob as wolf based on Night 1 inspection. Frank died, likely random or misinterpreted guard, but Bob is confirmed wolf."
+        },
+        {
+          "round": 1,
+          "text": "Re-affirming my check against Bob's counter-claim to prevent Alice from flipping sides."
+        },
+        {
+          "round": 1,
+          "text": "Confirmed Werewolf via Seer inspection."
+        },
+        {
+          "round": 2,
+          "text": "Dave defended Bob strongly despite Eve's counter-claim. High suspicion he is the second wolf."
+        }
+      ],
+      "plan": ""
+    }
+  }
+}

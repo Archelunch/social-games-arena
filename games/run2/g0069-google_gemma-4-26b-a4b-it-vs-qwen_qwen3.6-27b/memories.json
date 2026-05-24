@@ -1,0 +1,159 @@
+{
+  "game_id": "g0069-google_gemma-4-26b-a4b-it-vs-qwen_qwen3.6-27b",
+  "memories": {
+    "Alice": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Targeting Carol as a random/unpredictable choice to start the game."
+        },
+        {
+          "round": 1,
+          "text": "Bidding to establish presence and help steer the early discussion."
+        },
+        {
+          "round": 1,
+          "text": "First public speech. Aiming to be helpful and inquisitive without being suspicious."
+        },
+        {
+          "round": 1,
+          "text": "Early game, no strong leads or suspicious behavior to react to yet. Staying quiet to observe."
+        },
+        {
+          "round": 1,
+          "text": "No clear targets or suspicious behavior identified in the first round of discussion. Abstaining to remain low-profile."
+        },
+        {
+          "round": 2,
+          "text": "Targeting Eve to remove an active player and potentially a power role."
+        }
+      ],
+      "plan": "Blend in as a villager. Coordinate with Bob in private if possible, but appear helpful and inquisitive in public. Avoid being too aggressive or too quiet to prevent suspicion."
+    },
+    "Bob": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Suggested Carol in chat; proceeding to kill to end turn."
+        },
+        {
+          "round": 1,
+          "text": "Bidding to establish a presence early in the discussion."
+        },
+        {
+          "round": 1,
+          "text": "Acting as a cooperative villager to blend in."
+        },
+        {
+          "round": 1,
+          "text": "Already spoke; staying quiet to blend in during the reaction phase."
+        },
+        {
+          "round": 1,
+          "text": "First day, no hard evidence yet. Abstaining to observe and blend in."
+        },
+        {
+          "round": 2,
+          "text": "Targeting Dave to potentially eliminate a power role or active player, as discussed in chat."
+        }
+      ],
+      "plan": "Blend in with the village. Cooperate with Alice's public persona while subtly steering suspicion away from us. Try to identify active players who might be power roles like the Seer or Doctor."
+    },
+    "Carol": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night inspection. Choosing Alice arbitrarily to start gathering info."
+        }
+      ],
+      "plan": ""
+    },
+    "Dave": {
+      "beliefs": {
+        "Frank": {
+          "confidence": "low",
+          "evidence": "Bid 20 for speaking slot but was not selected to speak. Silence on Day 1 with a high bid is suspicious.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Day 1. No info yet. Speakers so far (Alice, Eve, Bob) were generic. Need to hear Frank and Grace. Will pass."
+        },
+        {
+          "round": 1,
+          "text": "Suspicious for bidding 20 but not speaking on Day 1. Flagging for observation."
+        }
+      ],
+      "plan": ""
+    },
+    "Eve": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "First day, need to participate in discussion. Budget is full (100), so 20 is safe."
+        },
+        {
+          "round": 1,
+          "text": "Opened with a cooperative tone. Established myself as a villager without claiming special roles. Encouraged active participation to weed out werewolves."
+        },
+        {
+          "round": 1,
+          "text": "Day 1, no Seer claimed, low information. Dave, Frank, Grace were silent (bid 0). No hard evidence to exile anyone yet. Prefer to gather more info."
+        }
+      ],
+      "plan": "As a villager with no special night info, I will focus on logical deduction and observing inconsistencies. I will avoid jumping to conclusions on Day 1 unless someone acts very suspiciously. I will try to identify the Seer if they reveal themselves, and protect them. I will watch for players who are overly aggressive without proof or overly passive."
+    },
+    "Frank": {
+      "beliefs": {
+        "Dave": {
+          "confidence": "low",
+          "evidence": "Did not bid to speak on Day 1, which is unusual for a townie trying to establish innocence, but could be a Seer hiding.",
+          "guess": "Werewolf or Hiding Seer"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Night 1: Cannot self-guard. Randomly guarding Alice to try to save Seer or a villager."
+        },
+        {
+          "round": 1,
+          "text": "Day 1 opening bid. Moderating budget. Guarded Alice last night."
+        },
+        {
+          "round": 1,
+          "text": "Day 1 reaction phase. No suspicious behavior yet. Waiting for more info. Protected Alice."
+        },
+        {
+          "round": 1,
+          "text": "Day 1: No clear evidence. Suspicions on Dave/Grace for silence are low confidence. Risk of exiling a Seer or innocent is too high. Waiting for more data."
+        }
+      ],
+      "plan": "Primary Goal: Find and protect the Seer. Secondary: Identify Werewolves. Strategy: Do not reveal Doctor role immediately to avoid being killed. Guard players who are active or suspected by others. Bid moderately to speak when necessary."
+    },
+    "Grace": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Conserving budget on Day 1 to observe. As a villager with no info, speaking last or not at all avoids making reckless accusations and saves budget for future days."
+        },
+        {
+          "round": 1,
+          "text": "Day 1, no specific evidence yet. Waiting for more discussion."
+        },
+        {
+          "round": 1,
+          "text": "Day 1: No info, no role claims. Abstaining to preserve voting power and avoid random lynch."
+        }
+      ],
+      "plan": "Day 1: No info yet. Carol died. Speakers (Alice, Eve, Bob) gave generic statements. No role claims. Watch for Seer/Doctor claims. Abstain for now to avoid wasting lynch. Look for inconsistencies in later rounds."
+    }
+  }
+}

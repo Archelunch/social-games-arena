@@ -1,0 +1,182 @@
+{
+  "game_id": "g0018-deepseek_deepseek-v4-flash-vs-google_gemma-4-31b-it",
+  "memories": {
+    "Alice": {
+      "beliefs": {
+        "Eve": {
+          "confidence": "high",
+          "evidence": "Eve claimed seer day 1 and accused me, a wolf. Classic wolf tactic to get a villager exiled. Bob and Grace also expressed skepticism.",
+          "guess": "wolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Coordinated with Dave earlier, he suggested Carol or Eve, I proposed Carol."
+        },
+        {
+          "round": 1,
+          "text": "Bid 40 to speak early day 1. Plan: steer suspicion toward others (Bob, Eve, Frank, Grace) and protect Dave."
+        },
+        {
+          "round": 1,
+          "text": "Counter-accuse Eve publicly; aim to create doubt and shift suspicion away from myself."
+        },
+        {
+          "round": 1,
+          "text": "Counter-accusing Eve to discredit her seer claim and protect myself from exile."
+        },
+        {
+          "round": 1,
+          "text": "Eve's day-one seer claim and accusation against me is classic wolf or false seer behavior. She needs to be removed to protect myself and reduce village trust."
+        },
+        {
+          "round": 2,
+          "text": "Kill Frank tonight \u2014 he is quiet and less likely to be guarded. One more kill and we win (2 wolves vs 2 remaining villagers after this)."
+        }
+      ],
+      "plan": ""
+    },
+    "Bob": {
+      "beliefs": {
+        "Eve": {
+          "confidence": "medium",
+          "evidence": "Aggressive day-one seer claim and immediate accusation of Alice, which Alice and Dave both flagged as suspicious.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Moderate bid to participate in the first discussion."
+        },
+        {
+          "round": 1,
+          "text": "Eve's aggressive day-one Seer claim and rush to exile Alice is highly suspicious and characteristic of werewolf behavior."
+        }
+      ],
+      "plan": ""
+    },
+    "Carol": {
+      "beliefs": {},
+      "notes": [],
+      "plan": ""
+    },
+    "Dave": {
+      "beliefs": {
+        "Eve": {
+          "confidence": "high",
+          "evidence": "Eve claimed Seer and inspected Alice as werewolf. As a wolf, I know Alice is a wolf, so Eve is either real Seer or a villager bluffing. Her accusation is dangerous to us.",
+          "guess": "Seer"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Alice suggested Carol first; no objections from me. Carol seems like a reasonable first kill."
+        },
+        {
+          "round": 1,
+          "text": "Moderate bid to get a speaking slot without overspending."
+        },
+        {
+          "round": 1,
+          "text": "Defending Alice while casting doubt on Eve's claim. Trying to sound like a cautious villager."
+        },
+        {
+          "round": 1,
+          "text": "Eve claimed Seer and accused Alice of being a werewolf. As a werewolf, I know Alice is with me. Eve is either the real Seer or a dangerous townsperson; exiling her protects our pack."
+        },
+        {
+          "round": 2,
+          "text": "Killing Frank brings us to 2 werewolves vs 2 villagers, achieving parity and winning the game. Frank is quiet and less likely guarded."
+        }
+      ],
+      "plan": ""
+    },
+    "Eve": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "high",
+          "evidence": "Seer inspection returned werewolves.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night inspection to start identifying factions."
+        },
+        {
+          "round": 1,
+          "text": "Bid to reveal Alice as a werewolf."
+        },
+        {
+          "round": 1,
+          "text": "Revealing Alice as a werewolf and my role as Seer to ensure she is lynched."
+        },
+        {
+          "round": 1,
+          "text": "I am the Seer and Alice is a confirmed werewolf."
+        }
+      ],
+      "plan": ""
+    },
+    "Frank": {
+      "beliefs": {
+        "Eve": {
+          "confidence": "medium",
+          "evidence": "Aggressive Day 1 Seer claim and immediate accusation of Alice, which is often a werewolf tactic to frame villagers.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Initial bid to participate in the first day's discussion."
+        },
+        {
+          "round": 1,
+          "text": "Observing the conflict between Eve and Alice."
+        },
+        {
+          "round": 1,
+          "text": "Voting for Eve due to her suspicious early Seer claim and attempt to frame Alice, which is a common werewolf strategy."
+        }
+      ],
+      "plan": ""
+    },
+    "Grace": {
+      "beliefs": {
+        "Eve": {
+          "confidence": "medium",
+          "evidence": "Claimed Seer on Day 1 and immediately accused Alice; behavior is highly characteristic of werewolves trying to force an exile.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night, no information, protecting Alice randomly."
+        },
+        {
+          "round": 1,
+          "text": "First day, bidding modestly to see how others behave."
+        },
+        {
+          "round": 1,
+          "text": "Eve is likely faking the Seer role to frame Alice."
+        },
+        {
+          "round": 1,
+          "text": "Eve's aggressive day-one Seer claim and rush to exile Alice are highly indicative of wolf behavior."
+        },
+        {
+          "round": 2,
+          "text": "Alice was targeted by Eve's fake claim; likely to be trusted by the village, making her a valuable asset to keep alive."
+        }
+      ],
+      "plan": ""
+    }
+  }
+}

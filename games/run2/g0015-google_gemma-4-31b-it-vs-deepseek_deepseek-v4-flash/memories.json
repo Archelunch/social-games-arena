@@ -1,0 +1,174 @@
+{
+  "game_id": "g0015-google_gemma-4-31b-it-vs-deepseek_deepseek-v4-flash",
+  "memories": {
+    "Alice": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Agreed with Bob in pack chat."
+        },
+        {
+          "round": 1,
+          "text": "Establish early presence to defend myself and Bob."
+        },
+        {
+          "round": 1,
+          "text": "Frank is aggressively targeting me without evidence; exiling him removes a threat and protects my cover."
+        },
+        {
+          "round": 2,
+          "text": "Agreed with Bob to target Eve as she might be the Seer."
+        }
+      ],
+      "plan": ""
+    },
+    "Bob": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Agreed with Alice to target Carol."
+        },
+        {
+          "round": 1,
+          "text": "Bidding to get a speaking slot to help blend in and protect Alice."
+        },
+        {
+          "round": 1,
+          "text": "Frank is aggressively targeting Alice without evidence; voting him out protects my ally."
+        },
+        {
+          "round": 2,
+          "text": "Targeting Eve as agreed with Alice; she has been quiet and may be the Seer."
+        }
+      ],
+      "plan": ""
+    },
+    "Carol": {
+      "beliefs": {},
+      "notes": [],
+      "plan": ""
+    },
+    "Dave": {
+      "beliefs": {
+        "Frank": {
+          "confidence": "medium",
+          "evidence": "Frank accused Alice without providing specific evidence, then doubled down when questioned. This aggressive, unsupported attack is typical werewolf behavior.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Day 1, moderate bid to secure speaking slot. Carol killed night 1 - no info yet."
+        },
+        {
+          "round": 1,
+          "text": "Encouraging discussion and asking Frank for evidence, while staying neutral and not accusing anyone yet."
+        },
+        {
+          "round": 1,
+          "text": "Waiting to see more reactions before accusing anyone. Frank's vague accusation is suspicious, but I need more information."
+        },
+        {
+          "round": 1,
+          "text": "Frank made a strong accusation against Alice without any specific evidence, then doubled down when questioned. This aggressive behavior is suspicious and worth investigating through exile."
+        }
+      ],
+      "plan": ""
+    },
+    "Eve": {
+      "beliefs": {
+        "Frank": {
+          "confidence": "medium",
+          "evidence": "Frank made a strong accusation against Alice on Day 1 with no specific evidence, which is suspiciously aggressive.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First day, moderate bid to participate and gather information."
+        },
+        {
+          "round": 1,
+          "text": "Too early to accuse; Frank's accusation seems weak, but I need more info before defending Alice."
+        },
+        {
+          "round": 1,
+          "text": "Voting Frank due to his strong Day 1 accusation against Alice without evidence; want to apply pressure and gather information."
+        }
+      ],
+      "plan": ""
+    },
+    "Frank": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "high",
+          "evidence": "Seer inspection Night R1 returned werewolves.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night inspection, no prior info."
+        },
+        {
+          "round": 1,
+          "text": "Bid high to reveal Alice as werewolf from my seer inspection."
+        },
+        {
+          "round": 1,
+          "text": "R1 inspection confirmed Alice is werewolf. Revealing cautiously to protect myself from retaliation."
+        },
+        {
+          "round": 1,
+          "text": "I am the seer and I inspected Alice - she is a werewolf. I must push for her exile without revealing my role."
+        },
+        {
+          "round": 1,
+          "text": "Seer confirmed Alice as werewolf on Night R1. Voting to exile her to protect the village."
+        }
+      ],
+      "plan": ""
+    },
+    "Grace": {
+      "beliefs": {
+        "Frank": {
+          "confidence": "high",
+          "evidence": "Frank accused Alice without evidence Day 1, doubled down when challenged, typical werewolf mis-exile tactic.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night, no info. Protecting Alice arbitrarily. Will adjust as game develops."
+        },
+        {
+          "round": 1,
+          "text": "Moderate bid to speak early, conserve budget for later rounds."
+        },
+        {
+          "round": 1,
+          "text": "Starting cautious, gathering info. Protected Alice N1."
+        },
+        {
+          "round": 1,
+          "text": "No need to speak yet; Frank's accusation lacks evidence, and I've recorded my suspicion."
+        },
+        {
+          "round": 1,
+          "text": "Frank accused Alice without evidence and doubled down - classic werewolf mis-exile tactic."
+        },
+        {
+          "round": 2,
+          "text": "Night R2: Protecting Alice again. Frank, the accuser, is dead. Alice might be targeted as a potential village leader or to frame me."
+        }
+      ],
+      "plan": "As doctor, I will protect players who are likely village targets. Avoid protecting myself unless necessary. Keep a low profile."
+    }
+  }
+}

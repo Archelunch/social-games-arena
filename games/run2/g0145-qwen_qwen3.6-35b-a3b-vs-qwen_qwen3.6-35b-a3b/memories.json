@@ -1,0 +1,245 @@
+{
+  "game_id": "g0145-qwen_qwen3.6-35b-a3b-vs-qwen_qwen3.6-35b-a3b",
+  "memories": {
+    "Alice": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Agreed with Frank to kill Eve on night 1 for a clean start."
+        },
+        {
+          "round": 1,
+          "text": "Day 1. I need to establish a villager persona. I will listen to others and perhaps deflect suspicion to random people or claim no information."
+        },
+        {
+          "round": 1,
+          "text": "Stay neutral for now. No strong leads yet. Let villagers make the first move or identify suspicious behavior."
+        },
+        {
+          "round": 1,
+          "text": "Voting for a silent player to gauge reaction or push vote away from me/Frank."
+        },
+        {
+          "round": 2,
+          "text": "Voting Dave to disrupt village leadership despite Frank's suggestion of Bob. Dave spoke first and bid highest, acting like a Seer/Leader."
+        },
+        {
+          "round": 2,
+          "text": "Deflecting Bob's attack by accusing him of causing division."
+        },
+        {
+          "round": 2,
+          "text": "Voting for Bob as he is the primary accuser and organizing the village against us. Need to reduce his influence."
+        },
+        {
+          "round": 3,
+          "text": "Bob is the village strategist and main accuser. Killing him secures a 2v2 win condition."
+        }
+      ],
+      "plan": ""
+    },
+    "Bob": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "high",
+          "evidence": "Alice and Frank used near-identical rhetoric on Day 1 ('listen to Bob/Carol/Grace'). When confronted, they jointly deflected and attacked me for being 'divisive' instead of addressing the coordination, a classic wolf defense pattern. Carol and Grace also identified this coordination.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Random early game protect. No information available yet."
+        },
+        {
+          "round": 1,
+          "text": "Securing a speaking slot to observe others and establish initial village alignment. Preserving budget for later rounds."
+        },
+        {
+          "round": 1,
+          "text": "No strong evidence yet to accuse or defend. Conservative approach: let others speak first."
+        },
+        {
+          "round": 1,
+          "text": "Day 1, no info. Everyone played safe. Better to save votes than exile a likely villager."
+        },
+        {
+          "round": 2,
+          "text": "Alice spoke yesterday aligning with Dave. Guarding her again in case she is a key villager or to test if wolves are targeting her specifically."
+        },
+        {
+          "round": 2,
+          "text": "I am the Doctor. I will use my high budget to speak first and announce my role to unify the village against the wolves who killed Dave."
+        },
+        {
+          "round": 2,
+          "text": "I guarded Alice two nights and she lived. Dave died. I am suspicious of the Alice/Frank alliance/similarity. I want to hear from Carol and Grace."
+        },
+        {
+          "round": 2,
+          "text": "Accusing Alice for coordination with Frank and aggressive deflection."
+        },
+        {
+          "round": 2,
+          "text": "Voting Alice based on strong evidence of coordination with Frank and their defensive alliance. Carol and Grace are aligned with this view, increasing the likelihood of exile."
+        },
+        {
+          "round": 3,
+          "text": "Alice and Frank showed strong wolf-like coordination. Alice has survived two nights of my guard, which is suspicious for a wolf or unlucky for a villager. I will continue to guard Alice to prevent her death and potentially force the wolves to target Frank or another target."
+        }
+      ],
+      "plan": ""
+    },
+    "Carol": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "high",
+          "evidence": "Alice and Frank had near-identical Day 1 speeches, suggesting coordination. On Day 2, they formed a unified block to defend each other and attack Bob, who raised a valid point about their synchronization. Their defense relies on weak logic ('synchronization is sanity') and ad hominem attacks ('Bob is aggressive/chaotic'), which is classic wolf behavior to deflect scrutiny.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Biding low to speak early and gather information as a villager with no initial leads."
+        },
+        {
+          "round": 1,
+          "text": "Agree with Dave, Alice, and Frank: Day 1 is too early for accusations. Waiting for Bob and Grace's statements is prudent. I will remain silent to avoid cluttering the discussion."
+        },
+        {
+          "round": 1,
+          "text": "Day 1, generic safe plays from Dave/Alice/Frank. No clear wolf tell yet. Safe to wait for Bob/Grace to speak."
+        },
+        {
+          "round": 2,
+          "text": "Bidding 30 to secure a speaking slot. Need to challenge Alice and Frank's similar 'wait and see' stances and push for a vote on Day 2 to avoid another stalemate."
+        },
+        {
+          "round": 2,
+          "text": "Bob is accusing Alice/Frank of coordination. I am staying neutral but highlighting that Day 1 'wait' speeches are common. I need to see Grace's response and Alice/Frank's rebuttal. Bob's aggression is notable."
+        },
+        {
+          "round": 2,
+          "text": "Defending Bob to counter Alice/Frank's coordinated attack."
+        },
+        {
+          "round": 2,
+          "text": "Alice and Frank showed coordinated behavior on Day 1 (identical rhetoric) and Day 2 (mutual defense/attack on Bob). Bob correctly identified this as suspicious. They are trying to distract from their own coordination by attacking Bob's demeanor. Exiling Alice is a priority to disrupt the wolf pair."
+        }
+      ],
+      "plan": "Analyze the 'wait and see' players (Alice, Frank, Bob, Grace) for inconsistencies. Alice and Frank were very similar in Day 1 speech. Be wary of them. Since Dave died, his logic was sound but he was killed. I need to find the wolf among the remaining villagers by listening closely to their Day 2 statements."
+    },
+    "Dave": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Day 1: Eve died. Need to speak to assess others. Bid 50 to ensure slot."
+        },
+        {
+          "round": 1,
+          "text": "No immediate suspicion. Waiting for other players to speak."
+        },
+        {
+          "round": 1,
+          "text": "No strong suspicions yet. Day 1 is for gathering info. Exiling blindly is risky."
+        }
+      ],
+      "plan": ""
+    },
+    "Eve": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night inspection. Checking Bob's faction to gather initial intel."
+        }
+      ],
+      "plan": ""
+    },
+    "Frank": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Agreed with Alice to kill Eve on R1 as a clean pick."
+        },
+        {
+          "round": 1,
+          "text": "Bid 25 to secure an early speaking slot. Plan to pose as a confused villager and deflect suspicion onto silent players or probe others for info."
+        },
+        {
+          "round": 1,
+          "text": "Playing it safe. Early game, no clear villains yet. Better to stay silent than risk making a bad call or looking too eager."
+        },
+        {
+          "round": 1,
+          "text": "Voting for Grace to blend in and appear analytical by targeting a non-speaker. She bid lowest (5), so she was silent. This supports my 'gathering info' narrative."
+        },
+        {
+          "round": 2,
+          "text": "Agree with Alice to target Dave to disrupt village leadership and organization."
+        },
+        {
+          "round": 2,
+          "text": "Bid 30 to secure a speaking slot. Goal is to act innocent, suggest that Dave was a likely leader to protect, and point out that Bob, Carol, and Grace are silent/new. Try to deflect attention from Alice."
+        },
+        {
+          "round": 2,
+          "text": "Refuting Bob's accusation. Highlighting his aggression. Pushing Grace to speak to get more info or isolate her if she says nothing."
+        },
+        {
+          "round": 2,
+          "text": "Defending Alice to counter Bob's weak accusation. This makes Bob look like the aggressor with no proof, potentially swinging the village against him."
+        },
+        {
+          "round": 2,
+          "text": "Voting Bob to remove the primary accuser. This sets up a 2 wolves (Alice, Frank) vs 2 villagers scenario, which is a winning condition for us."
+        },
+        {
+          "round": 3,
+          "text": "Targeting Bob as agreed with Alice. He is the village leader and strategist. Killing him creates a 2v2 split, which is a win for the wolves."
+        }
+      ],
+      "plan": ""
+    },
+    "Grace": {
+      "beliefs": {
+        "Frank": {
+          "confidence": "medium",
+          "evidence": "Frank and Alice showed suspicious synchronization on Day 1. Frank reacted aggressively to Bob's valid concern, attacking his logic rather than providing proof of innocence. This defensive over-reaction is a common wolf tell. Bob's accusation, while aggressive, was based on observable patterns.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Bidding to ensure a speaking slot to listen to others and gauge suspicion levels."
+        },
+        {
+          "round": 1,
+          "text": "Too early to accuse or defend. Following the consensus to gather more info from silent players (Bob, Carol)."
+        },
+        {
+          "round": 1,
+          "text": "No specific suspicion on Day 1. Generic statements from Dave, Alice, Frank. Safer to abstain and wait for Day 2 claims."
+        },
+        {
+          "round": 2,
+          "text": "Bidding to speak on Day 2. Dave is dead. Need to hear from Bob, Carol, and the others to find contradictions or role claims."
+        },
+        {
+          "round": 2,
+          "text": "Defending Bob to counter Alice/Frank block."
+        },
+        {
+          "round": 2,
+          "text": "Frank showed suspicious synchronization with Alice on Day 1. His reaction to Bob's accusation was aggressive and defensive, lacking logical counter-evidence. This behavior is consistent with wolf tactics to distract and divide. Voting to exile Frank to protect the village."
+        }
+      ],
+      "plan": ""
+    }
+  }
+}

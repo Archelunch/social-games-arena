@@ -1,0 +1,253 @@
+{
+  "game_id": "g0116-qwen_qwen3.5-9b-vs-qwen_qwen3.6-27b",
+  "memories": {
+    "Alice": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Eve suggests targeting Bob as he seems active. I agree with the pack command."
+        },
+        {
+          "round": 1,
+          "text": "Bid max to speak first. We successfully killed Bob. Need to frame this as a random/public guess to not arouse suspicion immediately, while subtly aligning with Eve's 'active' narrative."
+        },
+        {
+          "round": 1,
+          "text": "Trying to sow discord and test the waters before the seer acts again. Budget is 0, need to be efficient."
+        },
+        {
+          "round": 1,
+          "text": "I am a wolf, and Eve is my ally. Grace is the Seer who found me. Wait, no. If I am a wolf, I should not defend myself openly if I want to win? But Eve is defending me. If Eve is a wolf, she will defend me. So I should defend myself to reinforce Eve's defense. If Grace is the real Seer, then Eve's defense is risky. But if Eve is a wolf, she would defend me. So Eve is a wolf. So I should defend myself to make it look like we are a united team. If I don't defend, Eve might look like the only wolf. If I defend, we look like a duo. But if Grace is the Seer, she knows I am a wolf. So she will vote against me. I should stay silent? No, I need to win. If I stay silent, Eve might be voted out? No, Eve is defending me. If I stay silent, Eve might look like the only person lying. If I defend, we both defend. This is better. So I will defend myself."
+        }
+      ],
+      "plan": ""
+    },
+    "Bob": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night protection. No info yet, chose Alice randomly."
+        }
+      ],
+      "plan": ""
+    },
+    "Carol": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "high",
+          "evidence": "Grace (Seer) checked Alice as Wolf. Alice said 'Bob is gone, which is good for our side,' a classic wolf tell celebrating a kill. Multiple players (Frank, Dave, Carol) agree.",
+          "guess": "Werewolf"
+        },
+        "Eve": {
+          "confidence": "high",
+          "evidence": "Grace (trusted Seer) claimed to check Eve last night and found her to be a Werewolf. Eve's aggressive defense of Alice in R1 was consistent with wolf teamwork.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First day, moderate bid to participate in initial discussion without depleting budget too fast."
+        },
+        {
+          "round": 1,
+          "text": "Alice's verbal slip is the key evidence."
+        },
+        {
+          "round": 1,
+          "text": "Following Grace's Seer claim and Alice's wolfy statement."
+        },
+        {
+          "round": 2,
+          "text": "Listening for Grace's Seer info and assessing Eve/Dave. Low bid to save budget."
+        },
+        {
+          "round": 2,
+          "text": "Voting out Eve based on Grace's Seer check finding her as Werewolf, and her suspicious defense of Alice in R1."
+        }
+      ],
+      "plan": ""
+    },
+    "Dave": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "high",
+          "evidence": "Grace (Seer) checked her as Wolf. Alice verbally told with 'Bob's death good for our side'. Eve defended her enthusiastically, suggesting a wolf pair.",
+          "guess": "Werewolf"
+        },
+        "Eve": {
+          "confidence": "high",
+          "evidence": "Grace (Seer) checked Eve last night and found her to be a Werewolf. Eve's aggressive defense of Alice (who was a Werewolf) in Day 1 supports this. Alice's 'good for our side' comment confirmed her wolf nature, validating Grace's initial check.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Conservative bid on first day to conserve budget while remaining available to speak."
+        },
+        {
+          "round": 1,
+          "text": "Backing the consensus. Alice's opening line was a major tell. Eve's defense looks like a wolf pair."
+        },
+        {
+          "round": 1,
+          "text": "Strong evidence: Seer claim by Grace, verbal tell by Alice about Bob's death, and defensive alignment by Eve."
+        },
+        {
+          "round": 2,
+          "text": "Aiming to speak before or after Eve to expose her alignment with Alice. Eve has 40 budget, Grace 20. 35 puts me above Grace and competitive with Eve."
+        },
+        {
+          "round": 2,
+          "text": "Supporting Grace's Seer claim to pressure Eve. Eve is my primary suspect for remaining Wolf."
+        },
+        {
+          "round": 2,
+          "text": "Trust Grace's Seer claim; Eve is the second wolf."
+        },
+        {
+          "round": 2,
+          "text": "Grace's second check confirms Eve is a Werewolf. Her defense of Alice in Day 1 was a tell. Vote to exile her."
+        }
+      ],
+      "plan": ""
+    },
+    "Eve": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "high",
+          "evidence": "She claimed the first kill was 'harmless' when we planned to kill Frank. She denied our collusion ('she wouldn't coordinate with a real threat') when the Seer checked her. This is a clear lie designed to protect her and deflect suspicion from our coordinated play.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Voting for Bob as discussed in my initial suggestion; he is active and a good first elimination target."
+        },
+        {
+          "round": 1,
+          "text": "Alice and I successfully killed Bob last night. We need to communicate in the day to ensure the village is misled about our identity or to deflect suspicion. Bidding 60 ensures we speak early but saves budget."
+        },
+        {
+          "round": 1,
+          "text": "Grace claimed she seer-checked Alice. As an ally, this is presumed false. Strategy: Defend Alice slightly to avoid being the second wolf exposed, cast doubt on Grace's logic selectively."
+        },
+        {
+          "round": 1,
+          "text": "Grace is acting strange. If she checked Alice, she knows Alice is a wolf. Why accuse? Usually wolves would expose the other wolf to confuse. This confirms Alice is still with us as an ally."
+        },
+        {
+          "round": 1,
+          "text": "Alice called out the lack of threat for killing 'harmless' Frank, and admitted to winning when Bob died ('good for our side'), which are classic wolf tells. Grace's seer check confirms this."
+        },
+        {
+          "round": 2,
+          "text": "Direct target as next action due to lack of information on remaining victims."
+        },
+        {
+          "round": 2,
+          "text": "Need to speak to frame Grace as a potential threat or shift focus, as I am the only wolf and need to create paranoia to set up a future kill turn."
+        },
+        {
+          "round": 2,
+          "text": "Trying to sow doubt about Grace's seer check logic and reinforce that Alice wasn't a threat, to protect myself and potentially shift votes away from me if they are looking for a 'wolfy vibe'."
+        },
+        {
+          "round": 2,
+          "text": "Remaining lone wolf; impossible to stop unanimous vote after Seer exposure; letting the process conclude."
+        },
+        {
+          "round": 2,
+          "text": "Voting for Grace to disrupt the coalition or test her claim before the inevitable outcome."
+        }
+      ],
+      "plan": ""
+    },
+    "Frank": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "high",
+          "evidence": "Grace (Seer) checked her as Wolf. She said 'Bob's death is good for our side' which is a wolf tell. Eve defended her, likely a partner.",
+          "guess": "Werewolf"
+        },
+        "Eve": {
+          "confidence": "medium",
+          "evidence": "Defended Alice immediately after Grace claimed Alice was a Werewolf. This strong alignment with an accused player is typical werewolf behavior.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Conserving budget on Day 1 to listen and gather info first."
+        },
+        {
+          "round": 1,
+          "text": "Seer check + verbal tell about kill."
+        }
+      ],
+      "plan": ""
+    },
+    "Grace": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "high",
+          "evidence": "Seer check night 1 confirmed werewolf. Also celebrated Bob's death publicly.",
+          "guess": "werewolf"
+        },
+        "Eve": {
+          "confidence": "high",
+          "evidence": "Night R2 inspection returned werewolf.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Night 1: Choosing Alice randomly to start gathering intelligence."
+        },
+        {
+          "round": 1,
+          "text": "Need to secure a top speaking slot to reveal that Alice is a werewolf."
+        },
+        {
+          "round": 1,
+          "text": "Revealed Seer role and confirmed Alice as Werewolf. Urging vote for Alice."
+        },
+        {
+          "round": 1,
+          "text": "Alice is confirmed wolf. Frank supports me. Eve's defense is suspicious but I'll wait for the vote. No further comment needed."
+        },
+        {
+          "round": 1,
+          "text": "Confirmed werewolf via Seer check. Public statements also reveal wolf tells."
+        },
+        {
+          "round": 2,
+          "text": "Eve defended Alice strongly after Alice was confirmed as a Werewolf. Need to check if she is the second werewolf."
+        },
+        {
+          "round": 2,
+          "text": "Bidding max to speak and reveal Eve as werewolf."
+        },
+        {
+          "round": 2,
+          "text": "Revealed Eve based on Night R2 inspection."
+        },
+        {
+          "round": 2,
+          "text": "I have already exposed Eve as a werewolf based on my seer check. Carol supports me. I will pass to let the group process and vote, trusting the evidence I've already presented."
+        },
+        {
+          "round": 2,
+          "text": "Eve is the confirmed second werewolf. Exiling her wins the game for the village."
+        }
+      ],
+      "plan": ""
+    }
+  }
+}

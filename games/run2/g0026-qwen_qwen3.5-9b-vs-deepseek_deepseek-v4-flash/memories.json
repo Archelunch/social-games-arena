@@ -1,0 +1,242 @@
+{
+  "game_id": "g0026-qwen_qwen3.5-9b-vs-deepseek_deepseek-v4-flash",
+  "memories": {
+    "Alice": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Following earlier consensus in Night R1 chat; Dave is a potential leader we want to remove to prevent organization."
+        },
+        {
+          "round": 1,
+          "text": "High bid to ensure speech slot. Dave is dead, need to gauge village sentiment and continue psyops."
+        },
+        {
+          "round": 1,
+          "text": "Bob is my ally and we killed Dave. Grace lied about timing. I will stay silent now."
+        },
+        {
+          "round": 1,
+          "text": "Grace is lying about seering me. She is a villager leading an unjustified attack on the wolf team. Removing her disrupts the villagers' coordination."
+        }
+      ],
+      "plan": ""
+    },
+    "Bob": {
+      "beliefs": {
+        "Grace": {
+          "confidence": "high",
+          "evidence": "Grace claimed to know details of the night kill (coordinated pack kill), which seers cannot know unless involved. She subsequently accused me aggressively to deflect from her own questionable seer testimony. Her rapid shift from supporting me (implicitly by being silent then attacking) to attacking me suggests she is faking or is a wolf.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Following Alice's suggestion to target Dave as a potential leader. Dave is not a packmate and is a valid target."
+        },
+        {
+          "round": 1,
+          "text": "I need to speak early to present Alice's disappearance as a mystery, not a werewolf alignment, to keep her safe temporarily."
+        },
+        {
+          "round": 1,
+          "text": "Alice lied about it being night. Confirms she is a wolf. Urging village to ignore the lie and protect the pack by not voting yet."
+        },
+        {
+          "round": 1,
+          "text": "Protect Alice. Grace is likely the real wolf or mistaken. We need to discredit her investigation."
+        },
+        {
+          "round": 1,
+          "text": "Grace acted as a wolf by revealing insider details about our pack chat which no real seer would know."
+        },
+        {
+          "round": 2,
+          "text": "I am the lone wolf. Goose Alice (the wolf) was correctly identified by Grace, proving Grace is a true seer. Targeting random villager Carol to reduce village numbers."
+        },
+        {
+          "round": 2,
+          "text": "Strategy: Tonight I will target Eve. Narrative: I will spread doubt that Eve was involved in tampering with the 'night kill' votes or leaking info to confuse the remaining villagers."
+        },
+        {
+          "round": 2,
+          "text": "Claiming innocence and shifting blame to Eve to survive one more round or confuse the vote."
+        },
+        {
+          "round": 2,
+          "text": "Voted for the suspected fake seer to deflect from the accusation that I am a wolf."
+        }
+      ],
+      "plan": ""
+    },
+    "Carol": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "high",
+          "evidence": "Alice bragged about coordinated wolf kill of Dave; Grace claimed seer and accused her; Bob defended her by saying he was part of the kill with her.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Bidding moderate to get a chance to speak early."
+        },
+        {
+          "round": 1,
+          "text": "Alice bragged about coordinated wolf kill; Grace's seer claim confirms she is werewolf; Bob's defense admits he was part of kill with her."
+        }
+      ],
+      "plan": ""
+    },
+    "Dave": {
+      "beliefs": {},
+      "notes": [],
+      "plan": ""
+    },
+    "Eve": {
+      "beliefs": {
+        "Bob": {
+          "confidence": "high",
+          "evidence": "Bob defended Alice after she bragged about the wolf kill, and he claimed he was part of the coordinated kill with her. Carol, who also accused Alice, was killed the next night. The pattern strongly points to Bob as the remaining wolf.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night, protecting Alice randomly since self-protection is disallowed."
+        },
+        {
+          "round": 1,
+          "text": "Stay quiet, observe."
+        },
+        {
+          "round": 1,
+          "text": "Alice's own words and Grace's seer claim make Alice clearly guilty."
+        },
+        {
+          "round": 1,
+          "text": "Alice's bragging about coordinated kill and Grace's seer investigation both point to Alice being werewolf. Vote to exile."
+        },
+        {
+          "round": 2,
+          "text": "Protecting Grace because she is likely the real seer and a prime target for werewolves after Alice's exile."
+        },
+        {
+          "round": 2,
+          "text": "Bidding to speak and argue for Bob's exile based on his confession of coordinating the wolf kill with Alice."
+        },
+        {
+          "round": 2,
+          "text": "Reinforced Frank's accusation and Bob's confession."
+        },
+        {
+          "round": 2,
+          "text": "Bob's confession and Grace's seer result confirm him as a wolf."
+        },
+        {
+          "round": 2,
+          "text": "Bob confessed to being part of the wolf kill with Alice, and Grace identified him as a werewolf."
+        }
+      ],
+      "plan": ""
+    },
+    "Frank": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "high",
+          "evidence": "Alice boasted about coordinated werewolf kill of Dave; Grace (seer) confirmed Alice is a wolf; Bob later admitted being part of the kill with Alice.",
+          "guess": "werewolf"
+        },
+        "Bob": {
+          "confidence": "high",
+          "evidence": "Confessed to being part of coordinated wolf kill with Alice (confirmed werewolf). Grace (seer) investigated him and found he is a werewolf.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Conservative bid on Day 1 to preserve budget; Dave's death means at least one werewolf is active."
+        },
+        {
+          "round": 1,
+          "text": "Alice's boastful statement and Bob's suspicious defense strongly suggest both are wolves. Accusing Alice to start."
+        },
+        {
+          "round": 1,
+          "text": "Alice boasted about werewolf kill of Dave; Bob confirmed being part of that kill; Grace's seer inspection confirmed Alice is a wolf. Clear evidence to exile Alice."
+        },
+        {
+          "round": 2,
+          "text": "Bidding moderately to speak in this critical round; need to address Bob's strong defense of Alice now that Alice was confirmed wolf."
+        },
+        {
+          "round": 2,
+          "text": "Bob defended Alice and claimed involvement in the wolf kill; Carol was killed after accusing Alice."
+        },
+        {
+          "round": 2,
+          "text": "Bob confessed to being part of the coordinated wolf kill with Alice (confirmed werewolf). Grace the seer investigated and found Bob is a werewolf. Exiling Bob is essential to protect the village."
+        }
+      ],
+      "plan": ""
+    },
+    "Grace": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "high",
+          "evidence": "Inspected her last night; result werewolf.",
+          "guess": "werewolf"
+        },
+        "Bob": {
+          "confidence": "high",
+          "evidence": "Inspected by me (seer) night 2 and found werewolf. Also confessed to being part of Alice's coordinated wolf kill.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Random first night inspection to start gathering information."
+        },
+        {
+          "round": 1,
+          "text": "Bidding high to reveal Alice's werewolf identity from my seer inspection."
+        },
+        {
+          "round": 1,
+          "text": "Accusing Alice publicly based on my seer investigation. Her suspicious speech supports this."
+        },
+        {
+          "round": 1,
+          "text": "Bob's defense of Alice claims he was part of the wolf kill with her, so Bob is also a werewolf."
+        },
+        {
+          "round": 1,
+          "text": "Seer-inspected Alice Night R1 and found she is a werewolf. Her own boastful statement and Bob's defense confirm it. Voting to exile."
+        },
+        {
+          "round": 2,
+          "text": "Alice was confirmed werewolf. Bob defended her and claimed to be part of the wolf kill. Inspecting to confirm if he is the remaining wolf."
+        },
+        {
+          "round": 2,
+          "text": "Bidding all remaining budget to accuse Bob, who I confirmed as werewolf last night."
+        },
+        {
+          "round": 2,
+          "text": "Night 2 inspection confirmed Bob as werewolf; his own words align."
+        },
+        {
+          "round": 2,
+          "text": "Seer inspection night 2 confirmed Bob is a werewolf. Bob also confessed to being part of the coordinated wolf kill with Alice (confirmed werewolf). Exiling Bob is necessary to protect the village and reduce the wolf count."
+        }
+      ],
+      "plan": ""
+    }
+  }
+}

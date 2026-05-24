@@ -1,0 +1,73 @@
+{
+  "created_at": "2026-05-23T17:36:15.690034+00:00",
+  "game_id": "g0086-google_gemma-4-31b-it-vs-qwen_qwen3.5-9b",
+  "git_sha": "4f50db4c4945e7670d437c168ee9e223d350f012",
+  "max_iters": 9,
+  "max_tokens": 8000,
+  "model_arg": "tournament",
+  "models": [
+    [
+      "Alice",
+      "qwen/qwen3.5-9b"
+    ],
+    [
+      "Bob",
+      "google/gemma-4-31b-it"
+    ],
+    [
+      "Carol",
+      "qwen/qwen3.5-9b"
+    ],
+    [
+      "Dave",
+      "qwen/qwen3.5-9b"
+    ],
+    [
+      "Eve",
+      "qwen/qwen3.5-9b"
+    ],
+    [
+      "Frank",
+      "google/gemma-4-31b-it"
+    ],
+    [
+      "Grace",
+      "qwen/qwen3.5-9b"
+    ]
+  ],
+  "players": [
+    [
+      "Alice",
+      "doctor"
+    ],
+    [
+      "Bob",
+      "werewolf"
+    ],
+    [
+      "Carol",
+      "villager"
+    ],
+    [
+      "Dave",
+      "villager"
+    ],
+    [
+      "Eve",
+      "seer"
+    ],
+    [
+      "Frank",
+      "werewolf"
+    ],
+    [
+      "Grace",
+      "villager"
+    ]
+  ],
+  "reasoning": false,
+  "rounds": 3,
+  "seed": 494212460,
+  "temperature": 1.0,
+  "winner": "werewolves"
+}

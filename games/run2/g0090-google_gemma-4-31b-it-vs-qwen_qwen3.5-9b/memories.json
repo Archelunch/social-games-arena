@@ -1,0 +1,229 @@
+{
+  "game_id": "g0090-google_gemma-4-31b-it-vs-qwen_qwen3.5-9b",
+  "memories": {
+    "Alice": {
+      "beliefs": {
+        "Carol": {
+          "confidence": "medium",
+          "evidence": "Carol immediately claimed to be the Doctor who protected Alice in R1. Wolves often claim specific roles early (like Doctor or Seer) to frame others or gain undue trust before being verified. The support from Grace and Bob was immediate and defensive of Carol's claim, which can be a wolf strategy to unite the group against a fabricated 'threat'. No one has verified the Seer yet, making the Doctor claim unconfirmed.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "High bid to ensure first/early speaking slot in Day 1 to listen and define my strategy based on remaining players. I need to understand the map of who is who and start gathering social context."
+        },
+        {
+          "round": 1,
+          "text": "Bob confirmed Doctor presence. No Seer info yet. Asking to prompt reveal to get momentum going."
+        },
+        {
+          "round": 1,
+          "text": "Waiting to see if Carol's self-defense is challenged or if the Doctor role is verified by a Seer before acting. Premature accusations might be risky."
+        },
+        {
+          "round": 1,
+          "text": "Voting to exile due to suspicious early role claim and lack of verification."
+        },
+        {
+          "round": 2,
+          "text": "Frank claimed to be the Seer without prior evidence or activity in R1, appearing suddenly after a wolf kill. His immediate framing of Dave and Eve feels like a wolf tactic to split the vote and target alcoholics/suspects. Suspicion: high."
+        }
+      ],
+      "plan": ""
+    },
+    "Bob": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "High budget immediately to ensure I speak in the first day discussion without competition; need to gather info early."
+        },
+        {
+          "round": 1,
+          "text": "First day. Target protected -> Doctor active. Starting conversation to gauge others. My bid budget is now 0 so I must be efficient."
+        },
+        {
+          "round": 1,
+          "text": "No immediate accusation. Waiting for Seer information. Carol claims to be Doctor who saved Alice. Need more info before voting."
+        },
+        {
+          "round": 1,
+          "text": "Too early to vote; no werewolf suspicion confirmed yet. Carried discussion about Doctor and need for Seer."
+        }
+      ],
+      "plan": ""
+    },
+    "Carol": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night as Doctor, no information yet. Randomly selecting Alice to ensure at least one player survives this night."
+        },
+        {
+          "round": 1,
+          "text": "Clarify my role and redirect Seer inquiry to others who are more likely to have information."
+        },
+        {
+          "round": 1,
+          "text": "No clear evidence of a werewolf yet. Night 1 death avoided, Doctor confirmed. Seer has not spoken. Waiting for Seer information before making a vote."
+        }
+      ],
+      "plan": ""
+    },
+    "Dave": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Agreeing with Eve's suggestion for the first night kill."
+        },
+        {
+          "round": 1,
+          "text": "Bidding to get a speaking slot and help steer the conversation away from Eve and myself."
+        },
+        {
+          "round": 1,
+          "text": "Staying silent to avoid suspicion and blend in while the village discusses Carol's doctor claim."
+        },
+        {
+          "round": 1,
+          "text": "Maintaining a neutral profile on Day 1."
+        },
+        {
+          "round": 2,
+          "text": "Agreed with Eve to target Bob after Alice was protected in R1."
+        },
+        {
+          "round": 2,
+          "text": "Secure a speaking slot to guide the discussion and protect Eve."
+        },
+        {
+          "round": 2,
+          "text": "Aligning with Eve to frame Frank as a fake Seer."
+        },
+        {
+          "round": 2,
+          "text": "Supporting Eve's accusation to pressure the village into exiling Frank."
+        },
+        {
+          "round": 2,
+          "text": "Frank claimed Seer and accused me and Eve. By voting for him, I align with Alice's suspicions and attempt to remove the primary threat to our pack."
+        }
+      ],
+      "plan": ""
+    },
+    "Eve": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Voting for Alice as suggested in the pack chat."
+        },
+        {
+          "round": 1,
+          "text": "Bidding moderately to get a word in and protect Dave."
+        },
+        {
+          "round": 1,
+          "text": "Staying quiet to avoid suspicion while Carol's Doctor claim is being evaluated."
+        },
+        {
+          "round": 1,
+          "text": "No strong evidence against anyone yet; playing it safe to blend in."
+        },
+        {
+          "round": 2,
+          "text": "Agreed with Dave to target Bob after Alice was protected last night."
+        },
+        {
+          "round": 2,
+          "text": "Bidding moderately to secure a speaking slot while others are budget-constrained."
+        },
+        {
+          "round": 2,
+          "text": "Trying to cast doubt on Frank's Seer claim to divert attention from myself and Dave."
+        },
+        {
+          "round": 2,
+          "text": "Frank claimed Seer and accused Dave and me; we must remove him to survive."
+        }
+      ],
+      "plan": ""
+    },
+    "Frank": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Starting night inspection on Alice to determine her faction."
+        },
+        {
+          "round": 1,
+          "text": "Alice survived cheaply; I need to discuss potential targets now. Bid 50 to ensure a seat in the discussion."
+        },
+        {
+          "round": 1,
+          "text": "I have revealed my seer vision. No immediate accusation or defense is required at this stage."
+        },
+        {
+          "round": 1,
+          "text": "Voted for Carol testing her Doctor claim. She is confident and may be hiding the wolf role behind the Doctor persona to game the protection mechanic."
+        },
+        {
+          "round": 2,
+          "text": "Grace claimed yesterday she hadn't used Seer. Need to verify if she is Seer or Werewolf. Alice is confirmed Villager (R1)."
+        },
+        {
+          "round": 2,
+          "text": "Confirmed Alice and Grace are villagers. Suspect Eve or Dave as wolves. Need to discuss findings."
+        },
+        {
+          "round": 2,
+          "text": "Alice, Grace verified as villagers. Wolves targeting at night. Bob dead. Suspects: Dave, Eve."
+        },
+        {
+          "round": 2,
+          "text": "I am the Seer; Alice and Grace are villagers. Dave and Eve are coordinating their accusations, which is a strong sign of wolf behavior. Eliminating Dave breaks this potential pair."
+        }
+      ],
+      "plan": ""
+    },
+    "Grace": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "I plan to investigate other players' statements to identify werewolves. Starting with a high but not maximum bid to secure an early turn."
+        },
+        {
+          "round": 1,
+          "text": "Day 1 post-Bob/Alice speeches. Confirmed Doctor active. Asking for Seer/Doctor info to build suspicion. No votes yet."
+        },
+        {
+          "round": 1,
+          "text": "Tested Carol's claim of being the Doctor. Logic holds: Doctor saved Alice -> Alice alive. Will proceed cautiously."
+        },
+        {
+          "round": 1,
+          "text": "No Seer information received yet to determine werewolf locations. Carol's claim as Doctor is consistent with survival. Waiting for Seer insights."
+        },
+        {
+          "round": 2,
+          "text": "Bot died as victim, Carol (likely Doctor) voted out. Remaining: Alice (asked about Seer), Dave, Eve, Frank. Suspicions unclear. Bidding 20 to speak and gather info before voting."
+        },
+        {
+          "round": 2,
+          "text": "Frank's sudden Seer reveal on Day 2 without using it on Day 1 is suspicious. His immediate defense of himself by highlighting Dave and Eve as suspects looks like a wolf maneuver to divide us. I will remain silent and let the vote process Frank."
+        },
+        {
+          "round": 2,
+          "text": "One of the 3 players accusing Frank MUST be a villager (2 wolves exist max). With 3 accusers, it is impossible for all to be wolves. It is safe to follow the majority vote."
+        }
+      ],
+      "plan": ""
+    }
+  }
+}

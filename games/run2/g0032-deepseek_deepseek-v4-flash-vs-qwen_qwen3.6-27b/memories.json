@@ -1,0 +1,278 @@
+{
+  "game_id": "g0032-deepseek_deepseek-v4-flash-vs-qwen_qwen3.6-27b",
+  "memories": {
+    "Alice": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Self-guard failed. Guarding Bob arbitrarily as no info available."
+        }
+      ],
+      "plan": ""
+    },
+    "Bob": {
+      "beliefs": {
+        "Eve": {
+          "confidence": "medium",
+          "evidence": "Silent initially but provided a logical defense ('observation' not 'hiding') when Frank attacked her. Did not participate in attacking the Seer or the chaos Frank created. Seems like a cautious villager.",
+          "guess": "Villager"
+        },
+        "Frank": {
+          "confidence": "high",
+          "evidence": "Attacked Seer Dave immediately, deflected by accusing Carol then Eve, lacks substantive proof, aligns with wolf strategy of chaos and deflection.",
+          "guess": "Werewolf"
+        },
+        "Grace": {
+          "confidence": "medium",
+          "evidence": "Immediately attacked the only Seer claim (Dave) without providing a counter-claim or strong behavioral evidence, just general skepticism. This is a common Wolf tactic to discredit a good Seer.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First day, Alice dead. Bidding 15 to get early speaking slot to help investigate."
+        },
+        {
+          "round": 1,
+          "text": "Supporting Dave (Seer claim) because he cleared me. Grace is acting aggressively against the Seer."
+        },
+        {
+          "round": 1,
+          "text": "Grace attacked the only Seer claim (Dave) immediately without a counter-claim. This is suspicious Wolf behavior aimed at discrediting the Seer. I trust Dave's clean check on me."
+        },
+        {
+          "round": 2,
+          "text": "Asking for slot to declare Dave as Seer and flag Frank/Eve."
+        },
+        {
+          "round": 2,
+          "text": "Dave dead. Pushing Frank as primary suspect based on Seer skepticism and weak accusation against Carol. Eve is silent but Frank is more active/wolf-like."
+        },
+        {
+          "round": 2,
+          "text": "Solidifying Bob/Carol/Eve alignment against Frank. Frank is the primary suspect."
+        },
+        {
+          "round": 2,
+          "text": "Frank attacked the Seer, deflected by accusing others without evidence, and showed suspicious behavior. Carol and I agree he is the strongest wolf candidate."
+        }
+      ],
+      "plan": "Dave was likely the Seer. He is dead. Grace (exiled) and Frank questioned Dave. Suspicion is high on Frank. Need to distinguish between Carol, Eve, and Frank. Two wolves remain among us (Carol, Eve, Frank, Bob). Bob is clear. So 2 of {Carol, Eve, Frank} are wolves. Or 1? If 1 wolf, that's 3 good vs 1 wolf. If 2 wolves, 2v2. Usually 2 wolves start. Grace was one? If so, 1 wolf left. If Grace was good, 2 wolves left. Frank's behavior (questioning Seer) makes him a strong Wolf candidate. Carol was blamed by Frank. Eve is silent. I will push for Frank to be voted out if no better info, or try to get Eve to act."
+    },
+    "Carol": {
+      "beliefs": {
+        "Frank": {
+          "confidence": "high",
+          "evidence": "Attacked Seer Dave's claim without proof, then accused me for being quiet. Classic deflection. Dave (likely Seer) died after Frank tried to discredit him.",
+          "guess": "Werewolf"
+        },
+        "Grace": {
+          "confidence": "medium",
+          "evidence": "Aggressively attacked Dave's Day 1 Seer claim to discredit the only information source. Classic wolf tactic to eliminate Seer.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Moderate bid to secure a speaking slot on Day 1 without overspending."
+        },
+        {
+          "round": 1,
+          "text": "Frank accused me without evidence. Dave's seer claim seems credible backed by Bob. I'll support Dave for now but watch Grace/Frank."
+        },
+        {
+          "round": 1,
+          "text": "Voting Grace out because she aggressively discredited Dave's Day 1 Seer claim without sufficient reason, which is typical wolf behavior to eliminate information. Frank is also suspicious but Grace led the charge."
+        },
+        {
+          "round": 2,
+          "text": "Priority is to speak and rally Bob/Eve against Frank, who targeted the Seer Dave."
+        },
+        {
+          "round": 2,
+          "text": "Supporting Bob's lynch on Frank. Aligning with the only other vocal villager claim (Bob, who was cleared). Frank is the weak link."
+        },
+        {
+          "round": 2,
+          "text": "Reinforcing accusation on Frank to consolidate vote against him. His deflection on Eve confirms he is trying to muddy the waters."
+        },
+        {
+          "round": 2,
+          "text": "Frank attacked the Seer claim, deflected to me and Eve, and showed classic wolf behavior. Bob and I agree he is the likely threat."
+        }
+      ],
+      "plan": ""
+    },
+    "Dave": {
+      "beliefs": {
+        "Bob": {
+          "confidence": "high",
+          "evidence": "Inspected by Seer on Night R1",
+          "guess": "Villager"
+        },
+        "Grace": {
+          "confidence": "medium",
+          "evidence": "Immediately challenged my Seer claim on Day 1, a common wolf tactic to kill the seer before they can provide more info. Hostile tone.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night inspection, random choice to start gathering info."
+        },
+        {
+          "round": 1,
+          "text": "Seer needs to speak early to clear Bob and guide first vote."
+        },
+        {
+          "round": 1,
+          "text": "Revealed Bob is clear to build trust and direct threat away from him."
+        },
+        {
+          "round": 1,
+          "text": "Frank and Grace are challenging my Seer claim. I will observe their next moves and see who else jumps on the bandwagon before acting."
+        },
+        {
+          "round": 1,
+          "text": "Grace's immediate and aggressive challenge to my Seer claim is a classic wolf tactic to disrupt the village and protect her team. Voting to exile her."
+        },
+        {
+          "round": 2,
+          "text": "Eve was silent and uninspected. Need to clarify her status."
+        }
+      ],
+      "plan": "Share that Bob is a villager. Encourage village to inspect others. Continue inspecting one player tonight."
+    },
+    "Eve": {
+      "beliefs": {
+        "Dave": {
+          "confidence": "low",
+          "evidence": "Claimed to check Bob as Villager. Grace and Frank are skeptical. High risk if he is a fake, but also risky to eliminate if he is real. Need more info.",
+          "guess": "Seer or Werewolf faking Seer"
+        },
+        "Frank": {
+          "confidence": "high",
+          "evidence": "Attacked the Seer (Dave) aggressively on Day 1. Deflected blame to Carol and then Eve (villagers) when pressed. Behavior consistent with wolf trying to kill the seer and create chaos.",
+          "guess": "Werewolf"
+        },
+        "Grace": {
+          "confidence": "medium",
+          "evidence": "Aggressively discrediting Dave's Seer claim on Day 1 without alternative evidence. Typical wolf tactic to eliminate the source of truth.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Day 1 opening. Low bid to observe. Will speak only if necessary or if Seer claims align with my observations."
+        },
+        {
+          "round": 1,
+          "text": "Day 1: Dave claims Seer, Bob cleared. Grace/Frank skeptical. Waiting for more info before accusing or defending."
+        },
+        {
+          "round": 1,
+          "text": "Grace aggressively discredits the only Seer claim (Dave) without evidence, typical wolf behavior to create chaos and kill the light."
+        },
+        {
+          "round": 2,
+          "text": "Dave (Seer claim) died. Bob cleared by Dave. Grace exiled. Frank accused Carol weakly. Need to see if Frank is pushing Carol as the last wolf or if Carol is the wolf. Bob likely Good. I will listen to bids and early claims."
+        },
+        {
+          "round": 2,
+          "text": "Frank's accusation is a deflection. Bob and Carol correctly identified him as suspicious. I need to clear my name to allow the vote against Frank to proceed."
+        },
+        {
+          "round": 2,
+          "text": "Frank attacked the Seer Dave aggressively and deflected blame to quiet villagers. His behavior is consistent with a wolf trying to eliminate the Seer and create chaos."
+        }
+      ],
+      "plan": "As a villager, prioritize identifying the Seer and the Werewolves. Do not make strong accusations without evidence. Conserve speech budget for days where clarity is needed or when defending against false accusations. Listen to claims of roles (especially Seer) and check for consistency."
+    },
+    "Frank": {
+      "beliefs": {
+        "Carol": {
+          "confidence": "medium",
+          "evidence": "Carol has been aggressively accusing me and coordinating with Bob, which is typical wolf behavior to eliminate a villager. I need to record this suspicion to justify my vote.",
+          "guess": "werewolf"
+        },
+        "Dave": {
+          "confidence": "medium",
+          "evidence": "Dave claimed seer on Day 1, which is a suspicious tactic to build trust. Attacking his claim early to discredit him.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night kill. Grace and I both considered Alice as a potential target. Targeting Alice to see how the village reacts."
+        },
+        {
+          "round": 1,
+          "text": "Bidding 30 to secure a speaking slot day 1; want to help steer discussion away from me and Grace."
+        },
+        {
+          "round": 1,
+          "text": "Sowing doubt about Dave's claim to protect myself and Grace."
+        },
+        {
+          "round": 1,
+          "text": "Pushing suspicion onto a quiet player to deflect from Dave and Grace."
+        },
+        {
+          "round": 1,
+          "text": "Voting for Dave because his Day 1 seer claim is suspicious and could be a werewolf tactic to build trust."
+        },
+        {
+          "round": 2,
+          "text": "Killing Dave to eliminate potential seer who might check me or others."
+        },
+        {
+          "round": 2,
+          "text": "Bidding moderate amount to speak; need to participate but conserve budget for later rounds."
+        },
+        {
+          "round": 2,
+          "text": "Trying to shift suspicion to Eve to survive the vote."
+        },
+        {
+          "round": 2,
+          "text": "Voting for Carol to try to create a tie or split suspicion; she and Bob are aggressively accusing me, which seems coordinated. Hoping Eve might see through their alignment."
+        }
+      ],
+      "plan": "Day 1 strategy: Stay calm, act normal, deflect suspicion away from me and Grace. Try to steer suspicion toward the quiet players or create doubt about strong village roles. Do not defend Alice too strongly since I helped kill her. Bid moderately for speaking slot."
+    },
+    "Grace": {
+      "beliefs": {
+        "Dave": {
+          "confidence": "high",
+          "evidence": "Dave claimed to be seer on Day 1, declared Bob a villager without proof - classic werewolf tactic to gain trust and protect packmates.",
+          "guess": "werewolf (fake seer claim)"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night kill, coordinating with Frank on Alice as initial target."
+        },
+        {
+          "round": 1,
+          "text": "Bid moderately to speak early and influence discussion."
+        },
+        {
+          "round": 1,
+          "text": "Cast doubt on Dave's seer claim to protect Frank and myself. Sow seeds of suspicion against Dave."
+        },
+        {
+          "round": 1,
+          "text": "Dave's Day 1 seer claim is suspicious and unverifiable; it's a common werewolf tactic to gain trust and protect packmates. Exiling Dave removes potential threat to the pack."
+        }
+      ],
+      "plan": ""
+    }
+  }
+}

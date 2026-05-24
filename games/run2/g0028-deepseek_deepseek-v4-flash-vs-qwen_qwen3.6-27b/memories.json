@@ -1,0 +1,315 @@
+{
+  "game_id": "g0028-deepseek_deepseek-v4-flash-vs-qwen_qwen3.6-27b",
+  "memories": {
+    "Alice": {
+      "beliefs": {
+        "Bob": {
+          "confidence": "high",
+          "evidence": "Grace (Seer) checked Bob last night and confirmed he is a Werewolf. Bob's previous attacks on Grace on Day 1 were likely wolf tactics to discredit the Seer before being checked. His denial is desperate.",
+          "guess": "Werewolf"
+        },
+        "Eve": {
+          "confidence": "medium",
+          "evidence": "Immediately accused Grace (the only Seer claimant) of being a werewolf because her clear was 'too convenient'. This is a common wolf tactic to discredit the Seer. Lack of evidence for the accusation.",
+          "guess": "Werewolf"
+        },
+        "Grace": {
+          "confidence": "high",
+          "evidence": "Claimed to be Seer and checked me (Alice) as Villager. I am a Villager, so this is a true positive. No conflicting Seer claims exist.",
+          "guess": "Seer"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Grace claims Seer and cleared me. I trust her claim as it benefits me and the village. Eve and Bob are aggressive accusers."
+        },
+        {
+          "round": 1,
+          "text": "Eve was the instigator of the baseless accusation against Grace, the only Seer claimant who verified my clean status. Wolves often attack the Seer on Day 1; Eve's immediate, evidence-free attack is wolfy behavior."
+        },
+        {
+          "round": 2,
+          "text": "Securing slot to defend Grace and pressure Bob."
+        },
+        {
+          "round": 2,
+          "text": "Aligning with Seer Grace and majority (Frank, Dave) to eliminate confirmed wolf Bob."
+        },
+        {
+          "round": 2,
+          "text": "Seer Grace confirmed Bob is a Werewolf. Supporting the Seer's read to protect the village."
+        }
+      ],
+      "plan": "Day 2 Strategy: 1. Bid ~40 to secure speaking slot. 2. Publicly defend Grace as the true Seer. 3. Pressure Bob for a role claim or counter-evidence regarding his attack on Grace. 4. Observe Carol and Frank for any sudden claims or aggressive behavior."
+    },
+    "Bob": {
+      "beliefs": {
+        "Grace": {
+          "confidence": "high",
+          "evidence": "She claimed Seer on day 1 and cleared Alice without proof, now she accuses me to save herself. This is a classic wolf tactic.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Night 1 kill on Alice. Eve and I agreed she's a strong player who could lead the village. No info yet, so targeting a potential threat."
+        },
+        {
+          "round": 1,
+          "text": "Bidding moderate amount to speak day 1 after failed night kill. Want to gauge reactions."
+        },
+        {
+          "round": 1,
+          "text": "Playing it safe as a villager; acknowledging Dave's opening to look cooperative."
+        },
+        {
+          "round": 1,
+          "text": "Supporting Eve's suspicion of Grace to sow doubt on the Seer claim."
+        },
+        {
+          "round": 1,
+          "text": "Grace's Seer claim on day 1 is highly suspicious and a common werewolf tactic; she should be eliminated."
+        },
+        {
+          "round": 2,
+          "text": "Targeting the claimed Seer to reduce village information and sow doubt."
+        },
+        {
+          "round": 2,
+          "text": "Bid 40 to speak and accuse Grace of being a fake Seer, pushing for her exile."
+        },
+        {
+          "round": 2,
+          "text": "Voting Grace because she is a fake Seer trying to get me exiled as the last werewolf."
+        }
+      ],
+      "plan": ""
+    },
+    "Carol": {
+      "beliefs": {
+        "Bob": {
+          "confidence": "high",
+          "evidence": "Grace (Seer) checked him and he is a Wolf. He defended himself aggressively. Eve (exiled) was his partner.",
+          "guess": "Werewolf"
+        },
+        "Eve": {
+          "confidence": "high",
+          "evidence": "Aggressively attacked Grace (likely Seer) without counter-claim, claiming it was 'too convenient' which is common wolf rhetoric. Grace's check on Alice matches my Doctor knowledge.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night, random protection choice."
+        },
+        {
+          "round": 1,
+          "text": "Day 1, no deaths. Guarded Alice. Plan: Guard Bob tonight. Keep role hidden for now."
+        },
+        {
+          "round": 1,
+          "text": "Grace claims Seer, cleared Alice. Eve accused Grace. I guarded Alice, so Alice is alive. Grace's claim is plausible. Waiting for more discussion to determine if Eve is Wolf or just rash."
+        },
+        {
+          "round": 1,
+          "text": "Voting for Eve as the primary aggressor against the likely Seer (Grace) with weak 'too convenient' rhetoric, consistent with Wolf behavior."
+        },
+        {
+          "round": 2,
+          "text": "Guarding claimed Seer Grace to prevent Werewolf kill on key information source."
+        },
+        {
+          "round": 2,
+          "text": "Keeping Doctor role hidden. Bidding 0 to listen to accusations. Suspect Bob is Wolf based on Day 1 aggression towards Seer Grace. Plan to guard Grace or Alice tonight."
+        },
+        {
+          "round": 2,
+          "text": "Supporting Seer's find. Bob is the wolf."
+        },
+        {
+          "round": 2,
+          "text": "Grace (Seer) confirmed Bob is a Werewolf. Consistent with early suspicion and Eve's exile."
+        }
+      ],
+      "plan": "Strategy Update: Eve exiled. Grace claims Seer and cleared Alice. Bob and Eve accused Grace. Bob is still suspicious (Wolf medium). Grace is likely true Seer or a bold Villager. Werewolves likely target Grace tonight. I will guard Grace to protect our information source. If Grace is killed, she was a Wolf or I missed the target. Monitor Bob closely. Keep Doctor role hidden."
+    },
+    "Dave": {
+      "beliefs": {
+        "Bob": {
+          "confidence": "high",
+          "evidence": "Grace (Seer) checked Bob and confirmed he is a Werewolf. Bob's Day 1 behavior was defensive and dismissive of Grace's claim. Multiple players (Frank, Alice, Carol) are also accusing him based on Grace's info.",
+          "guess": "Werewolf"
+        },
+        "Grace": {
+          "confidence": "medium",
+          "evidence": "Claimed Seer, cleared Alice (who is consistent with village). No counter-claim. Atacking Seer on Day 1 is a common Wolf tactic to remove info, but usually Wolves don't take the heat unless they are desperate or ready to kill. Given Alice's defense, she seems credible.",
+          "guess": "Seer"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Day 1, no deaths. Bidding mid-range to ensure speaking opportunity while conserving some budget for later days."
+        },
+        {
+          "round": 1,
+          "text": "First turn, low budget. Establishing trust as Villager. Encouraging caution."
+        },
+        {
+          "round": 1,
+          "text": "Eve's weak accusation against the claimed Seer is suspicious. Defending to buy time and gather more info."
+        },
+        {
+          "round": 1,
+          "text": "Voting for Bob as he publicly attacked the claimed Seer (Grace) without evidence, a common Wolf tactic to eliminate information sources early. Prefer removing an accuser over the info-proider unless a counter-claim exists."
+        },
+        {
+          "round": 2,
+          "text": "Bid high to speak before Bob, who is suspicious for attacking Grace. Defend Grace, pressure Bob."
+        },
+        {
+          "round": 2,
+          "text": "Supporting lynch of Bob based on Seer's info and Bob's suspicious D1 behavior."
+        },
+        {
+          "round": 2,
+          "text": "Consensus is strong against Bob. My stance is clear. No need to repeat."
+        },
+        {
+          "round": 2,
+          "text": "Confirmed werewolf by Seer Grace. Village consensus is strong."
+        }
+      ],
+      "plan": ""
+    },
+    "Eve": {
+      "beliefs": {
+        "Grace": {
+          "confidence": "high",
+          "evidence": "Grace claimed Seer and cleared Alice on day 1, which is a classic wolf tactic; she's likely lying to gain trust.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "No info night 1, Bob suggested Alice or Carol. Choosing Alice as she may be dangerous."
+        },
+        {
+          "round": 1,
+          "text": "Low bid to stay under radar day 1; Alice was protected last night"
+        },
+        {
+          "round": 1,
+          "text": "Voting to exile Grace; her Seer claim seems fabricated to protect Alice or gain trust, and she's likely a werewolf."
+        }
+      ],
+      "plan": ""
+    },
+    "Frank": {
+      "beliefs": {
+        "Bob": {
+          "confidence": "high",
+          "evidence": "Grace (Seer) checked Bob and confirmed he is a Werewolf. Bob's aggressive defense and attempt to discredit the Seer align with Wolf behavior.",
+          "guess": "Werewolf"
+        },
+        "Eve": {
+          "confidence": "medium",
+          "evidence": "Eve and Bob are coordinating to attack Grace's Seer claim without offering their own roles. This 'jump on the seer' tactic is common for wolves to eliminate information sources. Eve's accusation was the first and most aggressive.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Bidging 20 to secure a speaking slot on Day 1 to assess the situation and establish myself as a villager."
+        },
+        {
+          "round": 1,
+          "text": "Day 1: Grace claims Seer and clears Alice. Bob and Eve accuse Grace. Dave defends. I am a Villager with no info. Passing to observe further discussion and see if anyone else claims roles or votes emerge."
+        },
+        {
+          "round": 1,
+          "text": "Eve led the baseless attack on Grace's Seer claim. Protecting the Seer is priority #1."
+        },
+        {
+          "round": 2,
+          "text": "Bidding to support Grace and analyze Bob's stance post-Eve exile."
+        },
+        {
+          "round": 2,
+          "text": "Supporting Grace's Seer claim and pushing for Bob's exile based on her confirmation."
+        },
+        {
+          "round": 2,
+          "text": "Bob is accused by Seer Grace and I have already voiced support. No further action needed to secure his exile."
+        },
+        {
+          "round": 2,
+          "text": "Voting out Bob as confirmed by Seer Grace. His denial is typical Wolf behavior."
+        }
+      ],
+      "plan": "Support Grace as Seer. Monitor Bob and Carol. Vote to exile anyone who aggressively attacks the Seer without proof. Aim to speak to clarify village stance."
+    },
+    "Grace": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "high",
+          "evidence": "Inspected by Seer on Night R1 and returned 'villagers'.",
+          "guess": "Villager"
+        },
+        "Eve": {
+          "confidence": "high",
+          "evidence": "Initiated baseless accusation against Seer immediately on Day 1, attempting to discredit vital information without proof. Likely trying to force a lynch of the Seer to protect wolf identity.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Checking Alice first to establish a baseline."
+        },
+        {
+          "round": 1,
+          "text": "Seer info: Alice is clean. Need to build trust early."
+        },
+        {
+          "round": 1,
+          "text": "Revealed Alice is clean (Villager) to establish trust and a baseline good player. Kept my Seer role implicit but obvious to alert players. Budget remaining: 70 - bid_cost. Wait, the bid was 30, so budget is 70. No, wait, 'Speaking-bid budget remaining' lists Grace as 70 *before* the bid? Or is it remaining *after*? The prompt says 'Speaking-bid budget remaining ... Grace 70'. Then it says 'Day R1: you bid 30'. Usually, these counters update. Let's assume the 70 is the current state available to me? Or did I already spend it? The prompt says 'Speaking-bid budget remaining... Grace 70' in 'What you know'. Then it lists events 'Day R1: you bid 30'. If 70 is remaining *now*, then I haven't spent it yet? Or is 70 the starting amount? Let's look at Dave: Dave 50, bid 50? No, Dave bid 50 in the list? 'bids \u2014 ... Dave 50 ... Grace 30'. If Dave's remaining is 50, and he bid 50, he might be at 0? Or is 50 what he has *left*? Alice is 100, bid 0. Bob 70, bid 30. It seems the 'budget remaining' listed in 'What you know' might be the state *before* my current action decision but *after* the bids were placed? Actually, the prompt structure is: 'What you know: ... Speaking-bid budget remaining ... Grace 70'. Then 'Recent events: ... Day R1: you bid 30'. This is slightly ambiguous. However, it doesn't change my current action: I must speak. The cost was already incurred by the bidding phase. I just need to deliver the message."
+        },
+        {
+          "round": 1,
+          "text": "Countering Eve and Bob's accusations by reinforcing my Seer claim and truthfulness regarding Alice."
+        },
+        {
+          "round": 1,
+          "text": "Eve initiated the baseless attack on the Seer without evidence. This is a classic wolf tactic to eliminate the Seer. Bob followed, but Eve is the primary instigator. Exiling her protects the village's ability to identify wolves."
+        },
+        {
+          "round": 2,
+          "text": "Bob aggressively accused Grace of being a wolf on Day 1. Need to verify if he is a wolf or a confused villager."
+        },
+        {
+          "round": 2,
+          "text": "Revealing Bob as werewolf based on Night R2 inspection. Need early slot to frame the vote against him before other wolves can counter."
+        },
+        {
+          "round": 2,
+          "text": "Revealed Bob as WF. Alice is clean."
+        },
+        {
+          "round": 2,
+          "text": "Bob is confirmed Wolf by my Seer check. Frank, Dave, and Alice align with me. I have stated my case. Pass to allow voting to proceed on Bob."
+        },
+        {
+          "round": 2,
+          "text": "Bob is confirmed werewolf by my night inspection. He needs to be exiled immediately."
+        }
+      ],
+      "plan": "As Seer, prioritize sharing verified clean roles to build trust. Day 1: Share Alice is clean. Bid moderately (20-30) to speak early-ish but save budget. Monitor votes and discussions for wolf tells. Protect potential medicine/doctor if identified."
+    }
+  }
+}

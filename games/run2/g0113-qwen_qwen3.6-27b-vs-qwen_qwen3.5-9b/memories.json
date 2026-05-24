@@ -1,0 +1,316 @@
+{
+  "game_id": "g0113-qwen_qwen3.6-27b-vs-qwen_qwen3.5-9b",
+  "memories": {
+    "Alice": {
+      "beliefs": {
+        "Bob": {
+          "confidence": "high",
+          "evidence": "Bob is aggressively focusing on Alice to deflect suspicion from his own erratic behavior and contradictory statements. He is the main threat to the wolves' current strategy of hiding Grace.",
+          "guess": "Werewolf"
+        },
+        "Carol": {
+          "confidence": "high",
+          "evidence": "Claimed Doctor on Day 1. Last night, we targeted Frank but the kill protected. Carol is the only one who claimed a role that could explain this protection.",
+          "guess": "Doctor"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Consensus with Grace on first night kill to reduce village count."
+        },
+        {
+          "round": 1,
+          "text": "Bidding low to observe first. Will attempt to blend in if I get a slot."
+        },
+        {
+          "round": 1,
+          "text": "Retrying accusation after formatting error. Goal is to discredit Eve's Seer claim to save myself and support my ally Grace."
+        },
+        {
+          "round": 1,
+          "text": "Eve's Seer claim is logically flawed (basing vision on bids). Bob and Frank are turning on her. We must exile the false Seer to protect the pack."
+        },
+        {
+          "round": 2,
+          "text": "Coordinated with Grace; targeting Frank to diversify kill targets and avoid potential Doctor guards on Bob/Carol."
+        },
+        {
+          "round": 2,
+          "text": "Bidding 25 to secure a mid-tier speaking slot. Goal: Deflect from Frank (who was guarded), reinforce credibility from Eve's exile, and push suspicion to Bob or Dave."
+        },
+        {
+          "round": 2,
+          "text": "Trying to deflect suspicion from myself to Bob by framing his aggressive voting pattern as wolf-like behavior."
+        },
+        {
+          "round": 2,
+          "text": "Bob is erratic and deflecting via Alice. Dave/Frank/Grace already have him. Voting him to save Grace."
+        },
+        {
+          "round": 3,
+          "text": "Aligning with Grace to vote Dave after previously wanting Carol. Coordination confirmed via private chat to avoid split vote."
+        }
+      ],
+      "plan": "Day 2 Strategy: Eve (fake Seer) exile. Frank was guarded by Carol (Doc). Grace (Wolf) is my ally. Today, I need to deflect suspicion from myself and Frank (since he was guarded, he's safe for now but might be watched). Push suspicion onto Bob or Dave. Claim I am a villager who correctly identified Eve as a fake Seer. Bid moderately (20-30) to speak, defend my night's inaction, and steer votes to Bob."
+    },
+    "Bob": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "high",
+          "evidence": "Day 1 speaking bid of 5 was extremely low compared to other players, a classic wolf blending tactic. The 'Seer' Eve focused her vision on Alice without explaining how, aligning with the bid theory. Despite my defense against the village's paranoia, Alice's behavioral anomaly remains the strongest indicator of her faction.",
+          "guess": "Werewolf"
+        },
+        "Eve": {
+          "confidence": "high",
+          "evidence": "Eve claimed to be Seer but cited Alice's low speaking bid as the basis for her 'vision', which is illogical and not how a Seer operates. She refused to explain the mechanism of the vision when challenged. She actively defended Alice against her own accusation while the 'low bid' evidence was clearly a flaw in Eve's logic.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First day, aiming to hear the survivor report and initial village plan. No suspicions yet."
+        },
+        {
+          "round": 1,
+          "text": "Eve is playing a fake Seer role to frame Alice. A real Seer would never use bid numbers as evidence."
+        },
+        {
+          "round": 1,
+          "text": "Voting to exile Eve because she faked being a Seer by inventing a vision based on a low speaking bid. This is a classic wolf tactic to eliminate a harmless player like Alice."
+        },
+        {
+          "round": 2,
+          "text": "Eve was likely a wolf. Alice's low bid is the only glaring anomaly; need to hear from the village how they view this. If there is a real Seer, they will clarify."
+        },
+        {
+          "round": 2,
+          "text": "Suspect Alice (Wolff). Reason: Low bid (5) = 100% blending. Day 1 Seer focused on her. High risk to keep alive."
+        },
+        {
+          "round": 2,
+          "text": "Alice's Day 1 speaking bid of 5 was an extreme outlier indicative of wolf blending. Despite the Seer's confusing logic, the numerical data placed Alice at high risk. Exiling her is necessary to balance the game, regardless of the resulting conflict with the current village narrative."
+        }
+      ],
+      "plan": ""
+    },
+    "Carol": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "high",
+          "evidence": "Seer identified her alignment, though she failed to explain the mechanism properly. Her speaking bid was the lowest in the room (5), consistent with a wolf trying to blend in.",
+          "guess": "Werewolf"
+        },
+        "Bob": {
+          "confidence": "medium",
+          "evidence": "Bob is aggressively defending Alice despite the village consensus and the Seer's initial report pointing at Alice. His erratic shift from accusing Eve to defending Alice suggests he is covering for a teammate or manipulating the vote to keep Alice alive.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night protection. No specific intel yet; protecting Bob to spread risk."
+        },
+        {
+          "round": 1,
+          "text": "Bid 80 to secure an early speaking slot for day 1 discussion."
+        },
+        {
+          "round": 1,
+          "text": "Alice's low bid (5) vs Eve is Seer. Eve is claiming Alice is wolf immediately without defense. Need to verify Seer's credibility before voting. Bob was protected last night and is alive, but that doesn't confirm Eve. Challenge Eve to explain."
+        },
+        {
+          "round": 2,
+          "text": "Frank is a solid voter who didn't fully align with Alice; protecting him as a buffer takes precedence."
+        },
+        {
+          "round": 2,
+          "text": "Low bid to conserve budget (20 remaining). My suspicion (High) on Alice remains justified by her initial low bid despite being unvetted by a real Seer. Need to vote in next round or speak if slot available to address Alice's cleared status or continued danger."
+        },
+        {
+          "round": 2,
+          "text": "Eve died, but her info stands as primary evidence. Focus on Alice's bid and defense."
+        },
+        {
+          "round": 2,
+          "text": "Voting for Bob due to his suspicious defense of Alice after the Seer was exiled. His behavior contradicts the village's initial consensus and points to him being the wolf covering for Alice."
+        },
+        {
+          "round": 3,
+          "text": "Village consensus has shifted to targeting Alice despite her defense of herself against Bob. As Doctor, protecting Alice ensures survival if she is indeed a good player and counters a potential 2v1 wolf scenario where wolves might target her. Frank suggested caution against rushing Alice, but the threat of losing a low-bid villager remains high."
+        }
+      ],
+      "plan": "Understand the game dynamics by listening to the Seer's information. Identify the werewolves through consistent voting patterns and logic. Prioritize surviving each night by guarding a key player. Coordinate with allies until the final round."
+    },
+    "Dave": {
+      "beliefs": {
+        "Bob": {
+          "confidence": "high",
+          "evidence": "Bob's behavior is highly erratic and inconsistent. He aggressively lobbied to lynx Alice based on her low bid, but when Alice turned on him, he immediately flipped to defending her using the exact same 'low bid' logic, which Alice rightly criticized as 'recycled garbage'. This rapid switch from attacker to defender suggests he is a Wolf trying to manipulate the narrative, protect Alice, or confuse the vote. Grace also noted his inconsistency. He bidded maximally (100), indicating high confidence in this chaotic behavior.",
+          "guess": "Werewolf"
+        },
+        "Eve": {
+          "confidence": "medium",
+          "evidence": "Eve claims to be the Seer but provides no explanation for her vision, instead pointing to Alice's low speaking bid as the reason for suspicion. This suggests Eve is faking a role to frame an innocent player, which is typical behavior for a Werewolf.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First day with no casualties observed. Need to listen and gather info before making any accusations or forming strong plans."
+        },
+        {
+          "round": 1,
+          "text": "Waiting to see if the group decides to lynch Alice based on bid or stick with the Seer's claim. Need more clarity on the Seer's vision before committing to an accusation."
+        },
+        {
+          "round": 1,
+          "text": "Voting to exile Eve because she claims to be the Seer but fails to explain how she identified Alice, relying instead on the irrelevant metric of Alice's low speaking bid. This lack of verifiable insight suggests she is faking her role to frame an innocent player."
+        },
+        {
+          "round": 2,
+          "text": "I need to speak to clarify my thoughts on the situation after Eve's exile and to align with Carol and others against potential threats."
+        },
+        {
+          "round": 2,
+          "text": "Eve accused Alice then defended her immediately. This is a major red flag for a fake seer/wolf. My vote will be for Eve at noon."
+        },
+        {
+          "round": 2,
+          "text": "Day 1: Eve claimed Alice (low bid) is wolf. Carol/Frank/Grace defended called out Alice's bid or defense. Day 2: Three players (Alice, Grace, Frank) focus on Bob, while two focus on Alice. The number of active voices targeting Bob is higher, and the nature of his defense (sudden shift to protecting Alice) mirrors wolf behavior of shifting blame."
+        },
+        {
+          "round": 2,
+          "text": "Voting out Bob due to his inconsistent behavior and high likelihood of being a Werewolf."
+        }
+      ],
+      "plan": ""
+    },
+    "Eve": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "high",
+          "evidence": "Seer vision in Night R1 confirmed Alice is a Werewolf. Alice is actively accusing the Seer and is seen as part of the Wolf faction's deception strategy.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Checking Alice first to see if she is a villager or werewolf in the early game."
+        },
+        {
+          "round": 1,
+          "text": "Bid max to speak first. I know Alice is a werewolf but she is alive (guarded). Must speak to expose this or coordinate further."
+        },
+        {
+          "round": 1,
+          "text": "I am the Seer. Alice is Werewolf. Must save to use again at noon. Cost 0."
+        },
+        {
+          "round": 1,
+          "text": "Seer vision confirmed Alice as a Werewolf. She is actively attacking the Seer's credibility to protect the wolf team."
+        }
+      ],
+      "plan": ""
+    },
+    "Frank": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "low",
+          "evidence": "Alice shares a low speaking bid (5) with the exiled Eve (also 5). In this game, low bids appeared to be used by Wolves to blend in before making aggressive plays. Alice's comparative passivity after Eve's exile is consistent with a Wolf trying to wait out the storm.",
+          "guess": "Werewolf"
+        },
+        "Bob": {
+          "confidence": "medium",
+          "evidence": "Billiar redirected aggression from Alice to himself when accused, showing inconsistent 'villager' logic; aggressive lynch-pushing on Alice initially then shifting narrative to defend/lower-ballot Alice is erratic.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Day 1 start. No info yet. Bidding moderately to ensure I get a speaking slot to hear what others say after the night event."
+        },
+        {
+          "round": 1,
+          "text": "Questioning the link between bid and alignment; need Seer clarification before voting."
+        },
+        {
+          "round": 1,
+          "text": "Eve claimed to be the Seer but could not explain how her vision identified Alice. She used a logical fallacy (Alice's low speaking bid) instead of a verifiable role function. Most players (Alice, Bob, Frank) believe this indicates a fake Seer trying to frame Alice. I vote to exile her immediately."
+        },
+        {
+          "round": 2,
+          "text": "Maintained low confidence on Alice (Werewolf) due to low bid similarity with exiled Eve. Need to monitor role play tonight."
+        },
+        {
+          "round": 2,
+          "text": "Voting for Bob due to erratic inconsistency: aggressively pushed Alice's lynch, then defended himself/narrative when accused."
+        }
+      ],
+      "plan": ""
+    },
+    "Grace": {
+      "beliefs": {
+        "Bob": {
+          "confidence": "high",
+          "evidence": "He is under heavy suspicion from Dave, Frank, Alice, and myself. Voting for him eliminates a likely villager and deflects suspicion from Alice. Carol (Doc) is voting for Alice, so Alice is safe for now.",
+          "guess": "Villager"
+        },
+        "Carol": {
+          "confidence": "high",
+          "evidence": "Claimed Doctor on Day 1. Night 2 kill on Frank was blocked, consistent with Carol guarding Frank.",
+          "guess": "Doctor"
+        },
+        "Eve": {
+          "confidence": "high",
+          "evidence": "Claimed Seer and targeted my ally Alice. Even if real Seer, she is the biggest threat to us right now. Her defense was confusing. Most players are suspicious of her vague claim.",
+          "guess": "Seer or Wolf (Threat)"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Agreed with Alice to target Bob as first kill to reduce village count."
+        },
+        {
+          "round": 1,
+          "text": "Day 1. Bob was guarded. Alice and I are wolves. Need to blend in."
+        },
+        {
+          "round": 1,
+          "text": "Protecting my ally Alice. Eve's accusation is weak so far."
+        },
+        {
+          "round": 1,
+          "text": "Eve claimed Seer and targeted my ally Alice without substantial evidence. Her claim is suspicious and she is the primary threat to our survival."
+        },
+        {
+          "round": 2,
+          "text": "Aligning with Alice's strategy to target the Doctor to reduce the village's defensive capability."
+        },
+        {
+          "round": 2,
+          "text": "Moderate bid to maintain plausibility and contrast with Alice's low bid. Goal: Speak to deflect suspicion from Alice and question Carol's Doctor claim or Bob's silence."
+        },
+        {
+          "round": 2,
+          "text": "Alice is my ally. Bob is the most vocal threat to her. His flip-flopping is the best angle to turn the village against him."
+        },
+        {
+          "round": 2,
+          "text": "Voting for Bob as he is the most consistent suspect among the villagers accusing him (Dave, Frank) and my ally Alice. This helps eliminate a villager and protects Alice from immediate exile since Carol is his only counter-vote on the Alice side."
+        },
+        {
+          "round": 3,
+          "text": "Coordinating with Alice who targeted Carol last turn and explicitly requested it. Prioritizing the likely Doctor."
+        }
+      ],
+      "plan": "1. Ally: Alice. Protect her by deflecting suspicion or validating her silence. 2. Opponent: Carol (likely Doc). Monitor her voting/guarding patterns. 3. Next Kill: Coordinate with Alice to target someone Carol is unlikely to guard (maybe Bob or Dave, or guess she guards herself/Alice). 4. Public Play: Moderate bids (30-50). Act confused but logical. Push for lynch of high-suspicion villagers (Bob/Dave) if needed, but prefer chaos."
+    }
+  }
+}

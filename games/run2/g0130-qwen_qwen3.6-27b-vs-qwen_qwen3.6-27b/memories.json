@@ -1,0 +1,202 @@
+{
+  "game_id": "g0130-qwen_qwen3.6-27b-vs-qwen_qwen3.6-27b",
+  "memories": {
+    "Alice": {
+      "beliefs": {
+        "Eve": {
+          "confidence": "high",
+          "evidence": "Claimed Seer, checked me (Alice) and found me clean. No one else claimed Seer.",
+          "guess": "Seer"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Backed Eve immediately to secure the Seer role for the village. Placed mild observation on Frank for lack of info. Urged Doctor to guard Eve."
+        },
+        {
+          "round": 1,
+          "text": "Statements done. Supporting Eve. Watching Frank. No new info to add."
+        },
+        {
+          "round": 1,
+          "text": "Waiting for Eve's next check and more claims before exiling. Frank's vagueness is noted but not enough for Day 1 exile."
+        }
+      ],
+      "plan": "Support Eve's Seer claim as I was cleared. Monitor Frank and others for contradictions. Wait for Eve's next check. If a strong counter-claim arises, evaluate carefully."
+    },
+    "Bob": {
+      "beliefs": {
+        "Dave": {
+          "confidence": "high",
+          "evidence": "He is my pack mate.",
+          "guess": "Werewolf"
+        },
+        "Eve": {
+          "confidence": "high",
+          "evidence": "Claimed Seer, checked Alice who is clean. Alice supports her. High probability she is true Seer.",
+          "guess": "Seer"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Agreeing with ally Dave's suggestion to kill Carol."
+        },
+        {
+          "round": 1,
+          "text": "Low bid to conserve budget and avoid early aggression; will meter speech based on others."
+        },
+        {
+          "round": 1,
+          "text": "Aligning with town to lower suspicion. Claiming Villager."
+        },
+        {
+          "round": 1,
+          "text": "Grace bid 0 and remained silent. Suspect she is hiding something or a wolf. Pressuring passive players is good village dynamics."
+        },
+        {
+          "round": 2,
+          "text": "Dave's logic is sound: killing Eve is risky due to high guard probability. Killing Frank leaves us 2 Wolves vs 2 Townies, effectively winning the game."
+        }
+      ],
+      "plan": "1. Coordinate with Dave privately every night. 2. Act as a cautious/neutral villager during the day to avoid high suspicion. 3. If targeted, frame another player (e.g., Frank or Eve) as a suspicious claimant. 4. Save speaking budget for critical defense or misdirection moments; bid low on first days unless necessary to speak."
+    },
+    "Carol": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night, no info. Random guess to protect Alice."
+        }
+      ],
+      "plan": ""
+    },
+    "Dave": {
+      "beliefs": {
+        "Eve": {
+          "confidence": "high",
+          "evidence": "Claimed to be Seer, checked Alice as villager. Specific claim. High threat level.",
+          "guess": "Seer"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "I proposed Carol as our first night kill to test her potential role (e.g., Seer or Doctor)."
+        },
+        {
+          "round": 1,
+          "text": "Day 1. Wolf. Need to speak to help frame narrative or defend Bob if needed. Low bid to conserve budget but ensure a slot."
+        },
+        {
+          "round": 1,
+          "text": "Removing the Seer to blind the village. High threat."
+        },
+        {
+          "round": 2,
+          "text": "Doctor likely guarding Eve per Alice's suggestion. Killing Frank leaves 2 Wolves vs 2 Townsfolk (Alice, Eve), securing victory or immediate advantage."
+        }
+      ],
+      "plan": ""
+    },
+    "Eve": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "high",
+          "evidence": "Seer checked her on Night R1 and she was a villager.",
+          "guess": "Villager"
+        },
+        "Grace": {
+          "confidence": "low",
+          "evidence": "Did not speak on Day 1 despite having 0 bid cost, which is unusual passivity.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night inspection. Choosing Alice at random to start gathering information."
+        },
+        {
+          "round": 1,
+          "text": "Plan to claim Seer to establish truth and clear Alice (verified villager). Moderate bid to ensure speaking slot without overspending."
+        },
+        {
+          "round": 1,
+          "text": "Claimed Seer. Vouched for Alice. Encouraged info sharing."
+        },
+        {
+          "round": 1,
+          "text": "Waiting for Bob, Dave, and Grace to claim roles or provide info before accusing."
+        },
+        {
+          "round": 1,
+          "text": "Abstaining due to lack of clear evidence. Priority is to check Grace tonight."
+        },
+        {
+          "round": 2,
+          "text": "Frank had high bid, generic speech, suspicious behavior. Need to verify if he is Wolf or Town."
+        }
+      ],
+      "plan": "Eve is Seer. Alice is Villager (confirmed). Plan: Check Grace tonight. She stayed silent despite 0 bid cost, which is suspicious. Frank bid high but said little, also watch him. Abstain today to avoid killing a townie, look for inconsistencies in claims/votes."
+    },
+    "Frank": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "high",
+          "evidence": "Checked clean by Eve (Seer) and accepted the check logically.",
+          "guess": "Villager"
+        },
+        "Eve": {
+          "confidence": "high",
+          "evidence": "Claimed Seer, checked Alice (Villager), logical behavior, supported by Alice.",
+          "guess": "Seer"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First day bidding conservatively to establish presence as a villager."
+        },
+        {
+          "round": 1,
+          "text": "First day speech. Introducing myself as villager. Observing others' responses."
+        },
+        {
+          "round": 1,
+          "text": "Waiting for statements from Bob, Dave, and Grace before taking action."
+        },
+        {
+          "round": 1,
+          "text": "Grace was silent during Day 1 speaking phase and has full budget. Silence is suspicious. Voting her to pressure silent players."
+        }
+      ],
+      "plan": "1. Listen to all players. 2. Look for inconsistencies in voting or claims. 3. Watch speaking budget changes. 4. If a clear wolf emerges, vote them out. 5. Otherwise, vote randomly or for the most suspicious."
+    },
+    "Grace": {
+      "beliefs": {
+        "Eve": {
+          "confidence": "medium",
+          "evidence": "She checked Alice who was confirmed clean, and her behavior is consistent with Seer.",
+          "guess": "Seer"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Conserving budget on Day 1. No information yet to warrant a high bid."
+        },
+        {
+          "round": 1,
+          "text": "No clear target to accuse yet. Waiting for more information from unmoved players (Bob, Dave) and voting patterns."
+        },
+        {
+          "round": 1,
+          "text": "No clear target on Day 1. Frank and Bob gave vague villager claims, but without evidence, abstaining is safest to not help wolves eliminate a townie."
+        }
+      ],
+      "plan": "Support Eve as true Seer. Investigate Bob, Dave, Frank who haven't given clear value. Avoid accusing without proof. Encourage Doctor to guard Eve."
+    }
+  }
+}

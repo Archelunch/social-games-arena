@@ -1,0 +1,187 @@
+{
+  "game_id": "g0050-google_gemma-4-31b-it-vs-google_gemma-4-26b-a4b-it",
+  "memories": {
+    "Alice": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Dave and I agreed on Bob in the pack chat."
+        },
+        {
+          "round": 1,
+          "text": "Bidding moderately to participate in the first day's discussion and blend in."
+        },
+        {
+          "round": 1,
+          "text": "Counter-attacking the Seer claim to survive the first day."
+        },
+        {
+          "round": 1,
+          "text": "Eve claimed Seer and targeted me; I must counter-attack to survive."
+        },
+        {
+          "round": 2,
+          "text": "Targeting Frank because he showed critical thinking and skepticism during Day 1, making him a dangerous player for us."
+        }
+      ],
+      "plan": ""
+    },
+    "Bob": {
+      "beliefs": {},
+      "notes": [],
+      "plan": ""
+    },
+    "Carol": {
+      "beliefs": {
+        "Eve": {
+          "confidence": "low",
+          "evidence": "Claims to be Seer and identifies Alice as werewolf; high bid for speaking slot.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Starting with a low bid to listen to others first."
+        },
+        {
+          "round": 1,
+          "text": "Eve claimed Seer and accused Alice. Dave defended Alice. I will wait for Alice's response and further discussion before committing."
+        },
+        {
+          "round": 1,
+          "text": "Too early to decide between Eve and Alice without more evidence. Watching others' votes."
+        }
+      ],
+      "plan": "Observe everyone's speaking patterns and voting behavior. Avoid making premature accusations without evidence. Try to identify roles through discussions and build a consensus for exiling werewolves."
+    },
+    "Dave": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Coordinating with Alice as discussed in pack chat."
+        },
+        {
+          "round": 1,
+          "text": "Establish a presence in the first discussion without overspending."
+        },
+        {
+          "round": 1,
+          "text": "Trying to protect Alice by casting doubt on Eve's Seer claim."
+        },
+        {
+          "round": 1,
+          "text": "Eve claimed Seer and targeted Alice. I must eliminate her to protect my ally and potentially remove the Seer."
+        },
+        {
+          "round": 2,
+          "text": "Targeting Frank as he was critical and perceptive during Day 1."
+        }
+      ],
+      "plan": ""
+    },
+    "Eve": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "high",
+          "evidence": "I inspected her on Night 1 and the result was werewolf.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First inspection of the game."
+        },
+        {
+          "round": 1,
+          "text": "I need to share my information about Alice being a werewolf."
+        },
+        {
+          "round": 1,
+          "text": "Revealing my role and Alice's faction to force an exile."
+        },
+        {
+          "round": 1,
+          "text": "Waiting to see how the village reacts to my claim and how Alice defends herself."
+        },
+        {
+          "round": 1,
+          "text": "She is a confirmed werewolf from my Night 1 inspection."
+        }
+      ],
+      "plan": "I am the seer. I know Alice is a werewolf. I need to decide whether to reveal my identity immediately to get Alice exiled or to play more cautiously to avoid being targeted by werewolves. My goal is to guide the village to exile the werewolves while keeping myself alive."
+    },
+    "Frank": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "medium",
+          "evidence": "Eve claimed to be Seer and identified Alice as a werewolf. Eve was exiled, but if Eve was telling the truth, Alice is a werewolf.",
+          "guess": "werewolf"
+        },
+        "Eve": {
+          "confidence": "low",
+          "evidence": "Claimed Seer and immediately accused Alice; high bid for speaking slot.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Protecting Alice as a random choice since I cannot protect myself and have no other information."
+        },
+        {
+          "round": 1,
+          "text": "Bidding to join the first day discussion and establish presence."
+        },
+        {
+          "round": 1,
+          "text": "Eve claimed Seer and accused Alice. Being cautious."
+        },
+        {
+          "round": 1,
+          "text": "Eve claimed Seer and accused Alice; Dave defended Alice. Waiting to see reactions and Alice's response."
+        },
+        {
+          "round": 1,
+          "text": "Too much uncertainty between Eve's Seer claim and Alice's denial. Waiting to see voting patterns."
+        },
+        {
+          "round": 2,
+          "text": "Protecting Alice due to the high tension and her being the target of Eve's claim. If Eve was the Seer, Alice is a werewolf; if Eve was a werewolf, Alice is an innocent target."
+        }
+      ],
+      "plan": "Observe player interactions and voting patterns. Try to identify suspicious behavior. As the doctor, I will continue to protect players to increase village survival chances."
+    },
+    "Grace": {
+      "beliefs": {
+        "Eve": {
+          "confidence": "low",
+          "evidence": "Claimed Seer and flagged Alice; high bid of 40.",
+          "guess": "uncertain (Seer or Werewolf)"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Bidding to participate in the first day's discussion."
+        },
+        {
+          "round": 1,
+          "text": "Using my speaking slot to probe the validity of Eve's Seer claim and Alice's reaction."
+        },
+        {
+          "round": 1,
+          "text": "Observing reactions to Eve's Seer claim and Alice's response."
+        },
+        {
+          "round": 1,
+          "text": "Too early to decide between Eve's claim and Alice's innocence. Observing the vote."
+        }
+      ],
+      "plan": "Listen carefully to the discussion, observe who bids high to speak and what information they provide, and try to identify inconsistencies in players' claims."
+    }
+  }
+}

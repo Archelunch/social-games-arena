@@ -1,0 +1,179 @@
+{
+  "game_id": "g0062-google_gemma-4-26b-a4b-it-vs-qwen_qwen3.5-9b",
+  "memories": {
+    "Alice": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Proposing Carol to Frank, but since no response, I'll lead the kill."
+        },
+        {
+          "round": 1,
+          "text": "Bidding moderately to ensure I can express concern about Carol's death and shape the early narrative."
+        },
+        {
+          "round": 1,
+          "text": "Grace made a mechanical error in her claim about seeing targets, which makes her Seer claim suspicious. I will vote for her to defend myself and cast doubt on her credibility."
+        },
+        {
+          "round": 2,
+          "text": "Eve is claiming to be the Doctor and has been defending me; eliminating her removes a potential threat."
+        }
+      ],
+      "plan": "Play the role of a concerned villager. Avoid being too aggressive or too silent. Try to blend in by asking questions about what people think of Carol's death and observing how others react to the loss."
+    },
+    "Bob": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "high",
+          "evidence": "Grace (Seer) identified Alice. Eve claims Alice was targeted by wolves despite Eve guarding her, which is the expected behavior if Alice is indeed a wolf being targeted by the seer.",
+          "guess": "Werewolf"
+        },
+        "Grace": {
+          "confidence": "high",
+          "evidence": "Grace claimed to be the Seer and saw Alice 'targeted', but the Seer only sees faction, not targeting. This is a lie, indicating Grace is a wolf.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Early game. Need to speak to assess situation after first werewolf kill."
+        },
+        {
+          "round": 1,
+          "text": "Following Seer Grace and Guard Eve's implication that Alice is the target/wolf. Urging immediate exile."
+        },
+        {
+          "round": 1,
+          "text": "Grace lied about witnessing a specific targeting event; Seers only see faction. Her statement contradicts the fact that Carol was killed and Eve's guard log. She is a wolf."
+        }
+      ],
+      "plan": ""
+    },
+    "Carol": {
+      "beliefs": {},
+      "notes": [],
+      "plan": ""
+    },
+    "Dave": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "medium",
+          "evidence": "The Seer (Grace) identified Alice as a werewolf with certainty. While Eve (Doctor) claims Alice was never targeted, the Seer's direct observation of faction is usually the primary source of truth in the early game. Alice's denial seems to be an attempt to discredit the Seer.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Bidding 0 to save budget and observe initial discourse. Carol was killed; need to see who reacts or who speaks about body locations."
+        },
+        {
+          "round": 1,
+          "text": "Suspicion: Grace is a wolf imposter. She invented 'seeing Alice targeted' to bolster her fake Seer status. Alice is likely a villager retaliating."
+        },
+        {
+          "round": 1,
+          "text": "Following the Seer's identification. Alice is acting defensively to discredit the only concrete source of information (Grace), which is typical wolf behavior or a desperate villager denial."
+        }
+      ],
+      "plan": ""
+    },
+    "Eve": {
+      "beliefs": {
+        "Grace": {
+          "confidence": "high",
+          "evidence": "Grace claims she saw Alice targeted by wolves last night. However, I am the Doctor and I successfully guarded Alice that night. It is impossible for Alice to be targeted if the Doctor successfully guarded her. Therefore, Grace's claim is a lie indicating her false identity as Seer.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night protection, choosing randomly without additional info."
+        },
+        {
+          "round": 1,
+          "text": "Bidding max to speak early as the Doctor to share my night action and gauge reactions after Carol's death."
+        },
+        {
+          "round": 1,
+          "text": "Seer Grace identified Alice. I guarded Alice last night. Wolves killed Carol (not Alice). Seer's claim is strong evidence. Voting Alice seems logical to align with Seer."
+        },
+        {
+          "round": 1,
+          "text": "Grace is a wolf framing Alice. My guard on Alice proves Alice was not targeted. Grace is lying to shift suspicion."
+        },
+        {
+          "round": 1,
+          "text": "Victoria Miro; Grace claimed Alice was targeted despite my successful guard. This contradiction proves Grace is lying."
+        },
+        {
+          "round": 2,
+          "text": "Protecting Alice; Grace's claim of 'seeing Alice targeted' is a lie about Seer mechanics (Seers only see factions). Alice defended herself well against this fabrication."
+        }
+      ],
+      "plan": ""
+    },
+    "Frank": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Alice hasn't responded to the chat, so I am choosing Bob to progress the game."
+        },
+        {
+          "round": 1,
+          "text": "Bidding early to influence first day discussion and blend in."
+        },
+        {
+          "round": 1,
+          "text": "Grace is making factual errors about Seer mechanics, which supports Eve's defense of Alice and Dave's suspicion of Grace."
+        },
+        {
+          "round": 1,
+          "text": "Grace claimed to see a target, which is not a Seer ability. She is likely a fake Seer or a werewolf."
+        },
+        {
+          "round": 2,
+          "text": "Alice suggested Eve, and Eve is claiming the Doctor role. Targeting her reduces the risk of being protected or revealed."
+        }
+      ],
+      "plan": "Stay coordinated with Alice. Avoid appearing too aggressive or too passive. In discussions, try to blend in with the villagers and potentially cast doubt on others without being the primary accuser. Monitor the Seer and Doctor if they reveal themselves."
+    },
+    "Grace": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "high",
+          "evidence": "As the Seer, I directly saw Alice is a werewolf last night. Eve's claim that Alice was targeted contradicts my vision and her own statement of surviving, suggesting either a double-wolf scenario or that Eve is deceiving the village. Dave and Frank's attacks on my basic Seer mechanics further suggest a coordinated effort to dismiss the Seer's clear identification.",
+          "guess": "werewolves"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Starting the night to inspect Alice. No prior suspicions."
+        },
+        {
+          "round": 1,
+          "text": "I inspected Alice on the first night and she is a werewolf. I need to speak immediately to warn the village."
+        },
+        {
+          "round": 1,
+          "text": "Confirmed Alice is werewolf on Night R1. Carol killed same night (confirmed by game log). Publicly calling out Alice now."
+        },
+        {
+          "round": 1,
+          "text": "Confirming Bob's coordination with Alice to discredit the Seer."
+        },
+        {
+          "round": 1,
+          "text": "Seer vision confirmed Alice is a werewolf. Village alignment with Alice and attacks on Seer indicate wolf conspiracy."
+        }
+      ],
+      "plan": ""
+    }
+  }
+}

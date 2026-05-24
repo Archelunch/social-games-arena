@@ -1,0 +1,233 @@
+{
+  "game_id": "g0110-qwen_qwen3.5-9b-vs-qwen_qwen3.5-9b",
+  "memories": {
+    "Alice": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night as seer. Inspecting Bob to establish baseline knowledge before the day phase."
+        }
+      ],
+      "plan": ""
+    },
+    "Bob": {
+      "beliefs": {
+        "Carol": {
+          "confidence": "low",
+          "evidence": "Carol spoke first, offered her speech slot, and supported Eve against my initial accusation. No red flags yet, but I need to watch her closely in future rounds.",
+          "guess": "Villager"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Aligning with Dave's suggestion as it offers a strategic advantage in shifting the power balance."
+        },
+        {
+          "round": 1,
+          "text": "Alice is dead. 2 wolves vs 4 villagers. No need to speak yet. Saving budget for when information is needed."
+        },
+        {
+          "round": 1,
+          "text": "Eve is the villager doctor. Accusing her to get her out reduces village numbers. We need to kill 3 villagers to win (2 vs 1, then 2 vs 1). Killing the doctor is good."
+        },
+        {
+          "round": 1,
+          "text": "Abstaining to assess the group division after the discussion on Eve's doctor claim. Wolf pack numbers are secure."
+        }
+      ],
+      "plan": ""
+    },
+    "Carol": {
+      "beliefs": {
+        "Bob": {
+          "confidence": "low",
+          "evidence": "Bob accused Eve who was defended by three players (Dave, Frank, Carol) largely due to the flaw in his logic regarding the Doctor's choice of target. Defending Eve is rational given the strong consensus, and Bob's aggression without new evidence is suspicious.",
+          "guess": "werewolf"
+        },
+        "Frank": {
+          "confidence": "high",
+          "evidence": "Frank defended Eve initially but immediately shifted to attacking Dave without concrete evidence after Eve's death, exhibiting manipulative behavior typical of a wolf trying to create chaos once a key ally is gone. Grace also suspected him for this shift.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Opening bid to ensure immediate speaking slot on Day 1 after Alice's death."
+        },
+        {
+          "round": 1,
+          "text": "First speaking turn. Alice (villager) died. No evidence yet against anyone. Aiming to sound cooperative and alert."
+        },
+        {
+          "round": 1,
+          "text": "Bob is attacking the Doctor role claim falsely; Dave and Frank rightly defend the logic of a villager investigator vs a wolf persona."
+        },
+        {
+          "round": 1,
+          "text": "Voting to exile Bob. He was the only player aggressively accusing the group's trusted player (Eve/Doctor) and his logic regarding the Doctor's choice of target was flawed."
+        },
+        {
+          "round": 2,
+          "text": "Aligning Grace's accusation to push for voting him out."
+        },
+        {
+          "round": 2,
+          "text": "Vote to exile Frank based on his behavioral shift: defending Eve initially then immediately attacking Dave without evidence, a classic wolf tactic to create chaos after the Doctor is gone. Grace also flagged this behavior."
+        }
+      ],
+      "plan": "Eve was confirmed as the Doctor? She claimed it, Bob accused her, and she died. If she was the Doctor, Bob failed to spark an uprising early enough, or she was smart enough to survive one vote. If she was a wolf, she tried\u6781\u5f3a\u7684 bluffing. She is now gone, no Doctor left. Bob is also gone. Remaining players: Carol, Dave, Frank, Grace. Dave and Frank defended Eve strongly. They are my primary targets for scrutiny now. I must speak despite 0 budget (bid 0) to share insights and push for a vote against weaker players who didn't defend Eve or tried to distract."
+    },
+    "Dave": {
+      "beliefs": {
+        "Frank": {
+          "confidence": "high",
+          "evidence": "Frank's rhetoric shifted instantly from defending Eve to attacking Dave without concrete evidence once the Doctor died. Grace correctly noted that this reaction felt like manipulation. Wolves often try to portray themselves as heroes to gain trust.",
+          "guess": "Seer"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "I proposed Alice to catch the doctor/seer off guard and shift numbers. Bob suggested Eve but hasn't held ground yet; proceeding with my choice to ensure a decisive night move."
+        },
+        {
+          "round": 1,
+          "text": "Need to speak first to steer the day discussion. We killed Alice instead of Eve. Must rally pack to target Eve immediately to correct course."
+        },
+        {
+          "round": 1,
+          "text": "Protecting Eve to maintain the wolf pack alliance (Bob), as Bob's accusation was a trap to divide us. Eve is the doctor, Alice was innocent."
+        },
+        {
+          "round": 1,
+          "text": "Bob (my ally) accused Eve, and she is the most suspicious player despite village defense."
+        },
+        {
+          "round": 2,
+          "text": "Bidding max to secure first speaking slot to solidify suspicion on Frank before the night kill."
+        },
+        {
+          "round": 2,
+          "text": "Trying to sow doubt about Frank as the Seer to eventually guide votes against him or distract from his death protection if he has one."
+        },
+        {
+          "round": 2,
+          "text": "Village targets Frank. I have no proof to attack Grace who accused me, so I stay silent to avoid escalation while waiting for night or voting."
+        },
+        {
+          "round": 2,
+          "text": "Voting to exile Seer-suspect Frank to reduce village efficiency before the night attack."
+        },
+        {
+          "round": 3,
+          "text": "Frank is already exiled. Grace accused me of being trolls/manipulative and showed high aggression. She is the best blindside target among survivors to reduce the village to 1 vs 1."
+        }
+      ],
+      "plan": "Tonight's primary objective is to eliminate Frank. He is the most likely Seer and a high-impact survivor. If he survives the night without being killed, our chances of winning drop significantly. I will ensure all pack votes go to Frank to hasten his death night, though the castle rules might prevent that. I must count on the village not voting to kill him in this phase if at all possible, but if they do, I have an ally (Bob was dead, but maybe others? No, Bob is dead). I will focus the night attack on Frank."
+    },
+    "Eve": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "No previous information available. Randomly selecting Bob to guard the village against the opening wolf kill."
+        },
+        {
+          "round": 1,
+          "text": "Bidded max budget to ensure I speak on Day 1. I am the Doctor, Bob is safe (guarded). Need to assess the seer and voter priorities."
+        },
+        {
+          "round": 1,
+          "text": "Bob's accusation is a wolf trap. If I were a wolf, claiming I saved Bob would be suicidal. Three villagers have backed me up, making Bob's solo stance against overwhelming consensus suspicious."
+        },
+        {
+          "round": 1,
+          "text": "Bob accused me of lying about being the Doctor, but 3 players defended me citing wolf tactics. No strong evidence points to any specific villager yet. Abstaining to gather more info."
+        },
+        {
+          "round": 2,
+          "text": "Frank defended me despite Bob's accusation. Considering Bob might be a wolf using logic to trap, or just paranoia. Frank's defense suggests he trusts the doctor narrative. Protecting a defender is a common strategy to maintain a strong swing vote and keep the player guessing."
+        }
+      ],
+      "plan": ""
+    },
+    "Frank": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Bidding 20 to secure a speaking slot for analysis; budget remaining will be 80. Trying to gauge faces after Alice's death."
+        },
+        {
+          "round": 1,
+          "text": "Bob is being aggressive and isolated. He might be the wolf trying to blame the Doctor to split our village. Eve's claim, while bold, doesn't scream guilt yet without confirmation of the save."
+        },
+        {
+          "round": 1,
+          "text": "No strong evidence to vote out anyone. Bob accused Eve, but two others defended her. Continuing to observe."
+        },
+        {
+          "round": 2,
+          "text": "Bidting to speak and analyze the current paranoia and deaths. We lost Eve who claimed to be the doctor. Need to clarify if the doctor is still alive and who they are protecting."
+        },
+        {
+          "round": 2,
+          "text": "Dave is acting too smoothly and voting with the majority instead of investigating. Suspecting he might be a wolf planting doubts."
+        },
+        {
+          "round": 2,
+          "text": "Survived accusation to avoid exile. Group is hostile toward me; need to stay calm in next round."
+        }
+      ],
+      "plan": "My goal today is to gather information efficiently. Since Alice died last night, we need to survive the next kill. I will bid for a speaking slot to analyze the player's behavior and try to deduce roles, particularly focusing on the Seer's actions in the next night phase."
+    },
+    "Grace": {
+      "beliefs": {
+        "Bob": {
+          "confidence": "low",
+          "evidence": "Bob aggressively accused Eve immediately after she claimed to be the Doctor, despite multiple players logically defending her. This sudden aggression against a potential ally who provided value (protecting Bob) is suspicious and could be a wolf baiting the village.",
+          "guess": "Werewolf"
+        },
+        "Frank": {
+          "confidence": "high",
+          "evidence": "Frank recently flipped stance: he defended Eve as a truth-telling Doctor, but immediately after she was killed, he attacked Dave for lacking concrete evidence about Eve's loyalty, characterizing her death as suspicious. This dramatic shift suggests he is planting doubts to divide the group or shift focus away from his own role.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Bid to speak early on Day 1 to assess the village after Alice's death."
+        },
+        {
+          "round": 1,
+          "text": "Eve claims to be Doctor. Bob survived. This supports Eve being a villager. Alice is likely a wolf. Need to listen to Bob, Dave, Frank turns to gauge paranoia."
+        },
+        {
+          "round": 1,
+          "text": "Eve claims Doctor role early; Bob distrusts, Dave/Frank blindly defend. No hard evidence of her role yet. Let it sit until potential night actions reveal truth."
+        },
+        {
+          "round": 1,
+          "text": "Voting to exile Bob after noticing his suspicious aggressive accusation against Eve, contrary to the village's defense logic."
+        },
+        {
+          "round": 2,
+          "text": "Doctor Eve dead. Only 1 wolf remaining. Suspicion falls on Dave or Frank based on voting alliance. Budget 0."
+        },
+        {
+          "round": 2,
+          "text": "Eve died claiming to be Doctor. Bob (exiled) said she lied. Frank defended her vehemently, called Dave out. Now Frank is questioning everything. Wolf behavior pattern: lie about role, defend aggressively to confuse, then flip."
+        },
+        {
+          "round": 2,
+          "text": "Voting to exile based on the flagged belief that Frank is a werewolf acting suspiciously to instill doubt and manipulate the group dynamics post-Eve's death."
+        }
+      ],
+      "plan": ""
+    }
+  }
+}

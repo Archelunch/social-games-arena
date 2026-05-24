@@ -1,0 +1,366 @@
+{
+  "game_id": "g0021-deepseek_deepseek-v4-flash-vs-qwen_qwen3.5-9b",
+  "memories": {
+    "Alice": {
+      "beliefs": {
+        "Frank": {
+          "confidence": "high",
+          "evidence": "Frank claimed seer on day 1 and accused me (a known wolf), which is typical wolf behavior to eliminate a villager. Real seers don't reveal so early.",
+          "guess": "werewolf"
+        },
+        "Grace": {
+          "confidence": "high",
+          "evidence": "Grace led the charge to exile me even after Frank's seer claim was disproven by his death. She refused to reconsider, which is wolfish behavior trying to eliminate a villager.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night kill - Dave is analytical and could be a threat. Carol initially suggested Dave or Eve; I proposed Dave."
+        },
+        {
+          "round": 1,
+          "text": "Bidding moderately to get a speaking slot without overcommitting budget or appearing too eager."
+        },
+        {
+          "round": 1,
+          "text": "Deny Frank's claim, cast doubt on his seer status, suggest he might be a wolf framing me. Stay calm and reasonable."
+        },
+        {
+          "round": 1,
+          "text": "Publicly accusing Frank to counter his claim and plant doubt."
+        },
+        {
+          "round": 1,
+          "text": "Frank's early seer claim is classic wolf play; voting him out to protect myself and test his claim."
+        },
+        {
+          "round": 2,
+          "text": "Frank claimed seer and accused me\u2014killing him removes that threat and makes his claim vanish."
+        },
+        {
+          "round": 2,
+          "text": "Need to defend against Eve and Grace suspicions; try to redirect attention to Eve or Grace as potential wolves."
+        },
+        {
+          "round": 2,
+          "text": "R2 accusation against Grace to shift focus away from me. She's the most vocal accuser."
+        },
+        {
+          "round": 2,
+          "text": "Voting for Grace, who is leading the wolf pack against me, hoping to split the vote and survive another round."
+        }
+      ],
+      "plan": "Defend against Frank's accusation by casting doubt on his seer claim. Argue that a real seer would wait for more evidence or that Frank might be a wolf trying to eliminate a villager. Urge village to be cautious and not rush a vote. If possible, try to get Frank voted out instead."
+    },
+    "Bob": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "high",
+          "evidence": "Alice defended Frank, who was revealed to be an impostor/seer and was subsequently killed by the werewolves. A true villager would typically stop defending a player proven to be a wolf once that player dies. Her continued attachment to his final narrative and accusation of Grace suggests coordination or deception.",
+          "guess": "Werewolf"
+        },
+        "Carol": {
+          "confidence": "high",
+          "evidence": "Carol aggressively accused Grace and then Bob to split the village. When Bob called for unity, Carol attacked his credibility and suggested Bob and Grace are a suspicious pair. Her behavior aligns with the wolf tactic of division. Given Alice (confirmed wolf) and Frank (confirmed wolf) are exiled, the game continues, implying a third wolf exists. Carol's ruthless division makes her the prime suspect.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Guarding Alice on the first night without specific intelligence. If she was killed, this reveal implies she was the target."
+        },
+        {
+          "round": 1,
+          "text": "I am Bob. I protected Alice last night. Dave died. Need to speak to discuss the death and propose who to investigate next, likely someone who interacted with Dave or Alice."
+        },
+        {
+          "round": 1,
+          "text": "Dave does not seem to be a living player. I cannot act against him."
+        },
+        {
+          "round": 1,
+          "text": "Voting for exile based on coordinated defense of an unproven Seer accusation. Suspected Wolf pair (Alice & Frank)."
+        },
+        {
+          "round": 2,
+          "text": "Suspect Alice/Frank pair (Wolf/Wolf). Alice defended Frank immediately. Protecting Eve as she seems independent and skeptical, likely a target if wolves go for the Seer or the 'frame-up' recipient."
+        },
+        {
+          "round": 2,
+          "text": "Need to speak to discuss Frank's death and if his Seer claim was real. If he was real, Alice is likely innocent (he would seer check her and report dead wolf if he was wolf). If he was fake, Alice defending him is suspicious. Need evidence."
+        },
+        {
+          "round": 2,
+          "text": "Alice defended Frank while alive, then immediately attacked me for doing so. Suspicion rising to high."
+        },
+        {
+          "round": 2,
+          "text": "High confidence: Alice's behavior aligns with wolf tactics of protection."
+        },
+        {
+          "round": 2,
+          "text": "Voting to exile Alice due to her defense of a known imposter (Frank) and subsequent attempts to shift blame onto Grace, which is classic wolf coordination behavior."
+        },
+        {
+          "round": 3,
+          "text": "Grace is under heavy suspicion for her aggressive stance against Alice and Frank. She could be the wolf trying to divide the village or simply a confused villager. Guarding her to ensure the werewolves don't eliminate our remaining good players tonight."
+        },
+        {
+          "round": 3,
+          "text": "Need to speak to analyze Carol's sudden accusation of Grace and the dynamics after Alice's exile."
+        },
+        {
+          "round": 3,
+          "text": "Audit: Alice(Wolf) exiled. Grace protected. Survivors: Bob, Carol, Eve, Grace. Focus on Carol vs Grace split."
+        },
+        {
+          "round": 3,
+          "text": "Alice is confirmed as a wolf by her defense of Frank. Grace correctly exiled her. Carol is now suspicious due to her splitting behavior, but I will wait for further development before accusing to avoid confusion. My priority is rebuilding unity with Grace and maintaining order."
+        },
+        {
+          "round": 3,
+          "text": "Exiling Carol to remove the suspected third wolf and end the game. She tried to split the village after Alice and Frank (confirmed wolves) were already gone."
+        }
+      ],
+      "plan": ""
+    },
+    "Carol": {
+      "beliefs": {
+        "Dave": {
+          "confidence": "medium",
+          "evidence": "First night kill recommendation; Alice also seemed open to targeting a threat, Dave is often sharp",
+          "guess": "possible seer or village power role"
+        },
+        "Frank": {
+          "confidence": "high",
+          "evidence": "Frank claimed Seer on Day 1 and accused Alice without solid proof. This is a bold move that could be a werewolf trying to get a villager exiled.",
+          "guess": "Seer or werewolf pretending to be Seer"
+        },
+        "Grace": {
+          "confidence": "high",
+          "evidence": "Grace has consistently targeted Alice, who was a villager, and defended Bob's convenient doctor claim. She is likely trying to eliminate villagers to achieve wolf victory.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Targeting Dave first night as a potential threat; Alice and I discussed targeting someone dangerous. Dave is often sharp and could be the seer or a key village role."
+        },
+        {
+          "round": 1,
+          "text": "Bidding moderately to appear normal and participate in discussion."
+        },
+        {
+          "round": 1,
+          "text": "Defending my wolf ally to keep her safe; casting doubt on Frank who may be the real Seer."
+        },
+        {
+          "round": 1,
+          "text": "Voting for Frank because his early Seer claim is suspicious and could be a wolf trying to frame Alice."
+        },
+        {
+          "round": 2,
+          "text": "Frank claimed Seer and outed Alice as wolf. Must eliminate him to protect our pack."
+        },
+        {
+          "round": 2,
+          "text": "Bidding to speak and steer suspicion away from us, likely toward Eve or Bob."
+        },
+        {
+          "round": 2,
+          "text": "Deflect from Alice, my ally, by accusing Grace of being the wolf pushing Frank's narrative."
+        },
+        {
+          "round": 2,
+          "text": "Voting out Grace to eliminate a persistent accuser of Alice; she's been pushing the Frank narrative despite his lie being exposed."
+        },
+        {
+          "round": 3,
+          "text": "Grace has been the most vocal against Alice and seems to be leading village suspicion. She could be the seer or a powerful village role. Eliminating her reduces the village's leadership and threat to me."
+        },
+        {
+          "round": 3,
+          "text": "Bidding 30 to speak; need to defend myself and redirect suspicion, likely onto Grace or Eve."
+        },
+        {
+          "round": 3,
+          "text": "Publicly accuse Bob of being a fake doctor and link him with Grace as potential wolf pack to deflect suspicion from myself."
+        },
+        {
+          "round": 3,
+          "text": "Accusing Bob to cast doubt on his doctor claim and protect myself."
+        },
+        {
+          "round": 3,
+          "text": "Voting for Grace to maintain consistent suspicion and try to eliminate a player I believe is working against me."
+        }
+      ],
+      "plan": ""
+    },
+    "Dave": {
+      "beliefs": {},
+      "notes": [],
+      "plan": ""
+    },
+    "Eve": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "high",
+          "evidence": "Alice defended Frank (imposter) immediately, but he was killed by wolves by night. She continues to deny being a wolf despite the village knowing he lied. Her refusal to be exiled as the strongest theory intact is suspicious.",
+          "guess": "Werewolf"
+        },
+        "Carol": {
+          "confidence": "high",
+          "evidence": "Carol is aggressively splitting the village on Day R3. After attacking Grace, she immediately pivoted to accusing Bob of lying about protecting her, creating a divide between Bob/Grace and herself. Her accusations are generic and aggressive, typical of a wolf trying to isolate other players.",
+          "guess": "Werewolf"
+        },
+        "Frank": {
+          "confidence": "high",
+          "evidence": "Frank claimed to be the Seer and accused Alice on the first night. Immediately after, Alice abandoned her integrity and accused Frank of being suspicious, forming an instant coalition with him. If Frank were the real Seer, a villager Wolf wouldn't defend him. If Alice were the Seer, she would have voted Frank out. Their synchronized roleplay indicates they are a wolf pair.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Early game; need to speak to establish presence and ask questions before making accusations. Dave is the first casualty."
+        },
+        {
+          "round": 1,
+          "text": "Frank claims Alice is a Wolf and he is Seer. Skeptical. Asking for evidence to avoid being a pawn if Frank is a Lying Seer (Wolf)."
+        },
+        {
+          "round": 1,
+          "text": "Alice is suspicious due to quick alliance with Frank."
+        },
+        {
+          "round": 1,
+          "text": "Voting for Frank based on the strong evidence of him being a Wolf who is coordinating with Alice."
+        },
+        {
+          "round": 2,
+          "text": "Bidding to secure a speaking slot to clarify the situation further."
+        },
+        {
+          "round": 2,
+          "text": "Strengthen accusation based on failed defense of imposter and high confidence belief."
+        },
+        {
+          "round": 2,
+          "text": "Bob correctly identified that Alice defended a known Seer imposter (Frank) even after Frank's claim was disproven by his death at werewolf's hands. This unnatural defense pattern suggests she is protecting a wolf connection or is a wolf herself catering to another wolf's misinformation."
+        },
+        {
+          "round": 3,
+          "text": "Need to speak to clarify my stance and discuss the Night 3 No-Death event and Grace's suspicious behavior."
+        },
+        {
+          "round": 3,
+          "text": "Suspect: Carol. Reason: Aggressive split attempt against Grace to sow discord."
+        },
+        {
+          "round": 3,
+          "text": "Carol's flip-flopping targets (Grace -> Bob) is a classic diversion tactic. If there is only 1 wolf left (since Alice is exiled and Frank was a villager killed by wolves?), this aggression is the primary threat."
+        },
+        {
+          "round": 3,
+          "text": "Voting out Carol who attempted to split the village and created a divide between Bob/Grace and herself."
+        }
+      ],
+      "plan": ""
+    },
+    "Frank": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "high",
+          "evidence": "Night R1 seer inspection confirmed Alice is a werewolf. Dave was killed that same night, fitting the werewolf count or a kill pattern.",
+          "guess": "werewolves"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Need to speak early to establish the werewolf identification of Alice before wolves can coordinate deception."
+        },
+        {
+          "round": 1,
+          "text": "Confirmed Alice is Wolves. Urgent vote needed."
+        },
+        {
+          "round": 1,
+          "text": "Alice is denying and stalling, but my vision is clear. She must be voted out."
+        },
+        {
+          "round": 1,
+          "text": "As Seer, I confirmed Alice is a Werewolf on Night 1. She is defending against the obvious accusation and aligning with me, which fits the standard wolf strategy to discredit a real Seer and take control of the dead body. Exiling her now is critical."
+        },
+        {
+          "round": 2,
+          "text": "Eve accused Alice of colluding with Frank, but Alice had accused Frank. Her logic is confusing. She could be a wolf or a confused villager. Need to verify."
+        }
+      ],
+      "plan": ""
+    },
+    "Grace": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "high",
+          "evidence": "Alice rushed to defend Frank immediately after he claimed to be a Seer. Frank was subsequently killed by wolves, proving his claim was false and that he was a Werewolf imposter. Alice's continued and quick alliance with a known traitor is highly irregular for a villager and suggests she is protecting another wolf or is one herself.",
+          "guess": "Werewolf"
+        },
+        "Carol": {
+          "confidence": "medium",
+          "evidence": "Carol exhibits classic wolf behavior by attempting to split the village. She aggressively attacked Bob's claim to save Grace, labeling his testimony 'convenient' and a 'classic wolf move', despite Bob's alignment with Eve for unity. Her focus on dividing the remaining four, rather than solving the mystery based on facts, suggests a manipulative agenda to disrupt the vote.",
+          "guess": "Werewolf"
+        },
+        "Grace": {
+          "confidence": "high",
+          "evidence": "I am Grace. I have no reason to hide my identity. Frank's claim to be the Seer was aggressively made, and Alice's reaction\u2014defending Frank so quickly\u2014was unnatural for a villager if Frank were actually a liar. This suggests Alice is\u4e00\u8d77\u73a9ing a trick.",
+          "guess": "I am not a werewolf, I am a villager"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First day, Dave (villager?) killed. Waiting for discussion to understand roles and align with village."
+        },
+        {
+          "round": 1,
+          "text": "Alice aligned too quickly with Frank. Suspicion levels rising for Alice."
+        },
+        {
+          "round": 1,
+          "text": "Voting to exile Alice. Her immediate and strong defense of Frank's aggressive Seer claim was unnatural for a villager. It suggests coordination to frame Alice. Frank exposing himself as Seer is a common wolf tactic; Alice benefiting from this suggests she is part of the wolf team."
+        },
+        {
+          "round": 2,
+          "text": "If I speak, I will publicly accuse Alice as a wolf based on her defense of Frank and attack on Eve."
+        },
+        {
+          "round": 2,
+          "text": "Alice defended Frank (wolf) immediately after his death; confirms suspicion. Need to pressure Alice."
+        },
+        {
+          "round": 2,
+          "text": "Alice defended Frank, a known imposter killed by wolves, immediately. This suggests she is protecting a wolf connection or is a werewolf herself."
+        },
+        {
+          "round": 3,
+          "text": "Out of speaking budget. Waiting to see who speaks next."
+        },
+        {
+          "round": 3,
+          "text": "I am strengthening the Bob-Grace alliance visibly. Carol is swinging hard against me because Bob defended me; I must break her narrative."
+        },
+        {
+          "round": 3,
+          "text": "Carol is attempting to split the village by attacking Bob's claim of survival, creating division between the remaining players when we need unity. Her aggressive tactics are consistent with wolf behavior trying to disrupt the vote."
+        }
+      ],
+      "plan": ""
+    }
+  }
+}

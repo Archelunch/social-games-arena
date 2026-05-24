@@ -1,0 +1,298 @@
+{
+  "game_id": "g0141-qwen_qwen3.6-35b-a3b-vs-qwen_qwen3.6-35b-a3b",
+  "memories": {
+    "Alice": {
+      "beliefs": {
+        "Frank": {
+          "confidence": "medium",
+          "evidence": "Frank is the only one not accused yet. His stance of 'observing' while accusing Alice and Carol is typical of a Seer trying to look neutral. Carol's pivot to him suggests strong internal pack coordination.",
+          "guess": "Village Leader/Seer"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Agreed with Carol to kill Bob on Night 1 due to lack of information."
+        },
+        {
+          "round": 1,
+          "text": "Bidding 100 to secure the first speaking slot and set the narrative early."
+        },
+        {
+          "round": 1,
+          "text": "Passing to stay low profile. Let Frank's counter-accusations create noise. Will vote Bob in the actual election."
+        },
+        {
+          "round": 1,
+          "text": "Voting Frank based on Carol's suspicion and his defensive, observing behavior which reads like a Seer trying to stay neutral."
+        },
+        {
+          "round": 2,
+          "text": "Frank is likely the Seer/Leader and is accusing us. Removing him blinds the village. Carol is undecided; voting Frank is the best strategic play. If split, Frank is still a high probability target for the random selector given his 'loudness' might bias the system, but aiming for unanimity is hard since Carol hesitated. Still, Frank is the priority."
+        },
+        {
+          "round": 2,
+          "text": "Budget exhausted. Cannot speak. Will observe Bob, Carol, and Dave to see who takes charge. Stay low profile as Frank is dead."
+        },
+        {
+          "round": 2,
+          "text": "Bob is the main target. Carol is backing the accusation. Need to exile him to reach parity or win state."
+        }
+      ],
+      "plan": "Stay low profile. Frame Bob or Frank. Defend Carol if necessary. Bid enough to speak to set the narrative early."
+    },
+    "Bob": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "medium",
+          "evidence": "Day 1 accused Bob with zero evidence (random frame). Day 2 remained silent while being accused by 3 players, refusing to defend herself logically, suggesting guilt or a planned deflection strategy supported by Carol.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Starting with a low bid to save budget and observe others' initial statements/suspicions before committing to a narrative or suspicion."
+        },
+        {
+          "round": 1,
+          "text": "Alice's baseless accusation is suspicious. I will remain silent to gather more info."
+        },
+        {
+          "round": 1,
+          "text": "Alice accused me without evidence, which is dangerous. Carol's deflection to Frank was weak. Frank's request for more info was reasonable. I suspect Alice's aggression is wolf-like or at least highly detrimental. Voting Alice to exile."
+        },
+        {
+          "round": 2,
+          "text": "Need to speak to defend against Alice's Day 1 accusation and assess the situation before Frank was confirmed dead at night."
+        },
+        {
+          "round": 2,
+          "text": "Defend against Alice's Day 1 accusation. Highlight lack of evidence. Redirect focus to Grace's silence and Alice's aggressive play."
+        },
+        {
+          "round": 2,
+          "text": "Aligning with Grace to target Alice, who is the primary source of misinformation and now silence."
+        },
+        {
+          "round": 2,
+          "text": "Alice made a baseless accusation on Day 1 and remained silent on Day 2 while being accused by 3 players, suggesting guilt."
+        }
+      ],
+      "plan": ""
+    },
+    "Carol": {
+      "beliefs": {
+        "Bob": {
+          "confidence": "high",
+          "evidence": "Bob is being attacked by the whole village but is also the only other living player who is not me or Alice. We need to reduce the village count to 2 to win (2W vs 2V). Bob's defensive behavior makes him a good scapegoat to save Alice.",
+          "guess": "Villager (Target for Exile)"
+        },
+        "Dave": {
+          "confidence": "high",
+          "evidence": "Dave is playing aggressively for the village, correctly identifying my defensive behavior towards Alice and the suspicious vote on Bob. He is the most competent villager left and the primary threat to my cover. Exiling him leaves a 1v1 tie.",
+          "guess": "Villager"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Alice suggested Eve. I suggested Bob but got no reply/agreement. To maintain pack unity, I will support Alice's choice of Eve."
+        },
+        {
+          "round": 1,
+          "text": "Bidding 20 to ensure a speaking slot in Day 1 without spending too much budget. Goal is to blend in and guide conversation slightly."
+        },
+        {
+          "round": 1,
+          "text": "Frank pushed back well. Bob is still silent and low-bid, making him a good villager scapegoat. I'll wait for Bob/Grace/Dave to speak to see if Bob cracks or says something suspicious."
+        },
+        {
+          "round": 1,
+          "text": "Supporting Alice's narrative against Bob to maintain cover and pressure the village."
+        },
+        {
+          "round": 2,
+          "text": "Agreeing with Alice to kill Frank. He is the most active accuser and likely the Seer or a strong player. Removing him blinds the village and follows pack consensus."
+        },
+        {
+          "round": 2,
+          "text": "Need to speak to control narrative after Frank's death. Frame Bob or Dave as suspicious to divert attention from Alice."
+        },
+        {
+          "round": 2,
+          "text": "Defending Alice is critical. She is my ally. Bob is trying to turn the table. I need to look like I'm analyzing Bob's behavior, not just blindly supporting Alice."
+        },
+        {
+          "round": 2,
+          "text": "Strategic vote to save Alice and reduce village numbers to 2. Bob is the primary target of village hate right now due to his defensive behavior, making him a likely exile candidate if we push him."
+        },
+        {
+          "round": 3,
+          "text": "Alice is gone. I am the only wolf. Bob is the most vocal and suspicious player. Killing him is the best move to win or stay alive. Targeting Bob."
+        },
+        {
+          "round": 3,
+          "text": "I am the last wolf. I must speak to prevent my own exile and try to turn Dave and Grace against each other. Bidding my full 20 budget ensures I get a speaking slot."
+        },
+        {
+          "round": 3,
+          "text": "Voting for Dave to create a 1v1 tie situation (Carol vs Grace) which is a winning condition for the Werewolf faction."
+        }
+      ],
+      "plan": "Follow Alice's lead to maintain cover. If Alice targets Bob, support her to make her look like the village voice. Be ready to pivot to Frank or Grace if Alice becomes suspicious."
+    },
+    "Dave": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "medium",
+          "evidence": "Accused Bob without evidence on Day 1. This is a common wolf tactic to deflect or frame. Her aggression feels forced.",
+          "guess": "Werewolf"
+        },
+        "Carol": {
+          "confidence": "high",
+          "evidence": "Carol aggressively defended Alice (suspected wolf) despite lack of evidence. She then voted to exile Bob. Now she is voting to exile me to protect her cover. Grace's accusation is vague. Carol is the more active threat.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Saving budget for Day 2 when more info may be available. No strong lead yet."
+        },
+        {
+          "round": 1,
+          "text": "Passing to observe further. No solid evidence yet to accuse or defend. Alice's early accusation was weak, but Frank's silence and deflection also warrant watching."
+        },
+        {
+          "round": 1,
+          "text": "Insufficient evidence to exile anyone on Day 1. Abstaining to avoid killing a villager."
+        },
+        {
+          "round": 2,
+          "text": "Bid to speak on Day 2. Alice is suspicious for accusing Bob without evidence. Need to address the silence of Bob and Grace and the tie vote."
+        },
+        {
+          "round": 2,
+          "text": "Targeting Alice based on her Day 1 baseless accusation and Day 2 silence when accused by two others."
+        },
+        {
+          "round": 3,
+          "text": "Bidding to speak and accuse Carol of being the remaining Werewolf."
+        },
+        {
+          "round": 3,
+          "text": "Accuse Carol. She is the most likely wolf. Exiling her likely wins the game if Grace is villager. If Grace is wolf, Carol is villager, but Carol's defense of Alice is the strongest red flag. Grace has been a reliable accuser. Go with Carol."
+        },
+        {
+          "round": 3,
+          "text": "Defending myself by highlighting Carol's prior defense of Alice and lack of evidence against me."
+        }
+      ],
+      "plan": "Observe who speaks aggressively in Day 1. Look for inconsistent statements or defensive behavior. Do not accuse anyone yet. Save budget for later days when accusations are made."
+    },
+    "Eve": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Starting with Alice to get initial information on Day 1."
+        }
+      ],
+      "plan": ""
+    },
+    "Frank": {
+      "beliefs": {
+        "Carol": {
+          "confidence": "medium",
+          "evidence": "Carol's attack on me was baseless ('suspect because silent'), which is weak logic typical of wolves sowing discord. She defended Bob, potentially a partner, while Alice attacked him. Her behavior is more manipulative than Alice's initial panic.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night, no info. Protecting Alice arbitrarily to see if she survives or if the wolves target someone else next."
+        },
+        {
+          "round": 1,
+          "text": "Bidding 15 to secure a speaking slot early in the day. Need to listen to others' statements to identify potential wolves. Alice was guarded, Eve died. No other info yet."
+        },
+        {
+          "round": 1,
+          "text": "Defending against Carol's baseless accusation. Criticizing Alice for lack of evidence. Trying to stay neutral and reasonable."
+        },
+        {
+          "round": 1,
+          "text": "Day 1 reactions are noisy. Carol's accusation against me is unfounded and suspicious, as is Alice's baseless attack on Bob. I will stay silent to observe Bob and Grace."
+        },
+        {
+          "round": 1,
+          "text": "Voting for Carol due to her suspicious deflection and weak logic in attacking me."
+        },
+        {
+          "round": 2,
+          "text": "Suspect Carol is a wolf. Bob is being targeted by Alice's accusations. Protecting Bob ensures he stays alive to provide info or votes. Wolves might target the accused to silence them."
+        }
+      ],
+      "plan": ""
+    },
+    "Grace": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "medium",
+          "evidence": "Accused Bob on Day 1 without any evidence or night info. This looks like a deflection tactic to exile a potential villager or seer. Bob's silence might just be caution, but Alice's aggressive ungrounded attack is a common wolf play.",
+          "guess": "Werewolf"
+        },
+        "Dave": {
+          "confidence": "high",
+          "evidence": "Dave is aggressively trying to exile Carol with no concrete evidence, only pointing out her defense of Alice (who was likely a wolf). His hysterical behavior and pivot to attacking Carol after Bob's death are classic wolf deflection tactics to avoid scrutiny. I suspect Dave is the remaining wolf.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Conserving budget for Day 1; observing initial claims and bids from others."
+        },
+        {
+          "round": 1,
+          "text": "No evidence yet. Alice's accusation was weak, Carol's was reactive, Frank's was generic. Bob hasn't spoken. Safest to observe."
+        },
+        {
+          "round": 1,
+          "text": "Alice and Carol made weak accusations based on lack of speech. Frank criticized them. No clear evidence yet. Abstaining to observe Bob and Dave."
+        },
+        {
+          "round": 2,
+          "text": "Secure speaking slot to express suspicion of Alice based on her baseless Day 1 accusation."
+        },
+        {
+          "round": 2,
+          "text": "Suspect Alice due to baseless Day 1 accusation. Bob is also suspicious but Carol's genuine suspicion of Bob makes him less likely to be a wolf partner to Alice."
+        },
+        {
+          "round": 2,
+          "text": "Alice made a baseless accusation on Day 1 (a classic wolf tactic) and has remained largely silent/unconvincing in her defense despite being targeted by the village majority. This is the strongest evidence of guilt."
+        },
+        {
+          "round": 3,
+          "text": "I need to speak to analyze Carol and Dave. Bob and Frank were killed by wolves, so they were not wolves. Alice is exiled. If Alice was the only wolf, we won. If there's another, it's Carol or Dave. I must bid high to force a discussion and catch any wolf acting suspiciously or trying to kill me."
+        },
+        {
+          "round": 3,
+          "text": "Dave is likely the wolf trying to exile Carol or split the vote. I must warn Carol."
+        },
+        {
+          "round": 3,
+          "text": "Dave is likely the werewolf. He is panicking and trying to frame Carol to save himself. I must exile him to win."
+        },
+        {
+          "round": 3,
+          "text": "Voting for Dave based on his aggressive deflection and lack of evidence against Carol. He is likely the remaining wolf trying to survive."
+        }
+      ],
+      "plan": ""
+    }
+  }
+}

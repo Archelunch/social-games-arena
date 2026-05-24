@@ -1,0 +1,234 @@
+{
+  "game_id": "g0119-qwen_qwen3.5-9b-vs-qwen_qwen3.6-35b-a3b",
+  "memories": {
+    "Alice": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Starting with low bid to preserve budget and listen to others' statements since I have no initial evidence."
+        },
+        {
+          "round": 1,
+          "text": "Bob's lie about targeting Alice is a clear bad-faith play."
+        },
+        {
+          "round": 1,
+          "text": "Bob lied about targeting me on Night 1 to frame me. This dishonesty is a strong indicator of being a werewolf. I voted to exile him for spreading misinformation."
+        },
+        {
+          "round": 2,
+          "text": "Bob is likely wolf. Day 2 focus: analyze night 2 protection and Carol's silence."
+        },
+        {
+          "round": 2,
+          "text": "Eve revealed herself as a wolf by claiming knowledge of the night target. This is a critical piece of evidence supporting Grace's accusation."
+        },
+        {
+          "round": 2,
+          "text": "Eve claimed knowledge of the wolves' specific night target (Alice), which is information only wolves possess. This is a definitive proof of being a werewolf."
+        }
+      ],
+      "plan": ""
+    },
+    "Bob": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night, no specific info yet. Targeting Frank arbitrarily to prevent any day-based info gathering, hoping Eve agrees or we get a win if she didn't object previously. Picking a random victim to consolidate early power."
+        },
+        {
+          "round": 1,
+          "text": "Bid max to speak first and claim innocence, directing the village away from Eve and towards a fake target."
+        },
+        {
+          "round": 1,
+          "text": "Playing innocent and cautious to blend in. No specific target identified yet."
+        },
+        {
+          "round": 1,
+          "text": "Pressing on Alice to unsettle the village; is the doctor hiding here?"
+        },
+        {
+          "round": 1,
+          "text": "Eve publicly called out my lie, exposing her as a wolf pretending to be a villager to hunt down true wolves (me). She is my enemy, not an ally. Voting to exile her to remove the anti-wolf wolf."
+        }
+      ],
+      "plan": "Strategy: Coordinate with Eve (my wolf ally) to eliminate two more villagers before the wolves reach parity or outnumber the remaining villagers. Use the private werewolf_chat to confirm Eve's targets. During discussions, maintain a calm, innocent facade to avoid suspicion. Vote strategically to eliminate suspects who might be seers or doctors. Work with Eve to frame an innocent villager if necessary to maintain confusion. Prioritize splitting the village's guessing faith."
+    },
+    "Carol": {
+      "beliefs": {
+        "Bob": {
+          "confidence": "high",
+          "evidence": "Bob falsely claimed Alice was targeted by wolves. Frank was the only victim. This fabrication was used to attack Alice, showing dishonesty typical of a wolf trying to create confusion and turn the village.",
+          "guess": "Werewolf"
+        },
+        "Eve": {
+          "confidence": "high",
+          "evidence": "Eve claimed in Day R2 that she knew the wolves targeted Alice last night. Only wolves know the specific target. This is a confirmed lie/fact error proving her wolf role.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Securing an early speaking slot to gauge players and encourage info sharing."
+        },
+        {
+          "round": 1,
+          "text": "No specific information yet. Everyone gave generic cautious statements. Accusing now is a guess; defending is unnecessary. Better to observe."
+        },
+        {
+          "round": 1,
+          "text": "Bob lied about Alice being targeted to frame her. This is clear werewolf behavior."
+        },
+        {
+          "round": 2,
+          "text": "Bob exiled as wolf. Night 2 no death. Need to assess remaining players. Will speak to reinforce village unity and perhaps probe for more info."
+        },
+        {
+          "round": 2,
+          "text": "Eve is confirmed wolf due to information leak. Vote her out."
+        },
+        {
+          "round": 2,
+          "text": "Eve claimed knowledge of the wolves' night target, which is impossible for a villager. This is proof she is a werewolf."
+        }
+      ],
+      "plan": ""
+    },
+    "Dave": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "No information available on Night 1. Picking Alice arbitrarily as a first-night guard. If she is the Seer, this protects her ability to gather info; if she is a villager, she lives to vote. Random choice is necessary in the absence of data."
+        },
+        {
+          "round": 1,
+          "text": "Bidding max to speak first and claim Doctor role to rally village."
+        },
+        {
+          "round": 1,
+          "text": "Playing safe. Not claiming Doctor to avoid being a wolf target. Encouraging rational discussion."
+        },
+        {
+          "round": 1,
+          "text": "Bob's accusation against Alice was logically flawed as she was not targeted. Eve correctly defended her. I will stay silent to avoid drawing suspicion to myself as Doctor."
+        },
+        {
+          "round": 1,
+          "text": "Bob falsely claimed Alice was targeted by wolves to frame her. Frank was the only victim, making his accusation a lie. This is strong evidence of Wolf behavior."
+        },
+        {
+          "round": 2,
+          "text": "Protecting Alice again as she was central to Day 1 discussion. No specific suspicion yet."
+        },
+        {
+          "round": 2,
+          "text": "Defending Alice to align with the likely correct vote against Eve."
+        },
+        {
+          "round": 2,
+          "text": "Eve claimed knowledge of the wolf's night target (Alice), which is impossible for a villager. This proves she is a werewolf. Voting her out ends the game."
+        }
+      ],
+      "plan": ""
+    },
+    "Eve": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "high",
+          "evidence": "She survived Night 2 after we voted to kill her, which is impossible for a normal villager unless protected by the Doctor. Her survival against specific wolf targeting marks her as the protector.",
+          "guess": "Doctor"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "No day evidence provided; Bob requested a target but gave none. Picking Alice as a random target among non-pack members (Alice, Carol, Dave, Frank, Grace)."
+        },
+        {
+          "round": 1,
+          "text": "Bid to speak. We need to vote out Alice as a frame for our next kill or build consensus. I voted Alice last night which might make her suspicious, need to clarify."
+        },
+        {
+          "round": 1,
+          "text": "Maintained low profile as a cover wolf. No one suspicious yet; need to wait."
+        },
+        {
+          "round": 1,
+          "text": "Bob is lying. He claims Alice survived a werewolf kill, but we killed Frank. Alice is a villager; Bob is the wolf."
+        },
+        {
+          "round": 1,
+          "text": "Voting for Alice to split attention from Bob, my ally, despite his lie. If the village votes for Alice, Bob survives. I am sacrificing a perceived threat to save the vote balance."
+        },
+        {
+          "round": 2,
+          "text": "I am the lone werewolf. Bob is dead. I vote to kill to continue the night mechanics. Any villager is a valid target."
+        },
+        {
+          "round": 2,
+          "text": "Accusing Alice of being the Doctor based on her survival after being targeted."
+        },
+        {
+          "round": 2,
+          "text": "Silence to avoid further scrutiny in the reaction phase while planning to vote for Alice in the next phase to reduce the village count."
+        },
+        {
+          "round": 2,
+          "text": "Executing primary plan: vote for Alice to break doctor protection cycle or exile her. Despite villagers accusing me, my goal is to reduce our enemy count and disrupt the doctor."
+        }
+      ],
+      "plan": "Primary target is Alice tonight. She survived being targeted last night, indicating strong Doctor protection. I will vote for her tonight to break the cycle or hope the Doctor cannot save her again."
+    },
+    "Frank": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Night 1 inspection. Testing Alice to establish a baseline villager or identify a wolf immediately."
+        }
+      ],
+      "plan": ""
+    },
+    "Grace": {
+      "beliefs": {
+        "Bob": {
+          "confidence": "high",
+          "evidence": "Bob falsely claimed Alice was targeted by wolves to accuse her. We know Frank died, so Alice survived by chance, not wolf targeting. This lie proves Bob is spreading misinformation.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Bidding 10 to secure an early speaking slot to observe others and set a cautious tone without spending my full budget."
+        },
+        {
+          "round": 1,
+          "text": "Voting to exile Bob for lying about the night kill target to frame Alice."
+        },
+        {
+          "round": 2,
+          "text": "No new info, want to observe others. Alice and Eve acted logically last night."
+        },
+        {
+          "round": 2,
+          "text": "Eve claimed knowledge of the kill target (Alice), which is impossible for a villager/Seer. This makes Eve a Werewolf."
+        },
+        {
+          "round": 2,
+          "text": "Eve is confirmed wolf due to info leak."
+        },
+        {
+          "round": 2,
+          "text": "Eve is the primary wolf suspect after claiming knowledge of the night target Alice, which only wolves know."
+        }
+      ],
+      "plan": ""
+    }
+  }
+}

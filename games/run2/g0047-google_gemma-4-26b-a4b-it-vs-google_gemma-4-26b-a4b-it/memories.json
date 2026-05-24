@@ -1,0 +1,354 @@
+{
+  "game_id": "g0047-google_gemma-4-26b-a4b-it-vs-google_gemma-4-26b-a4b-it",
+  "memories": {
+    "Alice": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Proposing Carol as a random target to keep a low profile on night 1, as previously discussed in chat."
+        },
+        {
+          "round": 1,
+          "text": "Bidding to ensure I can participate in the opening discussion and establish a villager persona."
+        },
+        {
+          "round": 1,
+          "text": "Bob's Seer claim is a direct threat. I must deny it and imply he is a werewolf or a fake Seer."
+        },
+        {
+          "round": 1,
+          "text": "Bob claimed Seer and accused me. I am voting him to discredit his claim and protect myself."
+        },
+        {
+          "round": 2,
+          "text": "Bob claimed Seer and identified me as a werewolf. He is a high-priority target to neutralize his influence/information."
+        },
+        {
+          "round": 2,
+          "text": "Bob survived the night, suggesting protection. I need to speak to discredit his Seer claim and suggest he's a fake role trying to gain influence."
+        },
+        {
+          "round": 2,
+          "text": "Grace claimed Doctor to protect Bob. I am attacking the timing and convenience of her claim to sow doubt about their partnership."
+        },
+        {
+          "round": 2,
+          "text": "Bob and Grace are working together to frame me; I must attack Grace's credibility to undermine Bob."
+        },
+        {
+          "round": 2,
+          "text": "Grace's claim of being the doctor to protect Bob is too convenient and looks like a coordinated effort to protect the 'Seer'."
+        }
+      ],
+      "plan": "Blend in with the villagers. Avoid being too aggressive or too quiet. Cooperate with the discussion to appear like a villager, and if Frank or I are questioned, try to deflect or provide plausible deniability. Monitor others' claims and behavior to identify potential power roles (Seer, Doctor) and potentially target them later."
+    },
+    "Bob": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "high",
+          "evidence": "Inspected her on Night 1; she denied the claim.",
+          "guess": "werewolf"
+        },
+        "Frank": {
+          "confidence": "high",
+          "evidence": "My Night R3 inspection confirmed he is a werewolf. He is also aggressively deflecting my Seer claim.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First inspection of the game."
+        },
+        {
+          "round": 1,
+          "text": "Bidding to share Alice's identity as a werewolf."
+        },
+        {
+          "round": 1,
+          "text": "Revealed my role and Alice's identity as requested by the plan."
+        },
+        {
+          "round": 1,
+          "text": "Alice and Frank are both being defensive; Alice's denial is expected if she is a wolf."
+        },
+        {
+          "round": 1,
+          "text": "Exiling the werewolf identified by my Night 1 inspection."
+        },
+        {
+          "round": 2,
+          "text": "Searching for a second werewolf to confirm Alice's status or find another target."
+        },
+        {
+          "round": 2,
+          "text": "Bidding to re-assert my Seer claim and push for Alice's exile after the tie."
+        },
+        {
+          "round": 2,
+          "text": "Alice is using deflection tactics against Grace. I will support Grace and mention Dave's clear status to consolidate village trust."
+        },
+        {
+          "round": 2,
+          "text": "Confirmed werewolf from my inspection. Alice is deflecting and trying to sow doubt."
+        },
+        {
+          "round": 3,
+          "text": "Frank defended Alice twice during Day 1 and Day 2, calling my claim a tactic and Grace's claim convenient. Checking if he is a werewolf."
+        },
+        {
+          "round": 3,
+          "text": "Frank is a werewolf based on my R3 inspection. I need to speak to get him exiled."
+        },
+        {
+          "round": 3,
+          "text": "Frank is a werewolf. I need to push for his exile immediately."
+        },
+        {
+          "round": 3,
+          "text": "Frank is a confirmed werewolf. Dave is on my side. Need to secure the vote."
+        },
+        {
+          "round": 3,
+          "text": "My inspection confirmed he is a werewolf, and his deflection against Grace and me is highly suspicious."
+        }
+      ],
+      "plan": "Communicate Alice is a werewolf to the village. Try to lead the discussion toward her exile while being mindful of my safety as the seer. If I am forced to claim my role, I will do so to provide credibility to my findings."
+    },
+    "Carol": {
+      "beliefs": {},
+      "notes": [],
+      "plan": ""
+    },
+    "Dave": {
+      "beliefs": {
+        "Bob": {
+          "confidence": "low",
+          "evidence": "Claims to be Seer and accused Alice; if he is lying, he is a werewolf.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Waiting for others to establish a baseline of information."
+        },
+        {
+          "round": 1,
+          "text": "Bob claims Seer and Alice is werewolf. Alice and Frank defend Alice. Too early to commit."
+        },
+        {
+          "round": 1,
+          "text": "Waiting to see how others vote on the Bob/Alice conflict."
+        },
+        {
+          "round": 2,
+          "text": "Waiting to gather more information from other players' speeches before bidding heavily."
+        },
+        {
+          "round": 2,
+          "text": "Bob claimed I am a villager. Grace claims she protected Bob. Alice and Frank are skeptical of this pair. Staying silent to see the voting outcome."
+        },
+        {
+          "round": 2,
+          "text": "Bob claims I am a villager. Grace claims she protected Bob, explaining why no one died. This duo is either very strong or a coordinated werewolf play. Abstaining to observe voting patterns."
+        },
+        {
+          "round": 3,
+          "text": "Bidding to understand the reaction to the second consecutive night of no deaths and Alice's exile."
+        },
+        {
+          "round": 3,
+          "text": "Supporting Bob's claim on Frank due to the consistent survival pattern matching Grace's protection claim."
+        },
+        {
+          "round": 3,
+          "text": "Bob claims to be Seer and identified Frank as a werewolf. Grace's protection claim aligns with the lack of deaths. Following Bob's lead."
+        }
+      ],
+      "plan": "Listen to the discussions, observe voting patterns, and look for contradictions in player statements to identify werewolves. Avoid aggressive bidding until I have information."
+    },
+    "Eve": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "medium",
+          "evidence": "Bob (claiming Seer) identified her as a werewolf. Grace (claiming Doctor) claims to have protected Bob, explaining why no one died last night. Alice's defense is focused on attacking Grace/Bob's credibility rather than providing counter-evidence.",
+          "guess": "werewolf"
+        },
+        "Bob": {
+          "confidence": "low",
+          "evidence": "Claimed Seer and identified Alice as werewolf; Alice and Frank are challenging him.",
+          "guess": "Seer or Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Bidding for an early speaking slot to initiate discussion and gather information."
+        },
+        {
+          "round": 1,
+          "text": "Bob claims Seer, accuses Alice. Waiting for Alice's response."
+        },
+        {
+          "round": 1,
+          "text": "Bob claims Seer and Alice is werewolf. Alice and Frank are defending Alice. Too early to decide, passing to observe voting."
+        },
+        {
+          "round": 1,
+          "text": "Too early to tell if Bob is a truthful Seer or a lying werewolf. Alice and Frank's defense adds uncertainty."
+        },
+        {
+          "round": 2,
+          "text": "Bidding to participate in Day 2 discussion. Need to evaluate Bob's claim and the fact that someone was protected last night."
+        },
+        {
+          "round": 2,
+          "text": "Observing the tension between Bob/Grace and Alice. Bob's claim about Dave adds a new variable. I want to see if Dave or others react to being called a villager."
+        },
+        {
+          "round": 2,
+          "text": "Bob's Seer claim is supported by Grace's Doctor claim and the fact that no one died last night. Alice's defense is highly deflective."
+        },
+        {
+          "round": 3,
+          "text": "Alice is gone. Need to evaluate if Bob's Seer claim and Grace's Doctor claim are legitimate or a coordinated werewolf play. Also, note the second night of no deaths."
+        },
+        {
+          "round": 3,
+          "text": "Bob's Seer claims on Alice and Frank, combined with Grace's protection of Bob and the lack of deaths, make Frank's deflection very suspicious."
+        }
+      ],
+      "plan": "Observe the speaking order and bidding patterns of other players. Look for inconsistencies in claims or suspicious behavior. Try to identify the werewolves by analyzing voting patterns and social cues. Aim to stay alive and contribute to the village's survival."
+    },
+    "Frank": {
+      "beliefs": {
+        "Bob": {
+          "confidence": "high",
+          "evidence": "Claimed Seer and identified Alice; survived night which Grace claims to have protected, but could be a lie.",
+          "guess": "fake Seer"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Alice hasn't responded, so I'm picking a target at random to avoid suspicion and ensure we get a kill in."
+        },
+        {
+          "round": 1,
+          "text": "Bidding to get a speaking slot early to establish a presence and blend in."
+        },
+        {
+          "round": 1,
+          "text": "Bob is targeting Alice. Supporting Alice's side to maintain pack cohesion, but trying to sound skeptical of Bob's claim rather than blindly defending her."
+        },
+        {
+          "round": 1,
+          "text": "Bob's claim is suspicious and might be a frame job; staying neutral for now to see how others vote."
+        },
+        {
+          "round": 2,
+          "text": "Bob claimed to be Seer and identified Alice. He is a high-priority target to eliminate the threat."
+        },
+        {
+          "round": 2,
+          "text": "Bob survived the night, suggesting he might be protected by a Doctor. I need to speak to manage the fallout of his Seer claim and Alice being called out."
+        },
+        {
+          "round": 2,
+          "text": "Grace is becoming a major problem for us as she is backing Bob."
+        },
+        {
+          "round": 2,
+          "text": "Discrediting the Seer claim to protect Alice and create doubt about the Bob/Grace duo."
+        },
+        {
+          "round": 3,
+          "text": "Bob is the most dangerous player due to his Seer claim and the support he's receiving from Grace. Eliminating him is necessary to disrupt the village's information flow."
+        },
+        {
+          "round": 3,
+          "text": "Bob's claim about Alice was incorrect, which casts doubt on his Seer claim. I need to speak to challenge his credibility."
+        },
+        {
+          "round": 3,
+          "text": "Alice is gone. Bob survived the night again. I need to keep questioning the legitimacy of the Bob/Grace connection to avoid being targeted."
+        },
+        {
+          "round": 3,
+          "text": "Bob and Grace are likely a coordinated fake Seer/Doctor duo. I need to convince Dave or Eve to doubt them."
+        },
+        {
+          "round": 3,
+          "text": "Bob is claiming to be the Seer and has identified me. I am maintaining my stance that his claim is a fabrication to control the village."
+        }
+      ],
+      "plan": "Coordinate closely with Alice. In the early game, focus on picking targets that don't immediately draw suspicion to us, potentially targeting players who seem more active or potentially power roles once information becomes available. Maintain a low profile in public channels."
+    },
+    "Grace": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "high",
+          "evidence": "Bob claims she is a werewolf, and her responses have been purely defensive and deflective towards both Bob and me.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night protection. Choosing Alice randomly as I have no information."
+        },
+        {
+          "round": 1,
+          "text": "Starting the game. Bidding to get a slot in the first discussion to observe others."
+        },
+        {
+          "round": 1,
+          "text": "Bob claims Seer and accuses Alice. Waiting for Alice's response and village reaction."
+        },
+        {
+          "round": 1,
+          "text": "The situation is a direct conflict between Bob (claiming Seer) and Alice. I need to see how others react before committing."
+        },
+        {
+          "round": 1,
+          "text": "Waiting to see the voting pattern and consensus before committing to an exile."
+        },
+        {
+          "round": 2,
+          "text": "Protecting Bob because he claimed to be the Seer and identified Alice; if he is telling the truth, he is a primary target for the werewolves."
+        },
+        {
+          "round": 2,
+          "text": "Bidding to speak and discuss the Bob/Alice conflict and the fact that no one died last night."
+        },
+        {
+          "round": 2,
+          "text": "Bob survived because I protected him, which validates his Seer claim and makes Alice look more like a werewolf."
+        },
+        {
+          "round": 2,
+          "text": "Bob's Seer claim is supported by the fact that I protected him and no one died. Alice's behavior is purely deflective."
+        },
+        {
+          "round": 3,
+          "text": "Protecting Bob again to ensure the Seer survives, as he is a primary source of information and was a likely target last night."
+        },
+        {
+          "round": 3,
+          "text": "No one died again after I protected Bob. This reinforces that Bob is the target and his Seer claim is likely true. Need to communicate this alignment."
+        },
+        {
+          "round": 3,
+          "text": "Consistent with Bob's claim and the lack of deaths while I protected Bob."
+        },
+        {
+          "round": 3,
+          "text": "Bob's Seer claim is consistently supported by the lack of deaths while I protect him. Frank is deflecting and trying to discredit the Seer/Doctor duo."
+        }
+      ],
+      "plan": "As the doctor, my goal is to stay alive to provide protection and to identify werewolves through community discussion. I will protect different players each night to increase the chances of survival and observe voting patterns to identify suspicious players."
+    }
+  }
+}

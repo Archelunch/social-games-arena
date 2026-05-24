@@ -1,0 +1,188 @@
+{
+  "game_id": "g0067-google_gemma-4-26b-a4b-it-vs-qwen_qwen3.6-27b",
+  "memories": {
+    "Alice": {
+      "beliefs": {
+        "Frank": {
+          "confidence": "medium",
+          "evidence": "Claimed Seer and immediately accused me with a very high bid (80). Might be trying to frame me.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Suggested Carol in chat and proceeding to end turn."
+        },
+        {
+          "round": 1,
+          "text": "Bidding to listen and establish presence in the first discussion."
+        },
+        {
+          "round": 1,
+          "text": "Frank claimed Seer and accused me. Dave claimed Doctor and said he guarded me. Bob is delaying the vote. I will pass to avoid drawing more attention to myself."
+        },
+        {
+          "round": 1,
+          "text": "Frank's accusation is extreme and Dave's protection makes the situation too uncertain to vote immediately. Staying neutral to observe more reactions."
+        },
+        {
+          "round": 2,
+          "text": "Dave claimed Doctor and defended me. Removing him reduces the chance of a real Doctor protecting villagers or being a power role."
+        }
+      ],
+      "plan": "1. Blend in as a villager by participating in discussions without being too suspicious. 2. Coordinate subtly with Bob if possible without making it obvious. 3. Avoid being the first to accuse or the first to defend anyone specifically unless it serves a purpose. 4. Watch how others react to Carol's death to identify potential power roles."
+    },
+    "Bob": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Proposed Carol as a random target to Alice to move the night along."
+        },
+        {
+          "round": 1,
+          "text": "Bidding moderately to establish presence early in the game and set a villager persona."
+        },
+        {
+          "round": 1,
+          "text": "Frank claimed Seer and accused Alice. Dave claimed Doctor and guarded Alice. I'm playing cautious to avoid suspicion while not immediately siding with Frank."
+        },
+        {
+          "round": 1,
+          "text": "Frank (Seer?) is targeting Alice. Dave (Doctor?) is defending Alice. I will side with Dave to protect Alice and cast doubt on Frank's high bid."
+        },
+        {
+          "round": 1,
+          "text": "Frank's claim is aggressive and his bid is high. Dave's claim of guarding Alice provides some cover, though Frank's inspection is a direct threat. I will abstain to observe the voting pattern before committing to a target."
+        },
+        {
+          "round": 2,
+          "text": "Dave claimed Doctor and protected Alice; he is a high priority target to prevent him from protecting more villagers."
+        }
+      ],
+      "plan": "1. Blend in by acting like a concerned villager. 2. Protect Alice by subtly redirecting suspicion away from her if she becomes a target. 3. Monitor players' claims and behavior to identify potential power roles (Seer/Doctor) and coordinate with Alice to eliminate them. 4. Avoid being too vocal early on to minimize attention."
+    },
+    "Carol": {
+      "beliefs": {},
+      "notes": [],
+      "plan": ""
+    },
+    "Dave": {
+      "beliefs": {
+        "Frank": {
+          "confidence": "medium",
+          "evidence": "High bid (80) for first day claim. Immediate accusation of Alice, whom I (Doctor) guarded. Contradicts my role knowledge. Suspicious playstyle.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Random selection on first night with no information."
+        },
+        {
+          "round": 1,
+          "text": "Day 1. Doctor role hidden. Bid moderate to speak but save budget."
+        },
+        {
+          "round": 1,
+          "text": "Revealed Doctor role to establish trust and protect Alice from immediate unwarranted exile. Watch for Werewolf reactions."
+        },
+        {
+          "round": 1,
+          "text": "Defending Alice reinforces my Doctor role and questions Frank's Seer claim/bid."
+        },
+        {
+          "round": 1,
+          "text": "Frank's high bid (80) and immediate accusation of Alice (whom I guarded) are suspicious. I distrust his Seer claim more than I fear Alice is a wolf, especially with Bob's support for caution."
+        },
+        {
+          "round": 2,
+          "text": "Frank was likely a wolf lying about Alice; she is probably innocent. Guarding her again to ensure her survival after being falsely accused."
+        }
+      ],
+      "plan": ""
+    },
+    "Eve": {
+      "beliefs": {
+        "Frank": {
+          "confidence": "medium",
+          "evidence": "Extreme bid of 80 for first day claim, immediate accusation of a player guarded by another player (Dave). Behavior seems manipulative to cause panic and kill a protected player.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First day, observing. Moderate bid to ensure speaking slot if needed but conserve budget."
+        },
+        {
+          "round": 1,
+          "text": "Frank's high bid (80) and immediate accusation are suspicious. Dave's claim of guarding Alice and low bid (70, though he bid 30 in the order? Wait, bids are public: Alice 100->20? No, 'bids' listed are likely the cost paid or remaining? The text says 'bids \u2014 Alice 20...'. Okay. Frank 80 is outlier. Dave defended Alice. I need more info. Grace hasn't spoken yet. I will hold off."
+        },
+        {
+          "round": 1,
+          "text": "Frank's high bid and immediate accusation of a guarded player are suspicious wolf behaviors. Dave's Doctor claim supports Alice's innocence. Exile Frank."
+        }
+      ],
+      "plan": ""
+    },
+    "Frank": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "high",
+          "evidence": "Inspected Alice night R1 and result was werewolf. Dave claimed to guard her which explains her survival, but does not change her alignment.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night inspection, random choice to start gathering info."
+        },
+        {
+          "round": 1,
+          "text": "Urgent: Alice is a werewolf (verified by Seer). Need to speak early to direct the mob."
+        },
+        {
+          "round": 1,
+          "text": "Revealing role and wolf find. Budget 20, so kept it short. Pushing for Alice's lynching."
+        },
+        {
+          "round": 1,
+          "text": "Dave is likely bluffing as Doctor or is a Wolf. Alice is confirmed Wolf."
+        },
+        {
+          "round": 1,
+          "text": "Inspected Alice as Werewolf on Night R1. Her survival was due to a guard (claimed by Dave), but her alignment is confirmed. Exiling her is the only logical move for the Village."
+        }
+      ],
+      "plan": ""
+    },
+    "Grace": {
+      "beliefs": {
+        "Frank": {
+          "confidence": "medium",
+          "evidence": "High bid (80) for Day 1 Seer claim is suspicious; aggressive accusation of a player guarded by Doctor suggests wolf trying to create chaos or eliminate villager.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Low bid to conserve budget as a villager with no info yet; waiting to see if anyone claims roles."
+        },
+        {
+          "round": 1,
+          "text": "Frank and Dave have conflicting high-value claims (Seer vs Doctor). Frank's aggression (80 bid) is suspicious. I will wait for Eve's statement before deciding."
+        },
+        {
+          "round": 1,
+          "text": "Frank's high bid (80) and aggressive push against a guarded player suggest wolf behavior. Trusting Dave's Doctor claim more than Frank's suspicious Seer claim."
+        }
+      ],
+      "plan": "As a villager, my goal is to identify werewolves by observing discussion patterns and voting behavior. I will listen carefully to accusations and look for contradictions. I will conserve my speaking budget for moments when I have concrete evidence or need to defend myself. I will avoid making baseless accusations early on."
+    }
+  }
+}

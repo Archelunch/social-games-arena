@@ -1,0 +1,183 @@
+{
+  "game_id": "g0004-deepseek_deepseek-v4-flash-vs-deepseek_deepseek-v4-flash",
+  "memories": {
+    "Alice": {
+      "beliefs": {
+        "Grace": {
+          "confidence": "low",
+          "evidence": "She defended herself against my weak accusation; could be a villager, but I'll target her to create misdirection.",
+          "guess": "villager (but I'm playing wolf so I'll accuse her)"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Proposed Bob as early kill, Dave suggested Eve/Grace but no consensus yet. Going with Bob."
+        },
+        {
+          "round": 1,
+          "text": "Bid 30 to get early speaking slot, save budget for later rounds. Plan to cast suspicion on others (Carol or Eve) while defending Dave if needed."
+        },
+        {
+          "round": 1,
+          "text": "Accusing Grace to blend in and steer suspicion away from me and Dave."
+        },
+        {
+          "round": 1,
+          "text": "Voting for Grace based on my earlier accusation; consistent behavior."
+        },
+        {
+          "round": 2,
+          "text": "Carol is vocal and leading discussion, dangerous for wolves. Coordinating with Dave."
+        }
+      ],
+      "plan": ""
+    },
+    "Bob": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "No info on night 1; protecting Alice arbitrarily."
+        }
+      ],
+      "plan": ""
+    },
+    "Carol": {
+      "beliefs": {
+        "Grace": {
+          "confidence": "medium",
+          "evidence": "Grace brought up bid budgets as suspicious, a common wolf tactic to create division on those who spoke early; she also accused Alice of weak reasoning after Alice accused her, which could be defensive wolf behavior.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Random first inspection to start gathering information."
+        },
+        {
+          "round": 1,
+          "text": "Bidding 70 to speak early and share that I learned Bob was a villager from my seer vision, which confirms werewolves killed a villager. Saving 30 budget for future rounds."
+        },
+        {
+          "round": 1,
+          "text": "I know Bob was a villager from my seer power. Keeping that secret for now."
+        },
+        {
+          "round": 1,
+          "text": "No strong evidence yet; staying silent to avoid drawing suspicion."
+        },
+        {
+          "round": 1,
+          "text": "Voting for Grace due to her weak bid budget observation to create division, and her defensive accusation against Alice."
+        },
+        {
+          "round": 2,
+          "text": "Inspect Eve based on her defense of Alice who accused Grace (exiled werewolf)."
+        }
+      ],
+      "plan": ""
+    },
+    "Dave": {
+      "beliefs": {
+        "Grace": {
+          "confidence": "low",
+          "evidence": "Grace made an observation about bid budgets, which could be a villager trying to help. Alice accused her, so I'll vote against her to align with my pack mate.",
+          "guess": "villager"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Kill Bob per Alice's suggestion, after coordinating in pack chat."
+        },
+        {
+          "round": 1,
+          "text": "Bidding moderately to participate without overspending early."
+        },
+        {
+          "round": 2,
+          "text": "Alice and I discussed last night and agreed Carol is a vocal leader who could be dangerous; killing her now before she builds more influence."
+        }
+      ],
+      "plan": ""
+    },
+    "Eve": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "medium",
+          "evidence": "Alice accused Grace of making a weak observation about bid budgets, but Alice's own accusation was equally weak\u2014this could be a wolf trying to create division.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Day 1, no info yet \u2014 moderate bid to participate."
+        },
+        {
+          "round": 1,
+          "text": "Defending Grace because Alice's accusation seems thin and potentially wolfish."
+        },
+        {
+          "round": 1,
+          "text": "Alice's accusation against Grace was weak and seems like a wolf trying to create division."
+        }
+      ],
+      "plan": ""
+    },
+    "Frank": {
+      "beliefs": {
+        "Dave": {
+          "confidence": "medium",
+          "evidence": "Weak accusation against me for steering discussion is suspicious.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Bid high to speak early in Day 1, share thoughts on Bob's death and solicit others' views."
+        },
+        {
+          "round": 1,
+          "text": "Villager, gather info"
+        },
+        {
+          "round": 1,
+          "text": "Voting Dave due to his weak accusation against me for steering discussion, which seems like a wolf trying to eliminate a villager."
+        }
+      ],
+      "plan": ""
+    },
+    "Grace": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "medium",
+          "evidence": "Alice accused me of making a weak observation about bid budgets, but it was a reasonable observation. Accusing someone for that seems like a wolf trying to create confusion.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First day, moderate bid to get a chance to speak and observe reactions."
+        },
+        {
+          "round": 1,
+          "text": "Public statement as villager; flagged budget difference as a minor observation."
+        },
+        {
+          "round": 1,
+          "text": "Alice's accusation felt like a reach, possibly to deflect attention."
+        },
+        {
+          "round": 1,
+          "text": "Alice accused me of a weak observation about bid budgets, which seems like a wolf trying to create confusion. Eve defended me, making Alice seem more suspicious."
+        }
+      ],
+      "plan": ""
+    }
+  }
+}

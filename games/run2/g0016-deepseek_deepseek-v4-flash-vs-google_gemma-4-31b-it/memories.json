@@ -1,0 +1,316 @@
+{
+  "game_id": "g0016-deepseek_deepseek-v4-flash-vs-google_gemma-4-31b-it",
+  "memories": {
+    "Alice": {
+      "beliefs": {
+        "Bob": {
+          "confidence": "high",
+          "evidence": "Seer inspection returned villagers.",
+          "guess": "villager"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night inspection to start identifying factions."
+        },
+        {
+          "round": 1,
+          "text": "Bidding moderately to speak and observe, knowing Bob is a villager."
+        },
+        {
+          "round": 1,
+          "text": "No accusations yet, staying quiet to protect Seer identity."
+        },
+        {
+          "round": 1,
+          "text": "No concrete evidence against any player yet; Bob is confirmed villager."
+        },
+        {
+          "round": 2,
+          "text": "Checking Carol to identify werewolves."
+        },
+        {
+          "round": 2,
+          "text": "Bidding to provide insight on Bob and Carol while narrowing down suspects."
+        },
+        {
+          "round": 2,
+          "text": "No clear suspects yet; Bob and Carol are confirmed villagers. Waiting for more information."
+        },
+        {
+          "round": 2,
+          "text": "No confirmed werewolf yet. Bob and Carol are confirmed villagers."
+        },
+        {
+          "round": 3,
+          "text": "Inspecting Dave to narrow down suspects among the remaining players."
+        }
+      ],
+      "plan": ""
+    },
+    "Bob": {
+      "beliefs": {
+        "Grace": {
+          "confidence": "low",
+          "evidence": "Eve accused her of staying under the radar and having low bids.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Low bid for the first round to conserve budget while observing others."
+        },
+        {
+          "round": 1,
+          "text": "No evidence to act on yet; waiting for others to reveal their suspicions."
+        },
+        {
+          "round": 1,
+          "text": "No one has given a reason to be suspected yet."
+        },
+        {
+          "round": 2,
+          "text": "Trying to get a speaking slot to start analyzing behavior."
+        },
+        {
+          "round": 2,
+          "text": "No clear suspects yet; statements were too generic to draw conclusions from."
+        },
+        {
+          "round": 2,
+          "text": "Following Eve's lead as no other suspects have been named."
+        }
+      ],
+      "plan": ""
+    },
+    "Carol": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Bidding moderately to get a word in on the first day."
+        },
+        {
+          "round": 1,
+          "text": "Starting the conversation neutrally to see how others respond."
+        },
+        {
+          "round": 1,
+          "text": "No one has provided any suspicious information yet; staying silent to observe others."
+        },
+        {
+          "round": 1,
+          "text": "No evidence yet; avoiding blind guesses on Day 1."
+        },
+        {
+          "round": 2,
+          "text": "Trying to get a speaking slot for Day R2 to analyze the current state and look for clues."
+        },
+        {
+          "round": 2,
+          "text": "Trying to prompt the Seer or anyone with a hunch to speak up."
+        },
+        {
+          "round": 2,
+          "text": "No concrete evidence to accuse or defend anyone yet; observing the room."
+        },
+        {
+          "round": 2,
+          "text": "No concrete evidence against anyone yet; Eve's accusation of Grace is based on weak grounds."
+        }
+      ],
+      "plan": ""
+    },
+    "Dave": {
+      "beliefs": {
+        "Bob": {
+          "confidence": "low",
+          "evidence": "No info yet, just a placeholder suspicion.",
+          "guess": "villager"
+        },
+        "Grace": {
+          "confidence": "low",
+          "evidence": "Eve pointed out Grace's low bid and silence, which could be wolf behavior trying to stay under the radar.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Proposed Alice to Eve via chat, no reply yet, going with this target."
+        },
+        {
+          "round": 1,
+          "text": "Bid 20 to speak early-mid. Alice likely doctor since she was protected."
+        },
+        {
+          "round": 1,
+          "text": "R1 day speech as werewolf. Acting neutral, thanking doctor, inviting discussion. No suspicion on me yet."
+        },
+        {
+          "round": 1,
+          "text": "Staying silent to avoid drawing attention after my earlier statement. Let others speak more."
+        },
+        {
+          "round": 1,
+          "text": "Voting for Frank as a neutral choice since no one has said anything about him yet and he hasn't spoken. Might be a seer or doctor, worth testing."
+        },
+        {
+          "round": 2,
+          "text": "Switching target after Alice was saved. Frank is a reasonable pick to avoid doctor prediction."
+        },
+        {
+          "round": 2,
+          "text": "Bid high to speak early and shape discussion after Frank's death."
+        },
+        {
+          "round": 2,
+          "text": "Day 2 public statement after Frank's death; stay neutral."
+        },
+        {
+          "round": 2,
+          "text": "Defending Bob to appear helpful and align with my earlier low suspicion of him as villager"
+        },
+        {
+          "round": 2,
+          "text": "Eve's observation about Grace's low bid and silence seems plausible as wolf behavior. Following up on that lead."
+        },
+        {
+          "round": 3,
+          "text": "Bob is active and reasonable, a threat. Alice might be guarded again. Coordinating with Eve."
+        }
+      ],
+      "plan": ""
+    },
+    "Eve": {
+      "beliefs": {
+        "Bob": {
+          "confidence": "low",
+          "evidence": "Low bid and no speaking slot - could be trying to stay under radar",
+          "guess": "werewolf"
+        },
+        "Frank": {
+          "confidence": "low",
+          "evidence": "Doctor saved Alice last night; targeting Frank seems safe since he's been under the radar and less likely to be guarded.",
+          "guess": "possibly important village role"
+        },
+        "Grace": {
+          "confidence": "medium",
+          "evidence": "Grace has been quiet with low bids, staying under the radar. I publicly accused her already, so following through builds consistency.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night kill suggestion - targeting Alice as discussed with Dave. Could be a seer or important role."
+        },
+        {
+          "round": 1,
+          "text": "Bidding moderately to get a speaking slot; need to steer suspicion away from werewolves."
+        },
+        {
+          "round": 1,
+          "text": "Opened the discussion neutrally, trying to appear helpful and villager-like while fishing for reactions."
+        },
+        {
+          "round": 1,
+          "text": "Silent to avoid drawing attention; no clear target yet."
+        },
+        {
+          "round": 1,
+          "text": "Bob bid low and didn't speak - potential wolf hiding in plain sight. Also a safe vote to blend in as village."
+        },
+        {
+          "round": 2,
+          "text": "Suggesting Frank as kill target after Alice was saved. Dave mentioned Bob or Frank as options; I'm going with Frank to catch the doctor off guard."
+        },
+        {
+          "round": 2,
+          "text": "Bid 30 to secure speaking slot day R2. Frank died, village will be suspicious; I need to steer discussion away from me and Dave."
+        },
+        {
+          "round": 2,
+          "text": "Cast suspicion while appearing analytical; avoid defending Dave directly."
+        },
+        {
+          "round": 2,
+          "text": "Deflecting suspicion away from myself and Dave, targeting a quiet player."
+        },
+        {
+          "round": 2,
+          "text": "Voting Grace as I accused her publicly for staying under the radar; consistent with my suspicion."
+        },
+        {
+          "round": 3,
+          "text": "Bob is a reasonable and active villager; aligning with Dave's suggestion to ensure we win."
+        }
+      ],
+      "plan": "Deflect suspicion away from myself and Dave. Push for examining whoever seems most suspicious, but avoid targeting each other. If someone accuses Dave, defend him subtly. If accused myself, point to my early cooperation and lack of evidence. Look for easy targets like Bob or Grace to deflect onto."
+    },
+    "Frank": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Bidding to get a speaking slot and start gathering info."
+        },
+        {
+          "round": 1,
+          "text": "No useful information yet; staying silent to observe others' reactions."
+        },
+        {
+          "round": 1,
+          "text": "No evidence against anyone on Day 1."
+        }
+      ],
+      "plan": ""
+    },
+    "Grace": {
+      "beliefs": {
+        "Eve": {
+          "confidence": "low",
+          "evidence": "Aggressively accused me (the doctor) based on bid size and silence, which may be a deflection tactic.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night, no information available, choosing Alice at random."
+        },
+        {
+          "round": 1,
+          "text": "Want to gather info on Day 1; know Alice was targeted."
+        },
+        {
+          "round": 1,
+          "text": "I saved Alice, so she's confirmed town. I'll stay quiet for now to hide my role."
+        },
+        {
+          "round": 1,
+          "text": "No one has shown suspicious behavior yet. I saved Alice, so I know the wolves targeted her, but I don't know who they are."
+        },
+        {
+          "round": 2,
+          "text": "Rotating protection from Alice to Bob since no suspicions have emerged yet."
+        },
+        {
+          "round": 2,
+          "text": "Bid to speak and analyze the situation after Frank's death."
+        },
+        {
+          "round": 2,
+          "text": "No one has made a concrete accusation yet, and I have no evidence to act on."
+        },
+        {
+          "round": 2,
+          "text": "No strong evidence against anyone yet; abstaining to avoid removing a potential villager."
+        }
+      ],
+      "plan": ""
+    }
+  }
+}

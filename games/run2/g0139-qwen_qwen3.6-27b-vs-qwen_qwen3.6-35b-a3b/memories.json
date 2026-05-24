@@ -1,0 +1,234 @@
+{
+  "game_id": "g0139-qwen_qwen3.6-27b-vs-qwen_qwen3.6-35b-a3b",
+  "memories": {
+    "Alice": {
+      "beliefs": {
+        "Grace": {
+          "confidence": "medium",
+          "evidence": "Claimed Seer and checked me. If real, she knows I'm wolf. If fake, she's creating a target for a wolf. Either way, she is dangerous to us.",
+          "guess": "Seer"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night random kill as coordinated with Dave."
+        },
+        {
+          "round": 1,
+          "text": "Day 1: Staying quiet to conserve budget and avoid attention. Observing others first."
+        },
+        {
+          "round": 1,
+          "text": "Counter-accusing Grace to create doubt about her Seer claim. Dave needs to follow up."
+        },
+        {
+          "round": 1,
+          "text": "Grace claims Seer and checked me. She is a threat to the pack. Exiling her stops her from finding more wolves. Dave backs me up."
+        }
+      ],
+      "plan": ""
+    },
+    "Bob": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night, no info. Protecting Alice arbitrarily to start."
+        }
+      ],
+      "plan": ""
+    },
+    "Carol": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Bidding max to ensure a speaking slot on Day 1 with no prior info."
+        },
+        {
+          "round": 1,
+          "text": "Grace claimed Seer and identified Alice as Wolf. Trusting Seer claim over Alice's denial. Alice's denial is expected. Dave's defense is unsubstantiated."
+        },
+        {
+          "round": 2,
+          "text": "Grace likely real Seer, Alice likely Wolf. Dave defended Alice, so Dave is suspicious. No budget to speak, so will observe."
+        },
+        {
+          "round": 2,
+          "text": "Dave defended Alice, a known wolf. Eve and Frank have correctly identified this as suspicious. While Eve/Frank's coordination is notable, the primary evidence against Dave is strong. I will pass and observe the vote."
+        },
+        {
+          "round": 2,
+          "text": "Grace (Seer) claimed Alice (Wolf). Wolves killed Grace. Dave defended Alice and attacked Grace. Dave is the most likely remaining wolf."
+        }
+      ],
+      "plan": ""
+    },
+    "Dave": {
+      "beliefs": {
+        "Eve": {
+          "confidence": "high",
+          "evidence": "Eve is aggressively accusing me, a werewolf. She is likely a villager trying to win. She might be the Doctor.",
+          "guess": "Villager"
+        },
+        "Grace": {
+          "confidence": "high",
+          "evidence": "Claimed Seer and accused my ally Alice. Must be exiled to protect the pack.",
+          "guess": "Seer"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Agreeing with Alice's suggestion to target Bob on night 1 to test the waters and maintain pack unity."
+        },
+        {
+          "round": 1,
+          "text": "Low bid to save budget on Day 1. Observe who bids high. We killed Bob, so villagers will be looking for wolves among the remaining 5."
+        },
+        {
+          "round": 1,
+          "text": "Defending packmate Alice against Grace's Seer claim to save her life."
+        },
+        {
+          "round": 1,
+          "text": "Grace claimed Seer and exposed Alice. As a wolf, I must eliminate the Seer to protect my ally and secure a win."
+        },
+        {
+          "round": 2,
+          "text": "Grace is the confirmed Seer (checked my ex-packmate Alice correctly). She is the biggest threat. As the lone wolf, I must blind the village by killing the Seer before she can check more players."
+        },
+        {
+          "round": 2,
+          "text": "Bid high to control narrative. Need to survive 2 more nights to win. Create discord between Eve and Frank."
+        },
+        {
+          "round": 2,
+          "text": "Defending against Eve/Framing. Claiming Grace was a wolf. Trying to shift suspicion to Eve."
+        },
+        {
+          "round": 2,
+          "text": "Trying to flip Eve's aggression as a tell. Hope Carol is skeptical."
+        },
+        {
+          "round": 2,
+          "text": "Trying to create a tie or split the vote between Eve and me. Eve is the primary accuser; voting for her looks like defensive aggression."
+        }
+      ],
+      "plan": "Survive Day 2. Claim Doctor tomorrow if needed. Tonight, kill Frank to isolate Eve. If I survive tonight, kill Eve next night to win 1-1."
+    },
+    "Eve": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "high",
+          "evidence": "Grace is the only Seer claimant, making her claim highly probable. Alice did not counter-claim Seer, proving she is not the Seer. Dave's immediate defense of Alice without claiming Seer himself suggests Dave may be a Wolf partner protecting Alice, or a confused villager. Given Grace's strong Seer claim and lack of counter-Seer claim from Alice, Alice is likely the Wolf targeted by the Seer.",
+          "guess": "Werewolf"
+        },
+        "Dave": {
+          "confidence": "high",
+          "evidence": "Dave aggressively defended Alice (exiled wolf) and attacked Seer Grace without evidence. His counter-accusation of Eve is a typical wolf deflection tactic.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Bidding 10 to secure a speaking slot for Day 1. Need to hear others' opinions since I have no specific suspicion yet."
+        },
+        {
+          "round": 1,
+          "text": "Grace claims Alice is wolf; Alice denies. No immediate proof. Wait for more statements."
+        },
+        {
+          "round": 1,
+          "text": "Voting for Alice based on Grace's Seer claim. Alice failed to counter-claim Seer, indicating she is not the Seer. With Grace as the likely real Seer, Alice is the Wolf. Dave's defense is noted but outweighed by the Seer's info."
+        },
+        {
+          "round": 2,
+          "text": "Assuming Grace was real Seer, Alice was wolf. Dave defended Alice, so Dave is likely wolf partner. I need to speak to expose Dave."
+        },
+        {
+          "round": 2,
+          "text": "Grace's claim aligns with the outcome (Alice was likely a wolf). Dave defended Alice. Dave is now the primary suspect."
+        },
+        {
+          "round": 2,
+          "text": "Accusing Dave as the remaining high-priority suspect."
+        },
+        {
+          "round": 2,
+          "text": "Dave defended a known wolf (Alice) and attacked the Seer (Grace). High suspicion of being the second werewolf or a protective villager misled by the wolf dynamic, but the risk of leaving him is too high."
+        }
+      ],
+      "plan": ""
+    },
+    "Frank": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "low",
+          "evidence": "Grace claims Seer checked her as Wolf. Grace took a risk claiming Seer on Day 1. Alice and Dave are defending each other, which is typical wolf teamwork, but without more info, Grace's specific claim gives me a target. Confidence is low because counter-claims are common.",
+          "guess": "Werewolf"
+        },
+        "Dave": {
+          "confidence": "high",
+          "evidence": "Aggressively defended Alice (confirmed Wolf by Grace's death) and attacked Seer Grace without evidence. Typical wolf protection behavior.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Grace claims Alice is a wolf; Alice denies. Too early to judge without more info or votes. Staying silent is safest."
+        },
+        {
+          "round": 1,
+          "text": "Voting for Alice based on Grace's Seer inspection. If Grace is real, Alice is a wolf. If Grace is fake, I risk killing a villager, but siding with the first Seer claim is the safer strategic default."
+        },
+        {
+          "round": 2,
+          "text": "Suspect Dave is a werewolf due to defending Alice and attacking Seer Grace. Need to speak to warn village."
+        },
+        {
+          "round": 2,
+          "text": "Supporting Eve's logic. Dave's defense of Alice was unjustified and suspicious."
+        },
+        {
+          "round": 2,
+          "text": "Dave defended the exiled wolf Alice and attacked the Seer Grace. This behavior confirms he is likely a werewolf protecting his partner."
+        }
+      ],
+      "plan": ""
+    },
+    "Grace": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night inspection. Checking Alice's faction."
+        },
+        {
+          "round": 1,
+          "text": "Need to speak to identify Alice as a wolf based on my night 1 vision."
+        },
+        {
+          "round": 1,
+          "text": "Revealed Seer status and Alice's wolf identity. This is the best way to lead the village to a win on Day 1."
+        },
+        {
+          "round": 1,
+          "text": "I have already publicly identified Alice as a werewolf. Repeating the accusation is redundant. I will pass to allow other players to react to the information I've provided."
+        },
+        {
+          "round": 1,
+          "text": "Alice was confirmed as Werewolf by my Seer ability on Night 1. Voting to exile her is the highest priority to win the game."
+        },
+        {
+          "round": 2,
+          "text": "Checking Dave's allegiance after he aggressively defended Alice who was confirmed Wolf."
+        }
+      ],
+      "plan": ""
+    }
+  }
+}

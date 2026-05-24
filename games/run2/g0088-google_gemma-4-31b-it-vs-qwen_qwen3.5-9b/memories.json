@@ -1,0 +1,171 @@
+{
+  "game_id": "g0088-google_gemma-4-31b-it-vs-qwen_qwen3.5-9b",
+  "memories": {
+    "Alice": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night, no info on roles yet. Protecting Bob arbitrarily to fulfill duty."
+        }
+      ],
+      "plan": ""
+    },
+    "Bob": {
+      "beliefs": {
+        "Carol": {
+          "confidence": "medium",
+          "evidence": "Carol accused Bob of being suspicious for trusting Dave (Seer) based solely on logical deduction. Wolves often try to split the village by attacking\u6751\u6c11 (villagers) who have aligned with a confirmed Seer to create chaos and distrust.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Alice was killed last night. We need to identify survivors quickly. I will speak first to set the pace."
+        },
+        {
+          "round": 1,
+          "text": "Dave verified Alice as villager immediately after death. This is standard Seer play to prove identity. Alice's death is likely a wolf target. Need to hear if others contradict this."
+        },
+        {
+          "round": 1,
+          "text": "Defending against joint accusation. Needs a public face of calmity and logic. No one to accuse yet; suspicion too early."
+        },
+        {
+          "round": 1,
+          "text": "Voting her out to stop the wolf strategy of splitting the village by attacking the Seer alliance."
+        }
+      ],
+      "plan": ""
+    },
+    "Carol": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Bid 0 to speak last and analyze others' logic first."
+        },
+        {
+          "round": 1,
+          "text": "Suspicion started after Bob aligned too fast with Dave's narrative. Frank seems like a logical next suspect but I need to keep pressure on Bob to see if Dave defends anyone or if Bob stumbles."
+        },
+        {
+          "round": 1,
+          "text": "Bob aligned too quickly with Dave's Seer claim upon the first villager death. As a real villager, one should be cautious of early role claims. His aggressive defense felt like 'fake allegiance' to secure an insecure position, fitting the werewolf pattern of rushing to align with a power role after a kill."
+        }
+      ],
+      "plan": ""
+    },
+    "Dave": {
+      "beliefs": {
+        "Bob": {
+          "confidence": "high",
+          "evidence": "Bob's immediate and rigid alignment with the Seer's claim upon Alice's premature death as a villager suggests a wolf attempting to solidify a false alliance or exploit the chaos to hide amidst logical deduction. While I defended him publicly, his perfect fit for the pattern warrants immediate scrutiny.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Starting the night phase. Inspecting Alice randomly to begin identifying werewolves without any prior clues."
+        },
+        {
+          "round": 1,
+          "text": "Bid max to speak first. Announce that I checked Alice (now dead) and found her to be a villager. This reveals the wolves' prior target (if correct) or indicates they picked an innocent villager."
+        },
+        {
+          "round": 1,
+          "text": " alice was verified villager and killed. Claiming Seer status to gain trust for future nights."
+        },
+        {
+          "round": 1,
+          "text": "Bob defended his logic well; Carol and Grace seem like the ones overreacting or trying to split us."
+        },
+        {
+          "round": 1,
+          "text": "Voting out Bob based on high suspicion of wolf collusion and exploiting the early kill scenario to hide in plain sight."
+        },
+        {
+          "round": 2,
+          "text": "Carol voted to save Bob (or protect him) while the majority voted him out. If Bob is a villager, she is a wolf. If Bob is a wolf and she saved him, she is likely a wolf too. If Bob is a wolf and she voted to exile him, she is a villager. Given she survived and Bob died, if Bob was a wolf, she might be a wolf trying to sacrifice a team member, or a villager reacting to the wolf alliance. Need to verify."
+        }
+      ],
+      "plan": ""
+    },
+    "Eve": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Coordinated kill with Grace."
+        },
+        {
+          "round": 1,
+          "text": "Bidding to get a speaking slot on Day 1 to establish a presence."
+        },
+        {
+          "round": 1,
+          "text": "Staying silent to avoid suspicion while Dave's Seer claim plays out and Carol attacks Bob."
+        },
+        {
+          "round": 1,
+          "text": "Following Grace's lead to blend in and remove a player who is currently under suspicion."
+        },
+        {
+          "round": 2,
+          "text": "Targeting Dave because he claims to be the Seer and is the biggest threat to the pack."
+        }
+      ],
+      "plan": ""
+    },
+    "Frank": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Opening bid to guarantee speaking slot. Need to establish a baseline and listen to others. Alice was the first victim; any pattern emerging here is crucial."
+        },
+        {
+          "round": 1,
+          "text": "Dave played automatically to set up Seer identity. Waiting for Bob and Eve's input."
+        },
+        {
+          "round": 1,
+          "text": "Waiting to see more interactions before forming specific suspicions or accusations."
+        },
+        {
+          "round": 1,
+          "text": "Suspecting Bob due to excessive speed in aligning with Dave's Seer claim and playing a very defensive, 'perfect logic' style that often signals a wolf trying to hide behind a plausible Seer. The strong public reaction against him makes him the most talked-about target."
+        }
+      ],
+      "plan": ""
+    },
+    "Grace": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Agreed with Eve to target Alice for the first kill."
+        },
+        {
+          "round": 1,
+          "text": "Bidding to participate in the first day's discussion and establish a presence."
+        },
+        {
+          "round": 1,
+          "text": "Trying to frame Bob and create distrust in Dave's claim."
+        },
+        {
+          "round": 1,
+          "text": "Pushing the suspicion on Bob to protect my identity and Eve's."
+        },
+        {
+          "round": 2,
+          "text": "Dave claimed to be the Seer and is the biggest threat to the pack."
+        }
+      ],
+      "plan": ""
+    }
+  }
+}

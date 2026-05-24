@@ -1,0 +1,378 @@
+{
+  "game_id": "g0059-qwen_qwen3.5-9b-vs-google_gemma-4-26b-a4b-it",
+  "memories": {
+    "Alice": {
+      "beliefs": {
+        "Eve": {
+          "confidence": "high",
+          "evidence": "Aggressive and unprovoked accusation against Bob right before his death, deflection when questioned by Grace and Frank, and odd defense from Dave.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Bidding to participate in the first round of discussion and observe claims."
+        },
+        {
+          "round": 1,
+          "text": "Eve accused Bob of being a werewolf for his strategic focus. I will observe the reaction to this accusation before committing to a side."
+        },
+        {
+          "round": 1,
+          "text": "Too early to vote; Eve's claim about the target is important but not definitive proof of her role."
+        },
+        {
+          "round": 2,
+          "text": "Bidding to speak to react to Bob's death and potentially clarify my stance on Eve's claim."
+        },
+        {
+          "round": 2,
+          "text": "Acknowledged Eve's claim about my protection but highlighted her suspicious behavior toward Bob as noted by Grace and Frank."
+        },
+        {
+          "round": 2,
+          "text": "Dave's defense was extremely suspicious, almost sounding like a werewolf confession regarding his allegiance to Eve. I will wait to see the village's reaction to his statement."
+        },
+        {
+          "round": 2,
+          "text": "Her aggression toward Bob and subsequent death, her deflection against Grace/Frank, and Dave's suspicious defense of her make her a high-priority target."
+        }
+      ],
+      "plan": "Analyze the claims regarding the target last night. Eve claims Alice was the target. Monitor Bob's response to Eve's accusation and watch for anyone claiming a role (Seer/Doctor) to cross-reference with Eve's information."
+    },
+    "Bob": {
+      "beliefs": {
+        "Eve": {
+          "confidence": "high",
+          "evidence": "Accused me directly after I suggested looking at voting patterns; pushing to find the Doctor instead of the wolves.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Protecting Alice as a random choice since it's the first night."
+        },
+        {
+          "round": 1,
+          "text": "Bidding to participate in the first day's discussion and observe player behavior."
+        },
+        {
+          "round": 1,
+          "text": "Acknowledged the existence of a doctor without explicitly claiming to be one, while attempting to pivot the discussion toward finding werewolves."
+        },
+        {
+          "round": 1,
+          "text": "Day 1 discussion finished. Dave and Eve focused on the protection of Alice. No clear targets yet. Passing to observe."
+        },
+        {
+          "round": 1,
+          "text": "Abstaining on Day 1 to observe reactions to Eve's accusation and avoid early targeting."
+        },
+        {
+          "round": 2,
+          "text": "Alice was targeted last night and survived; protecting her again to see if the wolves return to her."
+        }
+      ],
+      "plan": "Listen to the first day's discussion, observe voting patterns, and try to identify the werewolves. As the Doctor, I can protect people, but I must be careful not to reveal myself too early unless necessary."
+    },
+    "Carol": {
+      "beliefs": {
+        "Eve": {
+          "confidence": "high",
+          "evidence": "Aggressive and unprovoked accusation against Bob in R1; deflection when confronted; multiple players (Grace, Frank) flagging her behavior as suspicious.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Placing a small initial bid to gauge the bidding environment and ensure I can speak if needed."
+        },
+        {
+          "round": 1,
+          "text": "Observing reactions to Eve's accusation of Bob."
+        },
+        {
+          "round": 1,
+          "text": "Early game. Eve accused Bob of being a werewolf due to his analytical approach. Dave and Eve are pushing a narrative about the Doctor protecting Alice. Abstaining to gather more info."
+        },
+        {
+          "round": 2,
+          "text": "Bidding to participate in the Day 2 discussion after Bob's death."
+        },
+        {
+          "round": 2,
+          "text": "Eve is drawing a lot of heat for her aggression toward Bob and her focus on the protection mechanic. I'll stay quiet and see if someone makes a formal accusation."
+        },
+        {
+          "round": 2,
+          "text": "Eve's aggression towards Bob and Dave's suspicious defense of her make her the primary target."
+        },
+        {
+          "round": 3,
+          "text": "Eve is gone, but Alice died. Dave's defense of Eve was highly suspicious. Need to listen to the discussion to see if Dave or others are the werewolves."
+        },
+        {
+          "round": 3,
+          "text": "Grace claims to be Seer and says Dave is a werewolf. Frank agrees. I am siding with Grace to vote Dave."
+        },
+        {
+          "round": 3,
+          "text": "Aligning with Grace's Seer claim."
+        },
+        {
+          "round": 3,
+          "text": "Grace claimed Seer and inspected Dave as a werewolf. Frank and I are inclined to trust her."
+        }
+      ],
+      "plan": "Observe the first round of discussion and bidding. Note who bids high to speak and what information they provide. Look for inconsistencies in claims or suspicious voting patterns."
+    },
+    "Dave": {
+      "beliefs": {
+        "Bob": {
+          "confidence": "medium",
+          "evidence": "Bob ignored the critical clue of the Doctor protecting Alice, instead focusing on abstract voting patterns and inconsistencies. This suggests he is trying to outsmart the pack by avoiding the direct threat rather than addressing the mechanic.",
+          "guess": "Villager"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Following Eve's previous suggestion from R1 to send a potential Seer or threat immediately."
+        },
+        {
+          "round": 1,
+          "text": "Bid full amount to speak first and frame the day's discussion. Mention the protected Alice to raise suspicion on who is guarding or to distract from the fact that Eve and I failed to kill a high priority target."
+        },
+        {
+          "round": 1,
+          "text": "Alice survived my pack vote. We need the Doctor to sleep tonight or verify who they care for. Do not mention my vote explicitly to avoid linking it to her survival."
+        },
+        {
+          "round": 1,
+          "text": "Aligning with Eve to maintain pack cohesion. Alice is the protected target; continuing pressure may force the Doctor to reveal themselves or eliminate a potential Seer."
+        },
+        {
+          "round": 2,
+          "text": "Following Eve's strategy to target someone other than the suspected Doctor (who is likely guarding Alice). Bob is a viable target to apply pressure or remove a villager."
+        },
+        {
+          "round": 2,
+          "text": "Budget is 0. Bid 0 to maintain a chance to speak and coordinate the next kill. Target: Carol or Frank, avoiding Alice."
+        },
+        {
+          "round": 2,
+          "text": "Disarming Alice's narrative by standing firm on Eve's innocence. If the village continues to doubt Eve, we may need stronger evidence soon, but for now, we hold the line."
+        },
+        {
+          "round": 2,
+          "text": "Aligning with public suspicion to avoid standing out; if the vote fails, we remain safe. If Eve is not the target, we might lose votes, but the current narrative heavily favors her."
+        },
+        {
+          "round": 3,
+          "text": "Alice is the suspected Doctor and the village leader. She must be the primary pressure point until she is eliminated or the vampire mechanic wears her down. Even if protected, continued pressure forces the Doctor to reveal or errors to creep in. We have no allies, so every vote counts towards reducing the villager count. Targeting her repeatedly is necessary to eventually break through or force a shift in strategy."
+        },
+        {
+          "round": 3,
+          "text": "My budget is 0. I must bid 0 to register and attempt to speak. Eve was correctly voted out as a wolf. I am a lone wolf and need to survive until I can make numbers. Alice is dead. I will observe Grace and Frank today."
+        },
+        {
+          "round": 3,
+          "text": "Silent turn. Villagers stalled. Too early to reveal myself. Waiting for sufficient night kills to thin the group before attempting a desperate move or sacrificing."
+        },
+        {
+          "round": 3,
+          "text": "Grace claimed to be Seer and identified me. She is the primary accuser. Voting for her creates a split or removes a potential leader if she is false. Survival cabin: need to survive until next night or create doubt."
+        }
+      ],
+      "plan": "Strategy: We missed Alice due to protection. We are likely early game. Eve and I need to coordinate future kills carefully to avoid more protected targets. If Alice survives and acts suspicious, we may need to eliminate her again later. For now, survive the night and avoid detection. We should vote for a different threatening player tomorrow evening or tonight if a kill is ordered, or wait until day 2 to discuss and identify the guardian."
+    },
+    "Eve": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "high",
+          "evidence": "Alice survived the night attack while targeted, confirming the presence of a Doctor guarding her. To win, we must prevent the villagers from identifying our members and failing to remove the Doctor, so tracking the protected players like Alice is vital for our next target selection.",
+          "guess": "villager"
+        },
+        "Bob": {
+          "confidence": "medium",
+          "evidence": "Accused him during Day R1 of diverting focus from the protection mechanic and complicating our elimination strategy. Planned target for wolf pack.",
+          "guess": "villager"
+        },
+        "Grace": {
+          "confidence": "high",
+          "evidence": "Claimed to have 'strong information' against me without citing game mechanics or prior events; led the aggressive accusation immediately followed by Frank's agreement. Her sudden focus on 'facts' and 'mind reading' aligns with a wolf attempting to frame my necessary defensive strategies as suspicious.",
+          "guess": "Wolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Following Dave's suggestion to target Alice as a potential Seer to reduce the village's information gathering capability early in the game."
+        },
+        {
+          "round": 1,
+          "text": "Bidding max to speak first. Alice survived the wolf kill, likely doing it herself (Doctor?). Need to confirm pack wisdom and coordinate with Dave. High bid ensures priority for initial speech."
+        },
+        {
+          "round": 1,
+          "text": "Confirmed Doctor is guarding Alice after voting for her. Need to unfail into an investigating strategy or trap the Doctor."
+        },
+        {
+          "round": 2,
+          "text": "Confirmed kill vote for Bob as per pack plan to target the leading seer candidate while Alice is under Doctor protection. Voting for Alice again would be wasteful."
+        },
+        {
+          "round": 2,
+          "text": "Budget depleted after Day R1; bidding 0 to complete turn without speaking."
+        },
+        {
+          "round": 2,
+          "text": "Defend against fluff accusations. Clarify that I did not publicly claim Alice was the target to imply I was the Doctor/Seer."
+        },
+        {
+          "round": 2,
+          "text": "Voting based on her unprovoked accusation and lack of concrete evidence regarding game mechanics, which fits the profile of a wolf trying to frame us."
+        }
+      ],
+      "plan": "Focus our attack on the strongest seer candidate, likely Bob, as he made a strong analytical point but has not been eliminated by the Doctor. Coordinate with Dave to target him, hoping to either expose him or sacrifice a target to shift the balance before the Doctor can save him again."
+    },
+    "Frank": {
+      "beliefs": {
+        "Dave": {
+          "confidence": "high",
+          "evidence": "Grace claimed to be the Seer and inspected him, finding him to be a werewolf.",
+          "guess": "werewolf"
+        },
+        "Eve": {
+          "confidence": "high",
+          "evidence": "Aggressive and unprovoked accusation against Bob in R1; deflection when Grace and Frank questioned her behavior; suspicious defense mechanism.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Bidding to participate in the first round of discussion to gather info."
+        },
+        {
+          "round": 1,
+          "text": "End of first round discussion. No strong leads yet. Observing voting patterns."
+        },
+        {
+          "round": 1,
+          "text": "Not enough evidence to vote for a specific player yet. Observing voting patterns."
+        },
+        {
+          "round": 2,
+          "text": "Bob was killed. Eve's previous accusation against him was highly suspicious and she seems to be pushing a specific narrative about the doctor."
+        },
+        {
+          "round": 2,
+          "text": "Supporting Grace's suspicion of Eve. Eve's earlier accusation of Bob seemed like a diversionary tactic."
+        },
+        {
+          "round": 2,
+          "text": "Aligning with Grace to press the suspicion on Eve."
+        },
+        {
+          "round": 2,
+          "text": "Eve's aggressive behavior toward Bob and her deflection throughout the discussion make her a primary suspect."
+        },
+        {
+          "round": 3,
+          "text": "Alice killed after Eve's exile. Dave's defense of Eve and his odd comment about being 'defended by other wolves' makes him a primary suspect."
+        },
+        {
+          "round": 3,
+          "text": "Grace claimed Seer and identified Dave as werewolf. Supporting her claim to push for Dave's exile."
+        },
+        {
+          "round": 3,
+          "text": "Voting for Dave based on Grace's Seer claim."
+        }
+      ],
+      "plan": "Observe the discussion in the first round to identify inconsistencies or suspicious voting patterns. Try to identify the doctor or seer if possible. Avoid being too aggressive early on unless I have strong evidence."
+    },
+    "Grace": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "high",
+          "evidence": "I inspected Alice on Night 1 and she is a villager.",
+          "guess": "villager"
+        },
+        "Dave": {
+          "confidence": "medium",
+          "evidence": "Defended Eve aggressively and made suspicious comments about 'silencing Alice' to clarify allegiance to Eve.",
+          "guess": "werewolf"
+        },
+        "Eve": {
+          "confidence": "high",
+          "evidence": "Directly inspected by Seer (Grace) in Night R2.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Initial inspection to find a werewolf."
+        },
+        {
+          "round": 1,
+          "text": "Bidding to speak early on Day 1 to establish presence and observe others."
+        },
+        {
+          "round": 1,
+          "text": "Observing the discussion regarding the Doctor's existence and saving budget."
+        },
+        {
+          "round": 1,
+          "text": "No strong evidence to exile anyone yet. Observing Eve's aggressive accusation of Bob and the general focus on the Doctor mechanic."
+        },
+        {
+          "round": 2,
+          "text": "Checking Eve due to her aggressive accusation of Bob and focus on the doctor mechanic."
+        },
+        {
+          "round": 2,
+          "text": "Eve is a werewolf. Need to speak to reveal my role and this info."
+        },
+        {
+          "round": 2,
+          "text": "I am being slightly indirect to avoid being an immediate target, but I am signaling my suspicion of Eve based on my Seer results."
+        },
+        {
+          "round": 2,
+          "text": "Eve is confirmed werewolf via Seer inspection. Dave's defense of her is also extremely suspicious."
+        },
+        {
+          "round": 2,
+          "text": "Directly inspected as a werewolf; behavior and Dave's defense confirm high suspicion."
+        },
+        {
+          "round": 3,
+          "text": "Eve is gone. Dave's defense of Eve and his suspicious rhetoric make him the most likely next werewolf."
+        },
+        {
+          "round": 3,
+          "text": "Dave is a confirmed werewolf from Night R3 inspection. Need to reveal Seer status and name him."
+        },
+        {
+          "round": 3,
+          "text": "I have confirmed Dave is a werewolf via inspection. Need to push for his exile to win."
+        },
+        {
+          "round": 3,
+          "text": "All necessary accusations have been made by Frank and Carol. I will pass to conserve budget and let the voting phase proceed."
+        },
+        {
+          "round": 3,
+          "text": "Confirmed werewolf via Seer inspection on Night 3. Village is aligned."
+        }
+      ],
+      "plan": "1. Use my Seer information (Alice is a villager) to help guide the village. 2. Monitor player behaviors and voting patterns to identify werewolves. 3. Manage my speaking budget carefully; bid moderately to ensure I can speak when critical information needs to be shared. 4. Keep track of who is protected by the Doctor based on survival patterns."
+    }
+  }
+}

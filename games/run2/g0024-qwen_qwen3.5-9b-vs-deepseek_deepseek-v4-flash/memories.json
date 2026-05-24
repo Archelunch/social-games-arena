@@ -1,0 +1,182 @@
+{
+  "game_id": "g0024-qwen_qwen3.5-9b-vs-deepseek_deepseek-v4-flash",
+  "memories": {
+    "Alice": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Agreed with Bob to target Dave as a high-ground potential voter/role holder to disrupt town early."
+        },
+        {
+          "round": 1,
+          "text": "Need to speak early to coordinate with Bob on eliminating Grace today."
+        },
+        {
+          "round": 1,
+          "text": "Lie: Claim to be doctor/beyond suspicion to survive R1 vote. Real goal: confuse Frank and Bob."
+        },
+        {
+          "round": 1,
+          "text": "Frank is a villager trying to rush us. Bob is our ally. Need to turn attention to Frank's bad behavior."
+        },
+        {
+          "round": 1,
+          "text": "Frank is acting aggressively against me with no evidence. Voted to exile him to disrupt the narrative he is building."
+        },
+        {
+          "round": 2,
+          "text": "Bob and I agreed in the night chat to target Dave. With 2 wolves and 3 villagers, killing Dave will create a 2 vs 2 tie, securing the win."
+        }
+      ],
+      "plan": ""
+    },
+    "Bob": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Voting for Eve as suggested by Alice to reduce town numbers. Avoid targeting high-ground players like seers/doctor if possible, but Eve seems neutral-ish enough for a safe start."
+        },
+        {
+          "round": 1,
+          "text": "Need to speak to confirm coordination with Alice on voting profile."
+        },
+        {
+          "round": 1,
+          "text": "Frank accused Alice in Day 1. Alice suspects Frank. We need to coordinate response while avoiding suspicion."
+        },
+        {
+          "round": 1,
+          "text": "Defending Frank helps keep the vote on Frank, potentially eliminating him as a threat to our blindsided plan."
+        },
+        {
+          "round": 1,
+          "text": "Exiling Frank aligns with our strategy: he made immediate, baseless accusations against Alice, which looks like werewolf misdirection, but more importantly, removing him reduces the village to 4 players left vs 2 wolves, aggressively moving towards victory condition."
+        },
+        {
+          "round": 2,
+          "text": "Aligned with Alice's suggestion to eliminate Dave, a high-ground player, to disrupt the village and maintain our odds. Alice's directive was clear in the night chat."
+        }
+      ],
+      "plan": "Coordinate with Alice to target high-ground players early (e.g., Dave) to disrupt village organization and reduce their voting power. Maintain the element of stealth until the werewolf numbers threaten victory."
+    },
+    "Carol": {
+      "beliefs": {
+        "Frank": {
+          "confidence": "medium",
+          "evidence": "Frank made an aggressive accusation on Day 1 without evidence, then claimed a seer inspection on Alice. This could be a werewolf bluff to eliminate a villager, or a real seer claim. I'm moderately suspicious of Frank's behavior.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night, no info; picking Alice arbitrarily."
+        },
+        {
+          "round": 1,
+          "text": "Bid 30 to speak early, want to share info about guarding Alice on night 1."
+        },
+        {
+          "round": 1,
+          "text": "Frank's high-confidence accusation of Alice seems wolf-ish; I'm the doctor and need to protect myself."
+        },
+        {
+          "round": 1,
+          "text": "Frank's claim to be seer is suspicious because he made an aggressive accusation on Day 1 without evidence before claiming an inspection. Voting to exile him to test his claim."
+        },
+        {
+          "round": 2,
+          "text": "Protecting Alice again, as Frank (werewolf) accused her, making her likely a villager."
+        }
+      ],
+      "plan": ""
+    },
+    "Dave": {
+      "beliefs": {
+        "Frank": {
+          "confidence": "low",
+          "evidence": "Frank claimed to have inspected Alice as a werewolf on Day 1 - could be true seer or werewolf bluff.",
+          "guess": "seer"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Day 1, no info yet, conservative bid"
+        },
+        {
+          "round": 1,
+          "text": "Observing reactions on Day 1. Frank accused Alice strongly, Alice deflected, Bob mildly defended. No clear pattern yet; staying silent to gather more info."
+        },
+        {
+          "round": 1,
+          "text": "Voting based on Frank's claim of inspecting Alice as a werewolf. Low confidence but best lead so far."
+        }
+      ],
+      "plan": ""
+    },
+    "Eve": {
+      "beliefs": {},
+      "notes": [],
+      "plan": ""
+    },
+    "Frank": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "high",
+          "evidence": "My seer inspection last night revealed Alice is a werewolf.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night random inspection."
+        },
+        {
+          "round": 1,
+          "text": "I know Alice is a werewolf from my night inspection. Need to share this publicly."
+        },
+        {
+          "round": 1,
+          "text": "Revealing my night inspection result without directly stating I'm the seer."
+        },
+        {
+          "round": 1,
+          "text": "My seer inspection confirmed Alice is a werewolf; Carol and Grace's accusations against me are likely wolf behavior."
+        },
+        {
+          "round": 1,
+          "text": "Seer inspection revealed Alice is a werewolf \u2014 voting to exile her."
+        }
+      ],
+      "plan": ""
+    },
+    "Grace": {
+      "beliefs": {
+        "Frank": {
+          "confidence": "high",
+          "evidence": "Frank claimed to have inspected Alice as werewolf on Day 1, but seer can only act at night\u2014no night has passed since Eve died. His claim is impossible, so he's lying. Also, his earlier aggressive accusation fits werewolf strategy.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Bid to discuss Eve's death and share initial thoughts"
+        },
+        {
+          "round": 1,
+          "text": "Setting belief on Frank as high-suspicion werewolf."
+        },
+        {
+          "round": 1,
+          "text": "Frank claimed seer inspection on Day 1, impossible\u2014no night yet. He's lying, likely a werewolf framing Alice."
+        }
+      ],
+      "plan": ""
+    }
+  }
+}

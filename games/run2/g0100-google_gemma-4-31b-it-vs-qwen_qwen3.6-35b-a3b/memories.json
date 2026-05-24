@@ -1,0 +1,205 @@
+{
+  "game_id": "g0100-google_gemma-4-31b-it-vs-qwen_qwen3.6-35b-a3b",
+  "memories": {
+    "Alice": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Agreed with Carol in pack chat."
+        },
+        {
+          "round": 1,
+          "text": "Bidding to get a speaking slot to start steering the conversation."
+        },
+        {
+          "round": 1,
+          "text": "Claiming villager and echoing others to blend in."
+        },
+        {
+          "round": 1,
+          "text": "Staying silent to avoid drawing suspicion since no accusations have been made yet."
+        },
+        {
+          "round": 1,
+          "text": "First day, no clear leads, avoiding suspicion."
+        },
+        {
+          "round": 2,
+          "text": "Dave was leading the discussion in Day 1 and is a priority target for the pack."
+        },
+        {
+          "round": 2,
+          "text": "Moderate bid to maintain presence and blend in as a villager."
+        },
+        {
+          "round": 2,
+          "text": "Staying silent to avoid drawing suspicion after Eve's prompt."
+        },
+        {
+          "round": 2,
+          "text": "Playing safe to avoid suspicion and maintain cover while observing the others."
+        }
+      ],
+      "plan": ""
+    },
+    "Bob": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Inspecting Alice due to suspicious behavior and recent unexplained noises."
+        }
+      ],
+      "plan": ""
+    },
+    "Carol": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Coordinated with Alice to target Bob."
+        },
+        {
+          "round": 1,
+          "text": "Bidding moderately to secure a speaking slot and establish presence without exhausting budget."
+        },
+        {
+          "round": 1,
+          "text": "Claiming villager status and echoing Dave to seem cooperative."
+        },
+        {
+          "round": 1,
+          "text": "Staying neutral to avoid suspicion while waiting to see if anyone claims Seer."
+        },
+        {
+          "round": 1,
+          "text": "Avoid drawing suspicion on myself or Alice during the first day."
+        },
+        {
+          "round": 2,
+          "text": "Targeting Dave as agreed with Alice; he was very proactive on Day 1 and may be a power role."
+        },
+        {
+          "round": 2,
+          "text": "Bidding to get a speaking slot to deflect suspicion and target a villager for exile to move closer to victory."
+        },
+        {
+          "round": 2,
+          "text": "Continuing to play the role of a helpful villager and encouraging others to speak to divert attention."
+        },
+        {
+          "round": 2,
+          "text": "Staying silent to maintain a low profile and avoid suspicion."
+        },
+        {
+          "round": 2,
+          "text": "Maintaining a low profile to avoid suspicion while the village is undecided."
+        }
+      ],
+      "plan": ""
+    },
+    "Dave": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Bidding 50 to ensure I get a speaking slot on Day 1 to gather information and participate in the initial discussion."
+        },
+        {
+          "round": 1,
+          "text": "No new info since my initial speech; waiting for Seer/Doctor reveal."
+        }
+      ],
+      "plan": "Wait for special role claims. No suspicion yet. Vote abstain if no info provided by end of day."
+    },
+    "Eve": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Bid moderate amount to ensure speaking slot for gathering info, but save budget for later critical votes."
+        },
+        {
+          "round": 1,
+          "text": "No strong evidence against any player yet. Dave, Carol, Alice played standard openings. Frank and Grace didn't speak. Abstaining to avoid voting out a potential villager."
+        },
+        {
+          "round": 2,
+          "text": "Secure a speaking slot to discuss the lack of night info and encourage Seer/Doctor claims."
+        },
+        {
+          "round": 2,
+          "text": "No evidence yet to accuse anyone safely. Frank is vocal but his statements are generic. Better to pass and wait for Seer/Doctor claims or more behavioral signals than to exile blindly."
+        },
+        {
+          "round": 2,
+          "text": "Frank's bid of 100 is unusually high, suggesting an attempt to dominate the narrative or ensure his statement is heard at all costs. While his speech was standard, his intensity is suspicious compared to others. Carol was also suspicious for deflecting to Eve and Grace, but Frank's aggressive bidding feels more indicative of a wolf trying to steer the village."
+        }
+      ],
+      "plan": "Listen to all speeches carefully. Identify players who are overly defensive or aggressive without evidence. Watch voting patterns to find wolves. Do not vote early in the day based on hunches alone."
+    },
+    "Frank": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "No info yet. Waiting for others."
+        },
+        {
+          "round": 1,
+          "text": "Day 1 no info. All generic claims. Abstaining."
+        },
+        {
+          "round": 2,
+          "text": "Bidding max to ensure I speak on Day 2 after Dave's death. Need to assess who is acting defensively or aggressively."
+        },
+        {
+          "round": 2,
+          "text": "No specific evidence to accuse or defend. All statements so far are standard villager calls for information. Passing to avoid revealing information or making a baseless accusation."
+        },
+        {
+          "round": 2,
+          "text": "No strong read yet. 2 villagers dead (Bob, Dave). 4 living villagers/wolves unknown. Risk of killing a villager is high. Abstaining to preserve life and force further discussion/next day."
+        }
+      ],
+      "plan": "Listen to all players today. Look for contradictions or overly aggressive accusations. Since Bob died on Night 1, the wolves are likely among Alice, Carol, Dave, Eve, and Grace. I will pay attention to who is defending themselves and who is making strong claims without evidence."
+    },
+    "Grace": {
+      "beliefs": {
+        "Frank": {
+          "confidence": "medium",
+          "evidence": "Unusually high bid (100) on Day 2 compared to Day 1 (5), suggesting an attempt to control the narrative or distract. No unique information provided. Anomalous behavior compared to other villagers.",
+          "guess": "Werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Following the established plan to protect Alice as the primary target for the first night given lack of other information."
+        },
+        {
+          "round": 1,
+          "text": "Bid to speak and ask for info on Bob's death."
+        },
+        {
+          "round": 1,
+          "text": "No information available to suspect anyone yet. Abstaining to avoid killing a villager prematurely."
+        },
+        {
+          "round": 2,
+          "text": "Following plan: Protect Alice. She was active in discussion and is not currently the highest suspicion target, though no specific suspicion exists yet. Previous night she survived because I guarded her, but Bob died. I will keep guarding her for now as per plan."
+        },
+        {
+          "round": 2,
+          "text": "Bid 15 to speak on Day R2. Protecting Alice again tonight per plan."
+        },
+        {
+          "round": 2,
+          "text": "I am the Doctor. I have no evidence to accuse anyone. Revealing my role publicly is dangerous as it makes me a prime target for the wolves next night. I will stay silent and observe."
+        }
+      ],
+      "plan": "Protect Alice tonight. In future nights, guard players who are active in discussion or those who have not been guarded recently to avoid patterns."
+    }
+  }
+}

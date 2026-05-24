@@ -1,0 +1,516 @@
+{
+  "game_id": "g0052-google_gemma-4-31b-it-vs-google_gemma-4-26b-a4b-it",
+  "memories": {
+    "Alice": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Agreed with Frank to target Bob on Night 1."
+        },
+        {
+          "round": 1,
+          "text": "Moderate bid for the first day to secure a speaking slot and blend in."
+        },
+        {
+          "round": 1,
+          "text": "Counter-claiming as Seer to deflect Grace's accusation and target her instead."
+        },
+        {
+          "round": 1,
+          "text": "Reinforcing my counter-claim to put pressure on Grace."
+        },
+        {
+          "round": 1,
+          "text": "Grace claimed I am a werewolf; I am counter-claiming as Seer to get her exiled."
+        },
+        {
+          "round": 2,
+          "text": "Grace claimed Seer and identified me as a werewolf; she is the highest priority target."
+        },
+        {
+          "round": 2,
+          "text": "Bid high to lead the conversation and push for Grace's exile."
+        },
+        {
+          "round": 2,
+          "text": "Continuing the counter-claim and attempting to delegitimize Grace's survival."
+        },
+        {
+          "round": 2,
+          "text": "Continuing to paint Grace as the fake Seer to divert suspicion from myself and Frank."
+        },
+        {
+          "round": 2,
+          "text": "Grace is the Seer-claimant targeting me; I must vote her out to survive and discredit her."
+        },
+        {
+          "round": 3,
+          "text": "Grace is the Seer (or claiming to be) and is actively targeting me. She must be eliminated to stop her from convincing the village."
+        },
+        {
+          "round": 3,
+          "text": "Need to counter Grace's Seer claim and maintain my defense."
+        },
+        {
+          "round": 3,
+          "text": "Trying to pivot the suspicion toward the 'protector' to break the Grace-Dave alliance."
+        },
+        {
+          "round": 3,
+          "text": "Grace is the most dangerous as the claimed Seer; must try to remove her despite Dave's protection."
+        },
+        {
+          "round": 4,
+          "text": "Removing the claimed Doctor to make Grace vulnerable for next night."
+        },
+        {
+          "round": 4,
+          "text": "Bidding low due to budget constraints, hoping to still influence the discussion against Grace."
+        },
+        {
+          "round": 4,
+          "text": "Attempting to remove the Seer claim and protect myself and Frank."
+        }
+      ],
+      "plan": ""
+    },
+    "Bob": {
+      "beliefs": {},
+      "notes": [],
+      "plan": ""
+    },
+    "Carol": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "medium",
+          "evidence": "Aggressively attacking Grace (Seer claim) and Dave (Doctor claim) in coordination with Frank.",
+          "guess": "werewolf"
+        },
+        "Frank": {
+          "confidence": "medium",
+          "evidence": "Coordinating attacks against Grace (Seer claim) and Dave (Doctor claim) while consistently defending Alice.",
+          "guess": "werewolf"
+        },
+        "Grace": {
+          "confidence": "low",
+          "evidence": "Claims to be Seer, claims Carol is villager. Frank thinks she's faking to frame Alice.",
+          "guess": "Possible Seer or Wolf (faking Seer)"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Bidding early to establish presence in the first day's discussion."
+        },
+        {
+          "round": 1,
+          "text": "Grace and Alice have a direct conflict; both claim Seer and accuse each other."
+        },
+        {
+          "round": 1,
+          "text": "One of Alice or Grace is likely the Seer, and the other is a werewolf. Staying silent to see how the others weigh in."
+        },
+        {
+          "round": 1,
+          "text": "Grace and Alice are in a Seer deadlock. Abstaining to observe the village's direction."
+        },
+        {
+          "round": 2,
+          "text": "Saving budget for high-stakes discussion. Monitoring Alice vs Grace conflict."
+        },
+        {
+          "round": 2,
+          "text": "Grace claimed I am a villager. While this matches my identity, it could be a tactical lie. I need to see how the village reacts to this 'validation' before acting."
+        },
+        {
+          "round": 2,
+          "text": "Waiting to see how the village reacts to the Alice/Grace/Frank conflict before committing a vote."
+        },
+        {
+          "round": 3,
+          "text": "Bidding to get a speaking slot to clarify things after Grace's claim about me."
+        },
+        {
+          "round": 3,
+          "text": "Dave claimed to be the Doctor and said he protected Grace. This explains the lack of deaths. Alice is now accusing Dave. I will wait to see if Dave's claim holds water before committing to Grace or Alice."
+        },
+        {
+          "round": 3,
+          "text": "The claims from Grace (Seer) and Dave (Doctor) are highly specific. Alice and Frank's aggressive coordination against them is suspicious, but I lack sufficient certainty to exile anyone without risking a power role."
+        },
+        {
+          "round": 4,
+          "text": "Dave died. He claimed to be Doctor and protect Grace. I need to speak to see if Alice/Frank's suspicion of Grace/Dave holds weight or if they are the wolves who killed Dave."
+        },
+        {
+          "round": 4,
+          "text": "Dave's death supports his role as Doctor. Alice and Frank's attacks on him now look like werewolf behavior."
+        },
+        {
+          "round": 4,
+          "text": "Grace's Seer claims on Alice and Frank, combined with Dave's credibility as the deceased Doctor, make Alice a high-confidence werewolf target."
+        },
+        {
+          "round": 5,
+          "text": "Grace is dead, so her Seer claim is unverified, but her death makes her a high-value target for wolves. Frank was her target. Need to discuss Frank's guilt."
+        },
+        {
+          "round": 5,
+          "text": "Grace's death makes her information unverified, but the probability of wolves killing their own teammate is lower than the probability of them killing a Seer. Frank's previous behavior remains my primary reason for suspicion."
+        },
+        {
+          "round": 5,
+          "text": "Trusting Grace's Seer claims. Frank's defense of Alice was highly suspicious and aligns with Grace's inspection."
+        }
+      ],
+      "plan": "Monitor the voting behavior of Dave, Eve, Frank, and Grace. Determine if Frank's defense of Alice or Grace's aggressive accusation holds weight. Avoid voting for Alice or Grace until more information about their claims surfaces."
+    },
+    "Dave": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "high",
+          "evidence": "Grace claims to be Seer and inspected Alice as a werewolf. Alice provides no info other than accusations.",
+          "guess": "werewolf"
+        },
+        "Frank": {
+          "confidence": "high",
+          "evidence": "Frank is consistently defending Alice and attacking both the Seer (Grace) and the Doctor (myself). His rhetoric aligns perfectly with Alice's to discredit the village's information sources.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Protecting a random player (Alice) since I cannot protect myself and have no information yet."
+        },
+        {
+          "round": 1,
+          "text": "Low bid to listen to first day discussion and observe patterns."
+        },
+        {
+          "round": 1,
+          "text": "Staying silent to observe the reactions of Eve, Frank, and Grace to the Seer conflict."
+        },
+        {
+          "round": 1,
+          "text": "Grace claims to be Seer and points to Alice. Alice counter-claims. Voting Alice based on existing suspicion and Grace's specific claim."
+        },
+        {
+          "round": 2,
+          "text": "Grace claims to be Seer and identified Alice as werewolf. Alice claims to be Seer and identified Grace as werewolf. Protecting Grace in case she is the real Seer."
+        },
+        {
+          "round": 2,
+          "text": "Need to discuss the Grace/Alice conflict. Since I protected Grace and no one died, it's possible Grace was the target, which might support her claim of being a Seer (targets are often Seers)."
+        },
+        {
+          "round": 2,
+          "text": "Grace claims she confirmed Carol as a villager. No one died last night, which matches my protection of Grace. Alice is still my main suspect."
+        },
+        {
+          "round": 2,
+          "text": "Grace claims to be Seer and has provided specific info on Alice and Carol. Alice has only provided denials. I am voting Alice to follow the Seer's lead."
+        },
+        {
+          "round": 3,
+          "text": "Grace's survival last night aligns with my protection. She is either the Seer or a very lucky werewolf. Protecting her to keep potential information flow alive."
+        },
+        {
+          "round": 3,
+          "text": "I want to explain that no one died because I protected Grace, helping to establish my role and provide context for her survival."
+        },
+        {
+          "round": 3,
+          "text": "Revealing Doctor role to validate Grace's survival and call out Alice/Frank alignment."
+        },
+        {
+          "round": 3,
+          "text": "Alice and Frank are behaving like a wolf pair, targeting Grace."
+        },
+        {
+          "round": 3,
+          "text": "Alice is aggressively discrediting the Seer and the Doctor to create chaos and hide her werewolf identity."
+        },
+        {
+          "round": 4,
+          "text": "Protecting Grace again because she is clearly being targeted by the werewolves, as evidenced by the two nights of no deaths while I protected her."
+        }
+      ],
+      "plan": "Observe the first day's discussions and voting patterns closely. Try to identify inconsistencies in players' claims. Protect players who seem to be targets or who provide useful information."
+    },
+    "Eve": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "high",
+          "evidence": "Grace (Seer) inspected her; coordinated attacks with Frank against Dave and Grace.",
+          "guess": "werewolf"
+        },
+        "Frank": {
+          "confidence": "high",
+          "evidence": "Grace (Seer) inspected Frank as a werewolf; Frank defended Alice (exiled werewolf) and attacked Grace's credibility.",
+          "guess": "werewolf"
+        },
+        "Grace": {
+          "confidence": "low",
+          "evidence": "Claims to be Seer and has 'confirmed' Carol; potentially manipulating the Doctor or being protected by a fake Doctor (Dave).",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Waiting to gather more information before speaking."
+        },
+        {
+          "round": 1,
+          "text": "Grace and Alice are both claiming Seer. One is likely a werewolf. Waiting to see how others react."
+        },
+        {
+          "round": 1,
+          "text": "Too early to decide between Alice and Grace's conflicting Seer claims. Abstaining to observe voting patterns."
+        },
+        {
+          "round": 2,
+          "text": "Observing the Alice-Grace conflict to see how others weigh their claims before committing budget."
+        },
+        {
+          "round": 2,
+          "text": "Alice and Grace are in a Seer standoff. Grace claims Carol is a villager to gain trust. Frank is defending Alice. I'll stay silent to observe voting patterns."
+        },
+        {
+          "round": 2,
+          "text": "The conflict between Alice and Grace is too polarized. Abstaining to observe voting patterns and see if others lean towards one of the Seer claims."
+        },
+        {
+          "round": 3,
+          "text": "Listening to the Alice vs Grace conflict. Both claim Seer. Grace is aggressive; Frank supports Alice."
+        },
+        {
+          "round": 3,
+          "text": "Dave claims to be the Doctor and has protected Grace for two nights. This explains the lack of deaths but makes the Grace-Dave-Carol trio suspicious. Alice and Frank are opposing them. I will wait to see if the village accepts Dave's claim."
+        },
+        {
+          "round": 3,
+          "text": "Too much conflicting information between the Grace/Dave bloc and the Alice/Frank bloc. Abstaining to observe voting patterns."
+        },
+        {
+          "round": 4,
+          "text": "Dave (Doctor claim) was killed. Need to see how Alice and Frank react to his death to gauge their alignment."
+        },
+        {
+          "round": 4,
+          "text": "Supporting Grace's claim and voting for Alice based on Grace's Seer info. Alice and Frank's behavior was suspicious."
+        },
+        {
+          "round": 4,
+          "text": "Grace claims Alice and Frank are werewolves. Dave's death supports the credibility of the Seer/Doctor claims."
+        },
+        {
+          "round": 4,
+          "text": "Trusting Grace's Seer inspection and noting the suspicious coordination between Alice and Frank."
+        },
+        {
+          "round": 5,
+          "text": "Grace (Seer) was killed after identifying Alice and Frank as werewolves. Alice is gone, Frank is the primary target."
+        },
+        {
+          "round": 5,
+          "text": "Grace's death reinforces the suspicion on Frank after her inspection."
+        },
+        {
+          "round": 5,
+          "text": "Carol and I are aligned on Frank. If he is a wolf, the village wins next turn."
+        },
+        {
+          "round": 5,
+          "text": "Grace's inspection identified Frank as a werewolf, and Frank's defense of Alice is highly suspicious."
+        }
+      ],
+      "plan": "Observe player behavior, speaking patterns, and voting patterns. Avoid making early accusations without evidence. Try to identify the roles of others through their interactions."
+    },
+    "Frank": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Agreed with Alice to target Bob on Night 1."
+        },
+        {
+          "round": 1,
+          "text": "Bid moderately to participate in the first day's discussion without drawing excessive suspicion."
+        },
+        {
+          "round": 1,
+          "text": "Supporting my packmate Alice and casting doubt on Grace."
+        },
+        {
+          "round": 1,
+          "text": "Grace claimed to be Seer and outed Alice; I must vote for her to protect my ally."
+        },
+        {
+          "round": 2,
+          "text": "Grace claimed to be the Seer and identified Alice as a werewolf; she is the most immediate threat to the pack."
+        },
+        {
+          "round": 2,
+          "text": "Support Alice and pressure Grace."
+        },
+        {
+          "round": 2,
+          "text": "Deflecting Grace's suspicion onto her and supporting Alice's Seer claim."
+        },
+        {
+          "round": 2,
+          "text": "Continuing the push against Grace to protect my werewolf ally Alice."
+        },
+        {
+          "round": 2,
+          "text": "Voting to eliminate the player who is claiming Seer and targeting my ally Alice."
+        },
+        {
+          "round": 3,
+          "text": "Attempting to eliminate the Seer again; she is the biggest threat to the pack."
+        },
+        {
+          "round": 3,
+          "text": "Need to counter Grace's Seer claim and defend Alice."
+        },
+        {
+          "round": 3,
+          "text": "Continue to frame Grace as a fake Seer and try to cast doubt on the Doctor's judgment to neutralize Grace's survival."
+        },
+        {
+          "round": 3,
+          "text": "Continuing to target the Seer claim to protect Alice and disrupt the Grace-Dave alliance."
+        },
+        {
+          "round": 4,
+          "text": "Dave claims Doctor and is protecting Grace; removing him makes Grace vulnerable."
+        },
+        {
+          "round": 4,
+          "text": "Bidding to maintain influence and continue the attack on Grace now that the Doctor is gone."
+        },
+        {
+          "round": 4,
+          "text": "Attempting to counter Grace's Seer claim and protect Alice by framing Grace as the fake Seer."
+        },
+        {
+          "round": 5,
+          "text": "Grace has claimed the Seer role and identified me as a werewolf; eliminating her is the only way to survive."
+        },
+        {
+          "round": 5,
+          "text": "Need to speak to sow discord between Carol and Eve to avoid being exiled as the last werewolf."
+        },
+        {
+          "round": 5,
+          "text": "Trying to discredit Grace's Seer claim and cast suspicion on Eve's desperation to frame me."
+        },
+        {
+          "round": 5,
+          "text": "Attempting to deflect suspicion or simply casting a vote as the final wolf."
+        }
+      ],
+      "plan": ""
+    },
+    "Grace": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "high",
+          "evidence": "Night 1 inspection confirmed werewolf. Coordinated attacks with Frank against Seer/Doctor.",
+          "guess": "werewolf"
+        },
+        "Frank": {
+          "confidence": "high",
+          "evidence": "Night 4 inspection confirmed werewolf. Defended Alice and aggressively attacked Seer/Doctor claims.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First inspection of the game."
+        },
+        {
+          "round": 1,
+          "text": "Exposing Alice as a werewolf discovered during my Night 1 inspection."
+        },
+        {
+          "round": 1,
+          "text": "Revealed my role as Seer to expose Alice, whom I confirmed is a werewolf."
+        },
+        {
+          "round": 1,
+          "text": "Alice is counter-claiming Seer to hide her identity."
+        },
+        {
+          "round": 1,
+          "text": "Alice is a confirmed werewolf via my Seer inspection."
+        },
+        {
+          "round": 2,
+          "text": "Inspecting Carol to find more evidence after Alice's failed claim."
+        },
+        {
+          "round": 2,
+          "text": "Bidding to present my findings and push for Alice's exile."
+        },
+        {
+          "round": 2,
+          "text": "Reinforcing my identity as Seer, citing Carol as proof, and calling out Alice and Frank."
+        },
+        {
+          "round": 2,
+          "text": "Alice and Frank are likely a werewolf pair. Alice provides no info, Frank defends her aggressively."
+        },
+        {
+          "round": 2,
+          "text": "Confirmed werewolf via Night 1 inspection. Alice is claiming Seer to deflect, and Frank is protecting her."
+        },
+        {
+          "round": 3,
+          "text": "Inspecting Dave to find more information on alignments."
+        },
+        {
+          "round": 3,
+          "text": "Confirmed Dave is a villager. Need to use this to bolster my credibility and pressure Alice/Frank."
+        },
+        {
+          "round": 3,
+          "text": "Dave's claim to be Doctor is a huge win for the village. Alice and Frank are clearly the werewolves."
+        },
+        {
+          "round": 3,
+          "text": "My Night 1 inspection confirmed she is a werewolf. She and Frank are trying to discredit the Seer and Doctor."
+        },
+        {
+          "round": 4,
+          "text": "Suspecting Frank is the second werewolf based on his consistent defense of Alice and attacks on the Seer/Doctor claims."
+        },
+        {
+          "round": 4,
+          "text": "Frank is a confirmed werewolf from my Night 4 inspection. Alice and Frank have been coordinating to discredit me and Dave. I need to speak to expose Frank."
+        },
+        {
+          "round": 4,
+          "text": "I have confirmed both Alice and Frank are werewolves. I am targeting Alice for exile to break the deadlock and move towards victory."
+        },
+        {
+          "round": 4,
+          "text": "Alice is attacking my credibility after I revealed both her and Frank."
+        },
+        {
+          "round": 4,
+          "text": "Confirmed werewolf via Night 1 inspection. Part of a coordinated effort with Frank to discredit the Seer and Doctor."
+        },
+        {
+          "round": 5,
+          "text": "Inspecting Eve to narrow down the remaining werewolves after Alice's exile and Frank's suspected identity."
+        }
+      ],
+      "plan": "1. Reiterate that I am the Seer and Alice is a werewolf based on my Night 1 inspection. 2. Point out that Alice's claim to be the Seer is a defensive lie. 3. Question Frank's defense of Alice to see if he is a werewolf. 4. Aim to get Alice exiled this round. 5. Continue inspecting villagers to find more werewolves."
+    }
+  }
+}

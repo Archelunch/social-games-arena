@@ -1,0 +1,192 @@
+{
+  "game_id": "g0003-deepseek_deepseek-v4-flash-vs-deepseek_deepseek-v4-flash",
+  "memories": {
+    "Alice": {
+      "beliefs": {
+        "Frank": {
+          "confidence": "low",
+          "evidence": "Need to deflect attention; might target Frank later if I speak.",
+          "guess": "villager"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Consensus with Carol for early elimination of a non-werewolf."
+        },
+        {
+          "round": 1,
+          "text": "Moderate bid to appear as a normal villager; keep budget for later."
+        },
+        {
+          "round": 1,
+          "text": "Eve claimed seer and accused me. She is the biggest threat \u2014 likely the real seer. I must vote her out to survive."
+        },
+        {
+          "round": 2,
+          "text": "Targeting Dave on Carol's suggestion; he defended me which could mean he's a threat if he's the doctor or seer."
+        }
+      ],
+      "plan": "Act innocent and blend in as a villager. Avoid drawing attention. If need to speak, suggest suspicion on players like Frank or Dave to deflect from our pack."
+    },
+    "Bob": {
+      "beliefs": {},
+      "notes": [],
+      "plan": ""
+    },
+    "Carol": {
+      "beliefs": {
+        "Dave": {
+          "confidence": "low",
+          "evidence": "Just random to track",
+          "guess": "village"
+        },
+        "Eve": {
+          "confidence": "high",
+          "evidence": "Eve claims seer and accuses Alice, a known villager (ally). Likely a real seer trying to expose us. Must eliminate.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Alice and I agreed to kill Bob night 1."
+        },
+        {
+          "round": 1,
+          "text": "Moderate bid to get a speaking slot without wasting too much budget early"
+        },
+        {
+          "round": 1,
+          "text": "Playing innocent villager, avoid suspicion."
+        },
+        {
+          "round": 1,
+          "text": "Eve claimed seer and accused Alice. She is a threat to the pack. Exiling her protects Alice and me."
+        },
+        {
+          "round": 2,
+          "text": "Alice suggested Frank earlier; I'm agreeing to kill the quiet player."
+        }
+      ],
+      "plan": "Act as a regular villager searching for wolves. Keep interactions natural, avoid leading accusations. Support Alice subtly if needed. Bid moderately to stay relevant but not over-commit budget early."
+    },
+    "Dave": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "low",
+          "evidence": "Eve claims Alice is werewolf, but Carol defends Alice. No direct evidence yet.",
+          "guess": "villager"
+        },
+        "Eve": {
+          "confidence": "high",
+          "evidence": "Eve claimed seer and accused Alice without corroboration; as the doctor, I know I am not the seer, so her claim is likely false. She is probably a werewolf trying to eliminate a villager.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night, no info; protecting Alice at random."
+        },
+        {
+          "round": 1,
+          "text": "Bidding to speak early in day 1 to share that I protected Alice and ask others for their thoughts on Bob's death."
+        },
+        {
+          "round": 1,
+          "text": "First day, establishing cooperative tone, no accusations yet."
+        },
+        {
+          "round": 1,
+          "text": "Defending Alice to buy time and see if Eve's claim holds up. I'll watch for further inconsistencies."
+        },
+        {
+          "round": 1,
+          "text": "Voting to exile Eve based on her false seer claim against Alice. As the doctor, I know I'm not the seer, making her claim highly suspect. She is likely a werewolf attempting to frame a villager."
+        },
+        {
+          "round": 2,
+          "text": "Protecting Carol Night 2, hoping to protect key village voice."
+        }
+      ],
+      "plan": ""
+    },
+    "Eve": {
+      "beliefs": {
+        "Alice": {
+          "confidence": "high",
+          "evidence": "I inspected Alice during Night R1 and learned she is a werewolf.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night inspection, no prior information."
+        },
+        {
+          "round": 1,
+          "text": "Bidding to speak about Alice being a werewolf. Will share info carefully to avoid being targeted."
+        },
+        {
+          "round": 1,
+          "text": "Revealing my seer identity and Alice's guilt. High risk of werewolf retaliation tonight, but necessary to start eliminating wolves."
+        },
+        {
+          "round": 1,
+          "text": "Alice is werewolf confirmed. Carol defended her, possibly an ally."
+        }
+      ],
+      "plan": ""
+    },
+    "Frank": {
+      "beliefs": {
+        "Eve": {
+          "confidence": "high",
+          "evidence": "Eve claimed to be seer and accused Alice on Day 1 without proof; likely a wolf trying to frame a villager.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "First day, no info yet, moderate bid to save budget for later."
+        },
+        {
+          "round": 1,
+          "text": "Withholding judgment; Eve vs Alice conflict needs more info."
+        },
+        {
+          "round": 1,
+          "text": "Eve's unsubstantiated seer claim on Day 1 is a classic wolf tactic to frame a villager."
+        }
+      ],
+      "plan": ""
+    },
+    "Grace": {
+      "beliefs": {
+        "Eve": {
+          "confidence": "low",
+          "evidence": "Eve claimed seer and accused Alice, but no confirmation yet.",
+          "guess": "seer"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Low bid to conserve budget; want to hear others speak first."
+        },
+        {
+          "round": 1,
+          "text": "Staying silent to observe further reactions before committing to a side on Eve's claim."
+        },
+        {
+          "round": 1,
+          "text": "Voting based on Eve's seer claim that Alice is a werewolf; low confidence but best lead so far."
+        }
+      ],
+      "plan": ""
+    }
+  }
+}

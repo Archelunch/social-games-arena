@@ -1,0 +1,225 @@
+{
+  "game_id": "g0106-qwen_qwen3.5-9b-vs-qwen_qwen3.5-9b",
+  "memories": {
+    "Alice": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Day 1, listeners only. No clear targets yet."
+        },
+        {
+          "round": 1,
+          "text": "Dave bought a speaking slot in the current round but did not speak. In a tight 6-6 game where players are urged to join the conversation, silence despite paying for a turn is suspicious. Suspecting he is a werewolf trying to blend in or wait."
+        }
+      ],
+      "plan": ""
+    },
+    "Bob": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "First night, no specific clues on werewolf targets or yesterday's vote outcome indicate a clear victim. Protecting Alice arbitrarily until more info is gathered."
+        }
+      ],
+      "plan": ""
+    },
+    "Carol": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Spoke to encourage discussion and delay voting to gather evidence. Bid exhausted so this is my final day slot."
+        },
+        {
+          "round": 1,
+          "text": "No clear suspects yet. Grace and Frank both advocated for caution. I want to wait for more information on innocent officials like the Seer or Doctor before voting, as there are currently no inconsistencies to highlight."
+        },
+        {
+          "round": 2,
+          "text": "Must bid 0 as budget is depleted. Critical need to speak to discuss Alice's sudden elimination and potential wolf faction alignment. Hope standard protocols allow low-bidders to speak if no one else speaks, or at least participate in the discussion."
+        },
+        {
+          "round": 2,
+          "text": "Eve wants to exile Grace immediately based on a single seer check. Eve was silent yesterday (Day R1) which contradicts her active role now, or she played quiet to avoid suspicion. Grace's defense logic holds."
+        },
+        {
+          "round": 2,
+          "text": "Eve's sudden shift from silence (Day 1) to immediate accusation (Day 2) is classic wolf behavior mimicking a Seer. A real Seer likely would have identified a threat on Day 1. She is acting inconsistently."
+        }
+      ],
+      "plan": "As a villager with no special powers, my strategy is to prioritize listening and gathering information over premature voting. I will wait for at least one more day of discussion to identify inconsistencies and suspicious behavior before casting a vote. I need to assess who aligns with the village consensus."
+    },
+    "Dave": {
+      "beliefs": {
+        "Frank": {
+          "confidence": "medium",
+          "evidence": "Frank immediately jumped to Grace's defense when Eve accused her and created a narrative of stalling. He aligned closely with Grace despite the accusation against her, suggesting a acting alliance.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Day 1 start, only know Bob died at night. No evidence to suspect anyone. Skipping speech to listen to others."
+        },
+        {
+          "round": 1,
+          "text": "Waiting for more information. No clear suspect yet. Bob's death is critical; careful analysis needed."
+        },
+        {
+          "round": 1,
+          "text": "Abstaining to avoid wrongful exile with only low-confidence evidence from Carol's defense of Frank."
+        },
+        {
+          "round": 2,
+          "text": "Want to speak first to address my suspicion on Frank, who Carol defended, given Alice just died."
+        },
+        {
+          "round": 2,
+          "text": "Noticed Frank and Grace aligning on 'wait/careful' rhetoric after the tied vote. Suspicion on Frank remains low to medium."
+        },
+        {
+          "round": 2,
+          "text": "Grace is likely the real target of a fake seer; Eve is trying to create chaos."
+        },
+        {
+          "round": 2,
+          "text": "Frank's sudden and strong defense of Grace combined with his initial support for suicide/cancellation suggests he is loyal to Grace, who is increasingly suspicious. Voting Frank to see if the Grace-Frank duo falls or if Eve's seer claim holds water against a clear wolf pairing."
+        }
+      ],
+      "plan": ""
+    },
+    "Eve": {
+      "beliefs": {
+        "Grace": {
+          "confidence": "high",
+          "evidence": "Night R2 Seer inspection confirmed Grace is a werewolf. Alice (previously believed to be cleared) was killed by werewolves, further confirming the threat level.",
+          "guess": "werewolf"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Waiting to see others speak before revealing Alice's status to gauge town sentiment.'"
+        },
+        {
+          "round": 1,
+          "text": "Waiting for more insights. Frank survived the night, Bob (if he is dead) is gone. No direct evidence against anyone yet. Carol defended Frank."
+        },
+        {
+          "round": 1,
+          "text": "No suspicious behavior from Carol, Grace, or Frank. Carol defended Frank. Group consensus is on caution. No basis for an earlier vote. Plan remains: Protect Alice, gather more info."
+        },
+        {
+          "round": 2,
+          "text": "Inspect Grace to get clean status for voting plan. She spoke today and seems cautious. Need to verify village/outlier."
+        },
+        {
+          "round": 2,
+          "text": "Discuss Grace's confirmed werewolf status to coordinate the village vote."
+        },
+        {
+          "round": 2,
+          "text": "Grace was verified as a werewolf by the Seer last night."
+        }
+      ],
+      "plan": "Focus on protecting Alice (cleared by Seer) and hunting for werewolves among the remaining unseen players. Prioritize voting or guarding the Seer-verified clean player until more information reveals the threat."
+    },
+    "Frank": {
+      "beliefs": {
+        "Carol": {
+          "confidence": "medium",
+          "evidence": "Carol gave the most detailed, encouraging speech; she had the exact bid I spent (50? No, she bid 100, but she was first to speak and set the tone for caution. Wait, Alice bid 100, Carol bid 100, Dave 0, Eve 0. Carol was the first speaker. Her defense of my 'caution' stance helps me. I suspect she is the seer trying to steer us. Actually, the text says Alice bid 100, Carol 100. My bid was 50. The speech stats: Carol 100 bid. I'll mark Carol as Seer with medium confidence as she is the main speaker and defender.",
+          "guess": "seer"
+        }
+      },
+      "notes": [
+        {
+          "round": 1,
+          "text": "Following initial strategy to target Bob. Let's see how the villagers react. Grace and I will stay coordinated next night."
+        },
+        {
+          "round": 1,
+          "text": "Need to speak to steer the discussion and coordinate the next elimination. Budget is high (100), can afford risk."
+        },
+        {
+          "round": 1,
+          "text": "Played safe, agreed with Grace's cautious tone to avoid raising suspicion. Waiting for others to speak to identify real threats."
+        },
+        {
+          "round": 1,
+          "text": "Waiting for Dave and Eve to speak. Bob was killed, so I survived. No immediate need to accuse or defend."
+        },
+        {
+          "round": 1,
+          "text": "Suspected to be the seer leading the village charge. Need to remove her before nightfall."
+        },
+        {
+          "round": 2,
+          "text": "Eve had a 0 bid and was extremely silent, typical signs of a hidden role like Seer. Need to maintain pressure even though Grace changed her mind to Alice."
+        },
+        {
+          "round": 2,
+          "text": "Guarantee speaking slot to coordinate with Grace after she killed Alice; need to unify target."
+        },
+        {
+          "round": 2,
+          "text": "Eve thinks my caution is guilt. I must clarify I'm protecting Grace who is my wolf ally. This is a false accusation based on pack strategy."
+        },
+        {
+          "round": 2,
+          "text": "Eve claims to have inspected Grace as a Seer, but Grace is my known wolf ally. Eve's sudden, unprovoked accusation with no prior evidence is inconsistent with a real Seer and looks like a wolf deception to frame Grace."
+        }
+      ],
+      "plan": ""
+    },
+    "Grace": {
+      "beliefs": {},
+      "notes": [
+        {
+          "round": 1,
+          "text": "Following Frank's lead to target Bob, as suggested in previous night chat for starting the elimination."
+        },
+        {
+          "round": 1,
+          "text": "Securing a speaking slot to discuss the elimination of Bob and gauge reactions to identify potential Doctor/Seer or other villagers who might be acting suspiciously. We need to pivot to finding our second wolf or eliminating a strong villager before the seer reveals too much info."
+        },
+        {
+          "round": 1,
+          "text": "Acting as a neutral follower to lower suspicion. Bob is wolf; waiting for Frank's signal or innocent mistake."
+        },
+        {
+          "round": 1,
+          "text": "Keeping quiet as Frank and Carol are on our side; no need to speak yet."
+        },
+        {
+          "round": 1,
+          "text": "Abstaining to keep Frank alive for now and let others speak, as a Day 1 vote is too risky without more info."
+        },
+        {
+          "round": 2,
+          "text": "Frank suggested Eve, but I previously stated in the pack chat that I would vote for Alice. To ensure we secure a kill and avoid splitting our votes, I will commit to voting for Alice as stated."
+        },
+        {
+          "round": 2,
+          "text": "Securing speaking slot to discuss next target. Eve survived a targeted kill, suggesting she might be the doctor or our target was wrong. Need to speak before vote."
+        },
+        {
+          "round": 2,
+          "text": "Deny accusation to sow doubt, highlight Eve's suspicious behavior (0 bid, silence), try to get other villagers to question Eve's timing."
+        },
+        {
+          "round": 2,
+          "text": "Eve is the oopsie. She bid 0 yesterday to stay silent, then woke up and shouted 'Werewolf' today. Classic bluff. Need to expose her inconsistency while keeping our side unified."
+        },
+        {
+          "round": 2,
+          "text": "Eve claims to be the Seer and named me. This is a strong accusation that aligns with my being a wolf, suggesting Eve is likely the real Seer. However, attacking her early might split the vote or if she is a wolf, we lose a threat. Given the confusion, I will target her to create a division."
+        }
+      ],
+      "plan": ""
+    }
+  }
+}
