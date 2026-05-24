@@ -73,11 +73,19 @@ def _external_resource_refs(source: str) -> list[str]:
     return refs
 
 
+# The one deliberate external load: a cookieless analytics beacon. It is non-blocking
+# and the page renders fully without it, so the offline contract still holds for everything
+# that draws the UI. Any *other* external resource is still a regression.
+ANALYTICS_BEACON = "https://static.cloudflareinsights.com/beacon.min.js"
+
+
 def test_index_html_has_no_external_resource_refs_and_references_assets(tmp_path: Path) -> None:
     out, _ = _written(tmp_path)
     html = (out / "index.html").read_text()
     js = (out / "app.js").read_text()
-    assert _external_resource_refs(html) == [], "index.html must not LOAD external resources"
+    assert _external_resource_refs(html) == [ANALYTICS_BEACON], (
+        "index.html may only load the approved analytics beacon, no other external resources"
+    )
     assert _external_resource_refs(js) == [], "app.js must not LOAD external resources"
     assert "data.json" in (html + js)  # the payload is fetched
     assert "styles.css" in html
