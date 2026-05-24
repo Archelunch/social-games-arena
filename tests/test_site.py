@@ -51,24 +51,49 @@ def test_write_site_data_json_is_byte_stable(tmp_path: Path) -> None:
     assert text.index('"x"') < text.index('"y"')
 
 
-def _external_refs(source: str) -> list[str]:
-    """External resource loads (CDNs, web fonts) that would break offline use.
+def _external_resource_refs(source: str) -> list[str]:
+    """External resource LOADS (CDNs, web fonts, scripts) that would break offline use.
 
-    The SVG/XML namespace URI (w3.org) is a constant identifier, not a network fetch,
-    so it is not an external dependency.
+    Only resource positions count: `src`/`srcset` attributes, `<link>` hrefs, and CSS
+    `url()`/`@import`. Outbound `<a href>` navigation links are allowed — the published
+    site links to the repo and Buy Me a Coffee, and a navigation is never fetched to
+    render the page. The SVG/XML namespace URI (w3.org) is a constant identifier, not a
+    fetch, so it never counts.
     """
-    return [m for m in re.findall(r"https?://[^\s\"')]+", source) if "w3.org" not in m]
+    patterns = (
+        r"src\s*=\s*[\"']?(https?://[^\s\"')]+)",
+        r"srcset\s*=\s*[\"']?(https?://[^\s\"')]+)",
+        r"<link\b[^>]*?href\s*=\s*[\"']?(https?://[^\s\"')]+)",
+        r"@import\s+[\"']?(https?://[^\s\"')]+)",
+        r"url\(\s*[\"']?(https?://[^\s\"')]+)",
+    )
+    refs: list[str] = []
+    for pattern in patterns:
+        refs += [m for m in re.findall(pattern, source, flags=re.IGNORECASE) if "w3.org" not in m]
+    return refs
 
 
-def test_index_html_has_no_external_refs_and_references_assets(tmp_path: Path) -> None:
+def test_index_html_has_no_external_resource_refs_and_references_assets(tmp_path: Path) -> None:
     out, _ = _written(tmp_path)
     html = (out / "index.html").read_text()
     js = (out / "app.js").read_text()
-    assert _external_refs(html) == [], "index.html must have no external resource refs"
-    assert _external_refs(js) == [], "app.js must have no external resource refs"
+    assert _external_resource_refs(html) == [], "index.html must not LOAD external resources"
+    assert _external_resource_refs(js) == [], "app.js must not LOAD external resources"
     assert "data.json" in (html + js)  # the payload is fetched
     assert "styles.css" in html
     assert "app.js" in html
+
+
+def test_index_html_links_to_repo_and_support(tmp_path: Path) -> None:
+    """The published site must point visitors at the project and how to support it.
+
+    The footer + support section are the only place a casual visitor learns where the
+    code lives and how to fund the (paid-API) leaderboard, so the links are a contract.
+    """
+    out, _ = _written(tmp_path)
+    html = (out / "index.html").read_text()
+    assert "github.com/Archelunch/social-games-arena" in html
+    assert "buymeacoffee.com/mike_pavlukhin" in html
 
 
 def test_index_html_has_viewport_lang_and_noscript(tmp_path: Path) -> None:

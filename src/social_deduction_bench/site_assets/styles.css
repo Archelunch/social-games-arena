@@ -290,9 +290,46 @@ thead th.lb__wolf, thead th.lb__village { font-weight: 600; }
 .sc-legend__stat { font-size: var(--step-1); color: var(--ink-mute); }
 .sc-legend__stat b { color: var(--ink-soft); font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
 
+/* --- About & support panel ---------------------------------------------- */
+
+.support {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  gap: var(--space-4) var(--space-5);
+}
+.support__col { min-width: 0; display: grid; gap: var(--space-2); align-content: start; }
+.support__goals { margin: 0; padding-left: 1.1rem; display: grid; gap: var(--space-1); color: var(--ink-soft); font-size: var(--step-1); }
+.support__goals li::marker { color: var(--gilt); }
+.support__lead { margin: 0; color: var(--ink-mute); font-size: var(--step-1); }
+.support__actions { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-1); }
+.cta {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  padding: var(--space-2) var(--space-3);
+  background: var(--surface-2); color: var(--ink);
+  border: 1px solid var(--line); border-radius: var(--radius-sm);
+  text-decoration: none; font-size: var(--step-1); font-weight: 600;
+  transition: border-color 120ms ease-out, transform 120ms ease-out;
+}
+.cta:hover { border-color: var(--gilt); transform: translateY(-1px); }
+.cta--coffee { color: var(--ground); background: var(--gilt); border-color: var(--gilt); }
+.cta--coffee:hover { filter: brightness(1.05); }
+
 /* --- Footer -------------------------------------------------------------- */
 
-.footer { max-width: var(--maxw); margin: 0 auto; padding: var(--space-4); border-top: 1px solid var(--line); }
+.footer {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: var(--space-4);
+  border-top: 1px solid var(--line);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2) var(--space-4);
+}
+.footer__links { display: flex; flex-wrap: wrap; gap: var(--space-3); }
+.footer__links a { color: var(--ink-soft); text-decoration: none; font-size: var(--step-1); }
+.footer__links a:hover { color: var(--village); }
 .footer__meta { margin: 0; color: var(--ink-mute); font-size: var(--step-1); font-family: var(--font-mono); }
 
 .visually-hidden {
